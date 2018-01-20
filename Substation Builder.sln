@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Substation Builder", "Substation Builder\Substation Builder.csproj", "{C165AAF5-0282-4C9D-936D-56B7ED65E767}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C165AAF5-0282-4C9D-936D-56B7ED65E767}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C165AAF5-0282-4C9D-936D-56B7ED65E767}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C165AAF5-0282-4C9D-936D-56B7ED65E767}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C165AAF5-0282-4C9D-936D-56B7ED65E767}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BF5BC537-DEEB-408E-B1A5-F8A8AA2AE603}
+	EndGlobalSection
+EndGlobal
