@@ -113,28 +113,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="NodeEditor\Command.cs" />
-    <Compile Include="Model\Model.cs" />
-    <Compile Include="NodeEditor\Connector.cs" />
-    <Compile Include="NodeEditor\DiagramObject.cs" />
-    <Compile Include="NodeEditor\Left Edition Panel\ButtonsPanel.xaml.cs">
-      <DependentUpon>ButtonsPanel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="NodeEditor\Left Edition Panel\ConnectorPropertyEditor.xaml.cs">
-      <DependentUpon>ConnectorPropertyEditor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="NodeEditor\Left Edition Panel\NodePropertyEditor.xaml.cs">
-      <DependentUpon>NodePropertyEditor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="NodeEditor\Left Edition Panel\ParametersEditor.xaml.cs">
-      <DependentUpon>ParametersEditor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="NodeEditor\MainViewModel.cs" />
-    <Compile Include="NodeEditor\Xfmr.cs" />
-    <Compile Include="NodeEditor\Node.cs" />
-    <Compile Include="NodeEditor\NodesEditor.xaml.cs">
-      <DependentUpon>NodesEditor.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Oneline.xaml.cs">
       <DependentUpon>Oneline.xaml</DependentUpon>
     </Compile>
@@ -151,30 +129,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="NodeEditor\Left Edition Panel\ButtonsPanel.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="NodeEditor\Left Edition Panel\ConnectorPropertyEditor.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="NodeEditor\Left Edition Panel\EditorStyles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="NodeEditor\Left Edition Panel\NodePropertyEditor.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="NodeEditor\Left Edition Panel\ParametersEditor.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="NodeEditor\NodesEditor.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Oneline.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -211,7 +165,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Resource Include="Resources\Entypo.ttf" />
     <None Include="Substation Builder_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -242,16 +195,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\WindowsIcons-license.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Entypo-license.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Trash.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\xfmr.png" />
+    <Folder Include="T1\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

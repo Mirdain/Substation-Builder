@@ -48,24 +48,17 @@ namespace Substation_Builder
 
         private void One_Line(object sender, RoutedEventArgs e)
         {
-            Window Fault = new NodesEditor.NodesEditor();
-
-            Top = this.Top + 20;
-            Left = this.Left + 20;
-
-
-            Fault.Show();
-        }
-
-        private void Fault_Analysis(object sender, RoutedEventArgs e)
-        {
             Window OnelineWindow = new Oneline
             {
                 Top = this.Top + 20,
                 Left = this.Left + 20
             };
-
             OnelineWindow.Show();
+        }
+
+        private void Fault_Analysis(object sender, RoutedEventArgs e)
+        {
+
 
         }
     }
