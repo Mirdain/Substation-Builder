@@ -27,7 +27,7 @@ namespace Substation_Builder
     public partial class Oneline : MetroWindow
     {
 
-        ViewModel.Substation ProjectSub = new ViewModel.Substation();
+        DataModel.Substation Project = new DataModel.Substation();
 
         public Oneline()
         {
@@ -46,14 +46,19 @@ namespace Substation_Builder
             if (openoneline.ShowDialog() == true)
                 xmldoc.Load(openoneline.FileName);
 
-            ProjectSub.Subdata = new ViewModel.SubdataClass();
-            ProjectSub.System = new ViewModel.SystemClass();
-            ProjectSub.Thevenin = new ViewModel.TheveninClass();
+            Project.Name = "Squash Bend";
 
-            ProjectSub.Subdata.Name = "Fairfield 7th Street";
-            ProjectSub.System.MVA = 100;
+            DataModel.TransformerClass T1 = new DataModel.TransformerClass
+            {
+                Size1 = 23.2
+            };
 
-            
+            Project.Transformer = new List<DataModel.TransformerClass>
+            {
+                T1
+            };
+
+
 
         }
 
