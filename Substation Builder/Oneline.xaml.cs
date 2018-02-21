@@ -16,6 +16,7 @@ using System.Data;
 using System.Xml;
 using Microsoft.Win32;
 using MahApps.Metro.Controls;
+using System.Xml.Serialization;
 
 namespace Substation_Builder
 {
@@ -46,20 +47,34 @@ namespace Substation_Builder
             if (openoneline.ShowDialog() == true)
                 xmldoc.Load(openoneline.FileName);
 
-            Project.Name = "Squash Bend";
+            Project.Name = "squash bend";
 
-            DataModel.TransformerClass T1 = new DataModel.TransformerClass
+            DataModel.Transformer t1 = new DataModel.Transformer
             {
                 Size1 = 23.2
             };
 
-            Project.Transformer = new List<DataModel.TransformerClass>
+            DataModel.Transformer t2 = new DataModel.Transformer
             {
-                T1
+                Size1 = 12.2
             };
 
+            Project.Transformers = new List<DataModel.Transformer>
+            {
+                t1,
+                t2
+            };
 
+            var xml = "";
 
+            StringWriter sw = new StringWriter();
+            XmlSerializer x = new XmlSerializer(Project.GetType());
+
+            XmlWriter writer = XmlWriter.Create(sw);
+
+            x.Serialize(writer, Project);
+
+            xml = sw.ToString();
         }
 
     }

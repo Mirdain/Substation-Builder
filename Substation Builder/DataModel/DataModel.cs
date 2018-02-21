@@ -115,23 +115,24 @@ namespace Substation_Builder.DataModel
         [Description("400")] T400,
     }
 
+    [Serializable]
     public class Substation
     {
         public string Name { get => name; set => name = value; }
         public Substation_Type Type { get => type; set => type = value; }
-        public TheveninClass Thevenin { get => thevenin; set => thevenin = value; }
-        public SystemClass System { get => system; set => system = value; }
-        public List<RelayClass> Relay;
-        public List<BreakerClass> Breaker;
-        public List<TransformerClass> Transformer;
+        public Thevenin Thevenin { get => thevenin; set => thevenin = value; }
+        public System System { get => system; set => system = value; }
+        public List<Relay> Relays;
+        public List<Breaker> Breakers;
+        public List<Transformer> Transformers;
 
         private string name;
         private Substation_Type type;
-        private TheveninClass thevenin;
-        private SystemClass system;
+        private Thevenin thevenin;
+        private System system;
     }
 
-    public class TheveninClass
+    public class Thevenin
     {
         public double R0 { get => r0; set => r0 = value; }
         public double R1 { get => r1; set => r1 = value; }
@@ -148,7 +149,7 @@ namespace Substation_Builder.DataModel
         private double x2;
     }
 
-    public class SystemClass
+    public class System
     {
         public double MVA { get => mva; set => mva = value; }
         public double HighVoltage { get => highVoltage; set => highVoltage = value; }
@@ -159,7 +160,7 @@ namespace Substation_Builder.DataModel
         private double lowVoltage;
     }
 
-    public class RelayClass
+    public class Relay
     {
         public string Name { get => name; set => name = value; }
         public Bus Bus { get => bus; set => bus = value; }
@@ -172,9 +173,9 @@ namespace Substation_Builder.DataModel
         private RelayType type;
     }
 
-    public class BreakerClass
+    public class Breaker
     {
-        public CTClass[] CTs { get => cTs; set => cTs = value; }
+        public CT[] CTs { get => cTs; set => cTs = value; }
         public string Name { get => name; set => name = value; }
         public Bus Bus { get => bus; set => bus = value; }
         public BreakerPosition Position { get => position; set => position = value; }
@@ -183,7 +184,7 @@ namespace Substation_Builder.DataModel
         public BreakerSize Size { get => size; set => size = value; }
 
         private Voltage voltage;
-        private CTClass[] cTs;
+        private CT[] cTs;
         private string name;
         private Bus bus;
         private BreakerPosition position;
@@ -191,9 +192,9 @@ namespace Substation_Builder.DataModel
         private BreakerSize size;
     }
 
-    public class TransformerClass
+    public class Transformer
     {
-        public CTClass[] CTs { get => cTs; set => cTs = value; }
+        public CT[] CTs { get => cTs; set => cTs = value; }
         public string Name { get => name; set => name = value; }
         public Bus Bus { get => bus; set => bus = value; }
         public double Size1 { get => size1; set => size1 = value; }
@@ -206,7 +207,7 @@ namespace Substation_Builder.DataModel
         public Winding LowVoltageWndg { get => lowVoltageWndg; set => lowVoltageWndg = value; }
         public Winding HighVoltageWndg { get => highVoltageWndg; set => highVoltageWndg = value; }
 
-        private CTClass[] cTs;
+        private CT[] cTs;
         private Bus bus;
         private string name;
         private double size1;
@@ -220,7 +221,7 @@ namespace Substation_Builder.DataModel
         private Winding highVoltageWndg;
     }
 
-    public class CTClass
+    public class CT
     {
         public string Name { get => name; set => name = value; }
         public CTRating Rating { get => rating; set => rating = value; }
