@@ -35,47 +35,30 @@ namespace Substation_Builder
             InitializeComponent();
         }
 
-
         private void LoadFile(object sender, RoutedEventArgs e)
         {
-            XmlDocument xmldoc = new XmlDocument();
-
             OpenFileDialog openoneline = new OpenFileDialog();
-
             openoneline.Filter = "XML Files (*.xml)|*.xml|All Files (*.*)|*.*";
-
             if (openoneline.ShowDialog() == true)
-                xmldoc.Load(openoneline.FileName);
-
-            Project.Name = "squash bend";
-
-            DataModel.Transformer t1 = new DataModel.Transformer
             {
-                Size1 = 23.2
-            };
-
-            DataModel.Transformer t2 = new DataModel.Transformer
-            {
-                Size1 = 12.2
-            };
-
-            Project.Transformers = new List<DataModel.Transformer>
-            {
-                t1,
-                t2
-            };
-
-            var xml = "";
-
-            StringWriter sw = new StringWriter();
-            XmlSerializer x = new XmlSerializer(Project.GetType());
-
-            XmlWriter writer = XmlWriter.Create(sw);
-
-            x.Serialize(writer, Project);
-
-            xml = sw.ToString();
+                XmlSerializer serializer = new XmlSerializer(typeof(DataModel.Substation));
+                StreamReader reader = new StreamReader(openoneline.FileName);
+                Project = (DataModel.Substation)serializer.Deserialize(reader);
+                reader.Close();
+            }
         }
 
+        private void SaveFile(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveoneline = new SaveFileDialog();
+            saveoneline.Filter = "XML File (*.xml)|*.xml|All Files (*.*)|*.*";
+            if (saveoneline.ShowDialog() == true)
+            {
+                StringWriter sw = new StringWriter();
+                XmlSerializer x = new XmlSerializer(Project.GetType());
+                x.Serialize(sw, Project);
+                File.WriteAllText(saveoneline.FileName, sw.ToString());
+            }
+        }
     }
 }
