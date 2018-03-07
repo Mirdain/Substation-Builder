@@ -4,12 +4,13 @@
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:local="clr-namespace:Substation_Builder.DataModel"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       mc:Ignorable="d"
                       Icon="Resources\MainPageIcon.jpg"    
                       Title="One Line" Height="350" Width="600" ResizeMode="CanResizeWithGrip"
                       WindowStartupLocation="Manual"
-                      BorderThickness="0" MinWidth="600" MinHeight="350" HorizontalAlignment="Center" >
+                      BorderThickness="0" MinWidth="600" MinHeight="350" HorizontalAlignment="Center">
 
     <Controls:MetroWindow.TitleTemplate>
         <DataTemplate>
@@ -24,7 +25,6 @@
         <Style TargetType="Controls:MetroTabItem">
             <Setter Property="Controls:ControlsHelper.HeaderFontSize" Value="15"/>
         </Style>
-
     </Controls:MetroWindow.Resources>
 
     <Grid x:Name="grid">
@@ -36,9 +36,9 @@
         <Border x:Name="border" Grid.Row="0" Grid.Column="0"/>
 
         <Controls:MetroAnimatedSingleRowTabControl Grid.Row="0" HorizontalAlignment="Left" DockPanel.Dock="Top" Height="{Binding ActualHeight, ElementName=border, Mode=OneWay}" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}">
-        
+
             <Controls:MetroTabItem Name="tab1" Header="FILE" TabIndex="1">
-                
+
                 <Grid Margin="1,1,1,1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="40"/>
@@ -51,12 +51,12 @@
                         <RowDefinition Height="35"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    
+
                     <TextBlock Grid.Column="0" Grid.Row="1" Text="NEW" FontSize="10" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <TextBlock Grid.Column="1" Grid.Row="1" Text="OPEN" FontSize="10" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <TextBlock Grid.Column="2" Grid.Row="1" Text="SAVE" FontSize="10" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-                    <Button Grid.Column="0" Grid.Row="0" Height="35" Width="40" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Button Grid.Column="0" Grid.Row="0" Height="35" Width="40" HorizontalAlignment="Center" VerticalAlignment="Center" Click="NewFile">
                         <Rectangle Height="30" Width="30" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Rectangle.Fill>
                                 <VisualBrush Visual="{StaticResource appbar_app_plus}" Stretch="Uniform"/>
@@ -81,11 +81,11 @@
                     </Button>
                 </Grid>
             </Controls:MetroTabItem>
-            
+
             <Controls:MetroTabItem Name="tab2" Header="HOME"  TabIndex="2">
 
             </Controls:MetroTabItem>
-            
+
             <Controls:MetroTabItem Name="tab3" Header="DRAWING" TabIndex="3">
 
                 <Grid Margin="1,1,1,1">
@@ -131,15 +131,63 @@
 
                 </Grid>
             </Controls:MetroTabItem>
+            
             <Controls:MetroTabItem Name="tab4" Content="REVIEW" Header="REVIEW" TabIndex="4"/>
         </Controls:MetroAnimatedSingleRowTabControl>
 
+        <Grid x:Name="grid1" Margin="1,1,1,1" Grid.Row="1">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
 
-        <TextBlock Grid.Row="2" Background="Green"></TextBlock>
 
+                    <TextBox Grid.Row="0" Text="{Binding Path=Name, Mode=TwoWay}"/>
+
+
+                    <TreeView Grid.Row="1" x:Name="treeView" Height="Auto" Width="Auto" Background="#FF5F3232">
+
+                        <TreeViewItem Header="{Binding Path=Name}" Background="#FFC90808"/>
+
+                    </TreeView>
+
+                </Grid>
+
+            </Grid>
+            <WrapPanel Grid.Column="1">
+
+                <Controls:Tile Count="4" Title="Transformer" Width="Auto" Height="Auto" VerticalTitleAlignment="Stretch" Foreground="#FFF9F3F3" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="8" Click="Tile_Click">
+                    <Controls:Tile.Background>
+                        <ImageBrush ImageSource="Resources\xfmr.png" Stretch="Uniform"/>
+                    </Controls:Tile.Background>
+                </Controls:Tile>
+
+            </WrapPanel>
+
+        </Grid>
+
+        
+        
     </Grid>
 
 
 
 </Controls:MetroWindow>
+    

@@ -45,6 +45,7 @@ namespace Substation_Builder
                 StreamReader reader = new StreamReader(openoneline.FileName);
                 Project = (DataModel.Substation)serializer.Deserialize(reader);
                 reader.Close();
+                DataContext = Project;
             }
         }
 
@@ -59,6 +60,17 @@ namespace Substation_Builder
                 x.Serialize(sw, Project);
                 File.WriteAllText(saveoneline.FileName, sw.ToString());
             }
+        }
+
+        private void NewFile(object sender, RoutedEventArgs e)
+        {
+            Project = new DataModel.Substation();
+        }
+
+        private void Tile_Click(object sender, RoutedEventArgs e)
+        {
+            Project.Name = "updated Name";
+            DataContext = Project;
         }
     }
 }

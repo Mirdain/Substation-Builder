@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel;
-using System.Windows.Input;
+using System.Runtime.CompilerServices;
+
 
 namespace Substation_Builder.DataModel
 {
@@ -116,9 +114,18 @@ namespace Substation_Builder.DataModel
     }
 
     [Serializable]
-    public class Substation
+    public class Substation : INotifyPropertyChanged
     {
-        public string Name { get => name; set => name = value; }
+        public string Name
+        {
+            get => name;
+            set
+            {
+                name = value;
+                NotifyPropertyChanged("Name");
+            }
+        }
+
         public Substation_Type Type { get => type; set => type = value; }
         public Thevenin Thevenin { get => thevenin; set => thevenin = value; }
         public System System { get => system; set => system = value; }
@@ -130,6 +137,13 @@ namespace Substation_Builder.DataModel
         private Substation_Type type;
         private Thevenin thevenin;
         private System system;
+
+        // Property Change Logic  
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 
     public class Thevenin
