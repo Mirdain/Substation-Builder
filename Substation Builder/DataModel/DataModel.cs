@@ -129,14 +129,17 @@ namespace Substation_Builder.DataModel
         public Substation_Type Type { get => type; set => type = value; }
         public Thevenin Thevenin { get => thevenin; set => thevenin = value; }
         public System System { get => system; set => system = value; }
-        public List<Relay> Relays;
-        public List<Breaker> Breakers;
-        public List<Transformer> Transformers;
+        public List<Relay> Relays { get => relays; set => relays = value; }
+        public List<Breaker> Breakers { get => breakers; set => breakers = value; }
+        public List<Transformer> Transformers { get => transformers; set => transformers = value; }
 
         private string name;
         private Substation_Type type;
         private Thevenin thevenin;
         private System system;
+        private List<Relay> relays;
+        private List<Breaker> breakers;
+        private List<Transformer> transformers;
 
         // Property Change Logic  
         public event PropertyChangedEventHandler PropertyChanged;

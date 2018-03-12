@@ -65,12 +65,12 @@ namespace Substation_Builder
         private void NewFile(object sender, RoutedEventArgs e)
         {
             Project = new DataModel.Substation();
+            DataContext = Project;
         }
 
         private void Tile_Click(object sender, RoutedEventArgs e)
         {
             Project.Name = "updated Name";
-            DataContext = Project;
         }
     }
 }
