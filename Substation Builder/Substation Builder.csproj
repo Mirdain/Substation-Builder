@@ -117,6 +117,9 @@
     <Compile Include="Oneline.xaml.cs">
       <DependentUpon>Oneline.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\XAML Pages\Thevenin.xaml.cs">
+      <DependentUpon>Thevenin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\ViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -134,13 +137,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\Icons.xaml">
+    <Page Include="Resources\Icons\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\IconsNonShared.xaml">
+    <Page Include="Resources\Icons\IconsNonShared.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\XAML Pages\Thevenin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -172,16 +179,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\MainPageIcon.jpg" />
+    <Resource Include="Resources\Images\MainPageIcon.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\MainPageBackground2.png" />
+    <Resource Include="Resources\Images\Background2.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\AboutImage.png" />
+    <Resource Include="Resources\Images\AboutImage.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\MainPageBackground.png" />
+    <Resource Include="Resources\Images\MainPageBackground.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
@@ -196,10 +203,19 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Trash.png" />
+    <Resource Include="Resources\Images\Trash.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\xfmr.png" />
+    <Resource Include="Resources\Images\xfmr.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Chiyome_Mochizuki.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Bisque_Doll.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\HikoOri.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

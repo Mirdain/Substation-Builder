@@ -4,13 +4,13 @@
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                      xmlns:local="clr-namespace:Substation_Builder.DataModel"
+                      xmlns:this="clr-namespace:Substation_Builder.DataModel"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       mc:Ignorable="d"
-                      Icon="Resources\MainPageIcon.jpg"    
+                      Icon="Resources\Images\MainPageIcon.jpg"    
                       Title="One Line" Height="350" Width="600" ResizeMode="CanResizeWithGrip"
                       WindowStartupLocation="Manual"
-                      BorderThickness="0" MinWidth="600" MinHeight="350" HorizontalAlignment="Center">
+                      BorderThickness="0" MinWidth="600" MinHeight="350" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5">
 
     <Controls:MetroWindow.TitleTemplate>
         <DataTemplate>
@@ -21,64 +21,123 @@
         </DataTemplate>
     </Controls:MetroWindow.TitleTemplate>
 
+
+
     <Controls:MetroWindow.Resources>
-        <Style TargetType="Controls:MetroTabItem">
+        <mah:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
+        
+        <Style TargetType="{x:Type Controls:MetroTabItem}">
             <Setter Property="Controls:ControlsHelper.HeaderFontSize" Value="15"/>
         </Style>
+
+
     </Controls:MetroWindow.Resources>
+    
+    <Controls:MetroWindow.Background>
+        <ImageBrush ImageSource="Resources/Images/Chiyome_Mochizuki.jpg" Opacity="0.25" Stretch="UniformToFill">
+            <ImageBrush.RelativeTransform>
+                <TransformGroup>
+                    <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleY="1" ScaleX="1"/>
+                    <SkewTransform AngleY="0" AngleX="0" CenterY="0.5" CenterX="0.5"/>
+                    <RotateTransform Angle="0" CenterY="0.5" CenterX="0.5"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </ImageBrush.RelativeTransform>
+        </ImageBrush>
+    </Controls:MetroWindow.Background>
 
-    <Grid x:Name="grid">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="75"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <StackPanel x:Name="stackPanel">
 
-        <Border x:Name="border" Grid.Row="0" Grid.Column="0"/>
+        <Controls:MetroAnimatedSingleRowTabControl x:Name="metroAnimatedSingleRowTabControl" Width="{Binding ActualWidth, ElementName=stackPanel, Mode=OneWay}" HorizontalAlignment="Left" Height="{Binding ActualHeight, ElementName=stackPanel, Mode=OneWay}">
 
-        <Controls:MetroAnimatedSingleRowTabControl Grid.Row="0" HorizontalAlignment="Left" DockPanel.Dock="Top" Height="{Binding ActualHeight, ElementName=border, Mode=OneWay}" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}">
+            <Controls:MetroTabItem Name="tab1" Header="DATABASE" TabIndex="1">
 
-            <Controls:MetroTabItem Name="tab1" Header="FILE" TabIndex="1">
-
-                <Grid Margin="1,1,1,1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="40"/>
-                        <ColumnDefinition Width="40"/>
-                        <ColumnDefinition Width="40"/>
-                        <ColumnDefinition Width="40"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                <Grid Margin="2">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="50"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
+                    <Grid Margin="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Column="0" Grid.Row="1" Text="NEW" FontSize="10" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="1" Grid.Row="1" Text="OPEN" FontSize="10" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="2" Grid.Row="1" Text="SAVE" FontSize="10" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-                    <Button Grid.Column="0" Grid.Row="0" Height="35" Width="40" HorizontalAlignment="Center" VerticalAlignment="Center" Click="NewFile">
-                        <Rectangle Height="30" Width="30" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Rectangle.Fill>
-                                <VisualBrush Visual="{StaticResource appbar_app_plus}" Stretch="Uniform"/>
-                            </Rectangle.Fill>
-                        </Rectangle>
-                    </Button>
 
-                    <Button Grid.Column="1" Grid.Row="0" Height="35" Width="40" HorizontalAlignment="Center" VerticalAlignment="Center" Click="LoadFile">
-                        <Rectangle Height="30" Width="30" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Rectangle.Fill>
-                                <VisualBrush Visual="{StaticResource appbar_folder_open}" Stretch="Uniform"/>
-                            </Rectangle.Fill>
-                        </Rectangle>
-                    </Button>
+                        <TextBlock Grid.Column="0" Grid.Row="1" Text="NEW" FontSize="10" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="1" Grid.Row="1" Text="OPEN" FontSize="10" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="2" Grid.Row="1" Text="SAVE" FontSize="10" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-                    <Button Grid.Column="2" Grid.Row="0" Height="35" Width="40" HorizontalAlignment="Center" VerticalAlignment="Center" Click="SaveFile">
-                        <Rectangle Height="22" Width="25" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Rectangle.Fill>
-                                <VisualBrush Visual="{StaticResource appbar_save}" Stretch="Uniform"/>
-                            </Rectangle.Fill>
-                        </Rectangle>
-                    </Button>
+                        <Button Grid.Column="0" Grid.Row="0" Height="35" Width="40" HorizontalAlignment="Center" VerticalAlignment="Center" Click="NewFile">
+                            <Rectangle Height="30" Width="30" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Rectangle.Fill>
+                                    <VisualBrush Visual="{StaticResource appbar_app_plus}" Stretch="Uniform"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Button>
+
+                        <Button Grid.Column="1" Grid.Row="0" Height="35" Width="40" HorizontalAlignment="Center" VerticalAlignment="Center" Click="LoadFile">
+                            <Rectangle Height="30" Width="30" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Rectangle.Fill>
+                                    <VisualBrush Visual="{StaticResource appbar_folder_open}" Stretch="Uniform"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Button>
+
+                        <Button Grid.Column="2" Grid.Row="0" Height="35" Width="40" HorizontalAlignment="Center" VerticalAlignment="Center" Click="SaveFile">
+                            <Rectangle Height="22" Width="25" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Rectangle.Fill>
+                                    <VisualBrush Visual="{StaticResource appbar_save}" Stretch="Uniform"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Button>
+                    </Grid>
+
+                    <Grid Margin="1,1,1,10" Grid.Row="1" >
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Column="0">
+                            <Grid Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TreeView Grid.Column="0">
+
+                                </TreeView>
+
+                                <Frame Grid.Column="1" x:Name="DatabasePanel" Grid.ColumnSpan="2"/>
+
+                            </Grid>
+                        </Grid>
+                        <StackPanel Grid.Column="1" Margin="5,0,5,5">
+                            <Label Content="System" HorizontalContentAlignment="Center" HorizontalAlignment="Center"/>
+                            <Button Content="Thevenin" Click="Thevenin_Page"/>
+                            <Label Content="New" HorizontalContentAlignment="Center" HorizontalAlignment="Center"/>
+                            <Button Content="Transformer"/>
+                            <Button Content="Breaker"/>
+                            <Button Content="CT"/>
+                            <Button Content="Relay"/>
+                            <Button Content="Lock Out"/>
+                        </StackPanel>
+                    </Grid>
                 </Grid>
             </Controls:MetroTabItem>
 
@@ -133,101 +192,10 @@
             </Controls:MetroTabItem>
 
             <Controls:MetroTabItem Name="tab4" Content="REVIEW" Header="REVIEW" TabIndex="4"/>
+
         </Controls:MetroAnimatedSingleRowTabControl>
 
-        <Grid x:Name="grid1" Margin="1,1,1,1" Grid.Row="1">
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="90"/>
-            </Grid.ColumnDefinitions>
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <Grid Grid.Column="0">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="250"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <TreeView Grid.Row="1" x:Name="treeview" Background="#FF5F3232">
-
-                    </TreeView>
-
-                </Grid>
-
-            </Grid>
-            <StackPanel Grid.Column="1">
-                <Controls:Tile Title="System" Width="Auto" Height="Auto" VerticalTitleAlignment="Center" Foreground="#FFF9F3F3" Click="Tile_Click" TitleFontSize="13" HorizontalTitleAlignment="Center" Margin="2,3,2,1">
-                    <Controls:Tile.OpacityMask>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="Black" Offset="0"/>
-                            <GradientStop Color="White" Offset="1"/>
-                        </LinearGradientBrush>
-                    </Controls:Tile.OpacityMask>
-                    <Controls:Tile.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                            <GradientStop Color="Black" Offset="0.498"/>
-                            <GradientStop Color="#FFB8AFAF" Offset="0.99"/>
-                            <GradientStop Color="#FF706666" Offset="0.102"/>
-                        </LinearGradientBrush>
-                    </Controls:Tile.Background>
-                </Controls:Tile>
-
-                <Controls:Tile Title="Thevenin" Width="Auto" Height="Auto" VerticalTitleAlignment="Center" Foreground="#FFF9F3F3" Click="Tile_Click" HorizontalTitleAlignment="Center" TitleFontSize="13" Margin="2,2,2,1">
-                    <Controls:Tile.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                            <GradientStop Color="Black" Offset="0.498"/>
-                            <GradientStop Color="#FFB8AFAF" Offset="0.99"/>
-                            <GradientStop Color="#FF706666" Offset="0.102"/>
-                        </LinearGradientBrush>
-                    </Controls:Tile.Background>
-                </Controls:Tile>
-
-                <Controls:Tile Title="Transformer" Width="Auto" Height="Auto" Foreground="#FFF9F3F3" Click="Tile_Click" Margin="2,2,2,1" TitleFontSize="13" HorizontalTitleAlignment="Center" VerticalTitleAlignment="Center">
-                    <Controls:Tile.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                            <GradientStop Color="Black" Offset="0.498"/>
-                            <GradientStop Color="#FFB8AFAF" Offset="0.99"/>
-                            <GradientStop Color="#FF706666" Offset="0.102"/>
-                        </LinearGradientBrush>
-                    </Controls:Tile.Background>
-                </Controls:Tile>
-                <Controls:Tile Title="Breaker" Width="Auto" Height="Auto" VerticalTitleAlignment="Center" Foreground="#FFF9F3F3" Click="Tile_Click" TitleFontSize="13" HorizontalTitleAlignment="Center" Margin="2,2,2,1">
-                    <Controls:Tile.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                            <GradientStop Color="Black" Offset="0.498"/>
-                            <GradientStop Color="#FFB8AFAF" Offset="0.99"/>
-                            <GradientStop Color="#FF706666" Offset="0.102"/>
-                        </LinearGradientBrush>
-                    </Controls:Tile.Background>
-                </Controls:Tile>
-                <Controls:Tile Title="CT" Width="Auto" Height="Auto" VerticalTitleAlignment="Center" Foreground="#FFF9F3F3" Click="Tile_Click" TitleFontSize="13" HorizontalTitleAlignment="Center" Margin="2,2,2,1">
-                    <Controls:Tile.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                            <GradientStop Color="Black" Offset="0.498"/>
-                            <GradientStop Color="#FFB8AFAF" Offset="0.99"/>
-                            <GradientStop Color="#FF706666" Offset="0.102"/>
-                        </LinearGradientBrush>
-                    </Controls:Tile.Background>
-                </Controls:Tile>
-                <Controls:Tile Title="Relay" Width="Auto" Height="Auto" VerticalTitleAlignment="Stretch" Foreground="#FFF9F3F3" Click="Tile_Click" TitleFontSize="13" HorizontalTitleAlignment="Center" Margin="2,2,2,1">
-                    <Controls:Tile.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                            <GradientStop Color="Black" Offset="0.498"/>
-                            <GradientStop Color="#FFB8AFAF" Offset="0.99"/>
-                            <GradientStop Color="#FF706666" Offset="0.102"/>
-                        </LinearGradientBrush>
-                    </Controls:Tile.Background>
-                </Controls:Tile>
-
-            </StackPanel>
-        </Grid>
-
-    </Grid>
+    </StackPanel>
 
 </Controls:MetroWindow>
     

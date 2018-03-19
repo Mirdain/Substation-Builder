@@ -116,6 +116,7 @@ namespace Substation_Builder.DataModel
     [Serializable]
     public class Substation : INotifyPropertyChanged
     {
+
         public string Name
         {
             get => name;
@@ -125,9 +126,19 @@ namespace Substation_Builder.DataModel
                 NotifyPropertyChanged("Name");
             }
         }
+        
+        public Thevenin Thevenin
+        {
+            get => thevenin;
+            set
+            {
+                thevenin = value;
+                NotifyPropertyChanged("Thevenin");
+            }
+        }
+
 
         public Substation_Type Type { get => type; set => type = value; }
-        public Thevenin Thevenin { get => thevenin; set => thevenin = value; }
         public System System { get => system; set => system = value; }
         public List<Relay> Relays { get => relays; set => relays = value; }
         public List<Breaker> Breakers { get => breakers; set => breakers = value; }
@@ -151,19 +162,33 @@ namespace Substation_Builder.DataModel
 
     public class Thevenin
     {
-        public double R0 { get => r0; set => r0 = value; }
-        public double R1 { get => r1; set => r1 = value; }
-        public double R2 { get => r2; set => r2 = value; }
-        public double X0 { get => x0; set => x0 = value; }
-        public double X1 { get => x1; set => x1 = value; }
-        public double X2 { get => x2; set => x2 = value; }
+        public double R0_PU { get => r0_pu; set => r0_pu = value; }
+        public double R1_PU { get => r1_pu; set => r1_pu = value; }
+        public double R2_PU { get => r2_pu; set => r2_pu = value; }
+        public double X0_PU { get => x0_pu; set => x0_pu = value; }
+        public double X1_PU { get => x1_pu; set => x1_pu = value; }
+        public double X2_PU { get => x2_pu; set => x2_pu = value; }
 
-        private double r0;
-        private double r1;
-        private double r2;
-        private double x0;
-        private double x1;
-        private double x2;
+        private double r0_pu;
+        private double r1_pu;
+        private double r2_pu;
+        private double x0_pu;
+        private double x1_pu;
+        private double x2_pu;
+
+        public double R0_OHM { get => r0_ohm; set => r0_ohm = value; }
+        public double R1_OHM { get => r1_ohm; set => r1_ohm = value; }
+        public double R2_OHM { get => r2_ohm; set => r2_ohm = value; }
+        public double X0_OHM { get => x0_ohm; set => x0_ohm = value; }
+        public double X1_OHM { get => x1_ohm; set => x1_ohm = value; }
+        public double X2_OHM { get => x2_ohm; set => x2_ohm = value; }
+
+        private double r0_ohm;
+        private double r1_ohm;
+        private double r2_ohm;
+        private double x0_ohm;
+        private double x1_ohm;
+        private double x2_ohm;
     }
 
     public class System
@@ -176,6 +201,8 @@ namespace Substation_Builder.DataModel
         private double highVoltage;
         private double lowVoltage;
     }
+
+
 
     public class Relay
     {

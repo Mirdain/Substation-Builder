@@ -6,7 +6,7 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       mc:Ignorable="d"
-                      Icon="Resources\MainPageIcon.jpg"    
+                      Icon="Resources\Images\MainPageIcon.jpg"    
                       Title="Substaion Builder" Height="350" Width="600" ResizeMode="CanResizeWithGrip"
                       WindowStartupLocation="CenterScreen"
                       BorderThickness="0" MinWidth="600" MinHeight="350" HorizontalAlignment="Center">
@@ -52,7 +52,7 @@
                     Not responsible for <Bold>ANY</Bold> mistakes.
                     <LineBreak/>
                     <Hyperlink Click="Report_Bug">Report</Hyperlink> any bugs or issues found.
-                    <Image Margin="0,20,0,10" Name="AboutImage" Source="resources\AboutImage.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" StretchDirection="UpOnly">
+                    <Image Margin="0,20,0,10" Name="AboutImage" Source="resources\Images\AboutImage.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" StretchDirection="UpOnly">
                         <Image.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform ScaleY="1" ScaleX="-1"/>
@@ -163,7 +163,7 @@
             </StackPanel>
         </Grid>
 
-        <Image Grid.Column="1" Margin="0,0,8,0" Name="MainPageBackground" Source="resources\MainPageBackground.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Image Grid.Column="1" Margin="0,0,8,0" Name="MainPageBackground" Source="resources\Images\MainPageBackground.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleY="1" ScaleX="-1"/>
@@ -173,7 +173,7 @@
                 </TransformGroup>
             </Image.RenderTransform>
             <Image.OpacityMask>
-                <ImageBrush ImageSource="Resources/MainPageBackground.png"/>
+                <ImageBrush ImageSource="Resources/Images/MainPageBackground.png"/>
             </Image.OpacityMask>
         </Image>
 

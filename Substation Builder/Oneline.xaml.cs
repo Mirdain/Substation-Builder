@@ -33,6 +33,7 @@ namespace Substation_Builder
         public Oneline()
         {
             InitializeComponent();
+            this.DataContext = Project;
         }
 
         private void LoadFile(object sender, RoutedEventArgs e)
@@ -64,13 +65,32 @@ namespace Substation_Builder
 
         private void NewFile(object sender, RoutedEventArgs e)
         {
-            Project = new DataModel.Substation();
+            Project = new DataModel.Substation
+            {
+                Thevenin = new DataModel.Thevenin
+                {
+                    R1_PU = 12,
+                    X1_PU = 3,
+                    R2_PU = 6,
+                    X2_PU = 9,
+                    R0_PU = 23,
+                    X0_PU = 55
+                }
+            };
+
             DataContext = Project;
+
         }
 
         private void Tile_Click(object sender, RoutedEventArgs e)
         {
             Project.Name = "updated Name";
         }
+
+        private void Thevenin_Page(object sender, RoutedEventArgs e)
+        {
+            DatabasePanel.Navigate(new Uri("/Resources/XAML Pages/Thevenin.xaml", UriKind.Relative));
+        }
+
     }
 }
