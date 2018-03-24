@@ -1,0 +1,29 @@
+﻿<Page x:Class="Substation_Builder.Resources.XAML_Pages.Transformer"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Substation_Builder.Resources.XAML_Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Thevenin">
+
+    <!-- Transformer Template -->
+    <StackPanel>
+
+        <StackPanel.Triggers>
+            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation Duration="0:0:0.65" Storyboard.TargetProperty="Opacity" From="0" To="1" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </StackPanel.Triggers>
+
+        <Button Content="TEST"/>
+
+        <TextBlock Text="Transformer Page"/>
+        
+    </StackPanel>
+</Page>

@@ -157,7 +157,7 @@ namespace Substation_Builder.DataModel
         private void NotifyPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        }   
     }
 
     public class Thevenin
