@@ -5,13 +5,12 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:local="clr-namespace:Substation_Builder.DataModel"
-   
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       mc:Ignorable="d"
                       Icon="Resources\Images\MainPageIcon.jpg"    
-                      Title="One Line" Height="350" Width="600" ResizeMode="CanResizeWithGrip"
+                      Title="One Line" ResizeMode="CanResizeWithGrip"
                       WindowStartupLocation="Manual"
-                      BorderThickness="0" MinWidth="600" MinHeight="350" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                      BorderThickness="0" MinWidth="600" MinHeight="350" Width="600" Height="350">
 
     <Controls:MetroWindow.TitleTemplate>
         <DataTemplate>
@@ -21,13 +20,14 @@
                    FontSize="20px" Margin="20,0,0,0"/>
         </DataTemplate>
     </Controls:MetroWindow.TitleTemplate>
-    
+
     <Controls:MetroWindow.Resources>
         <mah:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
 
         <Style TargetType="{x:Type Controls:MetroTabItem}">
             <Setter Property="Controls:ControlsHelper.HeaderFontSize" Value="15"/>
         </Style>
+
     </Controls:MetroWindow.Resources>
 
     <Controls:MetroWindow.Background>
@@ -42,164 +42,78 @@
             </ImageBrush.RelativeTransform>
         </ImageBrush>
     </Controls:MetroWindow.Background>
+ 
+    <StackPanel>
+        <Controls:MetroAnimatedSingleRowTabControl x:Name="metroAnimatedSingleRowTabControl">
 
-    <StackPanel x:Name="stackPanel">
-
-        <Controls:MetroAnimatedSingleRowTabControl x:Name="metroAnimatedSingleRowTabControl" Width="{Binding ActualWidth, ElementName=stackPanel, Mode=OneWay}" HorizontalAlignment="Left" Height="{Binding ActualHeight, ElementName=stackPanel, Mode=OneWay}">
-
-            <Controls:MetroTabItem Name="tab1" Header="DATABASE" TabIndex="1" Background="{x:Null}">
-
-                <Grid Margin="2">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid Margin="2">
+            <Controls:MetroTabItem Header="SYSTEM" TabIndex="1" Background="{x:Null}">
+                <StackPanel>
+                    <ToolBarTray DockPanel.Dock="Top" ToolBarTray.IsLocked="True" Background="{x:Null}">
+                        <ToolBar>
+                            <Button IsEnabled="True" Content="New" Click="NewFile" Background="{x:Null}"/>
+                            <Button IsEnabled="True" Content="Open" Click="LoadFile" Background="{x:Null}"/>
+                            <Button IsEnabled="True" Content="Save" Click="SaveFile" Background="{x:Null}"/>
+                            <Button IsEnabled="True" Content="Modify" Click="Modify" Background="{x:Null}"/>
+                        </ToolBar>
+                    </ToolBarTray>
+                    <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40"/>
-                            <ColumnDefinition Width="40"/>
-                            <ColumnDefinition Width="40"/>
-                            <ColumnDefinition Width="40"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="35"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-
-                        <TextBlock Grid.Column="0" Grid.Row="1" Text="NEW" FontSize="10" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.9"/>
-                        <TextBlock Grid.Column="1" Grid.Row="1" Text="OPEN" FontSize="10" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.9"/>
-                        <TextBlock Grid.Column="2" Grid.Row="1" Text="SAVE" FontSize="10" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.9"/>
-
-                        <Button Grid.Column="0" Grid.Row="0" Height="35" Width="40" HorizontalAlignment="Center" VerticalAlignment="Center" Click="NewFile" Opacity="0.9" Background="{x:Null}">
-                            <Rectangle Height="30" Width="30" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Rectangle.Fill>
-                                    <VisualBrush Visual="{StaticResource appbar_app_plus}" Stretch="Uniform"/>
-                                </Rectangle.Fill>
-                            </Rectangle>
-                        </Button>
-
-                        <Button Grid.Column="1" Grid.Row="0" Height="35" Width="40" HorizontalAlignment="Center" VerticalAlignment="Center" Click="LoadFile" Opacity="0.9" Background="{x:Null}">
-                            <Rectangle Height="30" Width="30" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Rectangle.Fill>
-                                    <VisualBrush Visual="{StaticResource appbar_folder_open}" Stretch="Uniform"/>
-                                </Rectangle.Fill>
-                            </Rectangle>
-                        </Button>
-
-                        <Button Grid.Column="2" Grid.Row="0" Height="35" Width="40" HorizontalAlignment="Center" VerticalAlignment="Center" Click="SaveFile" Opacity="0.9" Background="{x:Null}">
-                            <Rectangle Height="22" Width="25" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Rectangle.Fill>
-                                    <VisualBrush Visual="{StaticResource appbar_save}" Stretch="Uniform"/>
-                                </Rectangle.Fill>
-                            </Rectangle>
-                        </Button>
-                    </Grid>
-
-                    <Grid Margin="1,1,1,0" Grid.Row="1" >
-
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="3*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
+                        <TreeView Grid.Column="0" Background="{x:Null}" ItemsSource="{Binding Substation}">
+                            <TreeViewItem Header="{Binding Name}">
+                                <TreeViewItem Header='Relays' ItemsSource="{Binding Relays}" Background="{x:Null}" Selected="LoadPage">
+                                    <TreeViewItem.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Name}" Background="{x:Null}"/>
+                                        </DataTemplate>
+                                    </TreeViewItem.ItemTemplate>
+                                </TreeViewItem>
+                                <TreeViewItem Header='Thevenin' ItemsSource="{Binding Thevenin}" Background="{x:Null}" Selected="LoadPage">
+                                    <TreeViewItem.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Name}" Background="{x:Null}"/>
+                                        </DataTemplate>
+                                    </TreeViewItem.ItemTemplate>
+                                </TreeViewItem>
+                                <TreeViewItem Header='Transformers' ItemsSource="{Binding Transformers}" Background="{x:Null}" Selected="LoadPage">
+                                    <TreeViewItem.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Name}" Background="{x:Null}"/>
+                                        </DataTemplate>
+                                    </TreeViewItem.ItemTemplate>
+                                </TreeViewItem>
 
-                        <Grid Grid.Column="0">
-                            <Grid Grid.Column="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
+                            </TreeViewItem>
+                        </TreeView>
+                        <DockPanel Grid.Column="1">
 
+                            <Frame  x:Name="pagenavigation" NavigationUIVisibility="Hidden">
+                                
+                                
+                            </Frame>
+                            
+                        </DockPanel>
 
-                                <TreeView>
-                                    <TreeViewItem Header="{Binding Name}">
-                                        <TreeViewItem Header="Thevenin"/>
-                                        <TreeViewItem Header="Transformers" ItemsSource="{Binding Transformer.Name}"/>
-
-
-
-
-                                    </TreeViewItem>
-
-
-                                </TreeView>
-
-
-                                <Frame Grid.Column="1" x:Name="DatabasePanel" Grid.ColumnSpan="2" NavigationUIVisibility="Hidden">
-
-                                </Frame>
-
-                            </Grid>
-                        </Grid>
-                        <StackPanel Grid.Column="1" Margin="5,0,5,5">
-                            <Label Content="System" HorizontalContentAlignment="Center" HorizontalAlignment="Center"/>
-                            <Button Name="Thevenin" Content="Thevenin" Click="Thevenin_Page" Foreground="White" Background="{x:Null}" Margin="5,0" Opacity="0.9"/>
-                            <Label Content="New" HorizontalContentAlignment="Center" HorizontalAlignment="Center"/>
-                            <Button Content="Transformer" Background="{x:Null}" Margin="2,0,2,2" Opacity="0.9" Click="Transformer_Page"/>
-                            <Button Content="Breaker" Background="{x:Null}" Margin="2" Opacity="0.9"/>
-                            <Button Content="CT" Margin="2" Background="{x:Null}" Opacity="0.9"/>
-                            <Button Content="Relay" Margin="2" Background="{x:Null}" Opacity="0.9"/>
-                            <Button Content="Lock Out" Margin="2,2,2,0" Background="{x:Null}" Opacity="0.9"/>
-                        </StackPanel>
                     </Grid>
-                </Grid>
-            </Controls:MetroTabItem>
-
-            <Controls:MetroTabItem Name="tab2" Header="HOME"  TabIndex="2" Background="{x:Null}" >
+                </StackPanel>
 
             </Controls:MetroTabItem>
 
-            <Controls:MetroTabItem Name="tab3" Header="DRAWING" TabIndex="3" Background="{x:Null}" >
-
-                <Grid Margin="1,1,1,1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="40"/>
-                        <ColumnDefinition Width="40"/>
-                        <ColumnDefinition Width="40"/>
-                        <ColumnDefinition Width="40"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="35"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Grid.Column="0" Grid.Row="1" Text="BREAKER" FontSize="10" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="1" Grid.Row="1" Text="XFMR" FontSize="10" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="2" Grid.Row="1" Text="SAVE" FontSize="10" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-                    <Button Grid.Column="0" Grid.Row="0" Height="35" Width="40" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Rectangle Height="30" Width="30" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Rectangle.Fill>
-                                <VisualBrush Visual="{StaticResource appbar_app_plus}" Stretch="Uniform"/>
-                            </Rectangle.Fill>
-                        </Rectangle>
-                    </Button>
-
-                    <Button Grid.Column="1" Grid.Row="0" Height="35" Width="40" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Rectangle Height="30" Width="30" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Rectangle.Fill>
-                                <VisualBrush Visual="{StaticResource appbar_folder_open}" Stretch="Uniform"/>
-                            </Rectangle.Fill>
-                        </Rectangle>
-                    </Button>
-
-                    <Button Grid.Column="2" Grid.Row="0" Height="35" Width="40" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Rectangle Height="22" Width="25" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Rectangle.Fill>
-                                <VisualBrush Visual="{StaticResource appbar_save}" Stretch="Uniform"/>
-                            </Rectangle.Fill>
-                        </Rectangle>
-                    </Button>
-
-                </Grid>
+            <Controls:MetroTabItem Header="THEVENIN"  TabIndex="2" Background="{x:Null}" >
+                <Button Content="Load" Height="100" Width="75"/>
             </Controls:MetroTabItem>
 
-            <Controls:MetroTabItem Name="tab4" Content="REVIEW" Header="REVIEW" TabIndex="4" Background="{x:Null}" />
+            <Controls:MetroTabItem Header="TRANSFORMERS" TabIndex="3" Background="{x:Null}" >
+
+            </Controls:MetroTabItem>
+
+            <Controls:MetroTabItem Header="RELAYS" TabIndex="4" Background="{x:Null}" />
+
+            <Controls:MetroTabItem Header="CTS" TabIndex="5" Background="{x:Null}" />
+
 
         </Controls:MetroAnimatedSingleRowTabControl>
 

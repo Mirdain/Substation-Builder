@@ -13,23 +13,18 @@
 
     <Controls:MetroWindow.TitleTemplate>
         <DataTemplate>
-            <TextBlock Text="{TemplateBinding Content}"
-                   TextTrimming="CharacterEllipsis"
-                   VerticalAlignment="Center"
-                   FontSize="20px" Margin="20,0,0,0"/>
+            <TextBlock Text="{TemplateBinding Content}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" FontSize="20px" Margin="20,0,0,0"/>
         </DataTemplate>
     </Controls:MetroWindow.TitleTemplate>
-    
+
     <Controls:MetroWindow.Resources>
         <mah:ToUpperConverter x:Key="ToUpper"/>
-
         <Style TargetType="Controls:Tile">
             <Setter Property="FontSize" Value="20"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background" Value="#828489"/>
                 </Trigger>
-               
             </Style.Triggers>
         </Style>
 
@@ -46,11 +41,7 @@
             <Controls:Flyout Position="Right" IsOpen="{Binding IsChecked, ElementName=DescriptionToggle}" x:Name="TopFlyout" Width="300">
                 <TextBlock DockPanel.Dock="Top" Margin="5" FontSize="12" TextWrapping="Wrap" HorizontalAlignment="Center">
                     <Run FontSize="23" FontFamily="Segoe UI Light">About</Run>
-                    <LineBreak/>
-                    Written to help lazy people be lazy.
-                    <LineBreak/>
-                    Not responsible for <Bold>ANY</Bold> mistakes.
-                    <LineBreak/>
+                    <LineBreak/> Written to help lazy people be lazy.<LineBreak/>Not responsible for <Bold>ANY</Bold> mistakes.<LineBreak/>
                     <Hyperlink Click="Report_Bug">Report</Hyperlink> any bugs or issues found.
                     <Image Margin="0,20,0,10" Name="AboutImage" Source="resources\Images\AboutImage.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" StretchDirection="UpOnly">
                         <Image.RenderTransform>
@@ -65,22 +56,13 @@
                 </TextBlock>
             </Controls:Flyout>
 
-            <Controls:Flyout Position="Bottom" x:Name="Flyout" MinHeight="100"
-                          DataContext="{Binding SelectedItem, ElementName=ListBox}">
+            <Controls:Flyout Position="Bottom" x:Name="Flyout" MinHeight="100" DataContext="{Binding SelectedItem, ElementName=ListBox}">
                 <DockPanel>
-                    <Button Content="Launch Module" Click="Launch_Click"
-                            Padding="5" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="5,5,10,5"
-                            Background="{StaticResource AccentColorBrush}"/>
-
-                    <TextBlock Text="{Binding Path=Value}" 
-                               FontSize="14" FontFamily="Segoe UI Light" Margin="0,5,0,5"
-                               DockPanel.Dock="Top"/>
-
+                    <Button Content="Launch Module" Click="Launch_Click" Padding="5" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="5,5,10,5" Background="{StaticResource AccentColorBrush}"/>
+                    <TextBlock Text="{Binding Path=Value}" FontSize="14" FontFamily="Segoe UI Light" Margin="0,5,0,5" DockPanel.Dock="Top"/>
                     <TextBlock DockPanel.Dock="Bottom" Margin="0,10,0,2">
                         <Run Text="Related StackOverflow post:"/>
-
                     </TextBlock>
-
                     <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
                 </DockPanel>
             </Controls:Flyout>
@@ -94,7 +76,6 @@
         </Grid.ColumnDefinitions>
 
         <Grid x:Name="grid1" Grid.Column="0">
-
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="45"/>
                 <ColumnDefinition Width="*"/>

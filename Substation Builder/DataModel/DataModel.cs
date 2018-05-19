@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Collections.ObjectModel;
 
 
 namespace Substation_Builder.DataModel
 {
+
     public enum Winding
     {
         [Description("Delta")] Delta,
@@ -113,6 +115,8 @@ namespace Substation_Builder.DataModel
         [Description("400")] T400,
     }
 
+
+
     [Serializable]
     public class Substation : INotifyPropertyChanged
     {
@@ -126,31 +130,21 @@ namespace Substation_Builder.DataModel
                 NotifyPropertyChanged("Name");
             }
         }
-        
-        public Thevenin Thevenin
-        {
-            get => thevenin;
-            set
-            {
-                thevenin = value;
-                NotifyPropertyChanged("Thevenin");
-            }
-        }
-
-
         public Substation_Type Type { get => type; set => type = value; }
         public System System { get => system; set => system = value; }
-        public List<Relay> Relays { get => relays; set => relays = value; }
-        public List<Breaker> Breakers { get => breakers; set => breakers = value; }
-        public List<Transformer> Transformers { get => transformers; set => transformers = value; }
+
+        public ObservableCollection<Thevenin> Thevenin { get => thevenin; set => thevenin = value; }
+        public ObservableCollection<Relay> Relays { get => relays; set => relays = value; }
+        public ObservableCollection<Breaker> Breakers { get => breakers; set => breakers = value; }
+        public ObservableCollection<Transformer> Transformers { get => transformers; set => transformers = value; }
 
         private string name;
         private Substation_Type type;
-        private Thevenin thevenin;
         private System system;
-        private List<Relay> relays;
-        private List<Breaker> breakers;
-        private List<Transformer> transformers;
+        private ObservableCollection<Thevenin> thevenin = new ObservableCollection<Thevenin>();
+        private ObservableCollection<Relay> relays;
+        private ObservableCollection<Breaker> breakers;
+        private ObservableCollection<Transformer> transformers;
 
         // Property Change Logic  
         public event PropertyChangedEventHandler PropertyChanged;
@@ -162,6 +156,8 @@ namespace Substation_Builder.DataModel
 
     public class Thevenin
     {
+        public string Name { get => name; set => name = value; }
+
         public double R0_PU { get => r0_pu; set => r0_pu = value; }
         public double R1_PU { get => r1_pu; set => r1_pu = value; }
         public double R2_PU { get => r2_pu; set => r2_pu = value; }
@@ -169,6 +165,7 @@ namespace Substation_Builder.DataModel
         public double X1_PU { get => x1_pu; set => x1_pu = value; }
         public double X2_PU { get => x2_pu; set => x2_pu = value; }
 
+        private string name;
         private double r0_pu;
         private double r1_pu;
         private double r2_pu;

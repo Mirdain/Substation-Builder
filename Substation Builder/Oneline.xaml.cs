@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using System.IO;
 using Microsoft.Win32;
 using MahApps.Metro.Controls;
 using System.Xml.Serialization;
+using System.Collections.ObjectModel;
+using System.Windows.Controls;
+using System;
 
 namespace Substation_Builder
 {
@@ -17,12 +18,15 @@ namespace Substation_Builder
     {
 
         DataModel.Substation Project = new DataModel.Substation();
+        
 
         public Oneline()
         {
             InitializeComponent();
+
         }
 
+        //read a .xaml file and load into the Datamodel classes
         private void LoadFile(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openoneline = new OpenFileDialog();
@@ -38,6 +42,7 @@ namespace Substation_Builder
             }
         }
 
+        //Serialize the DataModel and save
         private void SaveFile(object sender, RoutedEventArgs e)
         {
             SaveFileDialog saveoneline = new SaveFileDialog();
@@ -47,10 +52,13 @@ namespace Substation_Builder
                 StringWriter sw = new StringWriter();
                 XmlSerializer x = new XmlSerializer(Project.GetType());
                 x.Serialize(sw, Project);
-                File.WriteAllText(saveoneline.FileName, sw.ToString());
+                string outputstring = sw.ToString();
+                outputstring = outputstring.Replace("utf-16", "utf-8");
+                File.WriteAllText(saveoneline.FileName, outputstring);
             }
         }
 
+        //Example populate - delete at end
         private void NewFile(object sender, RoutedEventArgs e)
         {
 
@@ -84,44 +92,94 @@ namespace Substation_Builder
                 HighVoltageWndg = DataModel.Winding.Delta
             };
 
+            DataModel.Thevenin BaseThevenin = new DataModel.Thevenin
+            {
+                Name = "Base Thevenin",
+                R0_OHM = .928,
+            };
+
+            DataModel.Thevenin SecondThevenin = new DataModel.Thevenin
+            {
+                Name = "Second Thevenin",
+                R0_OHM = .128,
+            };
+
+            DataModel.Relay FirstRelay = new DataModel.Relay
+            {
+                Name = "Xfmr Diff",
+                Type = DataModel.RelayType.SEL_387,
+            };
+            DataModel.Relay SecondRelay = new DataModel.Relay
+            {
+                Name = "High Side",
+                Type = DataModel.RelayType.SEL_351S_7,
+            };
 
             Project = new DataModel.Substation
             {
                 Name = "Squash Bend",
-                Thevenin = new DataModel.Thevenin
+                Thevenin = new ObservableCollection<DataModel.Thevenin>()
                 {
-                    R1_PU = 12,
-                    X1_PU = 3,
-                    R2_PU = 6,
-                    X2_PU = 9,
-                    R0_PU = 23,
-                    X0_PU = 55
+                    BaseThevenin,
+                    SecondThevenin,
+                },
+                Transformers = new ObservableCollection<DataModel.Transformer>
+                {
+                    T1,
+                    T2
+                },
+                Relays = new ObservableCollection<DataModel.Relay>
+                {
+                    FirstRelay,
+                    SecondRelay,
                 }
 
             };
+            DataContext = Project;
 
-            Project.Transformers = new List<DataModel.Transformer>
+        }
+
+        //used to test the treeview databinding - modify to allow edits 
+        private void Modify(object sender, RoutedEventArgs e)
+        {
+            DataModel.Relay ThirdRelay = new DataModel.Relay
             {
-                T1,
-                T2
+                Name = "Low Side",
+                Type = DataModel.RelayType.SEL_351S_7,
             };
 
-            DataContext = Project;
+            Project.Relays.Add(ThirdRelay);
+
+            Project.Name = "Updated Name";
+
         }
 
-        private void Tile_Click(object sender, RoutedEventArgs e)
+        //used to navigate to forms located in teh XAML Page folder
+        private void LoadPage(object sender, RoutedEventArgs e)
         {
-            Project.Name = "updated Name";
-        }
 
-        private void Thevenin_Page(object sender, RoutedEventArgs e)
-        {
-            DatabasePanel.Navigate(new Uri("/Resources/XAML Pages/Thevenin.xaml", UriKind.Relative));
-        }
+            TreeViewItem treeitem = (TreeViewItem)sender;
 
-        private void Transformer_Page(object sender, RoutedEventArgs e)
-        {
-            DatabasePanel.Navigate(new Uri("/Resources/XAML Pages/Transformer.xaml", UriKind.Relative));
+            string item = treeitem.Header.ToString();
+
+            if (item == "Thevenin")
+            {
+                pagenavigation.Source = new Uri("Resources/XAML Pages/Thevenin.xaml", UriKind.Relative);
+            }
+            else if (item == "Transformers")
+            {
+                pagenavigation.Source = new Uri("Resources/XAML Pages/Transformer.xaml", UriKind.Relative);
+            }
+            else if (item == "Relays")
+            {
+                pagenavigation.Source = new Uri("Resources/XAML Pages/Relay.xaml", UriKind.Relative);
+            }
+            else
+            {
+                pagenavigation.Source = new Uri("Resources/XAML Pages/Default.xaml", UriKind.Relative);
+
+            }
+
         }
     }
 }

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Substation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>Squash Bend</Name>
+  <Type>Open_Air</Type>
+  <Thevenin>
+    <Thevenin>
+      <Name>Base Thevenin</Name>
+      <R0_PU>0</R0_PU>
+      <R1_PU>0</R1_PU>
+      <R2_PU>0</R2_PU>
+      <X0_PU>0</X0_PU>
+      <X1_PU>0</X1_PU>
+      <X2_PU>0</X2_PU>
+      <R0_OHM>0.928</R0_OHM>
+      <R1_OHM>0</R1_OHM>
+      <R2_OHM>0</R2_OHM>
+      <X0_OHM>0</X0_OHM>
+      <X1_OHM>0</X1_OHM>
+      <X2_OHM>0</X2_OHM>
+    </Thevenin>
+    <Thevenin>
+      <Name>Second Thevenin</Name>
+      <R0_PU>0</R0_PU>
+      <R1_PU>0</R1_PU>
+      <R2_PU>0</R2_PU>
+      <X0_PU>0</X0_PU>
+      <X1_PU>0</X1_PU>
+      <X2_PU>0</X2_PU>
+      <R0_OHM>0.128</R0_OHM>
+      <R1_OHM>0</R1_OHM>
+      <R2_OHM>0</R2_OHM>
+      <X0_OHM>0</X0_OHM>
+      <X1_OHM>0</X1_OHM>
+      <X2_OHM>0</X2_OHM>
+    </Thevenin>
+  </Thevenin>
+  <Relays>
+    <Relay>
+      <Name>Xfmr Diff</Name>
+      <Bus>Bus_1</Bus>
+      <Position>BH1</Position>
+      <Type>SEL_387</Type>
+    </Relay>
+    <Relay>
+      <Name>High Side</Name>
+      <Bus>Bus_1</Bus>
+      <Position>BH1</Position>
+      <Type>SEL_351S_7</Type>
+    </Relay>
+  </Relays>
+  <Transformers>
+    <Transformer>
+      <Name>T1</Name>
+      <Bus>Bus_1</Bus>
+      <Size1>20</Size1>
+      <Size2>25</Size2>
+      <Size3>33</Size3>
+      <Z1>9.17</Z1>
+      <Z0>9.06</Z0>
+      <LowVoltage>25</LowVoltage>
+      <HighVoltage>69</HighVoltage>
+      <LowVoltageWndg>Solidly_Grounded_Wye</LowVoltageWndg>
+      <HighVoltageWndg>Delta</HighVoltageWndg>
+    </Transformer>
+    <Transformer>
+      <Name>T2</Name>
+      <Bus>Bus_1</Bus>
+      <Size1>18</Size1>
+      <Size2>23</Size2>
+      <Size3>30</Size3>
+      <Z1>9.4</Z1>
+      <Z0>9.26</Z0>
+      <LowVoltage>13.2</LowVoltage>
+      <HighVoltage>69</HighVoltage>
+      <LowVoltageWndg>Solidly_Grounded_Wye</LowVoltageWndg>
+      <HighVoltageWndg>Delta</HighVoltageWndg>
+    </Transformer>
+  </Transformers>
+</Substation>

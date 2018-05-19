@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Substation_Builder.Resources.XAML_Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+
       Title="Thevenin">
 
     <!-- Thevenin Template -->
@@ -20,11 +20,9 @@
                 </BeginStoryboard>
             </EventTrigger>
         </StackPanel.Triggers>
-
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="35"/>
-                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
@@ -39,26 +37,15 @@
             </StackPanel>
 
             <StackPanel  Grid.Column="1" Grid.Row="0">
-
-                <Label Height="26" Content="%Z" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Opacity="0.9"/>
-                <TextBox Text="{Binding Thevenin.R1_PU, StringFormat=\{0:F5\}}" Margin="4,3,4,1" IsEnabled="{Binding ElementName=UseZ, Path=IsChecked}" Opacity="0.9" Background="{x:Null}"/>
-                <TextBox Text="{Binding Thevenin.X1_PU, StringFormat=\{0:F5\}}" Margin="4,1,4,2" IsEnabled="{Binding ElementName=UseZ, Path=IsChecked}" Opacity="0.9" Background="{x:Null}"/>
-                <TextBox Text="{Binding Thevenin.R2_PU, StringFormat=\{0:F5\}}" Margin="4,1" IsEnabled="{Binding ElementName=UseZ, Path=IsChecked}" Opacity="0.9" Background="{x:Null}"/>
-                <TextBox Text="{Binding Thevenin.X2_PU, StringFormat=\{0:F5\}}" Margin="4,1" IsEnabled="{Binding ElementName=UseZ, Path=IsChecked}" Opacity="0.9" Background="{x:Null}"/>
-                <TextBox Text="{Binding Thevenin.R0_PU, StringFormat=\{0:F5\}}" Margin="4,1" IsEnabled="{Binding ElementName=UseZ, Path=IsChecked}" Opacity="0.9" Background="{x:Null}"/>
-                <TextBox Text="{Binding Thevenin.X0_PU, StringFormat=\{0:F5\}}" Margin="4,1" IsEnabled="{Binding ElementName=UseZ, Path=IsChecked}" Opacity="0.9" Background="{x:Null}"/>
-                <RadioButton  GroupName="TheveninUnits" Name="UseZ" Grid.Column="1" Grid.Row="1" Content="Use %Z" IsChecked="True" Margin="10,5,0,0"/>
-            </StackPanel>
-
-            <StackPanel  Grid.Column="2" Grid.Row="0">
-                <Label Height="26" Grid.Column="2" Grid.Row="0" Content="Ohms" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Opacity="0.9"/>
-                <TextBox Text="{Binding Thevenin.R1_OHM, StringFormat=\{0:F5\}}" Margin="4,3,4,1" IsEnabled="{Binding ElementName=UseOhm, Path=IsChecked}" Opacity="0.9" Background="{x:Null}"/>
-                <TextBox Text="{Binding Thevenin.X1_OHM, StringFormat=\{0:F5\}}" Margin="4,1" IsEnabled="{Binding ElementName=UseOhm, Path=IsChecked}" Opacity="0.9" Background="{x:Null}"/>
-                <TextBox Text="{Binding Thevenin.R2_OHM, StringFormat=\{0:F5\}}" Margin="4,1" IsEnabled="{Binding ElementName=UseOhm, Path=IsChecked}" Opacity="0.9" Background="{x:Null}"/>
-                <TextBox Text="{Binding Thevenin.X2_OHM, StringFormat=\{0:F5\}}" Margin="4,1" IsEnabled="{Binding ElementName=UseOhm, Path=IsChecked}" Opacity="0.9" Background="{x:Null}"/>
-                <TextBox Text="{Binding Thevenin.R0_OHM, StringFormat=\{0:F5\}}" Margin="4,1" IsEnabled="{Binding ElementName=UseOhm, Path=IsChecked}" Opacity="0.9" Background="{x:Null}"/>
-                <TextBox Text="{Binding Thevenin.X0_OHM, StringFormat=\{0:F5\}}" Margin="4,1" IsEnabled="{Binding ElementName=UseOhm, Path=IsChecked}" Opacity="0.9" Background="{x:Null}"/>
-                <RadioButton  GroupName="TheveninUnits" Name="UseOhm" Grid.Column="2" Grid.Row="1" Content="Use Ohms" Margin="10,5,0,0"/>
+                <Label Height="35" Content="Thevenin Impedance" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Opacity="0.9" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Margin="5,0"/>
+                <TextBox Text="{Binding Thevenin.R1_PU, StringFormat=\{0:F5\}}" Margin="4,3,4,1" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" Background="{x:Null}"/>
+                <TextBox Text="{Binding Thevenin.X1_PU, StringFormat=\{0:F5\}}" Margin="4,1,4,2" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" Background="{x:Null}"/>
+                <TextBox Text="{Binding Thevenin.R2_PU, StringFormat=\{0:F5\}}" Margin="4,1" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" Background="{x:Null}"/>
+                <TextBox Text="{Binding Thevenin.X2_PU, StringFormat=\{0:F5\}}" Margin="4,1" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" Background="{x:Null}"/>
+                <TextBox Text="{Binding Thevenin.R0_PU, StringFormat=\{0:F5\}}" Margin="4,1" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" Background="{x:Null}"/>
+                <TextBox Text="{Binding Thevenin.X0_PU, StringFormat=\{0:F5\}}" Margin="4,1" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" Background="{x:Null}"/>
+                <RadioButton  GroupName="TheveninUnits" x:Name="UseZ" Grid.Column="1" Grid.Row="1" Content="%Z" IsChecked="True" Margin="10,5,0,0"/>
+                <RadioButton  GroupName="TheveninUnits" x:Name="UseOhm" Grid.Column="2" Grid.Row="1" Content="Ohms" Margin="10,5,0,0"/>
             </StackPanel>
 
         </Grid>

@@ -41,11 +41,6 @@ namespace Substation_Builder
             MessageBox.Show("Launch");
         }
 
-        private void FlipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void One_Line(object sender, RoutedEventArgs e)
         {
             Window OnelineWindow = new Oneline
@@ -53,7 +48,7 @@ namespace Substation_Builder
                 Top = this.Top + 20,
                 Left = this.Left + 20
             };
-            OnelineWindow.Show();
+            OnelineWindow.ShowDialog();
         }
 
         private void Fault_Analysis(object sender, RoutedEventArgs e)
