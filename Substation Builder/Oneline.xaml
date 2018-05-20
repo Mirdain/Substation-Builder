@@ -62,23 +62,23 @@
                             <ColumnDefinition Width="3*"/>
                         </Grid.ColumnDefinitions>
 
-                        <TreeView Grid.Column="0" Background="{x:Null}" ItemsSource="{Binding Substation}">
+                        <TreeView x:Name="TreeviewPages" Grid.Column="0" Background="{x:Null}" ItemsSource="{Binding Substation}" SelectedItemChanged="LoadPage">
                             <TreeViewItem Header="{Binding Name}">
-                                <TreeViewItem Header='Relays' ItemsSource="{Binding Relays}" Background="{x:Null}" Selected="LoadPage">
+                                <TreeViewItem Header='Relays' ItemsSource="{Binding Relays}" Background="{x:Null}">
                                     <TreeViewItem.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Name}" Background="{x:Null}"/>
                                         </DataTemplate>
                                     </TreeViewItem.ItemTemplate>
                                 </TreeViewItem>
-                                <TreeViewItem Header='Thevenin' ItemsSource="{Binding Thevenin}" Background="{x:Null}" Selected="LoadPage">
+                                <TreeViewItem Header='Thevenin' ItemsSource="{Binding Thevenin}" Background="{x:Null}">
                                     <TreeViewItem.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Name}" Background="{x:Null}"/>
                                         </DataTemplate>
                                     </TreeViewItem.ItemTemplate>
                                 </TreeViewItem>
-                                <TreeViewItem Header='Transformers' ItemsSource="{Binding Transformers}" Background="{x:Null}" Selected="LoadPage">
+                                <TreeViewItem Header='Transformers' ItemsSource="{Binding Transformers}" Background="{x:Null}">
                                     <TreeViewItem.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Name}" Background="{x:Null}"/>

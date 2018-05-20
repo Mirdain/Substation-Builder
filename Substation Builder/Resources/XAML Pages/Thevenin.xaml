@@ -5,9 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Substation_Builder.Resources.XAML_Pages"
       mc:Ignorable="d" 
-
-      Title="Thevenin">
-
+      Title="Thevenin" Height="260.392">
+    
     <!-- Thevenin Template -->
     <StackPanel Grid.Column="1">
 
@@ -15,7 +14,7 @@
             <EventTrigger RoutedEvent="FrameworkElement.Loaded">
                 <BeginStoryboard>
                     <Storyboard>
-                        <DoubleAnimation Duration="0:0:0.65" Storyboard.TargetProperty="Opacity" From="0" To="1" />
+                        <DoubleAnimation Duration="0:0:0.7" Storyboard.TargetProperty="Opacity" From="0" To="1" />
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
@@ -27,7 +26,7 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0" Grid.Row="0">
-                <Label Height="26" Content="" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Opacity="0.9"/>
+                <Label Height="60" Content="" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Opacity="0.9"/>
                 <Label Content="R1" HorizontalContentAlignment="Right" Margin="4,3,4,1" Opacity="0.9"/>
                 <Label Content="X1" HorizontalContentAlignment="Right" Margin="4,1" Opacity="0.9"/>
                 <Label Content="R2" HorizontalContentAlignment="Right" Margin="4,1" Opacity="0.9"/>
@@ -36,16 +35,20 @@
                 <Label Content="X0" HorizontalContentAlignment="Right" Margin="4,1" Opacity="0.9"/>
             </StackPanel>
 
-            <StackPanel  Grid.Column="1" Grid.Row="0">
-                <Label Height="35" Content="Thevenin Impedance" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Opacity="0.9" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Margin="5,0"/>
-                <TextBox Text="{Binding Thevenin.R1_PU, StringFormat=\{0:F5\}}" Margin="4,3,4,1" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" Background="{x:Null}"/>
-                <TextBox Text="{Binding Thevenin.X1_PU, StringFormat=\{0:F5\}}" Margin="4,1,4,2" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" Background="{x:Null}"/>
-                <TextBox Text="{Binding Thevenin.R2_PU, StringFormat=\{0:F5\}}" Margin="4,1" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" Background="{x:Null}"/>
-                <TextBox Text="{Binding Thevenin.X2_PU, StringFormat=\{0:F5\}}" Margin="4,1" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" Background="{x:Null}"/>
-                <TextBox Text="{Binding Thevenin.R0_PU, StringFormat=\{0:F5\}}" Margin="4,1" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" Background="{x:Null}"/>
-                <TextBox Text="{Binding Thevenin.X0_PU, StringFormat=\{0:F5\}}" Margin="4,1" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" Background="{x:Null}"/>
-                <RadioButton  GroupName="TheveninUnits" x:Name="UseZ" Grid.Column="1" Grid.Row="1" Content="%Z" IsChecked="True" Margin="10,5,0,0"/>
-                <RadioButton  GroupName="TheveninUnits" x:Name="UseOhm" Grid.Column="2" Grid.Row="1" Content="Ohms" Margin="10,5,0,0"/>
+            <StackPanel  Grid.Column="1" Grid.Row="0" x:Name="TheveninPage">
+                <Label Content="Thevenin Impedance" Opacity="0.9" FontSize="16" Height="29" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                <Label Content="{Binding Name}" Opacity="0.9" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <TextBox Text="{Binding R1, StringFormat=\{0:F5\}}" Margin="4,0,4,1" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" Background="{x:Null}"/>
+                <TextBox Text="{Binding X1, StringFormat=\{0:F5\}}" Margin="4,1,4,2" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" Background="{x:Null}"/>
+                <TextBox Text="{Binding R2, StringFormat=\{0:F5\}}" Margin="4,1" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" Background="{x:Null}"/>
+                <TextBox Text="{Binding X2, StringFormat=\{0:F5\}}" Margin="4,1" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" Background="{x:Null}"/>
+                <TextBox Text="{Binding R0, StringFormat=\{0:F5\}}" Margin="4,1" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" Background="{x:Null}"/>
+                <TextBox Text="{Binding X0, StringFormat=\{0:F5\}}" Margin="4,1" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" Background="{x:Null}"/>
+                <DockPanel>
+                    <RadioButton  GroupName="TheveninUnits" x:Name="UseZ" Grid.Column="1" Grid.Row="1" Content="%Z" IsChecked="True" Margin="10,5,0,0"/>
+                    <RadioButton  GroupName="TheveninUnits" x:Name="UseOhm" Grid.Column="2" Grid.Row="1" Content="Ohms" Margin="10,5,0,0"/>
+                </DockPanel>
+
             </StackPanel>
 
         </Grid>

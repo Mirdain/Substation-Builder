@@ -5,33 +5,21 @@
   <Thevenin>
     <Thevenin>
       <Name>Base Thevenin</Name>
-      <R0_PU>0</R0_PU>
-      <R1_PU>0</R1_PU>
-      <R2_PU>0</R2_PU>
-      <X0_PU>0</X0_PU>
-      <X1_PU>0</X1_PU>
-      <X2_PU>0</X2_PU>
-      <R0_OHM>0.928</R0_OHM>
-      <R1_OHM>0</R1_OHM>
-      <R2_OHM>0</R2_OHM>
-      <X0_OHM>0</X0_OHM>
-      <X1_OHM>0</X1_OHM>
-      <X2_OHM>0</X2_OHM>
+      <R0>0.928</R0>
+      <R1>0</R1>
+      <R2>0</R2>
+      <X0>1.28</X0>
+      <X1>0</X1>
+      <X2>0</X2>
     </Thevenin>
     <Thevenin>
       <Name>Second Thevenin</Name>
-      <R0_PU>0</R0_PU>
-      <R1_PU>0</R1_PU>
-      <R2_PU>0</R2_PU>
-      <X0_PU>0</X0_PU>
-      <X1_PU>0</X1_PU>
-      <X2_PU>0</X2_PU>
-      <R0_OHM>0.128</R0_OHM>
-      <R1_OHM>0</R1_OHM>
-      <R2_OHM>0</R2_OHM>
-      <X0_OHM>0</X0_OHM>
-      <X1_OHM>0</X1_OHM>
-      <X2_OHM>0</X2_OHM>
+      <R0>0.128</R0>
+      <R1>0</R1>
+      <R2>0</R2>
+      <X0>5.38</X0>
+      <X1>2.35</X1>
+      <X2>0</X2>
     </Thevenin>
   </Thevenin>
   <Relays>

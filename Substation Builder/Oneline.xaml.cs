@@ -18,7 +18,7 @@ namespace Substation_Builder
     {
 
         DataModel.Substation Project = new DataModel.Substation();
-        
+        DataModel.Thevenin ActiveThevenin = new DataModel.Thevenin();
 
         public Oneline()
         {
@@ -37,7 +37,6 @@ namespace Substation_Builder
                 StreamReader reader = new StreamReader(openoneline.FileName);
                 Project = (DataModel.Substation)serializer.Deserialize(reader);
                 reader.Close();
-
                 DataContext = Project;
             }
         }
@@ -95,13 +94,15 @@ namespace Substation_Builder
             DataModel.Thevenin BaseThevenin = new DataModel.Thevenin
             {
                 Name = "Base Thevenin",
-                R0_OHM = .928,
+                R0 = .928,
+                X0 = 1.28,
             };
 
             DataModel.Thevenin SecondThevenin = new DataModel.Thevenin
             {
                 Name = "Second Thevenin",
-                R0_OHM = .128,
+                R0 = .128,
+                X0 = 5.38,
             };
 
             DataModel.Relay FirstRelay = new DataModel.Relay
@@ -158,28 +159,46 @@ namespace Substation_Builder
         private void LoadPage(object sender, RoutedEventArgs e)
         {
 
-            TreeViewItem treeitem = (TreeViewItem)sender;
+            TreeView treepart = (TreeView)sender;
 
-            string item = treeitem.Header.ToString();
+            string teststring = treepart.SelectedItem.ToString();
 
-            if (item == "Thevenin")
+            if (teststring == "Substation_Builder.DataModel.Thevenin")
             {
-                pagenavigation.Source = new Uri("Resources/XAML Pages/Thevenin.xaml", UriKind.Relative);
+                Substation_Builder.Resources.XAML_Pages.Thevenin thevenin = new Resources.XAML_Pages.Thevenin
+                {
+                    DataContext = treepart.SelectedItem
+                };
+
+                pagenavigation.Navigate(thevenin);
+
             }
-            else if (item == "Transformers")
+            else if (teststring == "Substation_Builder.DataModel.Relay")
             {
-                pagenavigation.Source = new Uri("Resources/XAML Pages/Transformer.xaml", UriKind.Relative);
+                Substation_Builder.Resources.XAML_Pages.Relay relay = new Resources.XAML_Pages.Relay
+                {
+                    DataContext = treepart.SelectedItem
+                };
+
+                pagenavigation.Navigate(relay);
+                
             }
-            else if (item == "Relays")
+            else if (teststring == "Substation_Builder.DataModel.Transformer")
             {
-                pagenavigation.Source = new Uri("Resources/XAML Pages/Relay.xaml", UriKind.Relative);
+                Substation_Builder.Resources.XAML_Pages.Transformer transformer = new Resources.XAML_Pages.Transformer
+                {
+                    DataContext = treepart.SelectedItem
+                };
+
+                pagenavigation.Navigate(transformer);
             }
             else
             {
-                pagenavigation.Source = new Uri("Resources/XAML Pages/Default.xaml", UriKind.Relative);
+                pagenavigation.Navigate("Resources/XAML Pages/Default.xaml", UriKind.Relative);
 
             }
 
+            
         }
     }
 }
