@@ -1,7 +1,6 @@
 ﻿using MahApps.Metro.Controls;
 using System.Windows;
 using Substation_Builder.Model;
-using Substation_Builder.ViewModel;
 using System.Windows.Controls;
 using System;
 
