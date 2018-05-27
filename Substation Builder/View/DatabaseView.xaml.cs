@@ -12,11 +12,14 @@ namespace Substation_Builder.View
     /// 
     public partial class DatabaseView : MetroWindow
     {
+        private TheveninView theveninview = new TheveninView();
+        private SubstationView substationview = new SubstationView();
+        private RelayView relayview = new RelayView();
+        private TransformerView transformerview = new TransformerView();
 
         public DatabaseView()
         {
             InitializeComponent();
-
         }
 
         //used to navigate to forms located in the xaml folder and bind to classes
@@ -27,32 +30,22 @@ namespace Substation_Builder.View
 
             if (Subdata.IsSelected)
             {
-                Substation substation = new Substation();
-                pagenavigation.Navigate(substation);
+                substationview.DataContext = this.DataContext;
+                pagenavigation.Navigate(substationview);
             }
             else if (teststring == "Substation_Builder.Model.Thevenin")
             {
-                TheveninView theveninview = new TheveninView
-                {
-                    DataContext = treepart.SelectedItem
-                };
-
+                theveninview.DataContext = treepart.SelectedItem;
                 pagenavigation.Navigate(theveninview);
             }
             else if (teststring == "Substation_Builder.Model.Relay")
             {
-                RelayView relayview = new RelayView
-                {
-                    DataContext = treepart.SelectedItem
-                };
+                relayview.DataContext = treepart.SelectedItem;
                 pagenavigation.Navigate(relayview);
             }
             else if (teststring == "Substation_Builder.Model.Transformer")
             {
-                TransformerView transformerview = new TransformerView
-                {
-                    DataContext = treepart.SelectedItem
-                };
+                transformerview.DataContext = treepart.SelectedItem;
                 pagenavigation.Navigate(transformerview);
             }
             else

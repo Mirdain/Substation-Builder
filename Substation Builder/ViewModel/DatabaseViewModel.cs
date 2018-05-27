@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using Substation_Builder.Model;
+﻿using Substation_Builder.Model;
 using Substation_Builder.Services;
 using Substation_Builder.Helpers;
 
@@ -8,9 +7,7 @@ namespace Substation_Builder.ViewModel
 
     public partial class DatabaseViewModel : ViewModelBase
     {
-
         private Substation project;
-
         public Substation Project
         {
             get { return project; }

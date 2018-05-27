@@ -102,9 +102,8 @@
                     </TreeView>
                 </Grid>
 
-                <StackPanel x:Name="tester" Grid.Column="1">
-
-                    <Frame  x:Name="pagenavigation" NavigationUIVisibility="Hidden" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <StackPanel Grid.Column="1">
+                    <Frame x:Name="pagenavigation" NavigationUIVisibility="Hidden" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </StackPanel>
                 
             </Grid>
