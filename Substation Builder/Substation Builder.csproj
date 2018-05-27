@@ -113,24 +113,37 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DataModel\DataModel.cs" />
-    <Compile Include="Oneline.xaml.cs">
-      <DependentUpon>Oneline.xaml</DependentUpon>
+    <Compile Include="Helpers\RelayCommand.cs" />
+    <Compile Include="Helpers\ViewModelBase.cs" />
+    <Compile Include="Model\Model.cs" />
+    <Compile Include="Services\SystemIO.cs" />
+    <Compile Include="View\DatabaseView.xaml.cs">
+      <DependentUpon>DatabaseView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\XAML Pages\Default.xaml.cs">
-      <DependentUpon>Default.xaml</DependentUpon>
+    <Compile Include="View\DefaultView.xaml.cs">
+      <DependentUpon>DefaultView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\XAML Pages\Relay.xaml.cs">
-      <DependentUpon>Relay.xaml</DependentUpon>
+    <Compile Include="View\FaultViewModel.xaml.cs">
+      <DependentUpon>FaultViewModel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\XAML Pages\Transformer.xaml.cs">
-      <DependentUpon>Transformer.xaml</DependentUpon>
+    <Compile Include="View\RelayView.xaml.cs">
+      <DependentUpon>RelayView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\XAML Pages\Thevenin.xaml.cs">
-      <DependentUpon>Thevenin.xaml</DependentUpon>
+    <Compile Include="View\SubstationView.xaml.cs">
+      <DependentUpon>SubstationView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\ViewModel.cs" />
-    <Page Include="MainWindow.xaml">
+    <Compile Include="View\TransformerView.xaml.cs">
+      <DependentUpon>TransformerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TheveninView.xaml.cs">
+      <DependentUpon>TheveninView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\DatabaseViewModel.cs" />
+    <Page Include="View\FaultViewModel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainWindowView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -138,11 +151,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="View\MainWindowView.xaml.cs">
+      <DependentUpon>MainWindowView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Oneline.xaml">
+    <Page Include="View\DatabaseView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -154,19 +167,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\XAML Pages\Default.xaml">
+    <Page Include="View\DefaultView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\XAML Pages\Relay.xaml">
+    <Page Include="View\RelayView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\XAML Pages\Transformer.xaml">
+    <Page Include="View\SubstationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TransformerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\XAML Pages\Thevenin.xaml">
+    <Page Include="View\TheveninView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -239,5 +256,6 @@
   <ItemGroup>
     <Resource Include="Resources\Images\HikoOri.jpg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

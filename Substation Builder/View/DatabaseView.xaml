@@ -1,0 +1,129 @@
+﻿<Controls:MetroWindow x:Name="metroWindow" x:Class="Substation_Builder.View.DatabaseView"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:mah="http://metro.mahapps.com/winfx/xaml/shared"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:vm="clr-namespace:Substation_Builder.ViewModel"
+                      mc:Ignorable="d"
+                      Icon="..\Resources\Images\MainPageIcon.jpg"    
+                      Title="One Line" ResizeMode="NoResize"
+                      WindowStartupLocation="Manual"
+                      BorderThickness="0" MinWidth="600" MinHeight="350" Width="600" Height="350">
+
+    <Controls:MetroWindow.TitleTemplate>
+        <DataTemplate>
+            <TextBlock Text="{TemplateBinding Content}"
+                   TextTrimming="CharacterEllipsis"
+                   VerticalAlignment="Center"
+                   FontSize="20px" Margin="20,0,0,0"/>
+        </DataTemplate>
+    </Controls:MetroWindow.TitleTemplate>
+
+    <Controls:MetroWindow.DataContext>
+        <vm:DatabaseViewModel/>
+    </Controls:MetroWindow.DataContext>
+    
+    <Controls:MetroWindow.Resources>
+        <mah:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
+        <Style TargetType="{x:Type Controls:MetroTabItem}">
+            <Setter Property="Controls:ControlsHelper.HeaderFontSize" Value="15"/>
+        </Style>
+    </Controls:MetroWindow.Resources>
+
+    <Controls:MetroWindow.Background>
+        <ImageBrush ImageSource="..\Resources/Images/Chiyome_Mochizuki.jpg" Opacity="0.25" Stretch="UniformToFill">
+            <ImageBrush.RelativeTransform>
+                <TransformGroup>
+                    <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleY="1" ScaleX="1"/>
+                    <SkewTransform AngleY="0" AngleX="0" CenterY="0.5" CenterX="0.5"/>
+                    <RotateTransform Angle="0" CenterY="0.5" CenterX="0.5"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </ImageBrush.RelativeTransform>
+        </ImageBrush>
+    </Controls:MetroWindow.Background>
+
+    <Controls:MetroAnimatedSingleRowTabControl x:Name="metroAnimatedSingleRowTabControl">
+        <Controls:MetroTabItem Header="DATABASE" TabIndex="1" Background="{x:Null}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <ToolBarTray Grid.Row="0" DockPanel.Dock="Top" ToolBarTray.IsLocked="True" Background="{x:Null}">
+                        <ToolBar>
+                            <Button Content="New"  Command="{Binding NewCommand}" Background="{x:Null}"/>
+                            <Button Content="Open" Command="{Binding LoadCommand}" Background="{x:Null}"/>
+                            <Button Content="Save" Command="{Binding SaveCommand}" Background="{x:Null}"/>
+                            <Button Content="Template" Command="{Binding TemplateCommand}" Background="{x:Null}"/>
+                        </ToolBar>
+                    </ToolBarTray>
+
+                    <TreeView Grid.Column="1" Grid.Row="1" x:Name="TreeviewPages" ItemsSource="{Binding Project}" VerticalAlignment="Top" SelectedItemChanged="LoadPage">
+                        <TreeViewItem x:Name="Subdata" Header="{Binding Project.Name}">
+                            <TreeViewItem Header='Thevenin' ItemsSource="{Binding Project.Thevenin}">
+                                <TreeViewItem.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </DataTemplate>
+                                </TreeViewItem.ItemTemplate>
+                            </TreeViewItem>
+                            <TreeViewItem Header='Transformers' ItemsSource="{Binding Project.Transformers}">
+                                <TreeViewItem.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </DataTemplate>
+                                </TreeViewItem.ItemTemplate>
+                            </TreeViewItem>
+                            <TreeViewItem Header='Relays' ItemsSource="{Binding Project.Relays}">
+                                <TreeViewItem.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </DataTemplate>
+                                </TreeViewItem.ItemTemplate>
+                            </TreeViewItem>
+                            <TreeViewItem Header='Breaker' ItemsSource="{Binding Project.Breakers}">
+                                <TreeViewItem.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </DataTemplate>
+                                </TreeViewItem.ItemTemplate>
+                            </TreeViewItem>
+                        </TreeViewItem>
+                    </TreeView>
+                </Grid>
+
+                <StackPanel x:Name="tester" Grid.Column="1">
+
+                    <Frame  x:Name="pagenavigation" NavigationUIVisibility="Hidden" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </StackPanel>
+                
+            </Grid>
+        </Controls:MetroTabItem>
+
+        <Controls:MetroTabItem Header="THEVENIN"  TabIndex="2" Background="{x:Null}" >
+            <Button Content="Load" Height="100" Width="75"/>
+        </Controls:MetroTabItem>
+
+        <Controls:MetroTabItem Header="TRANSFORMERS" TabIndex="3" Background="{x:Null}" >
+
+        </Controls:MetroTabItem>
+
+        <Controls:MetroTabItem Header="RELAYS" TabIndex="4" Background="{x:Null}" />
+
+        <Controls:MetroTabItem Header="CTS" TabIndex="5" Background="{x:Null}" />
+
+
+    </Controls:MetroAnimatedSingleRowTabControl>
+
+</Controls:MetroWindow>
+    

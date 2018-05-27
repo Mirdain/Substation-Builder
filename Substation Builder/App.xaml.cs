@@ -7,7 +7,6 @@ namespace Substation_Builder
     /// </summary>
     public partial class App : Application
     {
+
     }
-
-
 }

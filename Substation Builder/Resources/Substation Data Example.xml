@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Substation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>Squash Bend</Name>
-  <Type>Open_Air</Type>
+  <SubType>Switchgear</SubType>
+  <BusType>Double Bus</BusType>
+  <MVA>100</MVA>
+  <HighVoltage>69</HighVoltage>
+  <LowVoltage>13.8</LowVoltage>
   <Thevenin>
     <Thevenin>
       <Name>Base Thevenin</Name>
@@ -18,7 +22,7 @@
       <R1>0</R1>
       <R2>0</R2>
       <X0>5.38</X0>
-      <X1>2.35</X1>
+      <X1>3.0232</X1>
       <X2>0</X2>
     </Thevenin>
   </Thevenin>
@@ -36,31 +40,40 @@
       <Type>SEL_351S_7</Type>
     </Relay>
   </Relays>
+  <Breakers>
+    <Breaker>
+      <CTs />
+      <Name>High Side Name</Name>
+      <Bus>Bus_1</Bus>
+      <Breaker_Position>BH1</Breaker_Position>
+      <Voltage>_69kV</Voltage>
+      <Breaker_Type>SF6</Breaker_Type>
+      <Breaker_Size>A2000</Breaker_Size>
+    </Breaker>
+  </Breakers>
   <Transformers>
     <Transformer>
-      <Name>T1</Name>
-      <Bus>Bus_1</Bus>
+      <CTs />
+      <Name>XF1</Name>
       <Size1>20</Size1>
       <Size2>25</Size2>
-      <Size3>33</Size3>
       <Z1>9.17</Z1>
       <Z0>9.06</Z0>
       <LowVoltage>25</LowVoltage>
       <HighVoltage>69</HighVoltage>
-      <LowVoltageWndg>Solidly_Grounded_Wye</LowVoltageWndg>
+      <LowVoltageWndg>Grounded Wye</LowVoltageWndg>
       <HighVoltageWndg>Delta</HighVoltageWndg>
     </Transformer>
     <Transformer>
+      <CTs />
       <Name>T2</Name>
-      <Bus>Bus_1</Bus>
       <Size1>18</Size1>
       <Size2>23</Size2>
-      <Size3>30</Size3>
       <Z1>9.4</Z1>
       <Z0>9.26</Z0>
       <LowVoltage>13.2</LowVoltage>
       <HighVoltage>69</HighVoltage>
-      <LowVoltageWndg>Solidly_Grounded_Wye</LowVoltageWndg>
+      <LowVoltageWndg>Impedance Grounded Wye</LowVoltageWndg>
       <HighVoltageWndg>Delta</HighVoltageWndg>
     </Transformer>
   </Transformers>

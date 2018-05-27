@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Substation_Builder.Resources.XAML_Pages
+namespace Substation_Builder.View
 {
     /// <summary>
     /// Interaction logic for Default.xaml
     /// </summary>
-    public partial class Default : Page
+    public partial class DefaultView : Page
     {
-        public Default()
+        public DefaultView()
         {
             InitializeComponent();
         }
