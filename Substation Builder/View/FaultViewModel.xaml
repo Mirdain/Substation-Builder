@@ -4,18 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Substation_Builder.View"
-        xmlns:vm="clr-namespace:Substation_Builder.ViewModel"
         mc:Ignorable="d"
         Title="FaultViewModel" Height="450" Width="800">
 
     
     <Grid>
-        <StackPanel>
-            <TextBox Text="{Binding Subsation}"/>
-            <TextBox Text="{Binding Name}"/>
-            <TextBox Text="{Binding Project.Name}"/>
-            <TextBox Text="{Binding Substation.Project.Name}"/>
 
-        </StackPanel>
     </Grid>
 </Window>

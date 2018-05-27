@@ -5,15 +5,24 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Substation_Builder.View" x:Class="Substation_Builder.View.SubstationView"
       mc:Ignorable="d" 
-      Title="Substation"
-      DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:DatabaseView}}}">
+      Title="Substation">
 
     <StackPanel DataContext="{Binding Project}">
 
+        <StackPanel.Triggers>
+            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation Duration="0:0:0.7" Storyboard.TargetProperty="Opacity" From="0" To="1" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </StackPanel.Triggers>
+
         <Label Content="Substation Data" HorizontalContentAlignment="Right" Margin="4,1,0,0" Opacity="0.9" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16"/>
+       
         <Border BorderThickness="2" CornerRadius="10" Margin="4,0,4,4" Padding="10,10,8,10" BorderBrush="#FF9C9595">
             <Grid HorizontalAlignment="Center">
-
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="150"/>
@@ -24,13 +33,13 @@
                     <Label Content="Bus Type:" HorizontalContentAlignment="Right" Margin="0,1" Opacity="0.9"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1">
-                    <TextBox Text="{Binding Name}" Margin="4,1" Opacity="0.9"/>
-                    <ComboBox Text="{Binding SubType}" Margin="4,1">
+                    <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Margin="4,1" Opacity="0.9"/>
+                    <ComboBox Text="{Binding SubType, UpdateSourceTrigger=PropertyChanged}" Margin="4,1">
                         <ComboBoxItem Content="Open Air"/>
                         <ComboBoxItem Content="Switchgear"/>
                         <ComboBoxItem Content="Recloser"/>
                     </ComboBox>
-                    <ComboBox Text="{Binding BusType}" Margin="4,1">
+                    <ComboBox Text="{Binding BusType, UpdateSourceTrigger=PropertyChanged}" Margin="4,1">
                         <ComboBoxItem Content="Single Bus"/>
                         <ComboBoxItem Content="Double Bus"/>
                     </ComboBox>
@@ -51,9 +60,9 @@
                     <Label Content="Low Voltage:" HorizontalContentAlignment="Right" Margin="4,1" Opacity="0.9"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Grid.ColumnSpan="2">
-                    <TextBox Text="{Binding MVA}" Margin="4,1" Opacity="0.9"/>
-                    <TextBox Text="{Binding HighVoltage}" Margin="4,1" Opacity="0.9"/>
-                    <TextBox Text="{Binding LowVoltage}" Margin="4,1" Opacity="0.9"/>
+                    <TextBox Text="{Binding MVA, UpdateSourceTrigger=PropertyChanged}" Margin="4,1" Opacity="0.9"/>
+                    <TextBox Text="{Binding HighVoltage, UpdateSourceTrigger=PropertyChanged}" Margin="4,1" Opacity="0.9"/>
+                    <TextBox Text="{Binding LowVoltage, UpdateSourceTrigger=PropertyChanged}" Margin="4,1" Opacity="0.9"/>
                 </StackPanel>
 
             </Grid>

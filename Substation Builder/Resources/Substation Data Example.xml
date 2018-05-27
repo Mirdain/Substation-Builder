@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Substation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>Squash Bend</Name>
-  <SubType>Switchgear</SubType>
-  <BusType>Single Bus</BusType>
+  <SubType>Open Air</SubType>
+  <BusType>Double Bus</BusType>
   <MVA>100</MVA>
   <HighVoltage>69</HighVoltage>
   <LowVoltage>13.8</LowVoltage>
@@ -17,7 +17,7 @@
       <X2>0</X2>
     </Thevenin>
     <Thevenin>
-      <Name>Second Thevenin</Name>
+      <Name>Infinate Bus</Name>
       <R0>0.128</R0>
       <R1>0</R1>
       <R2>0</R2>

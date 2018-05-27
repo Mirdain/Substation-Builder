@@ -132,6 +132,9 @@
     <Compile Include="View\SubstationView.xaml.cs">
       <DependentUpon>SubstationView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Transformer2View.xaml.cs">
+      <DependentUpon>Transformer2View.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\TransformerView.xaml.cs">
       <DependentUpon>TransformerView.xaml</DependentUpon>
     </Compile>
@@ -176,6 +179,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SubstationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Transformer2View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
