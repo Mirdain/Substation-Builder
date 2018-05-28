@@ -35,11 +35,11 @@
                 </StackPanel>
 
                 <StackPanel Grid.Column="1">
-                    <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,4,2" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9"/>
-                    <TextBox Text="{Binding Size1, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,4,2" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9"/>
-                    <TextBox Text="{Binding Size2, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,4,2" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9"/>
-                    <TextBox Text="{Binding HighVoltage, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,4,2" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9"/>
-                    <TextBox Text="{Binding LowVoltage, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,4,2" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9"/>
+                    <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,4,2" Opacity="0.9"/>
+                    <TextBox Text="{Binding Size1}" Margin="0,2,4,2" Opacity="0.9"/>
+                    <TextBox Text="{Binding Size2}" Margin="0,2,4,2" Opacity="0.9"/>
+                    <TextBox Text="{Binding HighVoltage}" Margin="0,2,4,2" Opacity="0.9"/>
+                    <TextBox Text="{Binding LowVoltage}" Margin="0,2,4,2" Opacity="0.9"/>
                     <ComboBox Text="{Binding HighVoltageWndg, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,4,2">
                         <ComboBoxItem Content="Delta"/>
                         <ComboBoxItem Content="Grounded Wye"/>
@@ -54,7 +54,7 @@
                     </ComboBox>
                 </StackPanel>
             </Grid>
-            <Button Content="Impedance Data"/>
+            <Button Content="Impedance Data" Margin="0,5,0,0" HorizontalAlignment="Center" Click="Button_Click"/>
         </StackPanel>
     </Border>
 </Page>

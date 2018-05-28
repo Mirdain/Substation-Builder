@@ -105,7 +105,7 @@ namespace Substation_Builder.Model
         public double MVA { get; set; }
         public double HighVoltage { get; set; }
         public double LowVoltage { get; set; }
-        public ObservableCollection<Thevenin> Thevenin { get; set; } = new ObservableCollection<Thevenin>();
+        public ObservableCollection<Thevenin> Thevenins { get; set; } = new ObservableCollection<Thevenin>();
         public ObservableCollection<Relay> Relays { get; set; }
         public ObservableCollection<Breaker> Breakers { get; set; }
         public ObservableCollection<Transformer> Transformers { get; set; }

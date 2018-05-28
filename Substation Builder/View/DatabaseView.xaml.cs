@@ -28,7 +28,7 @@ namespace Substation_Builder.View
             TreeView treepart = (TreeView)sender;
             string teststring = treepart.SelectedItem.ToString();
 
-            if (Subdata.IsSelected)
+            if (teststring == "Substation_Builder.Model.Thevenin")
             {
                 substationview.DataContext = this.DataContext;
                 pagenavigation.Navigate(substationview);

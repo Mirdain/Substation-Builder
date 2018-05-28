@@ -32,7 +32,6 @@ namespace Substation_Builder.View
                 Top = this.Top + 20,
                 Left = this.Left + 20
             };
-
             DatabaseView.ShowDialog();
         }
 

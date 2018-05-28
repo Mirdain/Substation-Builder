@@ -125,7 +125,7 @@ namespace Substation_Builder.Services
             Project = new Substation
             {
                 Name = "Squash Bend",
-                Thevenin = new ObservableCollection<Thevenin>()
+                Thevenins = new ObservableCollection<Thevenin>()
                 {
                     BaseThevenin,
                     SecondThevenin,

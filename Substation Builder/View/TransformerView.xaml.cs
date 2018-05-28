@@ -7,9 +7,18 @@ namespace Substation_Builder.View
     /// </summary>
     public partial class TransformerView : Page
     {
+
+        public Transformer2View impedance = new Transformer2View();
+
         public TransformerView()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            impedance.DataContext = this.DataContext;
+            NavigationService.Navigate(impedance);
         }
     }
 }

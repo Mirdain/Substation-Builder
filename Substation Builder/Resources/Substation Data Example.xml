@@ -5,27 +5,27 @@
   <BusType>Double Bus</BusType>
   <MVA>100</MVA>
   <HighVoltage>69</HighVoltage>
-  <LowVoltage>13.8</LowVoltage>
-  <Thevenin>
+  <LowVoltage>12.47</LowVoltage>
+  <Thevenins>
     <Thevenin>
       <Name>Base Thevenin</Name>
       <R0>0.928</R0>
-      <R1>0</R1>
-      <R2>0</R2>
+      <R1>0.36</R1>
+      <R2>1.265</R2>
       <X0>1.28</X0>
-      <X1>0</X1>
-      <X2>0</X2>
+      <X1>0.955</X1>
+      <X2>0.9685</X2>
     </Thevenin>
     <Thevenin>
       <Name>Infinate Bus</Name>
       <R0>0.128</R0>
       <R1>0</R1>
-      <R2>0</R2>
+      <R2>0.659</R2>
       <X0>5.38</X0>
       <X1>3.0232</X1>
       <X2>0</X2>
     </Thevenin>
-  </Thevenin>
+  </Thevenins>
   <Relays>
     <Relay>
       <Name>Xfmr Diff</Name>
@@ -56,15 +56,15 @@
       <CTs />
       <Name>XF1</Name>
       <Size1>20</Size1>
-      <Size2>25</Size2>
-      <Z1>9.17</Z1>
-      <Z0>9.06</Z0>
-      <Losses>0</Losses>
+      <Size2>33.3</Size2>
+      <Z1>8.5</Z1>
+      <Z0>8.1</Z0>
+      <Losses>94</Losses>
       <R1>0</R1>
       <X1>0</X1>
       <R0>0</R0>
       <X0>0</X0>
-      <LowVoltage>25</LowVoltage>
+      <LowVoltage>12.47</LowVoltage>
       <HighVoltage>69</HighVoltage>
       <LowVoltageWndg>Grounded Wye</LowVoltageWndg>
       <HighVoltageWndg>Delta</HighVoltageWndg>
