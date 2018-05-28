@@ -6,9 +6,11 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:vm="clr-namespace:Substation_Builder.ViewModel"
+                      xmlns:views ="clr-namespace:Substation_Builder.View"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       mc:Ignorable="d"
                       Icon="..\Resources\Images\MainPageIcon.jpg"    
-                      Title="One Line" ResizeMode="NoResize"
+                      Title="One Line" ResizeMode="CanResizeWithGrip"
                       WindowStartupLocation="Manual"
                       BorderThickness="0" MinWidth="600" MinHeight="350" Width="600" Height="350">
 
@@ -46,35 +48,38 @@
     </Controls:MetroWindow.Background>
 
     <Controls:MetroAnimatedSingleRowTabControl x:Name="metroAnimatedSingleRowTabControl">
-        <Controls:MetroTabItem Header="DATABASE" TabIndex="1" Background="{x:Null}">
+        <Controls:MetroTabItem Header="DATABASE" TabIndex="1">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="4*"/>
                 </Grid.ColumnDefinitions>
 
                 <Grid Grid.Column="0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="30"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    
-                    <ToolBarTray Grid.Row="0" DockPanel.Dock="Top" ToolBarTray.IsLocked="True">
-                        <ToolBar>
-                            <Menu>
-                                <MenuItem Header="New Item" BorderBrush="{x:Null}">
-                                    <MenuItem Header="New Project" Background="{x:Null}"/>
-                                    <MenuItem Header="New Thevenin" Background="{x:Null}"/>
-                                    <MenuItem Header="New Transformer" Background="{x:Null}"/>
-                                    <MenuItem Header="New Relay" Background="{x:Null}"/>
-                                    <MenuItem Header="New Breaker" Background="{x:Null}"/>
-                                </MenuItem>
-                            </Menu>
-                            <Button Content="Open" Command="{Binding LoadCommand}" Background="{x:Null}"/>
-                            <Button Content="Save" Command="{Binding SaveCommand}" Background="{x:Null}"/>
-                            <Button Content="Template" Command="{Binding TemplateCommand}" Background="{x:Null}"/>
-                        </ToolBar>
-                    </ToolBarTray>
+
+                    <DockPanel HorizontalAlignment="Left">
+                        <Menu DockPanel.Dock="Left" VerticalAlignment="Center">
+                            <MenuItem Header="New" FontSize="14">
+                                <MenuItem Header="New Project"/>
+                                <MenuItem Header="New Thevenin"/>
+                                <MenuItem Header="New Transformer"/>
+                                <MenuItem Header="New Relay"/>
+                                <MenuItem Header="New Breaker"/>
+                            </MenuItem>
+                        </Menu>
+
+                        <ToolBarTray DockPanel.Dock="Left" ToolBarTray.IsLocked="True" VerticalAlignment="Center" HorizontalAlignment="Left">
+                            <ToolBar HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Button Content="Open" Command="{Binding LoadCommand}" FontSize="14"/>
+                                <Button Content="Save" Command="{Binding SaveCommand}" FontSize="14"/>
+                                <Button Content="Template" Command="{Binding TemplateCommand}" FontSize="14"/>
+                            </ToolBar>
+                        </ToolBarTray>
+                    </DockPanel>
 
                     <TreeView Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Project}" VerticalAlignment="Top" SelectedItemChanged="LoadPage">
                         <!-- Remove Context Menu for Items in the control-->
@@ -84,7 +89,7 @@
                             </ContextMenu>
                         </TreeView.Resources>
                         
-                        <TreeViewItem x:Name="Subdata" Header="{Binding Project.Name}">
+                        <TreeViewItem x:Name="Subdata" Header="{Binding Project.Name}" Background="{x:Null}">
 
                             <!-- This is the Header and Treeview Items for Thevenin-->
                             <TreeViewItem Header='Thevenin' ItemsSource="{Binding Project.Thevenins}">
@@ -154,17 +159,17 @@
             </Grid>
         </Controls:MetroTabItem>
 
-        <Controls:MetroTabItem Header="THEVENIN"  TabIndex="2" Background="{x:Null}" >
+        <Controls:MetroTabItem Header="THEVENIN"  TabIndex="2">
             <Button Content="Load" Height="100" Width="75"/>
         </Controls:MetroTabItem>
 
-        <Controls:MetroTabItem Header="TRANSFORMERS" TabIndex="3" Background="{x:Null}" >
+        <Controls:MetroTabItem Header="TRANSFORMERS" TabIndex="3">
 
         </Controls:MetroTabItem>
 
-        <Controls:MetroTabItem Header="RELAYS" TabIndex="4" Background="{x:Null}" />
+        <Controls:MetroTabItem Header="RELAYS" TabIndex="4"/>
 
-        <Controls:MetroTabItem Header="CTS" TabIndex="5" Background="{x:Null}" />
+        <Controls:MetroTabItem Header="CTS" TabIndex="5"/>
 
 
     </Controls:MetroAnimatedSingleRowTabControl>
