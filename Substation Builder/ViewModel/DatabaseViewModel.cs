@@ -1,9 +1,6 @@
 ﻿using Substation_Builder.Model;
 using Substation_Builder.Services;
 using Substation_Builder.Helpers;
-using System;
-using System.Windows;
-using System.Windows.Input;
 
 namespace Substation_Builder.ViewModel
 {
@@ -20,31 +17,40 @@ namespace Substation_Builder.ViewModel
                 NotifyPropertyChanged("Project");
             }
         }
-
+        public object TVSelectedItem;
 
         private SystemIO FileIO = new SystemIO();
 
         public RelayCommand SaveCommand { get; private set; }
         public RelayCommand LoadCommand { get; private set; }
-        public RelayCommand NewCommdand { get; private set; }
         public RelayCommand TemplateCommand { get; private set; }
         public RelayCommand AddTheveninCommand { get; private set; }
+        public RelayCommand AddBreakerCommand { get; private set; }
+        public RelayCommand AddRelayCommand { get; private set; }
+        public RelayCommand AddTransformerCommand { get; private set; }
+        public RelayCommand NewProjectCommand { get; private set; }
 
-        public RelayCommandParam RemoveItemCommand { get; set; }
- 
+        public RelayCommandParam RemoveItemCommand { get; private set; }
+
         public DatabaseViewModel()
         {
             Project = new Substation();
             LoadCommand = new RelayCommand(LoadFile);
             SaveCommand = new RelayCommand(SaveFile);
-            NewCommdand = new RelayCommand(New);
             TemplateCommand = new RelayCommand(LoadTemplate);
+
             AddTheveninCommand = new RelayCommand(AddThevenin);
+            AddBreakerCommand = new RelayCommand(AddBreaker);
+            AddRelayCommand = new RelayCommand(AddRelay);
+            AddTransformerCommand = new RelayCommand(AddTransformer);
+            NewProjectCommand = new RelayCommand(NewProject);
+
             RemoveItemCommand = new RelayCommandParam(RemoveItem);
+
         }
 
         //read a .xaml file and load into the Datamodel classes
-        private void LoadFile() 
+        private void LoadFile()
         {
             Project = FileIO.FileOpen();
         }
@@ -55,29 +61,70 @@ namespace Substation_Builder.ViewModel
             FileIO.FileSave(Project);
         }
 
-        //Intialize the project clean
-        public void New()
-        {
-            Project = new Substation();
-        }
-
         //Load Template
         public void LoadTemplate()
         {
             Project = FileIO.LoadTemplate();
         }
 
+        //New Project
+        public void NewProject()
+        {
+            Project = new Substation
+            {
+                Name = "New Project"
+            };
+        }
+
         //Add a Thevenin
         public void AddThevenin()
         {
-            Thevenin thevenin = new Thevenin { Name = "New " + project.Thevenins.Count.ToString() };
+            Thevenin thevenin = new Thevenin { Name = "New Thevenin " + (project.Thevenins.Count + 1).ToString() };
             Project.Thevenins.Add(thevenin);
         }
 
-        //Remove an Item
+        //Add a Breaker
+        public void AddBreaker()
+        {
+
+            Breaker breaker = new Breaker { Name = "New Breaker " + (project.Thevenins.Count + 1).ToString() };
+            Project.Breakers.Add(breaker);
+        }
+
+        //Add a Relay
+        public void AddRelay()
+        {
+            Relay relay = new Relay { Name = "New Relay " + (project.Thevenins.Count + 1).ToString() };
+            Project.Relays.Add(relay);
+        }
+
+
+        //Add a Transformer
+        public void AddTransformer()
+        {
+            Transformer transformer = new Transformer { Name = "New Transformer " + (project.Thevenins.Count + 1).ToString() };
+            Project.Transformers.Add(transformer);
+        }
+
+        //Select Item to remove
         public void RemoveItem(object sender)
         {
-            MessageBox.Show("Fired with " + sender.ToString());
+            if(sender.GetType() == typeof(Thevenin))
+            {
+                project.Thevenins.Remove(sender as Thevenin);
+            }
+            else if (sender.GetType() == typeof(Breaker))
+            {
+                project.Breakers.Remove(sender as Breaker);
+            }
+            else if (sender.GetType() == typeof(Relay))
+            {
+                project.Relays.Remove(sender as Relay);
+            }
+            else if (sender.GetType() == typeof(Transformer))
+            {
+                project.Transformers.Remove(sender as Transformer);
+            }
         }
 
     }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Substation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>Test Project</Name>
+  <MVA>0</MVA>
+  <HighVoltage>0</HighVoltage>
+  <LowVoltage>0</LowVoltage>
+  <Thevenins />
+  <Relays>
+    <Relay>
+      <Name>New Relay 1</Name>
+      <Bus>Bus_1</Bus>
+      <Position>BH1</Position>
+      <Type>SEL_351S_6</Type>
+    </Relay>
+  </Relays>
+  <Breakers>
+    <Breaker>
+      <Name>New Breaker 1</Name>
+      <Bus>Bus_1</Bus>
+      <Breaker_Position>BH1</Breaker_Position>
+      <Voltage>_12_5kV</Voltage>
+      <Breaker_Type>SF6</Breaker_Type>
+      <Breaker_Size>A2000</Breaker_Size>
+    </Breaker>
+  </Breakers>
+  <Transformers />
+</Substation>

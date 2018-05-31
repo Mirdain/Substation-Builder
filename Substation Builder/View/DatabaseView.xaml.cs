@@ -3,6 +3,7 @@ using System.Windows;
 using Substation_Builder.Model;
 using System.Windows.Controls;
 using System;
+using System.Windows.Media;
 
 namespace Substation_Builder.View
 {
@@ -26,9 +27,10 @@ namespace Substation_Builder.View
         private void LoadPage(object sender, RoutedEventArgs e)
         {
             TreeView treepart = (TreeView)sender;
+
             string teststring = treepart.SelectedItem.ToString();
 
-            if (teststring == "Substation_Builder.Model.Thevenin")
+            if (Subdata.IsSelected)
             {
                 substationview.DataContext = this.DataContext;
                 pagenavigation.Navigate(substationview);
@@ -54,5 +56,23 @@ namespace Substation_Builder.View
             }
         }
 
+        //used to jump to correct treenode when contextmenu opened
+        private void OnPreviewMouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            TreeViewItem treeViewItem = VisualUpwardSearch(e.Source as DependencyObject);
+            if (treeViewItem != null)
+            {
+                treeViewItem.Focus();
+                e.Handled = true;
+            }
+        }
+
+        //searches the treeview
+        static TreeViewItem VisualUpwardSearch(DependencyObject source)
+        {
+            while (source != null && !(source is TreeViewItem))
+                source = VisualTreeHelper.GetParent(source);
+            return source as TreeViewItem;
+        }
     }
 }
