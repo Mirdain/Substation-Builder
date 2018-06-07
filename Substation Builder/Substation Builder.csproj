@@ -121,6 +121,9 @@
     <Compile Include="Helpers\ViewModelBase.cs" />
     <Compile Include="Model\Model.cs" />
     <Compile Include="Helpers\SystemIO.cs" />
+    <Compile Include="View\CTView.xaml.cs">
+      <DependentUpon>CTView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\DatabaseView.xaml.cs">
       <DependentUpon>DatabaseView.xaml</DependentUpon>
     </Compile>
@@ -146,6 +149,10 @@
       <DependentUpon>TheveninView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\DatabaseViewModel.cs" />
+    <Page Include="View\CTView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\FaultViewModel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

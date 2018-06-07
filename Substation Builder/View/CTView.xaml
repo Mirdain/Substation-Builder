@@ -1,0 +1,57 @@
+﻿<Page x:Class="Substation_Builder.View.CTView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Substation_Builder.View"
+      mc:Ignorable="d" 
+      Title="CTView">
+
+    <Grid>
+        <Border BorderThickness="2" CornerRadius="10" Margin="4,0,4,4" Padding="10,10,8,10" BorderBrush="#FF9C9595">
+            <!-- CT Template -->
+            <StackPanel Orientation="Horizontal">
+
+                <StackPanel.Triggers>
+                    <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:0.7" Storyboard.TargetProperty="Opacity" From="0" To="1" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </StackPanel.Triggers>
+
+                <StackPanel Grid.Column="0">
+                    <Label Content="Name:" HorizontalContentAlignment="Right" Margin="4,2,0,2" Opacity="0.9"/>
+                    <Label Content="Full Ratio:" HorizontalContentAlignment="Right" Margin="4,2,0,2" Opacity="0.9"/>
+                    <Label Content="Tapped Ratio:" HorizontalContentAlignment="Right" Margin="4,2,0,2" Opacity="0.9"/>
+                    <Label Content="Polarity:" HorizontalContentAlignment="Right" Margin="4,2,0,2" Opacity="0.9"/>
+                    <Label Content="Description:" HorizontalContentAlignment="Right" Margin="4,2,0,2" Opacity="0.9"/>
+                    <Label Content="Class:" HorizontalContentAlignment="Right" Margin="4,2,0,2" Opacity="0.9"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,4,2" Opacity="0.9" Width="50"/>
+                    <ComboBox Text="{Binding CTR, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,4,2" ItemsSource="{Binding }">
+                        <ComboBoxItem Content="2000:5"/>
+                        <ComboBoxItem Content="1500:5"/>
+                        <ComboBoxItem Content="1200:5"/>
+                        <ComboBoxItem Content="600:5"/>
+                    </ComboBox>
+                    <TextBox Text="{Binding CTR}" Margin="0,2,4,2" Opacity="0.9"/>
+                    <TextBox Text="{Binding Tap}" Margin="0,2,4,2" Opacity="0.9"/>
+                    <TextBox Text="{Binding OnPolarity}" Margin="0,2,4,2" Opacity="0.9"/>
+                    <ComboBox Text="{Binding LowVoltageWndg, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,4,2">
+                        <ComboBoxItem Content="Delta"/>
+                        <ComboBoxItem Content="Grounded Wye"/>
+                        <ComboBoxItem Content="Ungrounded Wye"/>
+                        <ComboBoxItem Content="Impedance Grounded Wye"/>
+                    </ComboBox>
+                </StackPanel>
+
+            </StackPanel>
+        </Border>
+        
+    </Grid>
+</Page>

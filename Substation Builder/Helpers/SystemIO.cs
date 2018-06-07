@@ -10,9 +10,8 @@ namespace Substation_Builder.Services
     public partial class SystemIO
     {
         //Load a  Project File
-        public Substation FileOpen()
+        public Substation FileOpen(Substation Project)
         {
-            Substation Project = new Substation();
             OpenFileDialog openfile = new OpenFileDialog
             {
                 Filter = "XML Files (*.xml)|*.xml|All Files (*.*)|*.*"
@@ -23,7 +22,6 @@ namespace Substation_Builder.Services
                 StreamReader reader = new StreamReader(openfile.FileName);
                 Project = (Substation)serializer.Deserialize(reader);
                 reader.Close();
-
             }
             return Project;
         }
@@ -51,6 +49,57 @@ namespace Substation_Builder.Services
         {
             Substation Project = new Substation();
 
+            CT XFMR1CT = new CT
+            {
+                CTR = CTTap.T240,
+                Rating = CTRating.C400,
+                Name = "CT1",
+                OnPolarity = true,
+                Tap = CTTap.T120
+            };
+            CT XFMR2CT = new CT
+            {
+                CTR = CTTap.T240,
+                Rating = CTRating.C400,
+                Name = "CT2",
+                OnPolarity = true,
+                Tap = CTTap.T120
+            };
+            CT XFMR3CT = new CT
+            {
+                CTR = CTTap.T240,
+                Rating = CTRating.C400,
+                Name = "CT3",
+                OnPolarity = true,
+                Tap = CTTap.T120
+            };
+
+
+            CT BRK1CT = new CT
+            {
+                CTR = CTTap.T240,
+                Rating = CTRating.C400,
+                Name = "CT1B",
+                OnPolarity = true,
+                Tap = CTTap.T120
+            };
+            CT BRK2CT = new CT
+            {
+                CTR = CTTap.T240,
+                Rating = CTRating.C400,
+                Name = "CT2B",
+                OnPolarity = true,
+                Tap = CTTap.T120
+            };
+            CT BRK3CT = new CT
+            {
+                CTR = CTTap.T240,
+                Rating = CTRating.C400,
+                Name = "CT3B",
+                OnPolarity = true,
+                Tap = CTTap.T120
+            };
+
             Transformer T1 = new Transformer
             {
                 Name = "T1",
@@ -62,7 +111,12 @@ namespace Substation_Builder.Services
                 LowVoltageWndg = "Grounded Wye",
                 HighVoltage = 69,
                 HighVoltageWndg = "Delta",
+                Losses = 60
             };
+
+            T1.CTs.Add(XFMR1CT);
+            T1.CTs.Add(XFMR2CT);
+            T1.CTs.Add(XFMR3CT);
 
             Transformer T2 = new Transformer
             {
@@ -100,6 +154,10 @@ namespace Substation_Builder.Services
                 Breaker_Type = BreakerType.SF6,
                 Breaker_Size = BreakerSize.A2000,
             };
+
+            HighSide.CTs.Add(BRK3CT);
+            HighSide.CTs.Add(BRK1CT);
+            HighSide.CTs.Add(BRK1CT);
 
             CT CT1 = new CT
             {

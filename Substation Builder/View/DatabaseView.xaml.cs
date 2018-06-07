@@ -16,6 +16,7 @@ namespace Substation_Builder.View
         private TheveninView theveninview = new TheveninView();
         private SubstationView substationview = new SubstationView();
         private RelayView relayview = new RelayView();
+        private CTView ctview = new CTView();
         private TransformerView transformerview = new TransformerView();
 
         public DatabaseView()
@@ -25,6 +26,7 @@ namespace Substation_Builder.View
 
         //used to navigate to forms located in the xaml folder and bind to classes
         private void LoadPage(object sender, RoutedEventArgs e)
+
         {
             TreeView treepart = (TreeView)sender;
 
@@ -44,6 +46,11 @@ namespace Substation_Builder.View
             {
                 relayview.DataContext = treepart.SelectedItem;
                 pagenavigation.Navigate(relayview);
+            }
+            else if (teststring == "Substation_Builder.Model.CT")
+            {
+                ctview.DataContext = treepart.SelectedItem;
+                pagenavigation.Navigate(ctview);
             }
             else if (teststring == "Substation_Builder.Model.Transformer")
             {

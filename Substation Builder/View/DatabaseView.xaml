@@ -6,15 +6,16 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:vm="clr-namespace:Substation_Builder.ViewModel"
+                      xmlns:md="clr-namespace:Substation_Builder.Model"
                       xmlns:Helpers="clr-namespace:Substation_Builder.Helpers"
                       xmlns:views ="clr-namespace:Substation_Builder.View"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       mc:Ignorable="d"
                       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                       Icon="..\Resources\Images\MainPageIcon.jpg"    
-                      Title="One Line" ResizeMode="CanResizeWithGrip"
+                      Title="One Line" ResizeMode="NoResize"
                       WindowStartupLocation="Manual"
-                      BorderThickness="0" MinWidth="600" MinHeight="350" Width="600" Height="350">
+                      BorderThickness="0" MinWidth="700" MinHeight="450" Width="600" Height="350">
 
     <Controls:MetroWindow.TitleTemplate>
         <DataTemplate>
@@ -43,6 +44,22 @@
             <MenuItem Header="Delete Item" Command="{Binding Path=Data.RemoveItemCommand, Source={StaticResource DataContextProxy}}" CommandParameter="{Binding}"/>
         </ContextMenu>
 
+        <ContextMenu x:Key="AddTheveninContext" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+            <MenuItem Header="Add Thevenin" Command="{Binding Path=Data.AddItemCommand, Source={StaticResource DataContextProxy}}" CommandParameter="Thevenin"/>
+        </ContextMenu>
+
+        <ContextMenu x:Key="AddTransformerContext" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+            <MenuItem Header="Add Transformer" Command="{Binding Path=Data.AddItemCommand, Source={StaticResource DataContextProxy}}" CommandParameter="Transformer"/>
+        </ContextMenu>
+
+        <ContextMenu x:Key="AddRelayContext" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+            <MenuItem Header="Add Relay" Command="{Binding Path=Data.AddItemCommand, Source={StaticResource DataContextProxy}}" CommandParameter="Relay"/>
+        </ContextMenu>
+
+        <ContextMenu x:Key="AddBreakerContext" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+            <MenuItem Header="Add Breaker" Command="{Binding Path=Data.AddItemCommand, Source={StaticResource DataContextProxy}}" CommandParameter="Breaker"/>
+        </ContextMenu>
+
     </Controls:MetroWindow.Resources>
 
     <Controls:MetroWindow.Background>
@@ -60,104 +77,83 @@
 
     <Controls:MetroAnimatedSingleRowTabControl x:Name="metroAnimatedSingleRowTabControl">
         <Controls:MetroTabItem Header="DATABASE" TabIndex="1">
+
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="4*"/>
                 </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="0">
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <DockPanel HorizontalAlignment="Left">
-                        <Menu DockPanel.Dock="Left" VerticalAlignment="Center">
-                            <MenuItem Header="New">
-                                <MenuItem Header="New Project" Command="{Binding NewProjectCommand, Mode=OneWay}"/>
-                                <MenuItem Header="Add Thevenin" Command="{Binding AddTheveninCommand, Mode=OneWay}"/>
-                                <MenuItem Header="Add Transformer" Command="{Binding AddTransformerCommand, Mode=OneWay}"/>
-                                <MenuItem Header="Add Relay" Command="{Binding AddRelayCommand, Mode=OneWay}"/>
-                                <MenuItem Header="Add Breaker" Command="{Binding AddBreakerCommand, Mode=OneWay}"/>
-                            </MenuItem>
-                        </Menu>
 
-                        <ToolBarTray DockPanel.Dock="Left" ToolBarTray.IsLocked="True" VerticalAlignment="Center" HorizontalAlignment="Left">
-                            <ToolBar HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Button Content="Open" Command="{Binding LoadCommand}" FontSize="14"/>
-                                <Button Content="Save" Command="{Binding SaveCommand}" FontSize="14"/>
-                                <Button Content="Template" Command="{Binding TemplateCommand}" FontSize="14"/>
-                            </ToolBar>
-                        </ToolBarTray>
-                    </DockPanel>
+                    <ToolBarTray ToolBarTray.IsLocked="True">
+                        <ToolBar FontSize="16" Margin="8,0,0,0">
+                            <Button Content="New"  Command="{Binding AddItemCommand}" CommandParameter="Project" Margin="3,0,0,0"/>
+                            <Button Content="Open" Command="{Binding LoadCommand}" Margin="3,0,0,0"/>
+                            <Button Content="Save" Command="{Binding SaveCommand}" Margin="3,0,0,0"/>
+                            <Button Content="Add CT" Command="{Binding AddCTCommand}" CommandParameter="{Binding SelectedItem, ElementName=treeview, Mode=Default}" Margin="3,0,0,0"/>
+                            <Button Content="Template" Command="{Binding TemplateCommand}" Margin="3,0,0,0"/>
+                        </ToolBar>
+                    </ToolBarTray>
+                    
+                    <TreeView x:Name="treeview" Grid.Row="1" ItemsSource="{Binding Project}" VerticalAlignment="Top" SelectedItemChanged="LoadPage" FontSize="14">
 
-                    <TreeView x:Name="treeview" Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Project}" VerticalAlignment="Top" SelectedItemChanged="LoadPage">
+                        <TreeViewItem x:Name="Subdata">
+                            <TreeViewItem.Header>
+                                <Binding x:Name="binding" Path="Project.Name"/>
+                            </TreeViewItem.Header>
 
-                        <TreeViewItem x:Name="Subdata" Header="{Binding Project.Name}" Background="{x:Null}">
                             <!-- This is the Header and Treeview Items for Thevenin-->
-                            <TreeViewItem Header='Thevenin' ItemsSource="{Binding Project.Thevenins}">
-                                <!-- This is the reeview Items for Thevenin-->
+                            <TreeViewItem Header='Thevenins' ItemsSource="{Binding Project.Thevenins}" ContextMenu="{StaticResource AddTheveninContext}">
+                                <!-- This is the treeview Items for Thevenin-->
                                 <TreeViewItem.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Name}" PreviewMouseRightButtonDown="OnPreviewMouseRightButtonDown">
-                                            <TextBlock.ContextMenu>
-                                                <Binding Mode="OneWay" Source="{StaticResource RemoveItemContext}"/>
-                                            </TextBlock.ContextMenu>
-                                        </TextBlock>
-                                    </DataTemplate>
+                                    <HierarchicalDataTemplate>
+                                        <TextBlock Text="{Binding Name}" PreviewMouseRightButtonDown="OnPreviewMouseRightButtonDown" ContextMenu="{StaticResource RemoveItemContext}"/>
+                                    </HierarchicalDataTemplate>
                                 </TreeViewItem.ItemTemplate>
                             </TreeViewItem>
 
-                            <!-- This is the Header and Treeview Items for Transformer-->
-                            <TreeViewItem Header='Transformer' ItemsSource="{Binding Project.Transformers}">
-                                <!-- This is the reeview Items for Transformer-->
+                            <!-- This is the Header and Transformers-->
+                            <TreeViewItem Header="Transformers" ItemsSource="{Binding Project.Transformers}" ContextMenu="{StaticResource AddTransformerContext}">
                                 <TreeViewItem.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Name}" PreviewMouseRightButtonDown="OnPreviewMouseRightButtonDown">
-                                            <TextBlock.ContextMenu>
-                                                <Binding Mode="OneWay" Source="{StaticResource RemoveItemContext}"/>
-                                            </TextBlock.ContextMenu>
-                                        </TextBlock>
-                                    </DataTemplate>
+                                    <HierarchicalDataTemplate ItemsSource="{Binding CTs}">
+                                        <TextBlock Text="{Binding Name}" PreviewMouseRightButtonDown="OnPreviewMouseRightButtonDown" ContextMenu="{StaticResource RemoveItemContext}"/>
+                                    </HierarchicalDataTemplate>
+                                </TreeViewItem.ItemTemplate>
+                            </TreeViewItem>
+
+                            <!-- This is the Header and Breakers-->
+                            <TreeViewItem Header="Breakers" ItemsSource="{Binding Project.Breakers}" ContextMenu="{StaticResource AddBreakerContext}">
+                                <!-- This is the treeview Items for Breaker-->
+                                <TreeViewItem.ItemTemplate>
+                                    <HierarchicalDataTemplate ItemsSource="{Binding CTs}">
+                                        <TextBlock Text="{Binding Name}" PreviewMouseRightButtonDown="OnPreviewMouseRightButtonDown" ContextMenu="{StaticResource RemoveItemContext}"/>
+                                    </HierarchicalDataTemplate>
                                 </TreeViewItem.ItemTemplate>
                             </TreeViewItem>
 
                             <!-- This is the Header and Treeview Items for Relay-->
-                            <TreeViewItem Header='Relay' ItemsSource="{Binding Project.Relays}">
+                            <TreeViewItem Header='Relays' ItemsSource="{Binding Project.Relays}" ContextMenu="{StaticResource AddRelayContext}">
                                 <!-- This is the reeview Items for Relay-->
                                 <TreeViewItem.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Name}" PreviewMouseRightButtonDown="OnPreviewMouseRightButtonDown">
-                                            <TextBlock.ContextMenu>
-                                                <Binding Mode="OneWay" Source="{StaticResource RemoveItemContext}"/>
-                                            </TextBlock.ContextMenu>
-                                        </TextBlock>
-                                    </DataTemplate>
+                                    <HierarchicalDataTemplate>
+                                        <TextBlock Text="{Binding Name}" PreviewMouseRightButtonDown="OnPreviewMouseRightButtonDown" ContextMenu="{StaticResource RemoveItemContext}"/>
+                                    </HierarchicalDataTemplate>
                                 </TreeViewItem.ItemTemplate>
                             </TreeViewItem>
-
-                            <!-- This is the Header and Treeview Items for Breaker-->
-                            <TreeViewItem Header='Breaker' ItemsSource="{Binding Project.Breakers}">
-                                <!-- This is the reeview Items for Breaker-->
-                                <TreeViewItem.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Name}" PreviewMouseRightButtonDown="OnPreviewMouseRightButtonDown">
-                                            <TextBlock.ContextMenu>
-                                                <Binding Mode="OneWay" Source="{StaticResource RemoveItemContext}"/>
-                                            </TextBlock.ContextMenu>
-                                        </TextBlock>
-                                    </DataTemplate>
-                                </TreeViewItem.ItemTemplate>
-                            </TreeViewItem>
-                            
                         </TreeViewItem>
+                        
                     </TreeView>
                 </Grid>
 
-                <StackPanel Grid.Column="1">
-                    <Frame x:Name="pagenavigation" NavigationUIVisibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,3,0,0"/>
-                </StackPanel>
+
+                    <Frame Grid.Column="1" x:Name="pagenavigation" NavigationUIVisibility="Hidden" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
 
             </Grid>
         </Controls:MetroTabItem>

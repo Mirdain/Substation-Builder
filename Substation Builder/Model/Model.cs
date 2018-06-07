@@ -132,7 +132,7 @@ namespace Substation_Builder.Model
 
     public class Breaker
     {
-        public ObservableCollection<CT> CTs { get; set; }
+        public ObservableCollection<CT> CTs { get; set; } = new ObservableCollection<CT>();
         public string Name { get; set; }
         public Bus Bus { get; set; }
         public BreakerPosition Breaker_Position { get; set; }
@@ -143,7 +143,7 @@ namespace Substation_Builder.Model
 
     public class Transformer
     {
-        public ObservableCollection<CT> CTs { get; set; }
+        public ObservableCollection<CT> CTs { get; set; } = new ObservableCollection<CT>();
         public string Name { get; set; }
         public double Size1 { get; set; }
         public double Size2 { get; set; }
@@ -168,5 +168,7 @@ namespace Substation_Builder.Model
         public CTTap Tap { get; set; }
         public bool OnPolarity { get; set; }
     }
+
+
 }
 
