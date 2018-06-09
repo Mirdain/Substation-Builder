@@ -1,29 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Substation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>Squash Bend</Name>
-  <SubType>Switchgear</SubType>
-  <BusType>Double Bus</BusType>
-  <MVA>100</MVA>
-  <HighVoltage>69</HighVoltage>
-  <LowVoltage>12.47</LowVoltage>
+  <MVA>0</MVA>
+  <HighVoltage>0</HighVoltage>
+  <LowVoltage>0</LowVoltage>
   <Thevenins>
     <Thevenin>
       <Name>Base Thevenin</Name>
-      <R0>0.928</R0>
-      <R1>0</R1>
-      <R2>0</R2>
-      <X0>1.28</X0>
-      <X1>0</X1>
-      <X2>0</X2>
+      <R0_Z>0</R0_Z>
+      <R1_Z>0</R1_Z>
+      <R2_Z>0</R2_Z>
+      <X0_Z>0</X0_Z>
+      <X1_Z>0</X1_Z>
+      <X2_Z>0</X2_Z>
+      <R0_Ohms>0</R0_Ohms>
+      <R1_Ohms>0</R1_Ohms>
+      <R2_Ohms>0</R2_Ohms>
+      <X0_Ohms>0</X0_Ohms>
+      <X1_Ohms>0</X1_Ohms>
+      <X2_Ohms>0</X2_Ohms>
     </Thevenin>
     <Thevenin>
       <Name>Second Thevenin</Name>
-      <R0>0.128</R0>
-      <R1>0</R1>
-      <R2>0</R2>
-      <X0>5.38</X0>
-      <X1>0</X1>
-      <X2>0</X2>
+      <R0_Z>0</R0_Z>
+      <R1_Z>0</R1_Z>
+      <R2_Z>0</R2_Z>
+      <X0_Z>0</X0_Z>
+      <X1_Z>0</X1_Z>
+      <X2_Z>0</X2_Z>
+      <R0_Ohms>0</R0_Ohms>
+      <R1_Ohms>0</R1_Ohms>
+      <R2_Ohms>0</R2_Ohms>
+      <X0_Ohms>0</X0_Ohms>
+      <X1_Ohms>0</X1_Ohms>
+      <X2_Ohms>0</X2_Ohms>
     </Thevenin>
   </Thevenins>
   <Relays>
@@ -42,7 +52,29 @@
   </Relays>
   <Breakers>
     <Breaker>
-      <CTs />
+      <CTs>
+        <CT>
+          <Name>CT3B</Name>
+          <Rating>C400</Rating>
+          <CTR>T240</CTR>
+          <Tap>T120</Tap>
+          <OnPolarity>true</OnPolarity>
+        </CT>
+        <CT>
+          <Name>CT1B</Name>
+          <Rating>C400</Rating>
+          <CTR>T240</CTR>
+          <Tap>T120</Tap>
+          <OnPolarity>true</OnPolarity>
+        </CT>
+        <CT>
+          <Name>CT1B</Name>
+          <Rating>C400</Rating>
+          <CTR>T240</CTR>
+          <Tap>T120</Tap>
+          <OnPolarity>true</OnPolarity>
+        </CT>
+      </CTs>
       <Name>High Side Name</Name>
       <Bus>Bus_1</Bus>
       <Breaker_Position>BH1</Breaker_Position>
@@ -56,10 +88,24 @@
       <CTs>
         <CT>
           <Name>CT1</Name>
-          <Rating>C200</Rating>
+          <Rating>C400</Rating>
+          <CTR>T240</CTR>
+          <Tap>T120</Tap>
+          <OnPolarity>true</OnPolarity>
+        </CT>
+        <CT>
+          <Name>CT2</Name>
+          <Rating>C400</Rating>
+          <CTR>T240</CTR>
+          <Tap>T120</Tap>
+          <OnPolarity>true</OnPolarity>
+        </CT>
+        <CT>
+          <Name>CT3</Name>
+          <Rating>C400</Rating>
           <CTR>T120</CTR>
           <Tap>T120</Tap>
-          <OnPolarity>false</OnPolarity>
+          <OnPolarity>true</OnPolarity>
         </CT>
       </CTs>
       <Name>T1</Name>
@@ -67,7 +113,7 @@
       <Size2>33</Size2>
       <Z1>9.17</Z1>
       <Z0>9.06</Z0>
-      <Losses>0</Losses>
+      <Losses>60</Losses>
       <R1>0</R1>
       <X1>0</X1>
       <R0>0</R0>

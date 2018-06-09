@@ -34,7 +34,6 @@ namespace Substation_Builder.View
 
             if (Subdata.IsSelected)
             {
-                substationview.DataContext = this.DataContext;
                 pagenavigation.Navigate(substationview);
             }
             else if (teststring == "Substation_Builder.Model.Thevenin")

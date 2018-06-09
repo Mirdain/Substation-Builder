@@ -7,9 +7,8 @@
       mc:Ignorable="d" 
       Title="Thevenin" >
 
-
     <!-- Thevenin Template -->
-    <StackPanel Width="214">
+    <StackPanel>
 
         <StackPanel.Triggers>
             <EventTrigger RoutedEvent="FrameworkElement.Loaded">
@@ -21,59 +20,59 @@
             </EventTrigger>
         </StackPanel.Triggers>
 
-        <Label Content="Thevenin" HorizontalContentAlignment="Right" Margin="4,1,0,0" Opacity="0.9" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18"/>
+        <Label Content="Thevenin" HorizontalContentAlignment="Right" Margin="4,1,0,0" Opacity="0.9" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="22"/>
 
 
         <Border BorderThickness="2" CornerRadius="10" Margin="4,0,4,4" Padding="10,10,8,10" BorderBrush="#FF9C9595">
             <StackPanel>
+
                 <DockPanel>
-                    <Label Width="50" Content="Name:" Opacity="0.9" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,1" FontSize="14"/>
-                    <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Opacity="0.9" Width="121" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <Label Width="50" Content="Name:" Opacity="0.9" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,5,0" FontSize="14"/>
+                    <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Opacity="0.9" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 </DockPanel>
 
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="170"/>
-                    </Grid.ColumnDefinitions>
+                <DockPanel>
+                    <Label Content="Units:" Opacity="0.9" FontSize="16" Margin="0,5,5,0" HorizontalContentAlignment="Right" Width="50" Padding="0" VerticalContentAlignment="Center"/>
+                    <RadioButton  GroupName="TheveninUnits" x:Name="UseZ" Content="%Z" IsChecked="True" Margin="5,5,0,0" FontSize="16" VerticalContentAlignment="Stretch" Padding="3,0,0,0" Width="80" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <RadioButton  GroupName="TheveninUnits" x:Name="UseOhm" Content="Ohms" Margin="7,5,0,0" FontSize="16" VerticalContentAlignment="Center" Padding="5,0,0,0" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </DockPanel>
 
-                    <StackPanel Grid.Column="0">
-                        <Label Content="R1:" HorizontalContentAlignment="Right" Margin="4,1,0,1" Opacity="0.9" FontSize="14"/>
-                        <Label Content="X1:" HorizontalContentAlignment="Right" Margin="4,1,0,1" Opacity="0.9" FontSize="14"/>
-                        <Label Content="R2:" HorizontalContentAlignment="Right" Margin="4,1,0,1" Opacity="0.9" FontSize="14"/>
-                        <Label Content="X2:" HorizontalContentAlignment="Right" Margin="4,1,0,1" Opacity="0.9" FontSize="14"/>
-                        <Label Content="R0:" HorizontalContentAlignment="Right" Margin="4,1,0,1" Opacity="0.9" FontSize="14"/>
-                        <Label Content="X0:" HorizontalContentAlignment="Right" Margin="4,1,0,1" Opacity="0.9" FontSize="14"/>
-                    </StackPanel>
+                <DockPanel>
+                    <Label Content="R1:" Opacity="0.9" FontSize="16" Margin="0,0,5,0" HorizontalContentAlignment="Right" Width="50" Padding="0" VerticalContentAlignment="Center"/>
+                    <TextBox Text="{Binding R1_Z, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" FontSize="16" Margin="0,5,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="85"/>
+                    <TextBox Text="{Binding R1_Ohms, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseOhm}" Opacity="0.9" FontSize="16" Margin="7,5,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="85"/>
+                </DockPanel>
 
-                    <StackPanel  Grid.Column="1" x:Name="TheveninPage">
+                <DockPanel>
+                    <Label Content="X1:" Opacity="0.9" FontSize="16" Margin="0,0,5,0" HorizontalContentAlignment="Right" Width="50" Padding="0" VerticalContentAlignment="Center"/>
+                    <TextBox Text="{Binding X1_Z, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" FontSize="16" Margin="0,5,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="85"/>
+                    <TextBox Text="{Binding X1_Ohms, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseOhm}" Opacity="0.9" FontSize="16" Margin="7,5,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="85"/>
+                </DockPanel>
 
-                        <Grid Margin="0,0,10,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="70"/>
-                                <ColumnDefinition Width="70"/>
-                            </Grid.ColumnDefinitions>
-                            <StackPanel Grid.Column="0">
-                                <TextBox Text="{Binding R1}" Margin="4,2" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" FontSize="14"/>
-                                <TextBox Text="{Binding X1}" Margin="4,2" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" FontSize="14"/>
-                                <TextBox Text="{Binding R2}" Margin="4,2" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" FontSize="14"/>
-                                <TextBox Text="{Binding X2}" Margin="4,2" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" FontSize="14"/>
-                                <TextBox Text="{Binding R0}" Margin="4,2" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" FontSize="14"/>
-                                <TextBox Text="{Binding X0}" Margin="4,2" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" FontSize="14"/>
-                                <RadioButton  GroupName="TheveninUnits" x:Name="UseZ" Content="%Z" IsChecked="True" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4,4,0,0" FontSize="14"/>
-                            </StackPanel>
-                            <StackPanel Grid.Column="1">
-                                <TextBox Text="{Binding R1}" Margin="4,2" IsEnabled="{Binding IsChecked, ElementName=UseOhm}" Opacity="0.9" FontSize="14"/>
-                                <TextBox Text="{Binding X1}" Margin="4,2" IsEnabled="{Binding IsChecked, ElementName=UseOhm}" Opacity="0.9" FontSize="14"/>
-                                <TextBox Text="{Binding R2}" Margin="4,2" IsEnabled="{Binding IsChecked, ElementName=UseOhm}" Opacity="0.9" FontSize="14"/>
-                                <TextBox Text="{Binding X2}" Margin="4,2" IsEnabled="{Binding IsChecked, ElementName=UseOhm}" Opacity="0.9" FontSize="14"/>
-                                <TextBox Text="{Binding R0}" Margin="4,2" IsEnabled="{Binding IsChecked, ElementName=UseOhm}" Opacity="0.9" FontSize="14"/>
-                                <TextBox Text="{Binding X0}" Margin="4,2" IsEnabled="{Binding IsChecked, ElementName=UseOhm}" Opacity="0.9" FontSize="14"/>
-                                <RadioButton  GroupName="TheveninUnits" x:Name="UseOhm" Content="Ohms" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4,4,0,0" FontSize="14"/>
-                            </StackPanel>
-                        </Grid>
-                    </StackPanel>
-                </Grid>
+                <DockPanel>
+                    <Label Content="R2:" Opacity="0.9" FontSize="16" Margin="0,0,5,0" HorizontalContentAlignment="Right" Width="50" Padding="0" VerticalContentAlignment="Center"/>
+                    <TextBox Text="{Binding R2_Z, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" FontSize="16" Margin="0,5,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="85"/>
+                    <TextBox Text="{Binding R2_Ohms, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseOhm}" Opacity="0.9" FontSize="16" Margin="7,5,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="85"/>
+                </DockPanel>
+
+                <DockPanel>
+                    <Label Content="X2:" Opacity="0.9" FontSize="16" Margin="0,0,5,0" HorizontalContentAlignment="Right" Width="50" Padding="0" VerticalContentAlignment="Center"/>
+                    <TextBox Text="{Binding X2_Z, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" FontSize="16" Margin="0,5,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="85"/>
+                    <TextBox Text="{Binding X2_Ohms, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseOhm}" Opacity="0.9" FontSize="16" Margin="7,5,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="85"/>
+                </DockPanel>
+
+                <DockPanel>
+                    <Label Content="R0:" Opacity="0.9" FontSize="16" Margin="0,0,5,0" HorizontalContentAlignment="Right" Width="50" Padding="0" VerticalContentAlignment="Center"/>
+                    <TextBox Text="{Binding R0_Z, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" FontSize="16" Margin="0,5,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="85"/>
+                    <TextBox Text="{Binding R0_Ohms, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseOhm}" Opacity="0.9" FontSize="16" Margin="7,5,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="85"/>
+                </DockPanel>
+
+                <DockPanel>
+                    <Label Content="X0:" Opacity="0.9" FontSize="16" Margin="0,0,5,0" HorizontalContentAlignment="Right" Width="50" Padding="0" VerticalContentAlignment="Center"/>
+                    <TextBox Text="{Binding X0_Z, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseZ}" Opacity="0.9" FontSize="16" Margin="0,5,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="85"/>
+                    <TextBox Text="{Binding X0_Ohms, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseOhm}" Opacity="0.9" FontSize="16" Margin="7,5,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="85"/>
+                </DockPanel>
+
             </StackPanel>
         </Border>
     </StackPanel>

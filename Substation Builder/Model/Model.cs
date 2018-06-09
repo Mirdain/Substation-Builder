@@ -1,15 +1,18 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using Substation_Builder.Helpers;
 
 namespace Substation_Builder.Model
 {
+    [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum Bus
     {
         [Description("Bus 1")] Bus_1,
         [Description("Bus 2")] Bus_2,
     }
 
+    [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum RelayType
     {
         [Description("SEL 351S-6")] SEL_351S_6,
@@ -18,6 +21,7 @@ namespace Substation_Builder.Model
         [Description("SEL 587Z")] SEL_587,
     }
 
+    [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum RelayPosition
     {
         [Description("351-BH1")] BH1,
@@ -40,6 +44,7 @@ namespace Substation_Builder.Model
         [Description("351-BB24")] BB24,
     }
 
+    [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum Voltage
     {
         [Description("12.47 kV")] _12_5kV,
@@ -52,18 +57,21 @@ namespace Substation_Builder.Model
         [Description("161 kV")] _161kV,
     }
 
+    [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum BreakerType
     {
         [Description("SF-6")] SF6,
         [Description("R-MAG")] RMAG,
     }
 
+    [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum BreakerSize
     {
         [Description("2000 A")] A2000,
         [Description("1200 A")] A1200,
     }
 
+    [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum BreakerPosition
     {
         [Description("BH1")] BH1,
@@ -82,6 +90,7 @@ namespace Substation_Builder.Model
         [Description("BB24")] BB24,
     }
 
+    [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum CTRating
     {
         [Description("C200")] C200,
@@ -89,11 +98,16 @@ namespace Substation_Builder.Model
         [Description("C800")] C800,
     }
 
-    public enum CTTap
+    [TypeConverter(typeof(EnumDescriptionTypeConverter))]
+    public enum CTTaps
     {
-        [Description("120")] T120,
-        [Description("240")] T240,
-        [Description("400")] T400,
+        [Description("2000:5 - (400:1)")] T400,
+        [Description("1500:5 - (300:1)")] T300,
+        [Description("1200:5 - (240:1")] T240,
+        [Description("900:5 - (180:1")] T180,
+        [Description("800:5 - (160:1")] T160,
+        [Description("600:5 - (120:1")] T120,
+
     }
 
     [Serializable]
@@ -114,12 +128,19 @@ namespace Substation_Builder.Model
     public class Thevenin
     {
         public string Name { get; set; }
-        public double R0 { get; set; }
-        public double R1 { get; set; }
-        public double R2 { get; set; }
-        public double X0 { get; set; }
-        public double X1 { get; set; }
-        public double X2 { get; set; }
+        public double R0_Z { get; set; }
+        public double R1_Z { get; set; }
+        public double R2_Z { get; set; }
+        public double X0_Z { get; set; }
+        public double X1_Z { get; set; }
+        public double X2_Z { get; set; }
+
+        public double R0_Ohms { get; set; }
+        public double R1_Ohms { get; set; }
+        public double R2_Ohms { get; set; }
+        public double X0_Ohms { get; set; }
+        public double X1_Ohms { get; set; }
+        public double X2_Ohms { get; set; }
     }
 
     public class Relay
@@ -163,12 +184,13 @@ namespace Substation_Builder.Model
     public class CT
     {
         public string Name { get; set; }
+        public string Description { get; set; }
         public CTRating Rating { get; set; }
-        public CTTap CTR { get; set; }
-        public CTTap Tap { get; set; }
+        public CTTaps CTR { get; set; }
+        public CTTaps Tap { get; set; }
         public bool OnPolarity { get; set; }
+        public Relay Relay { get; set; }
     }
-
 
 }
 

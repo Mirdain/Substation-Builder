@@ -3,55 +3,79 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Substation_Builder.View"
+      xmlns:model="clr-namespace:Substation_Builder.Model"
+      xmlns:local="clr-namespace:Substation_Builder"
+      xmlns:EnumHelper="clr-namespace:Substation_Builder.Helpers"
       mc:Ignorable="d" 
       Title="CTView">
 
-    <Grid>
+    <!-- CT Template -->
+    <StackPanel>
+
+        <StackPanel.Triggers>
+            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation Duration="0:0:0.7" Storyboard.TargetProperty="Opacity" From="0" To="1" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </StackPanel.Triggers>
+
+        <Label Content="Current Transformer" HorizontalContentAlignment="Right" Margin="4,1,0,0" Opacity="0.9" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="22"/>
         <Border BorderThickness="2" CornerRadius="10" Margin="4,0,4,4" Padding="10,10,8,10" BorderBrush="#FF9C9595">
-            <!-- CT Template -->
-            <StackPanel Orientation="Horizontal">
 
-                <StackPanel.Triggers>
-                    <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation Duration="0:0:0.7" Storyboard.TargetProperty="Opacity" From="0" To="1" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                </StackPanel.Triggers>
+            <StackPanel>
 
-                <StackPanel Grid.Column="0">
-                    <Label Content="Name:" HorizontalContentAlignment="Right" Margin="4,2,0,2" Opacity="0.9"/>
-                    <Label Content="Full Ratio:" HorizontalContentAlignment="Right" Margin="4,2,0,2" Opacity="0.9"/>
-                    <Label Content="Tapped Ratio:" HorizontalContentAlignment="Right" Margin="4,2,0,2" Opacity="0.9"/>
-                    <Label Content="Polarity:" HorizontalContentAlignment="Right" Margin="4,2,0,2" Opacity="0.9"/>
-                    <Label Content="Description:" HorizontalContentAlignment="Right" Margin="4,2,0,2" Opacity="0.9"/>
-                    <Label Content="Class:" HorizontalContentAlignment="Right" Margin="4,2,0,2" Opacity="0.9"/>
-                </StackPanel>
+                <DockPanel>
+                    <Label Content="Name:" Opacity="0.9" FontSize="16" Margin="0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="105"/>
+                    <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Opacity="0.9" FontSize="16" Margin="0,4.5,0,0" HorizontalAlignment="Left" MinWidth="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="160"/>
+                </DockPanel>
 
-                <StackPanel Grid.Column="1">
-                    <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,4,2" Opacity="0.9" Width="50"/>
-                    <ComboBox Text="{Binding CTR, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,4,2" ItemsSource="{Binding }">
+                <DockPanel>
+                    <Label Content="Description:" Opacity="0.9" FontSize="16" Margin="0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="105"/>
+                    <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" Opacity="0.9" FontSize="16" Margin="0,4.5,0,0" HorizontalAlignment="Left" MinWidth="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="160"/>
+                </DockPanel>
+
+                <DockPanel>
+                    <Label Content="Rating:" Opacity="0.9" FontSize="16" Margin="0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="105"/>
+                    <ComboBox Text="{Binding Rating, UpdateSourceTrigger=PropertyChanged}" Margin="0,4.5,0,0" ItemsSource="{Binding }" Width="160" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16">
+                        <ComboBoxItem Content="C800"/>
+                        <ComboBoxItem Content="C400"/>
+                        <ComboBoxItem Content="C200"/>
+                        <ComboBoxItem Content="C100"/>
+                        <ComboBoxItem Content="C50"/>
+                    </ComboBox>
+                </DockPanel>
+
+                <DockPanel>
+                    <Label Content="Full Ratio:" Opacity="0.9" FontSize="16" Margin="0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="105"/>
+                    <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:CTTaps}}}" SelectedValue="{Binding CTR}" Width="160" FontSize="16" HorizontalContentAlignment="Center"/>
+                </DockPanel>
+
+                <DockPanel>
+                    <Label Content="Tapped Ratio:" Opacity="0.9" FontSize="16" Margin="0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="105"/>
+                    <ComboBox Text="{Binding Tap, UpdateSourceTrigger=PropertyChanged}" Margin="0,4.5,0,0" ItemsSource="{Binding }" Width="160" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16">
                         <ComboBoxItem Content="2000:5"/>
                         <ComboBoxItem Content="1500:5"/>
                         <ComboBoxItem Content="1200:5"/>
                         <ComboBoxItem Content="600:5"/>
                     </ComboBox>
-                    <TextBox Text="{Binding CTR}" Margin="0,2,4,2" Opacity="0.9"/>
-                    <TextBox Text="{Binding Tap}" Margin="0,2,4,2" Opacity="0.9"/>
-                    <TextBox Text="{Binding OnPolarity}" Margin="0,2,4,2" Opacity="0.9"/>
-                    <ComboBox Text="{Binding LowVoltageWndg, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,4,2">
-                        <ComboBoxItem Content="Delta"/>
-                        <ComboBoxItem Content="Grounded Wye"/>
-                        <ComboBoxItem Content="Ungrounded Wye"/>
-                        <ComboBoxItem Content="Impedance Grounded Wye"/>
+                </DockPanel>
+
+                <DockPanel>
+                    <Label Content="Polarity:" Opacity="0.9" FontSize="16" Margin="0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="105"/>
+                    <ComboBox Text="{Binding OnPolarity, UpdateSourceTrigger=PropertyChanged}" Margin="0,4.5,0,0" ItemsSource="{Binding }" Width="160" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16">
+                        <ComboBoxItem Content="On Polarity"/>
+                        <ComboBoxItem Content="Off Polarity"/>
                     </ComboBox>
-                </StackPanel>
+                </DockPanel>
+
+                <DockPanel>
+                    <Label Content="Relay:" Opacity="0.9" FontSize="16" Margin="0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="105"/>
+                 </DockPanel>
 
             </StackPanel>
         </Border>
-        
-    </Grid>
+    </StackPanel>
 </Page>

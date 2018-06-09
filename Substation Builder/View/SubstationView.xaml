@@ -4,12 +4,16 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Substation_Builder.View" 
-        xmlns:dm ="clr-namespace:Substation_Builder.Model"
+        xmlns:vm="clr-namespace:Substation_Builder.ViewModel"
         x:Class="Substation_Builder.View.SubstationView"
       mc:Ignorable="d" 
       Title="Substation">
 
-    <StackPanel DataContext="{Binding Project}">
+    <Page.DataContext>
+        <vm:DatabaseViewModel/>
+    </Page.DataContext>
+
+    <StackPanel>
 
         <StackPanel.Triggers>
             <EventTrigger RoutedEvent="FrameworkElement.Loaded">
@@ -21,53 +25,54 @@
             </EventTrigger>
         </StackPanel.Triggers>
 
-        <Label Content="Substation Data" HorizontalContentAlignment="Right" Margin="4,1,0,0" Opacity="0.9" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18"/>
-
+        <Label Content="Substation Data" HorizontalContentAlignment="Right" Margin="4,1,0,0" Opacity="0.9" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="22"/>
         <Border BorderThickness="2" CornerRadius="10" Margin="4,0,4,4" Padding="10,10,8,10" BorderBrush="#FF9C9595">
-            <Grid HorizontalAlignment="Center">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="150"/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0">
-                    <Label Content="Substation Name:" HorizontalContentAlignment="Right" Margin="0,1" Opacity="0.9" FontSize="14"/>
-                    <Label Content="Substation Type:" HorizontalContentAlignment="Right" Margin="0,1" Opacity="0.9" FontSize="14"/>
-                    <Label Content="Bus Type:" HorizontalContentAlignment="Right" Margin="0,1" Opacity="0.9" FontSize="14"/>
-                </StackPanel>
-                <StackPanel Grid.Column="1">
-                    <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Margin="4,1" Opacity="0.9" FontSize="14"/>
-                    <ComboBox Text="{Binding SubType, UpdateSourceTrigger=PropertyChanged}" Margin="4,1" FontSize="14">
+
+            <StackPanel HorizontalAlignment="Left">
+                <DockPanel>
+                    <Label Content="Substation Name:" HorizontalContentAlignment="Right" Margin="0,1" Opacity="0.9" FontSize="16" HorizontalAlignment="Left" Width="135"/>
+                    <TextBox Text="{Binding Project.Name, UpdateSourceTrigger=PropertyChanged}" Margin="4,1" Opacity="0.9" FontSize="16" Width="148" HorizontalContentAlignment="Center"/>
+                </DockPanel>
+                <DockPanel>
+                    <Label Content="Substation Type:" HorizontalContentAlignment="Right" Margin="0,1" Opacity="0.9" FontSize="16" Width="135"/>
+                    <ComboBox Text="{Binding Project.SubType, UpdateSourceTrigger=PropertyChanged}" Margin="4,1" FontSize="16" Width="148" HorizontalContentAlignment="Center">
                         <ComboBoxItem Content="Open Air"/>
                         <ComboBoxItem Content="Switchgear"/>
                         <ComboBoxItem Content="Recloser"/>
                     </ComboBox>
-                    <ComboBox Text="{Binding BusType, UpdateSourceTrigger=PropertyChanged}" Margin="4,1" FontSize="14">
+                </DockPanel>
+                <DockPanel>
+                    <Label Content="Bus Type:" HorizontalContentAlignment="Right" Margin="0,1" Opacity="0.9" FontSize="16" Width="135"/>
+                    <ComboBox Text="{Binding Project.BusType, UpdateSourceTrigger=PropertyChanged}" Margin="4,1" FontSize="16" Width="148" HorizontalContentAlignment="Center">
                         <ComboBoxItem Content="Single Bus"/>
                         <ComboBoxItem Content="Double Bus"/>
                     </ComboBox>
-                </StackPanel>
-            </Grid>
+                </DockPanel>
+            </StackPanel>
+
         </Border>
 
-        <Label Content="System Base" HorizontalContentAlignment="Right" Margin="4,1,0,0" Opacity="0.9" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18"/>
+        <Label Content="System Base" HorizontalContentAlignment="Right" Margin="4,1,0,0" Opacity="0.9" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="22"/>
         <Border BorderThickness="2" CornerRadius="10" Margin="4,0,4,4" Padding="10,10,8,10" BorderBrush="#FF9C9595">
-            <Grid HorizontalAlignment="Center">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="60"/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0">
-                    <Label Content="Base MVA:" HorizontalContentAlignment="Right" Margin="4,1" Opacity="0.9" FontSize="14"/>
-                    <Label Content="High Voltage:" HorizontalContentAlignment="Right" Margin="4,1" Opacity="0.9" FontSize="14"/>
-                    <Label Content="Low Voltage:" HorizontalContentAlignment="Right" Margin="4,1" Opacity="0.9" FontSize="14"/>
-                </StackPanel>
-                <StackPanel Grid.Column="1" Grid.ColumnSpan="2">
-                    <TextBox Text="{Binding MVA}" Margin="4,1" Opacity="0.9" FontSize="14"/>
-                    <TextBox Text="{Binding HighVoltage}" Margin="4,1" Opacity="0.9" FontSize="14"/>
-                    <TextBox Text="{Binding LowVoltage}" Margin="4,1" Opacity="0.9" FontSize="14"/>
-                </StackPanel>
 
-            </Grid>
+            <StackPanel>
+
+                <DockPanel>
+                    <Label Content="Base MVA:" HorizontalContentAlignment="Right" Margin="0,1" Opacity="0.9" FontSize="16" HorizontalAlignment="Left" Width="135"/>
+                    <TextBox Text="{Binding Project.MVA, UpdateSourceTrigger=PropertyChanged}" Margin="4,1" Opacity="0.9" FontSize="16" Width="60" HorizontalAlignment="Left" HorizontalContentAlignment="Center"/>
+                </DockPanel>
+
+                <DockPanel>
+                    <Label Content="High Voltage:" HorizontalContentAlignment="Right" Margin="0,1" Opacity="0.9" FontSize="16" HorizontalAlignment="Left" Width="135"/>
+                    <TextBox Text="{Binding Project.HighVoltage, UpdateSourceTrigger=PropertyChanged}" Margin="4,1" Opacity="0.9" FontSize="16" Width="60" HorizontalAlignment="Left" HorizontalContentAlignment="Center"/>
+                </DockPanel>
+
+                <DockPanel>
+                    <Label Content="Low Voltage:" HorizontalContentAlignment="Right" Margin="0,1" Opacity="0.9" FontSize="16" HorizontalAlignment="Left" Width="135"/>
+                    <TextBox Text="{Binding Project.LowVoltage, UpdateSourceTrigger=PropertyChanged}" Margin="4,1" Opacity="0.9" FontSize="16" Width="60" HorizontalAlignment="Left" HorizontalContentAlignment="Center"/>
+                </DockPanel>
+
+            </StackPanel>
         </Border>
     </StackPanel>
 </Page>

@@ -51,53 +51,53 @@ namespace Substation_Builder.Services
 
             CT XFMR1CT = new CT
             {
-                CTR = CTTap.T240,
+                CTR = CTTaps.T400,
                 Rating = CTRating.C400,
                 Name = "CT1",
                 OnPolarity = true,
-                Tap = CTTap.T120
+                Tap = CTTaps.T180
             };
             CT XFMR2CT = new CT
             {
-                CTR = CTTap.T240,
+                CTR = CTTaps.T400,
                 Rating = CTRating.C400,
                 Name = "CT2",
                 OnPolarity = true,
-                Tap = CTTap.T120
+                Tap = CTTaps.T400
             };
             CT XFMR3CT = new CT
             {
-                CTR = CTTap.T240,
+                CTR = CTTaps.T400,
                 Rating = CTRating.C400,
                 Name = "CT3",
                 OnPolarity = true,
-                Tap = CTTap.T120
+                Tap = CTTaps.T180
             };
 
 
             CT BRK1CT = new CT
             {
-                CTR = CTTap.T240,
+                CTR = CTTaps.T400,
                 Rating = CTRating.C400,
                 Name = "CT1B",
                 OnPolarity = true,
-                Tap = CTTap.T120
+                Tap = CTTaps.T120
             };
             CT BRK2CT = new CT
             {
-                CTR = CTTap.T240,
+                CTR = CTTaps.T400,
                 Rating = CTRating.C400,
                 Name = "CT2B",
                 OnPolarity = true,
-                Tap = CTTap.T120
+                Tap = CTTaps.T160
             };
             CT BRK3CT = new CT
             {
-                CTR = CTTap.T240,
+                CTR = CTTaps.T240,
                 Rating = CTRating.C400,
                 Name = "CT3B",
                 OnPolarity = true,
-                Tap = CTTap.T120
+                Tap = CTTaps.T120
             };
 
             Transformer T1 = new Transformer
@@ -134,15 +134,15 @@ namespace Substation_Builder.Services
             Thevenin BaseThevenin = new Thevenin
             {
                 Name = "Base Thevenin",
-                R0 = .928,
-                X0 = 1.28,
+                R0_Z = .928,
+                X0_Z = 1.28,
             };
 
             Thevenin SecondThevenin = new Thevenin
             {
                 Name = "Second Thevenin",
-                R0 = .128,
-                X0 = 5.38,
+                R0_Z = .128,
+                X0_Z = 5.38,
             };
 
             Breaker HighSide = new Breaker
@@ -163,8 +163,8 @@ namespace Substation_Builder.Services
             {
                 Name = "BH1 CT1",
                 Rating = CTRating.C400,
-                CTR = CTTap.T240,
-                Tap = CTTap.T240,
+                CTR = CTTaps.T240,
+                Tap = CTTaps.T120,
                 OnPolarity = true,
             };
 

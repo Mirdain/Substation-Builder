@@ -24,27 +24,27 @@
             <StackPanel>
                 <DockPanel>
                     <Label Content="Name:" Opacity="0.9" FontSize="16" Margin="0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="175"/>
-                    <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Opacity="0.9" FontSize="16" Margin="0,4.5,0,0" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Opacity="0.9" FontSize="16" Margin="0,4.5,0,0" HorizontalAlignment="Left" MinWidth="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="55"/>
                 </DockPanel>
                 <DockPanel>
                     <Label Content="Base MVA:" Opacity="0.9" FontSize="16" Margin="0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="175"/>
-                    <TextBox Text="{Binding Size1}" Opacity="0.9" FontSize="16" VerticalContentAlignment="Center" Margin="0,4.5,0,0" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding Size1}" Opacity="0.9" FontSize="16" VerticalContentAlignment="Center" Margin="0,4.5,0,0" HorizontalAlignment="Left" MinWidth="50" HorizontalContentAlignment="Center" Width="55"/>
                 </DockPanel>
                 <DockPanel>
                     <Label Content="Top MVA:" Opacity="0.9" FontSize="16" Margin="0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="175"/>
-                    <TextBox Text="{Binding Size2}" Opacity="0.9" FontSize="16" VerticalContentAlignment="Center" Margin="0,4.5,0,0" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding Size2}" Opacity="0.9" FontSize="16" VerticalContentAlignment="Center" Margin="0,4.5,0,0" HorizontalAlignment="Left" MinWidth="50" HorizontalContentAlignment="Center" Width="55"/>
                 </DockPanel>
                 <DockPanel>
                     <Label Content="High Voltage:" Opacity="0.9" FontSize="16" Margin="0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="175"/>
-                    <TextBox Text="{Binding HighVoltage}" Opacity="0.9" FontSize="16" VerticalContentAlignment="Center" Margin="0,4.5,0,0" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding HighVoltage}" Opacity="0.9" FontSize="16" VerticalContentAlignment="Center" Margin="0,4.5,0,0" HorizontalAlignment="Left" MinWidth="50" HorizontalContentAlignment="Center" Width="55"/>
                 </DockPanel>
                 <DockPanel>
                     <Label Content="Low Voltage:" Opacity="0.9" FontSize="16" Margin="0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="175"/>
-                    <TextBox Text="{Binding LowVoltage}" Opacity="0.9" FontSize="16" VerticalContentAlignment="Center" Margin="0,4.5,0,0" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding LowVoltage}" Opacity="0.9" FontSize="16" VerticalContentAlignment="Center" Margin="0,4.5,0,0" HorizontalAlignment="Left" MinWidth="50" HorizontalContentAlignment="Center" Width="55"/>
                 </DockPanel>
                 <DockPanel>
                     <Label Content="High Voltage Winding:" Opacity="0.9" FontSize="16" Margin="0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="175"/>
-                    <ComboBox Text="{Binding HighVoltageWndg, UpdateSourceTrigger=PropertyChanged}" FontSize="16" Margin="0,4.5,0,0" VerticalAlignment="Center">
+                    <ComboBox Text="{Binding HighVoltageWndg, UpdateSourceTrigger=PropertyChanged}" FontSize="16" Margin="0,4.5,0,0" HorizontalAlignment="Left" MinWidth="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="170">
                         <ComboBoxItem Content="Delta"/>
                         <ComboBoxItem Content="Grounded Wye"/>
                         <ComboBoxItem Content="Ungrounded Wye"/>
@@ -53,7 +53,7 @@
                 </DockPanel>
                 <DockPanel>
                     <Label Content="Low Voltage Winding:" Opacity="0.9" FontSize="16" Margin="0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="175"/>
-                    <ComboBox Text="{Binding LowVoltageWndg, UpdateSourceTrigger=PropertyChanged}" FontSize="16" Margin="0,4.5,0,0" VerticalAlignment="Center">
+                    <ComboBox Text="{Binding LowVoltageWndg, UpdateSourceTrigger=PropertyChanged}" FontSize="16" Margin="0,4.5,0,0" HorizontalAlignment="Left" MinWidth="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="170">
                         <ComboBoxItem Content="Delta"/>
                         <ComboBoxItem Content="Grounded Wye"/>
                         <ComboBoxItem Content="Ungrounded Wye"/>

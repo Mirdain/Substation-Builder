@@ -29,5 +29,10 @@ namespace Substation_Builder.View
         {
             NavigationService.GoBack();
         }
+
+        private void StackPanel_GiveFeedback(object sender, GiveFeedbackEventArgs e)
+        {
+
+        }
     }
 }
