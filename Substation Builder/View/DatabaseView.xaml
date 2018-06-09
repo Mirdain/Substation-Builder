@@ -9,7 +9,7 @@
                       xmlns:vm="clr-namespace:Substation_Builder.ViewModel"
                       mc:Ignorable="d"
                       Icon="..\Resources\Images\MainPageIcon.jpg"    
-                      Title="One Line" ResizeMode="NoResize"
+                      Title="Database" ResizeMode="NoResize"
                       WindowStartupLocation="Manual"
                       BorderThickness="0" MinWidth="700" MinHeight="450" Width="600" Height="350">
 
@@ -96,14 +96,11 @@
                             <Button Content="Template" Command="{Binding TemplateCommand}" Margin="3,0,0,0"/>
                         </ToolBar>
                     </ToolBarTray>
-                    
-                    <TreeView x:Name="treeview" Grid.Row="1" ItemsSource="{Binding Project}" VerticalAlignment="Top" SelectedItemChanged="LoadPage" FontSize="14">
 
-                        <TreeViewItem x:Name="Subdata">
-                            <TreeViewItem.Header>
-                                <Binding x:Name="binding" Path="Project.Name"/>
-                            </TreeViewItem.Header>
+                    <TreeView x:Name="treeview" Grid.Row="1" ItemsSource="{Binding Project}" VerticalAlignment="Top" SelectedItemChanged="LoadPage" FontSize="16">
 
+                        <TreeViewItem x:Name="Subdata" Header="{Binding Project.Name}" ItemsSource="{Binding Project}">
+                            
                             <!-- This is the Header and Treeview Items for Thevenin-->
                             <TreeViewItem Header='Thevenins' ItemsSource="{Binding Project.Thevenins}" ContextMenu="{StaticResource AddTheveninContext}">
                                 <!-- This is the treeview Items for Thevenin-->

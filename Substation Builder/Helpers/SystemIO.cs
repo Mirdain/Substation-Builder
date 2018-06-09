@@ -54,7 +54,7 @@ namespace Substation_Builder.Services
                 CTR = CTTaps.T400,
                 Rating = CTRating.C400,
                 Name = "CT1",
-                OnPolarity = true,
+                Polarity = Polarity.OnPolarity,
                 Tap = CTTaps.T180
             };
             CT XFMR2CT = new CT
@@ -62,7 +62,7 @@ namespace Substation_Builder.Services
                 CTR = CTTaps.T400,
                 Rating = CTRating.C400,
                 Name = "CT2",
-                OnPolarity = true,
+                Polarity = Polarity.OnPolarity,
                 Tap = CTTaps.T400
             };
             CT XFMR3CT = new CT
@@ -70,7 +70,7 @@ namespace Substation_Builder.Services
                 CTR = CTTaps.T400,
                 Rating = CTRating.C400,
                 Name = "CT3",
-                OnPolarity = true,
+                Polarity = Polarity.OnPolarity,
                 Tap = CTTaps.T180
             };
 
@@ -80,7 +80,7 @@ namespace Substation_Builder.Services
                 CTR = CTTaps.T400,
                 Rating = CTRating.C400,
                 Name = "CT1B",
-                OnPolarity = true,
+                Polarity = Polarity.OnPolarity,
                 Tap = CTTaps.T120
             };
             CT BRK2CT = new CT
@@ -88,7 +88,7 @@ namespace Substation_Builder.Services
                 CTR = CTTaps.T400,
                 Rating = CTRating.C400,
                 Name = "CT2B",
-                OnPolarity = true,
+                Polarity = Polarity.OnPolarity,
                 Tap = CTTaps.T160
             };
             CT BRK3CT = new CT
@@ -96,7 +96,7 @@ namespace Substation_Builder.Services
                 CTR = CTTaps.T240,
                 Rating = CTRating.C400,
                 Name = "CT3B",
-                OnPolarity = true,
+                Polarity = Polarity.OnPolarity,
                 Tap = CTTaps.T120
             };
 
@@ -165,7 +165,7 @@ namespace Substation_Builder.Services
                 Rating = CTRating.C400,
                 CTR = CTTaps.T240,
                 Tap = CTTaps.T120,
-                OnPolarity = true,
+                Polarity = Polarity.OnPolarity,
             };
 
             Relay FirstRelay = new Relay

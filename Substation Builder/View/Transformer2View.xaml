@@ -20,7 +20,6 @@
         </StackPanel.Triggers>
 
         <Label Content="Transformer" HorizontalContentAlignment="Right" Margin="4,1,0,0" Opacity="0.9" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="22"/>
-
         <Border BorderThickness="2" CornerRadius="10" Margin="4,0,4,4" Padding="10,10,8,10" BorderBrush="#FF9C9595">
 
             <StackPanel>

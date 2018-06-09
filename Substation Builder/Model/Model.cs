@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Substation_Builder.Helpers;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using Substation_Builder.Helpers;
 
 namespace Substation_Builder.Model
 {
@@ -10,6 +10,28 @@ namespace Substation_Builder.Model
     {
         [Description("Bus 1")] Bus_1,
         [Description("Bus 2")] Bus_2,
+    }
+
+    [TypeConverter(typeof(EnumDescriptionTypeConverter))]
+    public enum SubType
+    {
+        [Description("Open Air")] OpenAir,
+        [Description("Switchgear")] Switchgear,
+        [Description("Recloser")] Recloser,
+    }
+
+    [TypeConverter(typeof(EnumDescriptionTypeConverter))]
+    public enum BusType
+    {
+        [Description("Single Bus")] SingleBus,
+        [Description("Double Bus")] DoubleBus,
+    }
+
+    [TypeConverter(typeof(EnumDescriptionTypeConverter))]
+    public enum Polarity
+    {
+        [Description("On Polarity")] OnPolarity,
+        [Description("Off Polarity")] OffPolarity,
     }
 
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
@@ -47,14 +69,14 @@ namespace Substation_Builder.Model
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum Voltage
     {
-        [Description("12.47 kV")] _12_5kV,
-        [Description("13.2 kV")] _13_2kV,
-        [Description("13.8 kV")] _13_8kV,
-        [Description("26.2 kV")] _26_2kV,
-        [Description("34.5 kV")] _34_5kV,
-        [Description("69 kV")] _69kV,
-        [Description("115 kV")] _115kV,
         [Description("161 kV")] _161kV,
+        [Description("115 kV")] _115kV,
+        [Description("69 kV")] _69kV,
+        [Description("34.5 kV")] _34_5kV,
+        [Description("26.2 kV")] _26_2kV,
+        [Description("13.8 kV")] _13_8kV,
+        [Description("13.2 kV")] _13_2kV,
+        [Description("12.47 kV")] _12_5kV,
     }
 
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
@@ -107,18 +129,17 @@ namespace Substation_Builder.Model
         [Description("900:5 - (180:1")] T180,
         [Description("800:5 - (160:1")] T160,
         [Description("600:5 - (120:1")] T120,
-
     }
 
     [Serializable]
     public class Substation
     {
         public string Name { get; set; }
-        public string SubType { get; set; }
-        public string BusType { get; set; }
+        public SubType SubType { get; set; }
+        public BusType BusType { get; set; }
         public double MVA { get; set; }
-        public double HighVoltage { get; set; }
-        public double LowVoltage { get; set; }
+        public Voltage HighVoltage { get; set; }
+        public Voltage LowVoltage { get; set; }
         public ObservableCollection<Thevenin> Thevenins { get; set; } = new ObservableCollection<Thevenin>();
         public ObservableCollection<Relay> Relays { get; set; } = new ObservableCollection<Relay>();
         public ObservableCollection<Breaker> Breakers { get; set; } = new ObservableCollection<Breaker>();
@@ -188,7 +209,7 @@ namespace Substation_Builder.Model
         public CTRating Rating { get; set; }
         public CTTaps CTR { get; set; }
         public CTTaps Tap { get; set; }
-        public bool OnPolarity { get; set; }
+        public Polarity Polarity { get; set; }
         public Relay Relay { get; set; }
     }
 

@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Substation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>Squash Bend</Name>
-  <MVA>0</MVA>
-  <HighVoltage>0</HighVoltage>
-  <LowVoltage>0</LowVoltage>
+  <SubType>Switchgear</SubType>
+  <BusType>DoubleBus</BusType>
+  <MVA>100</MVA>
+  <HighVoltage>_161kV</HighVoltage>
+  <LowVoltage>_26_2kV</LowVoltage>
   <Thevenins>
     <Thevenin>
       <Name>Base Thevenin</Name>
-      <R0_Z>0</R0_Z>
+      <R0_Z>0.928</R0_Z>
       <R1_Z>0</R1_Z>
       <R2_Z>0</R2_Z>
-      <X0_Z>0</X0_Z>
+      <X0_Z>1.28</X0_Z>
       <X1_Z>0</X1_Z>
       <X2_Z>0</X2_Z>
       <R0_Ohms>0</R0_Ohms>
@@ -22,10 +24,10 @@
     </Thevenin>
     <Thevenin>
       <Name>Second Thevenin</Name>
-      <R0_Z>0</R0_Z>
+      <R0_Z>0.128</R0_Z>
       <R1_Z>0</R1_Z>
       <R2_Z>0</R2_Z>
-      <X0_Z>0</X0_Z>
+      <X0_Z>5.38</X0_Z>
       <X1_Z>0</X1_Z>
       <X2_Z>0</X2_Z>
       <R0_Ohms>0</R0_Ohms>
@@ -58,21 +60,21 @@
           <Rating>C400</Rating>
           <CTR>T240</CTR>
           <Tap>T120</Tap>
-          <OnPolarity>true</OnPolarity>
+          <Polarity>OnPolarity</Polarity>
         </CT>
         <CT>
           <Name>CT1B</Name>
           <Rating>C400</Rating>
-          <CTR>T240</CTR>
+          <CTR>T400</CTR>
           <Tap>T120</Tap>
-          <OnPolarity>true</OnPolarity>
+          <Polarity>OnPolarity</Polarity>
         </CT>
         <CT>
           <Name>CT1B</Name>
           <Rating>C400</Rating>
-          <CTR>T240</CTR>
+          <CTR>T400</CTR>
           <Tap>T120</Tap>
-          <OnPolarity>true</OnPolarity>
+          <Polarity>OnPolarity</Polarity>
         </CT>
       </CTs>
       <Name>High Side Name</Name>
@@ -88,24 +90,25 @@
       <CTs>
         <CT>
           <Name>CT1</Name>
+          <Description>387 Winding 1</Description>
           <Rating>C400</Rating>
-          <CTR>T240</CTR>
-          <Tap>T120</Tap>
-          <OnPolarity>true</OnPolarity>
+          <CTR>T400</CTR>
+          <Tap>T180</Tap>
+          <Polarity>OnPolarity</Polarity>
         </CT>
         <CT>
           <Name>CT2</Name>
           <Rating>C400</Rating>
-          <CTR>T240</CTR>
-          <Tap>T120</Tap>
-          <OnPolarity>true</OnPolarity>
+          <CTR>T400</CTR>
+          <Tap>T400</Tap>
+          <Polarity>OnPolarity</Polarity>
         </CT>
         <CT>
           <Name>CT3</Name>
           <Rating>C400</Rating>
-          <CTR>T120</CTR>
-          <Tap>T120</Tap>
-          <OnPolarity>true</OnPolarity>
+          <CTR>T400</CTR>
+          <Tap>T180</Tap>
+          <Polarity>OnPolarity</Polarity>
         </CT>
       </CTs>
       <Name>T1</Name>
