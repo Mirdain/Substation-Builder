@@ -3,9 +3,13 @@
   <Name>Squash Bend</Name>
   <SubType>Switchgear</SubType>
   <BusType>DoubleBus</BusType>
+  <HighPT>T300</HighPT>
+  <LowPT>T60</LowPT>
+  <HighPTCon>Wye</HighPTCon>
+  <LowPTCon>Wye</LowPTCon>
   <MVA>100</MVA>
-  <HighVoltage>_161kV</HighVoltage>
-  <LowVoltage>_26_2kV</LowVoltage>
+  <HighVoltage>_69kV</HighVoltage>
+  <LowVoltage>_12_5kV</LowVoltage>
   <Thevenins>
     <Thevenin>
       <Name>Base Thevenin</Name>
@@ -40,13 +44,15 @@
   </Thevenins>
   <Relays>
     <Relay>
-      <Name>Xfmr Diff</Name>
+      <Name>T1 XFMR Relay</Name>
+      <Description>Transformer Diff</Description>
       <Bus>Bus_1</Bus>
-      <Position>BH1</Position>
+      <Position>XF1</Position>
       <Type>SEL_387</Type>
     </Relay>
     <Relay>
-      <Name>High Side</Name>
+      <Name>T1 BU Relay</Name>
+      <Description>Backup Over Current</Description>
       <Bus>Bus_1</Bus>
       <Position>BH1</Position>
       <Type>SEL_351S_7</Type>
@@ -77,12 +83,14 @@
           <Polarity>OnPolarity</Polarity>
         </CT>
       </CTs>
-      <Name>High Side Name</Name>
+      <Name>G0684-S</Name>
+      <Description>High Side Breaker</Description>
+      <Breaker_Size>A2000</Breaker_Size>
       <Bus>Bus_1</Bus>
       <Breaker_Position>BH1</Breaker_Position>
       <Voltage>_69kV</Voltage>
       <Breaker_Type>SF6</Breaker_Type>
-      <Breaker_Size>A2000</Breaker_Size>
+      <BrkMan>MITSU</BrkMan>
     </Breaker>
   </Breakers>
   <Transformers>

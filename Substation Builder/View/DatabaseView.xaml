@@ -6,12 +6,14 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:Helpers="clr-namespace:Substation_Builder.Helpers"
+                      xmlns:Global="clr-namespace:Substation_Builder"
+                      xmlns:Model="clr-namespace:Substation_Builder.Model"
                       xmlns:vm="clr-namespace:Substation_Builder.ViewModel"
                       mc:Ignorable="d"
                       Icon="..\Resources\Images\MainPageIcon.jpg"    
                       Title="Database" ResizeMode="NoResize"
                       WindowStartupLocation="Manual"
-                      BorderThickness="0" MinWidth="700" MinHeight="450" Width="600" Height="350">
+                      BorderThickness="0" MinWidth="750" MinHeight="500" Width="600" Height="350">
 
     <Controls:MetroWindow.TitleTemplate>
         <DataTemplate>
@@ -25,6 +27,7 @@
     <Controls:MetroWindow.DataContext>
         <vm:DatabaseViewModel/>
     </Controls:MetroWindow.DataContext>
+
 
     <Controls:MetroWindow.Resources>
         <mah:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
@@ -86,7 +89,6 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-
                     <ToolBarTray ToolBarTray.IsLocked="True">
                         <ToolBar FontSize="16" Margin="8,0,0,0">
                             <Button Content="New"  Command="{Binding AddItemCommand}" CommandParameter="Project" Margin="3,0,0,0"/>
@@ -97,10 +99,9 @@
                         </ToolBar>
                     </ToolBarTray>
 
-                    <TreeView x:Name="treeview" Grid.Row="1" ItemsSource="{Binding Project}" VerticalAlignment="Top" SelectedItemChanged="LoadPage" FontSize="16">
+                    <TreeView Grid.Row="1" x:Name="treeview" ItemsSource="{Binding Project}" VerticalAlignment="Top" SelectedItemChanged="LoadPage" FontSize="16">
 
                         <TreeViewItem x:Name="Subdata" Header="{Binding Project.Name}" ItemsSource="{Binding Project}">
-                            
                             <!-- This is the Header and Treeview Items for Thevenin-->
                             <TreeViewItem Header='Thevenins' ItemsSource="{Binding Project.Thevenins}" ContextMenu="{StaticResource AddTheveninContext}">
                                 <!-- This is the treeview Items for Thevenin-->
@@ -140,15 +141,13 @@
                                 </TreeViewItem.ItemTemplate>
                             </TreeViewItem>
                         </TreeViewItem>
-                        
+
                     </TreeView>
+
                 </Grid>
-
-
-                    <Frame Grid.Column="1" x:Name="pagenavigation" NavigationUIVisibility="Hidden" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-
+                <Frame Grid.Column="1" x:Name="pagenavigation" NavigationUIVisibility="Hidden" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
+            
         </Controls:MetroTabItem>
 
         <Controls:MetroTabItem Header="THEVENIN"  TabIndex="2">

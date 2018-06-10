@@ -123,6 +123,12 @@
     <Compile Include="Helpers\ViewModelBase.cs" />
     <Compile Include="Model\Model.cs" />
     <Compile Include="Helpers\SystemIO.cs" />
+    <Compile Include="View\BreakerView.xaml.cs">
+      <DependentUpon>BreakerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CTMenuView.xaml.cs">
+      <DependentUpon>CTMenuView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CTView.xaml.cs">
       <DependentUpon>CTView.xaml</DependentUpon>
     </Compile>
@@ -151,6 +157,14 @@
       <DependentUpon>TheveninView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\DatabaseViewModel.cs" />
+    <Page Include="View\BreakerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CTMenuView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\CTView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace Substation_Builder.View
 {
     /// <summary>
-    /// Interaction logic for Transformer2View.xaml
+    /// Interaction logic for BreakerView.xaml
     /// </summary>
-    public partial class Transformer2View : Page
+    public partial class BreakerView : Page
     {
-        public Transformer2View()
+        public BreakerView()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.GoBack();
         }
     }
 }

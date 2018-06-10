@@ -27,7 +27,7 @@ namespace Substation_Builder.View
 
         private void DatabaseView(object sender, RoutedEventArgs e)
         {
-            Window DatabaseView = new DatabaseView
+            DatabaseView DatabaseView = new DatabaseView
             {
                 Top = this.Top + 20,
                 Left = this.Left + 20

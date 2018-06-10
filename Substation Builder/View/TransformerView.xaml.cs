@@ -9,7 +9,6 @@ namespace Substation_Builder.View
     {
 
         public Transformer2View impedance = new Transformer2View();
-        public CTView AddCT = new CTView();
 
         public TransformerView()
         {

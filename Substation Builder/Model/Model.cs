@@ -44,6 +44,17 @@ namespace Substation_Builder.Model
     }
 
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
+    public enum RelayFunction
+    {
+        [Description("Backup Over Current")] BU_OC,
+        [Description("Transfromer Differential")] XFMR_Diff,
+        [Description("Bus Differential")] Bus_Diff,
+        [Description("Feeder Protection")] Feeder,
+        [Description("Bus Tie Protection")] BT_OC,
+    }
+
+
+    [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum RelayPosition
     {
         [Description("351-BH1")] BH1,
@@ -87,6 +98,15 @@ namespace Substation_Builder.Model
     }
 
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
+    public enum BrkManufacture
+    {
+        [Description("ABB")] ABB,
+        [Description("Eaton")] EATON,
+        [Description("Mitsubishi")] MITSU,
+        [Description("Areva")] AREVA,
+    }
+
+    [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum BreakerSize
     {
         [Description("2000 A")] A2000,
@@ -125,10 +145,28 @@ namespace Substation_Builder.Model
     {
         [Description("2000:5 - (400:1)")] T400,
         [Description("1500:5 - (300:1)")] T300,
-        [Description("1200:5 - (240:1")] T240,
-        [Description("900:5 - (180:1")] T180,
-        [Description("800:5 - (160:1")] T160,
-        [Description("600:5 - (120:1")] T120,
+        [Description("1200:5 - (240:1)")] T240,
+        [Description("900:5 - (180:1)")] T180,
+        [Description("800:5 - (160:1)")] T160,
+        [Description("600:5 - (120:1)")] T120,
+    }
+
+    [TypeConverter(typeof(EnumDescriptionTypeConverter))]
+    public enum PTR
+    {
+        [Description("600:1")] T600,
+        [Description("300:1")] T300,
+        [Description("120:1")] T120,
+        [Description("70:1")] T70,
+        [Description("60:1")] T60,
+        [Description("None")] TNone,
+    }
+
+    [TypeConverter(typeof(EnumDescriptionTypeConverter))]
+    public enum ConnectionType
+    {
+        [Description("Delta")] Delta,
+        [Description("Wye")] Wye,
     }
 
     [Serializable]
@@ -137,6 +175,10 @@ namespace Substation_Builder.Model
         public string Name { get; set; }
         public SubType SubType { get; set; }
         public BusType BusType { get; set; }
+        public PTR HighPT { get; set; }
+        public PTR LowPT { get; set; }
+        public ConnectionType HighPTCon { get; set; }
+        public ConnectionType LowPTCon { get; set; }
         public double MVA { get; set; }
         public Voltage HighVoltage { get; set; }
         public Voltage LowVoltage { get; set; }
@@ -167,20 +209,25 @@ namespace Substation_Builder.Model
     public class Relay
     {
         public string Name { get; set; }
+        public string Description { get; set; }
+        public RelayType Type { get; set; }
+        public RelayFunction Function { get; set; }
         public Bus Bus { get; set; }
         public RelayPosition Position { get; set; }
-        public RelayType Type { get; set; }
+        public CT ConnectedCT { get; set; }
     }
 
     public class Breaker
     {
         public ObservableCollection<CT> CTs { get; set; } = new ObservableCollection<CT>();
         public string Name { get; set; }
+        public string Description { get; set; }
+        public BreakerSize Breaker_Size { get; set; }
         public Bus Bus { get; set; }
         public BreakerPosition Breaker_Position { get; set; }
         public Voltage Voltage { get; set; }
         public BreakerType Breaker_Type { get; set; }
-        public BreakerSize Breaker_Size { get; set; }
+        public BrkManufacture BrkMan { get; set; }
     }
 
     public class Transformer
