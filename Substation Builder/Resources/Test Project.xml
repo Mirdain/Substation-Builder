@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Substation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Name>Squash Bend</Name>
-  <MVA>0</MVA>
-  <HighVoltage>0</HighVoltage>
-  <LowVoltage>0</LowVoltage>
+  <Name>Squash Bend2</Name>
+  <SubType>Switchgear</SubType>
+  <BusType>DoubleBus</BusType>
+  <HighPT>T300</HighPT>
+  <LowPT>T60</LowPT>
+  <HighPTCon>Wye</HighPTCon>
+  <LowPTCon>Wye</LowPTCon>
+  <MVA>100</MVA>
+  <HighVoltage>_69kV</HighVoltage>
+  <LowVoltage>_12_5kV</LowVoltage>
   <Thevenins>
     <Thevenin>
       <Name>Base Thevenin</Name>
@@ -38,16 +44,20 @@
   </Thevenins>
   <Relays>
     <Relay>
-      <Name>Xfmr Diff</Name>
-      <Bus>Bus_1</Bus>
-      <Position>BH1</Position>
+      <Name>T1 XFMR Relay</Name>
+      <Description>Transformer Diff</Description>
       <Type>SEL_387</Type>
+      <Function>BU_OC</Function>
+      <Bus>Bus_1</Bus>
+      <Position>XF1</Position>
     </Relay>
     <Relay>
-      <Name>High Side</Name>
+      <Name>T1 BU Relay</Name>
+      <Description>Backup Over Current</Description>
+      <Type>SEL_351S_7</Type>
+      <Function>BU_OC</Function>
       <Bus>Bus_1</Bus>
       <Position>BH1</Position>
-      <Type>SEL_351S_7</Type>
     </Relay>
   </Relays>
   <Breakers>
@@ -75,12 +85,14 @@
           <Polarity>OnPolarity</Polarity>
         </CT>
       </CTs>
-      <Name>High Side Name</Name>
+      <Name>G0684-S</Name>
+      <Description>High Side Breaker</Description>
+      <Breaker_Size>A2000</Breaker_Size>
       <Bus>Bus_1</Bus>
       <Breaker_Position>BH1</Breaker_Position>
       <Voltage>_69kV</Voltage>
       <Breaker_Type>SF6</Breaker_Type>
-      <Breaker_Size>A2000</Breaker_Size>
+      <BrkMan>MITSU</BrkMan>
     </Breaker>
   </Breakers>
   <Transformers>
@@ -88,6 +100,7 @@
       <CTs>
         <CT>
           <Name>CT1</Name>
+          <Description>387 Winding 1</Description>
           <Rating>C400</Rating>
           <CTR>T400</CTR>
           <Tap>T180</Tap>

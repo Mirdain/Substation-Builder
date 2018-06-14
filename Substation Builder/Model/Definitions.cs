@@ -168,26 +168,7 @@ namespace Substation_Builder.Model
         [Description("Delta")] Delta,
         [Description("Wye")] Wye,
     }
-
-    [Serializable]
-    public class Substation
-    {
-        public string Name { get; set; }
-        public SubType SubType { get; set; }
-        public BusType BusType { get; set; }
-        public PTR HighPT { get; set; }
-        public PTR LowPT { get; set; }
-        public ConnectionType HighPTCon { get; set; }
-        public ConnectionType LowPTCon { get; set; }
-        public double MVA { get; set; }
-        public Voltage HighVoltage { get; set; }
-        public Voltage LowVoltage { get; set; }
-        public ObservableCollection<Thevenin> Thevenins { get; set; } = new ObservableCollection<Thevenin>();
-        public ObservableCollection<Relay> Relays { get; set; } = new ObservableCollection<Relay>();
-        public ObservableCollection<Breaker> Breakers { get; set; } = new ObservableCollection<Breaker>();
-        public ObservableCollection<Transformer> Transformers { get; set; } = new ObservableCollection<Transformer>();
-    }
-
+    
     public class Thevenin
     {
         public string Name { get; set; }
@@ -205,7 +186,7 @@ namespace Substation_Builder.Model
         public double X1_Ohms { get; set; }
         public double X2_Ohms { get; set; }
     }
-
+    
     public class Relay
     {
         public string Name { get; set; }
@@ -216,7 +197,7 @@ namespace Substation_Builder.Model
         public RelayPosition Position { get; set; }
         public CT ConnectedCT { get; set; }
     }
-
+    
     public class Breaker
     {
         public ObservableCollection<CT> CTs { get; set; } = new ObservableCollection<CT>();
@@ -229,7 +210,7 @@ namespace Substation_Builder.Model
         public BreakerType Breaker_Type { get; set; }
         public BrkManufacture BrkMan { get; set; }
     }
-
+    
     public class Transformer
     {
         public ObservableCollection<CT> CTs { get; set; } = new ObservableCollection<CT>();
@@ -248,7 +229,7 @@ namespace Substation_Builder.Model
         public string LowVoltageWndg { get; set; }
         public string HighVoltageWndg { get; set; }
     }
-
+    
     public class CT
     {
         public string Name { get; set; }

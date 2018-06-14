@@ -3,11 +3,11 @@
 namespace Substation_Builder.View
 {
     /// <summary>
-    /// Interaction logic for Relay.xaml
+    /// Interaction logic for Substation.xaml
     /// </summary>
-    public partial class RelayView : Page
+    public partial class SubstationPage : Page
     {
-        public RelayView()
+        public SubstationPage()
         {
             InitializeComponent();
         }

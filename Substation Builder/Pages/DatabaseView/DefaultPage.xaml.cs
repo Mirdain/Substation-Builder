@@ -3,9 +3,9 @@
 namespace Substation_Builder.View
 {
 
-    public partial class DefaultView : Page
+    public partial class DefaultPage : Page
     {
-        public DefaultView()
+        public DefaultPage()
         {
             InitializeComponent();
         }

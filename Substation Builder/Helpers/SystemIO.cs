@@ -3,10 +3,10 @@ using System.IO;
 using Microsoft.Win32;
 using System.Xml.Serialization;
 using System.Collections.ObjectModel;
+using System;
 
 namespace Substation_Builder.Services
 {
-
     public partial class SystemIO
     {
         //Load a  Project File
@@ -23,6 +23,7 @@ namespace Substation_Builder.Services
                 Project = (Substation)serializer.Deserialize(reader);
                 reader.Close();
             }
+
             return Project;
         }
 
@@ -45,10 +46,8 @@ namespace Substation_Builder.Services
         }
 
         //Loads a Template File
-        public Substation LoadTemplate()
+        public void LoadTemplate(Substation Project)
         {
-            Substation Project = new Substation();
-
             CT XFMR1CT = new CT
             {
                 CTR = CTTaps.T400,
@@ -180,31 +179,15 @@ namespace Substation_Builder.Services
                 Type = RelayType.SEL_351S_7,
             };
 
-            Project = new Substation
-            {
-                Name = "Squash Bend",
-                Thevenins = new ObservableCollection<Thevenin>()
-                {
-                    BaseThevenin,
-                    SecondThevenin,
-                },
-                Transformers = new ObservableCollection<Transformer>
-                {
-                    T1,
-                    T2
-                },
-                Relays = new ObservableCollection<Relay>
-                {
-                    FirstRelay,
-                    SecondRelay,
-                },
-                Breakers = new ObservableCollection<Breaker>
-                {
-                    HighSide,
-                }
+            Project.Name = "Squash Bend Template";
+            Project.Thevenins.Add(BaseThevenin);
+            Project.Thevenins.Add(SecondThevenin);
+            Project.Transformers.Add(T1);
+            Project.Transformers.Add(T2);
+            Project.Relays.Add(FirstRelay);
+            Project.Relays.Add(SecondRelay);
+            Project.Breakers.Add(HighSide);
 
-            };
-            return Project;
         }
 
     }

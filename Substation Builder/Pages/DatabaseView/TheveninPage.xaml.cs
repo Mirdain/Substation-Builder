@@ -3,11 +3,11 @@
 namespace Substation_Builder.View
 {
     /// <summary>
-    /// Interaction logic for Substation.xaml
+    /// Interaction logic for Thevenin.xaml
     /// </summary>
-    public partial class SubstationView : Page
+    public partial class TheveninPage : Page
     {
-        public SubstationView()
+        public TheveninPage()
         {
             InitializeComponent();
         }

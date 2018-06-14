@@ -12,15 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Substation_Builder.ViewModel;
 
 namespace Substation_Builder.View
 {
     /// <summary>
-    /// Interaction logic for BreakerView.xaml
+    /// Interaction logic for CTMenuView.xaml
     /// </summary>
-    public partial class BreakerView : Page
+    public partial class CTMenuPage : Page
     {
-        public BreakerView()
+        public CTMenuPage()
         {
             InitializeComponent();
         }

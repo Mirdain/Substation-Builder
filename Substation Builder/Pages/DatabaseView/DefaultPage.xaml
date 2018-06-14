@@ -1,0 +1,28 @@
+﻿
+<Page x:Class="Substation_Builder.View.DefaultPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Substation_Builder.View"
+      mc:Ignorable="d" 
+      Title="Default">
+    <StackPanel>
+
+        <Image Grid.Column="1" Margin="0,0,8,0" Name="MainPageBackground" Source="/Resources/Images/MainPageBackground.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="1" ScaleX="-1"/>
+                    <SkewTransform AngleY="0" AngleX="0"/>
+                    <RotateTransform Angle="0"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+            <Image.OpacityMask>
+                <ImageBrush ImageSource="/Resources/Images/MainPageBackground.png"/>
+            </Image.OpacityMask>
+        </Image>
+
+    </StackPanel>
+    
+</Page>

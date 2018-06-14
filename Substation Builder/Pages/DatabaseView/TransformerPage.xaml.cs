@@ -5,12 +5,12 @@ namespace Substation_Builder.View
     /// <summary>
     /// Interaction logic for Transformer.xaml
     /// </summary>
-    public partial class TransformerView : Page
+    public partial class TransformerPage : Page
     {
 
-        public Transformer2View impedance = new Transformer2View();
+        public Transformer2Page impedance = new Transformer2Page();
 
-        public TransformerView()
+        public TransformerPage()
         {
             InitializeComponent();
         }

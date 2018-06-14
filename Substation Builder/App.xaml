@@ -1,8 +1,10 @@
 ﻿<Application x:Class="Substation_Builder.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Model="clr-namespace:Substation_Builder.Model"
              StartupUri="View\MainWindowView.xaml">
     <Application.Resources>
+        
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
@@ -12,16 +14,17 @@
 
                 <!-- Animated Tab Control-->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedSingleRowTabControl.xaml" />
-                
+
                 <!-- Icon Pack -->
                 <ResourceDictionary Source="/Resources/Icons/Icons.xaml" />
-                             
+
                 <!-- Accent and AppTheme setting -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Steel.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
+
             </ResourceDictionary.MergedDictionaries>
+
         </ResourceDictionary>
 
-        
     </Application.Resources>
 </Application>

@@ -1,14 +1,17 @@
-﻿using Substation_Builder.Model;
+﻿using Substation_Builder.Helpers;
+using Substation_Builder.Model;
 using Substation_Builder.Services;
-using Substation_Builder.Helpers;
+using Substation_Builder.View;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows;
-using MahApps.Metro.Controls.Dialogs;
+using System.Reflection;
 
 namespace Substation_Builder.ViewModel
 {
-
     public partial class DatabaseViewModel : ViewModelBase
     {
+
         private Substation project;
         public Substation Project
         {
@@ -16,9 +19,10 @@ namespace Substation_Builder.ViewModel
             set
             {
                 project = value;
-                NotifyPropertyChanged("Project");
+                NotifyPropertyChanged();
             }
         }
+
         public object TVSelectedItem;
         private SystemIO FileIO = new SystemIO();
         public RelayCommand SaveCommand { get; private set; }
@@ -28,9 +32,9 @@ namespace Substation_Builder.ViewModel
         public RelayCommandParam AddCTCommand { get; private set; }
         public RelayCommandParam AddItemCommand { get; private set; }
 
-        public DatabaseViewModel()
+        public DatabaseViewModel(Substation refproject)
         {
-            Project = new Substation();
+            Project = refproject;
             LoadCommand = new RelayCommand(LoadFile);
             SaveCommand = new RelayCommand(SaveFile);
             TemplateCommand = new RelayCommand(LoadTemplate);
@@ -38,13 +42,37 @@ namespace Substation_Builder.ViewModel
             RemoveItemCommand = new RelayCommandParam(RemoveItem);
             AddCTCommand = new RelayCommandParam(AddCT);
             AddItemCommand = new RelayCommandParam(AddItem);
+
+            DatabaseView databaseView = new DatabaseView
+            {
+                DataContext = this
+            };
+
+            databaseView.Show();
+
         }
 
         //read a .xaml file and load into the Datamodel classes
         private void LoadFile()
         {
-            Project = FileIO.FileOpen(Project);
-        }
+            Substation LoadedProject = FileIO.FileOpen(Project);
+
+            //Manuall map it.... i give up
+            Project.Name = LoadedProject.Name;
+            Project.SubType = LoadedProject.SubType;
+            Project.BusType = LoadedProject.BusType;
+            Project.HighPT = LoadedProject.HighPT;
+            Project.LowPT = LoadedProject.LowPT;
+            Project.HighPTCon = LoadedProject.HighPTCon;
+            Project.LowPTCon = LoadedProject.LowPTCon;
+            Project.MVA = LoadedProject.MVA;
+            Project.HighVoltage = LoadedProject.HighVoltage;
+            Project.LowVoltage = LoadedProject.LowVoltage;
+            Project.Thevenins = LoadedProject.Thevenins;
+            Project.Relays = LoadedProject.Relays;
+            Project.Breakers = LoadedProject.Breakers;
+            Project.Transformers = LoadedProject.Transformers;
+        }       
 
         //Serialize the DataModel and save
         public void SaveFile()
@@ -55,14 +83,14 @@ namespace Substation_Builder.ViewModel
         //Load Template
         public void LoadTemplate()
         {
-            Project = FileIO.LoadTemplate();
+            FileIO.LoadTemplate(Project);
         }
 
         public void AddItem(object sender)
         {
             if (sender.ToString() == "Thevenin")
             {
-                Thevenin thevenin = new Thevenin { Name = "New Thevenin " + (project.Thevenins.Count + 1).ToString() };
+                Thevenin thevenin = new Thevenin { Name = "New Thevenin " + (Project.Thevenins.Count + 1).ToString() };
                 Project.Thevenins.Add(thevenin);
             }
 
@@ -90,19 +118,19 @@ namespace Substation_Builder.ViewModel
 
             if (sender.ToString() == "Breaker")
             {
-                Breaker breaker = new Breaker { Name = "New Breaker " + (project.Breakers.Count + 1).ToString() };
+                Breaker breaker = new Breaker { Name = "New Breaker " + (Project.Breakers.Count + 1).ToString() };
                 Project.Breakers.Add(breaker);
             }
 
             if (sender.ToString() == "Relay")
             {
-                Relay relay = new Relay { Name = "New Relay " + (project.Relays.Count + 1).ToString() };
+                Relay relay = new Relay { Name = "New Relay " + (Project.Relays.Count + 1).ToString() };
                 Project.Relays.Add(relay);
             }
 
             if (sender.ToString() == "Transformer")
             {
-                Transformer transformer = new Transformer { Name = "New Transformer " + (project.Transformers.Count + 1).ToString() };
+                Transformer transformer = new Transformer { Name = "New Transformer " + (Project.Transformers.Count + 1).ToString() };
                 Project.Transformers.Add(transformer);
             }
         }
@@ -110,17 +138,20 @@ namespace Substation_Builder.ViewModel
         //Add a CT
         public void AddCT(object sender)
         {
-            if (sender.GetType() == typeof(Breaker))
+            if (sender != null)
             {
-                int index = project.Breakers.IndexOf(sender as Breaker);
-                CT ct = new CT { Name = "CT" + (project.Breakers[index].CTs.Count + 1).ToString() };
-                project.Breakers[index].CTs.Add(ct);
-            }
-            else if (sender.GetType() == typeof(Transformer))
-            {
-                int index = project.Transformers.IndexOf(sender as Transformer);
-                CT ct = new CT { Name = "CT" + (project.Transformers[index].CTs.Count + 1).ToString() };
-                project.Transformers[index].CTs.Add(ct);
+                if (sender.GetType() == typeof(Breaker))
+                {
+                    int index = Project.Breakers.IndexOf(sender as Breaker);
+                    CT ct = new CT { Name = "CT" + (Project.Breakers[index].CTs.Count + 1).ToString() };
+                    Project.Breakers[index].CTs.Add(ct);
+                }
+                else if (sender.GetType() == typeof(Transformer))
+                {
+                    int index = Project.Transformers.IndexOf(sender as Transformer);
+                    CT ct = new CT { Name = "CT" + (Project.Transformers[index].CTs.Count + 1).ToString() };
+                    Project.Transformers[index].CTs.Add(ct);
+                }
             }
         }
 
@@ -129,38 +160,53 @@ namespace Substation_Builder.ViewModel
         {
             if (sender.GetType() == typeof(Thevenin))
             {
-                project.Thevenins.Remove(sender as Thevenin);
+                    Project.Thevenins.Remove(sender as Thevenin);
             }
             else if (sender.GetType() == typeof(Breaker))
             {
-                project.Breakers.Remove(sender as Breaker);
+                    Project.Breakers.Remove(sender as Breaker);
             }
             else if (sender.GetType() == typeof(Relay))
             {
-                project.Relays.Remove(sender as Relay);
+                    Project.Relays.Remove(sender as Relay);
             }
             else if (sender.GetType() == typeof(Transformer))
             {
-                project.Transformers.Remove(sender as Transformer);
+                    Project.Transformers.Remove(sender as Transformer);
             }
             else if (sender.GetType() == typeof(CT))
             {
-                for (int i = 0; i < project.Transformers.Count; i++)
+                for (int i = 0; i < Project.Transformers.Count; i++)
                 {
-                    int index = project.Transformers[i].CTs.IndexOf((CT)sender);
+                    int index = Project.Transformers[i].CTs.IndexOf((CT)sender);
                     if (index >= 0)
-                        project.Transformers[i].CTs.RemoveAt(index);
+                            Project.Transformers[i].CTs.RemoveAt(index);
                 }
 
-                for (int i = 0; i < project.Breakers.Count; i++)
+                for (int i = 0; i < Project.Breakers.Count; i++)
                 {
-                    int index = project.Breakers[i].CTs.IndexOf((CT)sender);
+                    int index = Project.Breakers[i].CTs.IndexOf((CT)sender);
                     if (index >= 0)
-                        project.Breakers[i].CTs.RemoveAt(index);
+                            Project.Breakers[i].CTs.RemoveAt(index);
                 }
             }
         }
 
+        public static Substation DeepClone<Substation>(Substation obj)
+        {
+            using (var ms = new MemoryStream())
+            {
+                var formatter = new BinaryFormatter();
+                formatter.Serialize(ms, obj);
+                ms.Position = 0;
+
+                return (Substation)formatter.Deserialize(ms);
+            }
+        }
+
     }
+
+
+
 
 }

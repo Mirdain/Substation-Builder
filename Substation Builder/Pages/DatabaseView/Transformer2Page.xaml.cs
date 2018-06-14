@@ -12,18 +12,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Substation_Builder.ViewModel;
 
 namespace Substation_Builder.View
 {
     /// <summary>
-    /// Interaction logic for CTMenuView.xaml
+    /// Interaction logic for Transformer2View.xaml
     /// </summary>
-    public partial class CTMenuView : Page
+    public partial class Transformer2Page : Page
     {
-        public CTMenuView()
+        public Transformer2Page()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }

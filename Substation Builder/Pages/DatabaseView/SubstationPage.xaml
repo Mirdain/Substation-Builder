@@ -5,7 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:EnumHelper="clr-namespace:Substation_Builder.Helpers"
     xmlns:model="clr-namespace:Substation_Builder.Model"
-    x:Class="Substation_Builder.View.SubstationView"
+    x:Class="Substation_Builder.View.SubstationPage"
     mc:Ignorable="d" 
       Title="Substation">
 

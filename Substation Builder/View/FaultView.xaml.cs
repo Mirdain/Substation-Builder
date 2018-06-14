@@ -10,17 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MahApps.Metro.Controls;
 
 namespace Substation_Builder.View
 {
     /// <summary>
-    /// Interaction logic for CTView.xaml
+    /// Interaction logic for FaultViewModel.xaml
     /// </summary>
-    public partial class CTView : Page
+    public partial class FaultView : MetroWindow
     {
-        public CTView()
+        public FaultView()
         {
             InitializeComponent();
         }

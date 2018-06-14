@@ -13,16 +13,19 @@ namespace Substation_Builder.View
     /// 
     public partial class DatabaseView : MetroWindow
     {
-        private TheveninView theveninview = new TheveninView();
-        private SubstationView substationview = new SubstationView();
-        private RelayView relayview = new RelayView();
-        private BreakerView breakerView = new BreakerView();
-        private CTView ctview = new CTView();
-        private TransformerView transformerview = new TransformerView();
+        private TheveninPage theveninview = new TheveninPage();
+        private SubstationPage substationview = new SubstationPage();
+        private RelayPage relayview = new RelayPage();
+        private BreakerPage breakerView = new BreakerPage();
+        private CTPage ctview = new CTPage();
+        private TransformerPage transformerview = new TransformerPage();
+        private DefaultPage defaultPage = new DefaultPage();
 
         public DatabaseView()
         {
             InitializeComponent();
+            Database.pagenavigation.IsEnabled = false;
+            pagenavigation.Navigate(substationview);
         }
 
         //used to navigate to forms located in the xaml folder and bind to classes
@@ -35,37 +38,66 @@ namespace Substation_Builder.View
             if (Subdata.IsSelected)
             {
                 substationview.DataContext = Subdata.DataContext;
+                Database.pagenavigation.IsEnabled = true;
                 pagenavigation.Navigate(substationview);
             }
-            else if (teststring == "Substation_Builder.Model.Thevenin")
+            else if (teststring.Contains("Thevenins"))
             {
-                theveninview.DataContext = treepart.SelectedItem;
+                theveninview.DataContext = null;
+                Database.pagenavigation.IsEnabled = false;
                 pagenavigation.Navigate(theveninview);
             }
-            else if (teststring == "Substation_Builder.Model.Transformer")
+            else if (teststring.Contains("Transformers"))
             {
-                transformerview.DataContext = treepart.SelectedItem;
+                transformerview.DataContext = null;
+                Database.pagenavigation.IsEnabled = false;
                 pagenavigation.Navigate(transformerview);
             }
-            else if (teststring == "Substation_Builder.Model.Breaker")
+            else if (teststring.Contains("Breakers"))
             {
-                breakerView.DataContext = treepart.SelectedItem;
+                breakerView.DataContext = null;
+                Database.pagenavigation.IsEnabled = false;
                 pagenavigation.Navigate(breakerView);
             }
-            else if (teststring == "Substation_Builder.Model.Relay")
+            else if (teststring.Contains("Relays"))
+            {
+                relayview.DataContext = null;
+                Database.pagenavigation.IsEnabled = false;
+                pagenavigation.Navigate(relayview);
+            }
+            else if (teststring.Contains("Thevenin"))
+            {
+                theveninview.DataContext = treepart.SelectedItem;
+                Database.pagenavigation.IsEnabled = true;
+                pagenavigation.Navigate(theveninview);
+            }
+            else if (teststring.Contains("Transformer"))
+            {
+                transformerview.DataContext = treepart.SelectedItem;
+                Database.pagenavigation.IsEnabled = true;
+                pagenavigation.Navigate(transformerview);
+            }
+            else if (teststring.Contains("Breaker"))
+            {
+                breakerView.DataContext = treepart.SelectedItem;
+                Database.pagenavigation.IsEnabled = true;
+                pagenavigation.Navigate(breakerView);
+            }
+            else if (teststring.Contains("Relay"))
             {
                 relayview.DataContext = treepart.SelectedItem;
+                Database.pagenavigation.IsEnabled = true;
                 pagenavigation.Navigate(relayview);
-
             }
-            else if (teststring == "Substation_Builder.Model.CT")
+            else if (teststring.Contains("CT"))
             {
                 ctview.DataContext = treepart.SelectedItem;
+                Database.pagenavigation.IsEnabled = true;
                 pagenavigation.Navigate(ctview);
             }
             else
             {
-                pagenavigation.Source = new Uri("DefaultView.xaml", UriKind.Relative);
+                pagenavigation.Navigate(defaultPage);
             }
         }
 
