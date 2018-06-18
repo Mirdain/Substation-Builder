@@ -55,23 +55,7 @@ namespace Substation_Builder.ViewModel
         //read a .xaml file and load into the Datamodel classes
         private void LoadFile()
         {
-            Substation LoadedProject = FileIO.FileOpen(Project);
-
-            //Manuall map it.... i give up
-            Project.Name = LoadedProject.Name;
-            Project.SubType = LoadedProject.SubType;
-            Project.BusType = LoadedProject.BusType;
-            Project.HighPT = LoadedProject.HighPT;
-            Project.LowPT = LoadedProject.LowPT;
-            Project.HighPTCon = LoadedProject.HighPTCon;
-            Project.LowPTCon = LoadedProject.LowPTCon;
-            Project.MVA = LoadedProject.MVA;
-            Project.HighVoltage = LoadedProject.HighVoltage;
-            Project.LowVoltage = LoadedProject.LowVoltage;
-            Project.Thevenins = LoadedProject.Thevenins;
-            Project.Relays = LoadedProject.Relays;
-            Project.Breakers = LoadedProject.Breakers;
-            Project.Transformers = LoadedProject.Transformers;
+            FileIO.FileOpen(Project);
         }       
 
         //Serialize the DataModel and save

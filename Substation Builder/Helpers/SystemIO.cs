@@ -10,8 +10,10 @@ namespace Substation_Builder.Services
     public partial class SystemIO
     {
         //Load a  Project File
-        public Substation FileOpen(Substation Project)
+        public void FileOpen(Substation RefProject)
         {
+            Substation Project = new Substation();
+
             OpenFileDialog openfile = new OpenFileDialog
             {
                 Filter = "XML Files (*.xml)|*.xml|All Files (*.*)|*.*"
@@ -22,9 +24,9 @@ namespace Substation_Builder.Services
                 StreamReader reader = new StreamReader(openfile.FileName);
                 Project = (Substation)serializer.Deserialize(reader);
                 reader.Close();
+                RefProject.Replace(Project);
             }
 
-            return Project;
         }
 
         //Save a Project File
@@ -46,8 +48,11 @@ namespace Substation_Builder.Services
         }
 
         //Loads a Template File
-        public void LoadTemplate(Substation Project)
+        public void LoadTemplate(Substation RefProject)
         {
+
+            Substation Project = new Substation();
+
             CT XFMR1CT = new CT
             {
                 CTR = CTTaps.T400,
@@ -187,6 +192,8 @@ namespace Substation_Builder.Services
             Project.Relays.Add(FirstRelay);
             Project.Relays.Add(SecondRelay);
             Project.Breakers.Add(HighSide);
+
+            RefProject.Replace(Project);
 
         }
 

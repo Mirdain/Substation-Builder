@@ -130,11 +130,51 @@ namespace Substation_Builder.Model
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public Substation DeepCopy()
+        public void Replace(Substation Append)
         {
-            Substation ClonedProject = (Substation)this.MemberwiseClone();
-            ClonedProject.Name = String.Copy(Name);
-            return ClonedProject;
+            Name = Append.Name;
+            SubType = Append.SubType;
+            BusType = Append.BusType;
+            HighPT = Append.HighPT;
+            LowPT = Append.LowPT;
+            HighPTCon = Append.HighPTCon;
+            LowPTCon = Append.LowPTCon;
+            MVA = Append.MVA;
+            HighVoltage = Append.HighVoltage;
+            LowVoltage = Append.LowVoltage;
+
+            Thevenins.Clear();
+            for (int i=0; i<Append.Thevenins.Count;i++)
+            {
+                Thevenins.Add(Append.Thevenins[i]);
+            }
+
+            Relays.Clear();
+            for (int i = 0; i < Append.Relays.Count; i++)
+            {
+                Relays.Add(Append.Relays[i]);
+            }
+
+            Breakers.Clear();
+            for (int i = 0; i < Append.Breakers.Count; i++)
+            {
+                Breakers.Add(Append.Breakers[i]);
+            }
+
+            Transformers.Clear();
+            for (int i = 0; i < Append.Transformers.Count; i++)
+            {
+                Transformers.Add(Append.Transformers[i]);
+            }
+
+        }
+
+        public void Clear()
+        {
+            Thevenins.Clear();
+            Breakers.Clear();
+            Transformers.Clear();
+            Relays.Clear();
         }
     }
 }
