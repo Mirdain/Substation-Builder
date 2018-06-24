@@ -43,7 +43,11 @@ namespace Substation_Builder.ViewModel
             }
             else
             {
-       
+                DatabaseView databaseView = new DatabaseView
+                {
+                    DataContext = databaseViewModel
+                };
+                databaseView.Show();
             }
         }
 

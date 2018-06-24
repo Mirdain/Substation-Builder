@@ -24,7 +24,7 @@ namespace Substation_Builder.View
         public DatabaseView()
         {
             InitializeComponent();
-            Database.pagenavigation.IsEnabled = false;
+            pagenavigation.IsEnabled = false;
             pagenavigation.Navigate(substationview);
         }
 
@@ -38,61 +38,61 @@ namespace Substation_Builder.View
             if (Subdata.IsSelected)
             {
                 substationview.DataContext = Subdata.DataContext;
-                Database.pagenavigation.IsEnabled = true;
+                pagenavigation.IsEnabled = true;
                 pagenavigation.Navigate(substationview);
             }
             else if (teststring.Contains("Thevenins"))
             {
                 theveninview.DataContext = null;
-                Database.pagenavigation.IsEnabled = false;
+                pagenavigation.IsEnabled = false;
                 pagenavigation.Navigate(theveninview);
             }
             else if (teststring.Contains("Transformers"))
             {
                 transformerview.DataContext = null;
-                Database.pagenavigation.IsEnabled = false;
+                pagenavigation.IsEnabled = false;
                 pagenavigation.Navigate(transformerview);
             }
             else if (teststring.Contains("Breakers"))
             {
                 breakerView.DataContext = null;
-                Database.pagenavigation.IsEnabled = false;
+                pagenavigation.IsEnabled = false;
                 pagenavigation.Navigate(breakerView);
             }
             else if (teststring.Contains("Relays"))
             {
                 relayview.DataContext = null;
-                Database.pagenavigation.IsEnabled = false;
+                pagenavigation.IsEnabled = false;
                 pagenavigation.Navigate(relayview);
             }
             else if (teststring.Contains("Thevenin"))
             {
                 theveninview.DataContext = treepart.SelectedItem;
-                Database.pagenavigation.IsEnabled = true;
+                pagenavigation.IsEnabled = true;
                 pagenavigation.Navigate(theveninview);
             }
             else if (teststring.Contains("Transformer"))
             {
                 transformerview.DataContext = treepart.SelectedItem;
-                Database.pagenavigation.IsEnabled = true;
+                pagenavigation.IsEnabled = true;
                 pagenavigation.Navigate(transformerview);
             }
             else if (teststring.Contains("Breaker"))
             {
                 breakerView.DataContext = treepart.SelectedItem;
-                Database.pagenavigation.IsEnabled = true;
+                pagenavigation.IsEnabled = true;
                 pagenavigation.Navigate(breakerView);
             }
             else if (teststring.Contains("Relay"))
             {
                 relayview.DataContext = treepart.SelectedItem;
-                Database.pagenavigation.IsEnabled = true;
+                pagenavigation.IsEnabled = true;
                 pagenavigation.Navigate(relayview);
             }
             else if (teststring.Contains("CT"))
             {
                 ctview.DataContext = treepart.SelectedItem;
-                Database.pagenavigation.IsEnabled = true;
+                pagenavigation.IsEnabled = true;
                 pagenavigation.Navigate(ctview);
             }
             else

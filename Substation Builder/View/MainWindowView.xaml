@@ -44,11 +44,11 @@
 
     <Controls:MetroWindow.Flyouts>
         <Controls:FlyoutsControl>
-            <Controls:Flyout Position="Right" IsOpen="{Binding IsChecked, ElementName=DescriptionToggle}" x:Name="TopFlyout" Width="300">
+            <Controls:Flyout Position="Right" IsOpen="{Binding IsChecked, ElementName=DescriptionToggle}" x:Name="TopFlyout" Width="400">
                 <TextBlock DockPanel.Dock="Top" Margin="5" FontSize="12" TextWrapping="Wrap" HorizontalAlignment="Center">
                     <Run FontSize="23" FontFamily="Segoe UI Light">About</Run>
-                    <LineBreak/> Written to help lazy people be lazy.<LineBreak/>Not responsible for <Bold>ANY</Bold> mistakes.<LineBreak/>
-                    <Hyperlink>Report</Hyperlink> any bugs or issues found.
+                    <LineBreak/> Written to help lazy people be lazy.<LineBreak/>Not responsible for 
+                    <Bold>ANY</Bold> mistakes.<LineBreak/> Report any bugs or issues found.
                     <Image Margin="0,20,0,10" Name="AboutImage" Source="..\Resources\Images\AboutImage.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" StretchDirection="UpOnly">
                         <Image.RenderTransform>
                             <TransformGroup>

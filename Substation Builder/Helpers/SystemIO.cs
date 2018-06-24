@@ -78,7 +78,6 @@ namespace Substation_Builder.Services
                 Tap = CTTaps.T180
             };
 
-
             CT BRK1CT = new CT
             {
                 CTR = CTTaps.T400,

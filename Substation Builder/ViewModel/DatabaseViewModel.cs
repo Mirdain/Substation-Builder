@@ -28,9 +28,12 @@ namespace Substation_Builder.ViewModel
         public RelayCommand SaveCommand { get; private set; }
         public RelayCommand LoadCommand { get; private set; }
         public RelayCommand TemplateCommand { get; private set; }
+        public RelayCommand NewCommand { get; private set; }
         public RelayCommandParam RemoveItemCommand { get; private set; }
         public RelayCommandParam AddCTCommand { get; private set; }
         public RelayCommandParam AddItemCommand { get; private set; }
+
+        DatabaseView databaseView = new DatabaseView();
 
         public DatabaseViewModel(Substation refproject)
         {
@@ -38,25 +41,31 @@ namespace Substation_Builder.ViewModel
             LoadCommand = new RelayCommand(LoadFile);
             SaveCommand = new RelayCommand(SaveFile);
             TemplateCommand = new RelayCommand(LoadTemplate);
+            NewCommand = new RelayCommand(NewProject);
             AddItemCommand = new RelayCommandParam(AddItem);
             RemoveItemCommand = new RelayCommandParam(RemoveItem);
             AddCTCommand = new RelayCommandParam(AddCT);
             AddItemCommand = new RelayCommandParam(AddItem);
 
-            DatabaseView databaseView = new DatabaseView
-            {
-                DataContext = this
-            };
-
+            databaseView.DataContext = this;
             databaseView.Show();
-
         }
 
         //read a .xaml file and load into the Datamodel classes
         private void LoadFile()
         {
             FileIO.FileOpen(Project);
-        }       
+        }
+
+        //Create Blank Project
+        private void NewProject()
+        {
+            Substation substation = new Substation
+            {
+                Name = "New Project"
+            };
+            Project.Replace(substation);
+        }
 
         //Serialize the DataModel and save
         public void SaveFile()
@@ -70,8 +79,10 @@ namespace Substation_Builder.ViewModel
             FileIO.LoadTemplate(Project);
         }
 
+        //Add Item in Treeview
         public void AddItem(object sender)
         {
+
             if (sender.ToString() == "Thevenin")
             {
                 Thevenin thevenin = new Thevenin { Name = "New Thevenin " + (Project.Thevenins.Count + 1).ToString() };
@@ -121,6 +132,7 @@ namespace Substation_Builder.ViewModel
 
         //Add a CT
         public void AddCT(object sender)
+
         {
             if (sender != null)
             {
@@ -173,18 +185,6 @@ namespace Substation_Builder.ViewModel
                     if (index >= 0)
                             Project.Breakers[i].CTs.RemoveAt(index);
                 }
-            }
-        }
-
-        public static Substation DeepClone<Substation>(Substation obj)
-        {
-            using (var ms = new MemoryStream())
-            {
-                var formatter = new BinaryFormatter();
-                formatter.Serialize(ms, obj);
-                ms.Position = 0;
-
-                return (Substation)formatter.Deserialize(ms);
             }
         }
 
