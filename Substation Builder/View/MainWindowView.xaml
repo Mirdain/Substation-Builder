@@ -9,7 +9,7 @@
                       xmlns:vm="clr-namespace:Substation_Builder.ViewModel"
                       mc:Ignorable="d"
                       Icon="..\Resources\Images\MainPageIcon.jpg"    
-                      Title="Substaion Builder" Height="554" Width="680" ResizeMode="CanMinimize"
+                      Title="Substaion Builder" Height="578" Width="680" ResizeMode="CanMinimize"
                       WindowStartupLocation="CenterScreen"
                       BorderThickness="0" HorizontalAlignment="Center">
 
@@ -72,8 +72,8 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Viewbox>
-                    <StackPanel Grid.Column="0" Margin="25,0,40,0">
+                <Viewbox Grid.Column="0">
+                    <StackPanel Margin="25,0,40,0">
 
                         <TextBlock Text="Select Module" FontSize="48" TextAlignment="Center" Padding="0,0,0,10"/>
                         <DockPanel>
@@ -211,16 +211,23 @@
 
             </Grid>
 
-
         </Viewbox>
 
         <StatusBar>
-            <StatusBarItem HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="8,0,0,9">
-                <DockPanel Margin="0,0,0,-2">
-                    <TextBlock Text="Current Project : " FontSize="16" Margin="0,0,0,-3" Padding="0"/>
-                    <TextBlock Text="{Binding Project.Name}" FontSize="16"/>
-                </DockPanel>
-            </StatusBarItem>
+            <StackPanel>
+                <StatusBarItem HorizontalAlignment="Left" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                    <DockPanel>
+                        <TextBlock Text="Project Overlord: " FontSize="16" Padding="0"/>
+                        <TextBlock Text="{Binding Project.Engineer}" FontSize="16"/>
+                    </DockPanel>
+                </StatusBarItem>
+                <StatusBarItem HorizontalAlignment="Left" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="0,-5,0,0">
+                    <DockPanel Margin="0">
+                        <TextBlock Text="Current Project: " FontSize="16" Margin="0,0,0,-3" Padding="0"/>
+                        <TextBlock Text="{Binding Project.Name}" FontSize="16"/>
+                    </DockPanel>
+                </StatusBarItem>
+            </StackPanel>
         </StatusBar>
 
     </StackPanel>

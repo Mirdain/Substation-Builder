@@ -2,10 +2,8 @@
 using Substation_Builder.Model;
 using Substation_Builder.Services;
 using Substation_Builder.View;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows;
-using System.Reflection;
+using System.Windows.Controls;
 
 namespace Substation_Builder.ViewModel
 {
@@ -29,11 +27,11 @@ namespace Substation_Builder.ViewModel
         public RelayCommand LoadCommand { get; private set; }
         public RelayCommand TemplateCommand { get; private set; }
         public RelayCommand NewCommand { get; private set; }
-        public RelayCommandParam RemoveItemCommand { get; private set; }
-        public RelayCommandParam AddCTCommand { get; private set; }
-        public RelayCommandParam AddItemCommand { get; private set; }
+        public RelayCommand RemoveItemCommand { get; private set; }
+        public RelayCommand AddCTCommand { get; private set; }
+        public RelayCommand AddItemCommand { get; private set; }
 
-        DatabaseView databaseView = new DatabaseView();
+        DatabaseView DBView = new DatabaseView();
 
         public DatabaseViewModel(Substation refproject)
         {
@@ -42,23 +40,21 @@ namespace Substation_Builder.ViewModel
             SaveCommand = new RelayCommand(SaveFile);
             TemplateCommand = new RelayCommand(LoadTemplate);
             NewCommand = new RelayCommand(NewProject);
-            AddItemCommand = new RelayCommandParam(AddItem);
-            RemoveItemCommand = new RelayCommandParam(RemoveItem);
-            AddCTCommand = new RelayCommandParam(AddCT);
-            AddItemCommand = new RelayCommandParam(AddItem);
-
-            databaseView.DataContext = this;
-            databaseView.Show();
+            AddItemCommand = new RelayCommand(AddItem, Can_Add);
+            RemoveItemCommand = new RelayCommand(RemoveItem, Can_Remove);
+            AddCTCommand = new RelayCommand(AddCT);
+            DBView.DataContext = this;
+            DBView.Show();
         }
 
         //read a .xaml file and load into the Datamodel classes
-        private void LoadFile()
+        private void LoadFile(object sender)
         {
             FileIO.FileOpen(Project);
         }
 
         //Create Blank Project
-        private void NewProject()
+        private void NewProject(object sender)
         {
             Substation substation = new Substation
             {
@@ -68,13 +64,13 @@ namespace Substation_Builder.ViewModel
         }
 
         //Serialize the DataModel and save
-        public void SaveFile()
+        public void SaveFile(object sender)
         {
             FileIO.FileSave(Project);
         }
 
         //Load Template
-        public void LoadTemplate()
+        public void LoadTemplate(object sender)
         {
             FileIO.LoadTemplate(Project);
         }
@@ -88,7 +84,7 @@ namespace Substation_Builder.ViewModel
                 Thevenin thevenin = new Thevenin { Name = "New Thevenin " + (Project.Thevenins.Count + 1).ToString() };
                 Project.Thevenins.Add(thevenin);
             }
-
+ 
             if (sender.ToString() == "Project")
             {
                 MessageBoxResult messageBoxResult = MessageBox.Show("Save Curent Project?", "Create New Project", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
@@ -102,7 +98,7 @@ namespace Substation_Builder.ViewModel
                 }
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
-                    SaveFile();
+                    SaveFile(sender);
 
                     Project = new Substation
                     {
@@ -132,7 +128,6 @@ namespace Substation_Builder.ViewModel
 
         //Add a CT
         public void AddCT(object sender)
-
         {
             if (sender != null)
             {
@@ -186,6 +181,70 @@ namespace Substation_Builder.ViewModel
                             Project.Breakers[i].CTs.RemoveAt(index);
                 }
             }
+        }
+
+        //Controls abiliity to add/remove items
+        public bool Can_Add(object sender)
+        {
+            bool canexecute = false;
+
+            if (DBView.DataBaseTreeview.SelectedItem != null)
+            {
+                if (DBView.DataBaseTreeview.SelectedItem.GetType() == typeof(TreeViewItem))
+                {
+                    TreeViewItem TVI = (TreeViewItem)DBView.DataBaseTreeview.SelectedItem;
+
+                    if(TVI.Header.ToString() == "Thevenins")
+                    {
+                        canexecute = true;
+                    }
+                    else if (TVI.Header.ToString() == "Transformers")
+                    {
+                        canexecute = true;
+                    }
+                    else if (TVI.Header.ToString() == "Breakers")
+                    {
+                        canexecute = true;
+                    }
+                    else if (TVI.Header.ToString() == "Relays")
+                    {
+                        canexecute = true;
+                    }
+                }
+            }
+            return canexecute;
+        }
+
+        //Controls abiliity to add/remove items
+        public bool Can_Remove(object sender)
+        {
+            bool canexecute = false;
+
+            if (DBView.DataBaseTreeview.SelectedItem != null)
+            {
+                if (DBView.DataBaseTreeview.SelectedValue.GetType() == typeof(Thevenin))
+                {
+                    canexecute = true;
+                }
+                else if (DBView.DataBaseTreeview.SelectedValue.GetType() == typeof(Transformer))
+                {
+                    canexecute = true;
+                }
+                else if (DBView.DataBaseTreeview.SelectedValue.GetType() == typeof(Breaker))
+                {
+                    canexecute = true;
+                }
+                else if (DBView.DataBaseTreeview.SelectedValue.GetType() == typeof(Relay))
+                {
+                    canexecute = true;
+                }
+                else if (DBView.DataBaseTreeview.SelectedValue.GetType() == typeof(CT))
+                {
+                    canexecute = true;
+                }
+
+            }
+            return canexecute;
         }
 
     }

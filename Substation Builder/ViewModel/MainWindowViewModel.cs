@@ -1,8 +1,7 @@
 ﻿using Substation_Builder.Helpers;
 using Substation_Builder.Model;
 using Substation_Builder.View;
-using System.ComponentModel;
-using System.Windows;
+using Substation_Builder.Resources.Monster;
 
 namespace Substation_Builder.ViewModel
 {
@@ -29,13 +28,16 @@ namespace Substation_Builder.ViewModel
             DatabaseViewOpenCommand = new RelayCommand(DatabaseViewOpen);
             FaultViewOpenCommand = new RelayCommand(FaultViewOpen);
 
+            Monster monster = new Monster();
+
             Project = new Substation
             {
-                Name = "No Project Set"
+                Name = "No Project Set",
+                Engineer = monster.MonsterName()
             };
         }
 
-        public void DatabaseViewOpen()
+        public void DatabaseViewOpen(object sender)
         {
             if (databaseViewModel == null)
             {
@@ -51,7 +53,7 @@ namespace Substation_Builder.ViewModel
             }
         }
 
-        public void FaultViewOpen()
+        public void FaultViewOpen(object sender)
         {
           
 

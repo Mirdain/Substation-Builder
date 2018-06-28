@@ -19,6 +19,17 @@ namespace Substation_Builder.Model
             }
         }
 
+        private string engineer;
+        public string Engineer
+        {
+            get { return engineer; }
+            set
+            {
+                engineer = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         private SubType subType;
         public SubType SubType
         {
@@ -124,7 +135,6 @@ namespace Substation_Builder.Model
         public ObservableCollection<Transformer> Transformers { get; set; } = new ObservableCollection<Transformer>();
 
         public event PropertyChangedEventHandler PropertyChanged;
-
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -166,7 +176,6 @@ namespace Substation_Builder.Model
             {
                 Transformers.Add(Append.Transformers[i]);
             }
-
         }
 
         public void Clear()

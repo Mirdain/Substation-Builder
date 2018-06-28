@@ -4,6 +4,7 @@ using Substation_Builder.Model;
 using System.Windows.Controls;
 using System;
 using System.Windows.Media;
+using Substation_Builder.ViewModel;
 
 namespace Substation_Builder.View
 {
@@ -24,75 +25,43 @@ namespace Substation_Builder.View
         public DatabaseView()
         {
             InitializeComponent();
-            pagenavigation.IsEnabled = false;
-            pagenavigation.Navigate(substationview);
+            pagenavigation.Navigate(defaultPage);
         }
 
         //used to navigate to forms located in the xaml folder and bind to classes
         private void LoadPage(object sender, RoutedEventArgs e)
         {
-            TreeView treepart = (TreeView)sender;
-
-            string teststring = treepart.SelectedItem.ToString();
+            TreeView TV = (TreeView)sender;
+            object TVI = TV.SelectedItem;
 
             if (Subdata.IsSelected)
             {
-                substationview.DataContext = Subdata.DataContext;
-                pagenavigation.IsEnabled = true;
+                substationview.DataContext = TV.DataContext;
                 pagenavigation.Navigate(substationview);
             }
-            else if (teststring.Contains("Thevenins"))
+            else if (TVI.GetType() == typeof(Thevenin))
             {
-                theveninview.DataContext = null;
-                pagenavigation.IsEnabled = false;
+                theveninview.DataContext = TV.SelectedItem;
                 pagenavigation.Navigate(theveninview);
             }
-            else if (teststring.Contains("Transformers"))
+            else if (TVI.GetType() == typeof(Transformer))
             {
-                transformerview.DataContext = null;
-                pagenavigation.IsEnabled = false;
+                transformerview.DataContext = TV.SelectedItem;
                 pagenavigation.Navigate(transformerview);
             }
-            else if (teststring.Contains("Breakers"))
+            else if (TVI.GetType() == typeof(Breaker))
             {
-                breakerView.DataContext = null;
-                pagenavigation.IsEnabled = false;
+                breakerView.DataContext = TV.SelectedItem;
                 pagenavigation.Navigate(breakerView);
             }
-            else if (teststring.Contains("Relays"))
+            else if (TVI.GetType() == typeof(Relay))
             {
-                relayview.DataContext = null;
-                pagenavigation.IsEnabled = false;
+                relayview.DataContext = TV.SelectedItem;
                 pagenavigation.Navigate(relayview);
             }
-            else if (teststring.Contains("Thevenin"))
+            else if (TVI.GetType() == typeof(CT))
             {
-                theveninview.DataContext = treepart.SelectedItem;
-                pagenavigation.IsEnabled = true;
-                pagenavigation.Navigate(theveninview);
-            }
-            else if (teststring.Contains("Transformer"))
-            {
-                transformerview.DataContext = treepart.SelectedItem;
-                pagenavigation.IsEnabled = true;
-                pagenavigation.Navigate(transformerview);
-            }
-            else if (teststring.Contains("Breaker"))
-            {
-                breakerView.DataContext = treepart.SelectedItem;
-                pagenavigation.IsEnabled = true;
-                pagenavigation.Navigate(breakerView);
-            }
-            else if (teststring.Contains("Relay"))
-            {
-                relayview.DataContext = treepart.SelectedItem;
-                pagenavigation.IsEnabled = true;
-                pagenavigation.Navigate(relayview);
-            }
-            else if (teststring.Contains("CT"))
-            {
-                ctview.DataContext = treepart.SelectedItem;
-                pagenavigation.IsEnabled = true;
+                ctview.DataContext = TV.SelectedItem;
                 pagenavigation.Navigate(ctview);
             }
             else
@@ -101,23 +70,50 @@ namespace Substation_Builder.View
             }
         }
 
-        //used to jump to correct treenode when contextmenu opened
-        private void OnPreviewMouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            TreeViewItem treeViewItem = VisualUpwardSearch(e.Source as DependencyObject);
-            if (treeViewItem != null)
-            {
-                treeViewItem.Focus();
-                e.Handled = true;
-            }
-        }
-
         //searches the treeview
         static TreeViewItem VisualUpwardSearch(DependencyObject source)
         {
             while (source != null && !(source is TreeViewItem))
                 source = VisualTreeHelper.GetParent(source);
+
             return source as TreeViewItem;
+        }
+
+        //used to jump to correct treenode and then open contextmenu screen
+        private void DataBaseTreeview_PreviewMouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            TreeViewItem treeViewItem = VisualUpwardSearch(e.OriginalSource as DependencyObject);
+
+            if (treeViewItem != null)
+            {
+                treeViewItem.Focus();
+                e.Handled = true;
+            }
+
+            object TVItem = DataBaseTreeview.SelectedItem;
+
+            if (TVItem.GetType() == typeof(Thevenin))
+            {
+                treeViewItem.ContextMenu = (ContextMenu) DataBaseTreeview.TryFindResource("TheveninItemContext");
+            }
+            if (TVItem.GetType() == typeof(Transformer))
+            {
+                treeViewItem.ContextMenu = (ContextMenu)DataBaseTreeview.TryFindResource("XFMRContext");
+            }
+            if (TVItem.GetType() == typeof(Breaker))
+            {
+                treeViewItem.ContextMenu = (ContextMenu)DataBaseTreeview.TryFindResource("BreakerContext");
+            }
+            if (TVItem.GetType() == typeof(Relay))
+            {
+                treeViewItem.ContextMenu = (ContextMenu)DataBaseTreeview.TryFindResource("RelayItemContext");
+            }
+            if (TVItem.GetType() == typeof(CT))
+            {
+                treeViewItem.ContextMenu = (ContextMenu)DataBaseTreeview.TryFindResource("CTItemContext");
+            }
+
+
         }
     }
 }

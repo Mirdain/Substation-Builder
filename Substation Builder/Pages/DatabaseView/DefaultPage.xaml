@@ -7,22 +7,5 @@
       xmlns:local="clr-namespace:Substation_Builder.View"
       mc:Ignorable="d" 
       Title="Default">
-    <StackPanel>
 
-        <Image Grid.Column="1" Margin="0,0,8,0" Name="MainPageBackground" Source="/Resources/Images/MainPageBackground.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform ScaleY="1" ScaleX="-1"/>
-                    <SkewTransform AngleY="0" AngleX="0"/>
-                    <RotateTransform Angle="0"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Image.RenderTransform>
-            <Image.OpacityMask>
-                <ImageBrush ImageSource="/Resources/Images/MainPageBackground.png"/>
-            </Image.OpacityMask>
-        </Image>
-
-    </StackPanel>
-    
 </Page>
