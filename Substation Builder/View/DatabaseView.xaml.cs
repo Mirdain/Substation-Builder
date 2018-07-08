@@ -30,6 +30,7 @@ namespace Substation_Builder.View
 
         //used to navigate to forms located in the xaml folder and bind to classes
         private void LoadPage(object sender, RoutedEventArgs e)
+
         {
             TreeView TV = (TreeView)sender;
             object TVI = TV.SelectedItem;
@@ -112,8 +113,6 @@ namespace Substation_Builder.View
             {
                 treeViewItem.ContextMenu = (ContextMenu)DataBaseTreeview.TryFindResource("CTItemContext");
             }
-
-
         }
     }
 }

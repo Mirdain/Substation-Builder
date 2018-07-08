@@ -21,7 +21,7 @@
             </EventTrigger>
         </StackPanel.Triggers>
 
-        <StackPanel>
+        <StackPanel Margin="20,0">
             <Label Content="Protective Relay" Margin="4,-10,0,10" Opacity="0.9" FontSize="22" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
 
 

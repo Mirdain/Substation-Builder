@@ -2,6 +2,7 @@
 using Substation_Builder.Model;
 using Substation_Builder.View;
 using Substation_Builder.Resources.Monster;
+using System.Windows;
 
 namespace Substation_Builder.ViewModel
 {
@@ -9,8 +10,10 @@ namespace Substation_Builder.ViewModel
     {
         public RelayCommand DatabaseViewOpenCommand { get; private set; }
         public RelayCommand FaultViewOpenCommand { get; private set; }
+        public RelayCommand OnelineViewOpenCommand { get; private set; }
 
         DatabaseViewModel databaseViewModel;
+        OnelineViewModel onelineViewModel;
 
         private Substation project;
         public Substation Project
@@ -25,7 +28,8 @@ namespace Substation_Builder.ViewModel
 
         public MainWindowViewModel()
         {
-            DatabaseViewOpenCommand = new RelayCommand(DatabaseViewOpen);
+            DatabaseViewOpenCommand = new RelayCommand(DatabaseViewOpen, Can_Open_DatabaseView);
+            OnelineViewOpenCommand = new RelayCommand(OnelineViewOpen, Can_Open_OnelineView);
             FaultViewOpenCommand = new RelayCommand(FaultViewOpen);
 
             Monster monster = new Monster();
@@ -47,11 +51,53 @@ namespace Substation_Builder.ViewModel
             {
                 DatabaseView databaseView = new DatabaseView
                 {
+
                     DataContext = databaseViewModel
                 };
                 databaseView.Show();
             }
         }
+
+
+        public bool Can_Open_DatabaseView(object sender)
+        {
+            bool canexecute = false;
+
+            if(!IsWindowOpen.WindowCheck<DatabaseView>())
+            {
+                canexecute = true;
+            }
+            return canexecute;
+        }
+
+        public void OnelineViewOpen(object sender)
+        {
+            if (onelineViewModel == null)
+            {
+                onelineViewModel = new  OnelineViewModel(Project);
+            }
+            else
+            {
+                OnelineView onelineView = new OnelineView
+                {
+
+                    DataContext = onelineViewModel
+                };
+                onelineView.Show();
+            }
+        }
+
+        public bool Can_Open_OnelineView(object sender)
+        {
+            bool canexecute = false;
+
+            if (!IsWindowOpen.WindowCheck<OnelineView>())
+            {
+                canexecute = true;
+            }
+            return canexecute;
+        }
+
 
         public void FaultViewOpen(object sender)
         {

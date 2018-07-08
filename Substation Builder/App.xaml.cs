@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Substation_Builder.Model;
 
 namespace Substation_Builder
 {

@@ -112,8 +112,8 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.25*"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="260"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <Border Grid.Column="0" BorderThickness="2" CornerRadius="10" Margin="10,20,0,20" Padding="0" BorderBrush="#FF9C9595">
@@ -123,10 +123,14 @@
 
             <Grid>
                 <TreeView x:Name="DataBaseTreeview" ItemsSource="{Binding Project}" SelectedItemChanged="LoadPage" FontSize="18" 
-                              VerticalContentAlignment="Top" HorizontalContentAlignment="Left" Padding="10" Margin="0,0,0,45" 
+                              VerticalContentAlignment="Top" HorizontalContentAlignment="Left" Padding="10" Margin="0" 
                               Background="{x:Null}" BorderBrush="{x:Null}" PreviewMouseRightButtonDown="DataBaseTreeview_PreviewMouseRightButtonDown">
 
-                    <TreeViewItem x:Name="Subdata" Header="{Binding Project.Name}" ItemsSource="{Binding Project}" ContextMenu="{DynamicResource ProjectContext}">
+                    <TreeViewItem Header="{Binding Project.Name}" ItemsSource="{Binding Project}" ContextMenu="{DynamicResource ProjectContext}">
+
+                        <!-- This is the Header and Treeview Items for Thevenin-->
+                        <TreeViewItem x:Name="Subdata" Header='Substation Data' ItemsSource="{Binding Project}"/>
+
 
                         <!-- This is the Header and Treeview Items for Thevenin-->
                         <TreeViewItem Header='Thevenins' ItemsSource="{Binding Project.Thevenins}" ContextMenu="{DynamicResource AddTheveninContext}">

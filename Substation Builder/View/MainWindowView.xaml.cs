@@ -11,6 +11,5 @@ namespace Substation_Builder.View
         {
             InitializeComponent();
         }
-
     }
 }
