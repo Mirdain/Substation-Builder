@@ -13,7 +13,7 @@
                         Title="One line" ResizeMode="CanResizeWithGrip"
                         WindowStartupLocation="CenterScreen"
                         x:Name="view"
-                        BorderThickness="0" Height="400" Width="700" MinWidth="700" MinHeight="400" Background="{x:Null}">
+                        BorderThickness="0" Height="500" Width="700" MinWidth="700" MinHeight="400" Background="{x:Null}">
 
     <Controls:MetroWindow.TitleTemplate>
         <DataTemplate>
@@ -33,7 +33,7 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="260"/>
+            <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -41,11 +41,10 @@
             <Border.Background>
                 <SolidColorBrush Color="Black" Opacity="0.4"/>
             </Border.Background>
-
             <StackPanel>
                 <Grid>
                     <TreeView x:Name="OnelineTreeview" ItemsSource="{Binding Project}" FontSize="18" 
-                              VerticalContentAlignment="Top" HorizontalContentAlignment="Left" Padding="10" Margin="0" 
+                              VerticalContentAlignment="Top" HorizontalContentAlignment="Left" Margin="10"
                               Background="{x:Null}" BorderBrush="{x:Null}" MouseMove="OnelineTreeview_MouseMove" AllowDrop="True">
 
                         <TreeViewItem Header='Thevenins' ItemsSource="{Binding Project.Thevenins}">
@@ -90,11 +89,12 @@
 
                     </TreeView>
                 </Grid>
-                <StackPanel>
+                
+                <StackPanel Margin="0">
                     <local1:ButtonsPanel/>
-                    <Expander Content="{Binding SelectedObject}"
+                    <Expander Margin="10" Content="{Binding SelectedObject}"
                       Header="{Binding SelectedObject.Name,FallbackValue='[Select an Element]'}" 
-                      Margin="2,2,2,10" BorderThickness="1" BorderBrush="LightGray" FontWeight="Bold">
+                      BorderThickness="1" BorderBrush="LightGray" FontWeight="Bold" IsExpanded="True">
                         <Expander.Resources>
                             <DataTemplate DataType="{x:Type local2:Node}">
                                 <local1:NodePropertyEditor/>
@@ -104,19 +104,17 @@
                             </DataTemplate>
                         </Expander.Resources>
                     </Expander>
-                    <Expander Header="Options" IsExpanded="False"
+                    <Expander Margin="10" Header="Options" IsExpanded="True"
                       BorderBrush="LightGray" BorderThickness="1">
                         <local1:ParametersEditor/>
                     </Expander>
                 </StackPanel>
-
             </StackPanel>
-
         </Border>
 
 
 
-
+        <!-- The Display UI -->
         <Border Grid.Column="1" BorderThickness="2" CornerRadius="10" Margin="10,20" Padding="0" BorderBrush="#FF9C9595" AllowDrop="True" DragEnter="Border_DragEnter">
             <Border.Background>
                 <SolidColorBrush Color="Black" Opacity="0.4"/>
@@ -131,48 +129,51 @@
                         <CollectionContainer Collection="{Binding DataContext.Nodes,Source={x:Reference view}}"/>
                     </CompositeCollection>
 
-                    <!-- This is the DataTemplate that will be used to render the Node class -->
+                    <!-- This is the DataTemplate that will be used to render the Breaker class -->
                     <DataTemplate DataType="{x:Type local2:Node}">
                         <Thumb DragDelta="Thumb_Drag" 
-                           IsEnabled="{Binding IsSelected,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}">
+                           IsEnabled="{Binding IsSelected,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                             <Thumb.Template>
                                 <ControlTemplate TargetType="Thumb">
-                                    <Canvas Margin="-10,-10,10,10">
-                                        <Rectangle Height="20" Width="20" Stroke="Black" StrokeThickness="1" Fill="Yellow"
-                                             x:Name="Ellipse">
-                                        </Rectangle>
-                                        <TextBlock Canvas.Top="-20" Canvas.Left="-40" Width="100" 
-                                               TextAlignment="Center" Text="{Binding Name}" FontWeight="Bold"
+                                    <DockPanel Margin="-20,-20,20,20">
+                                        <Grid>
+                                            <Rectangle Height="40" Width="40" Stroke="Black" StrokeThickness="1" Fill="Red" x:Name="Breaker" Stretch="Uniform" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" OpacityMask="Black"/>
+                                            <TextBlock TextAlignment="Center" Text="{Binding Name}" FontWeight="Bold"
                                                IsHitTestVisible="False"
                                                Visibility="{Binding DataContext.ShowNames, 
                                                                     RelativeSource={RelativeSource FindAncestor, AncestorType=Window},
-                                                                    Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                                                    Converter={StaticResource BoolToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+                                        </Grid>
+                                        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0">
+                                            <TextBlock Text="{Binding X, StringFormat='{}X = {0}'}" IsHitTestVisible="False" Visibility="Collapsed" x:Name="XText" HorizontalAlignment="Left"/>
+                                            <TextBlock Text="{Binding Y, StringFormat='{}Y = {0}'}" IsHitTestVisible="False" Visibility="Collapsed" x:Name="YText" HorizontalAlignment="Left"/>
+                                        </StackPanel>
+                                    </DockPanel>
 
-                                        <TextBlock Canvas.Left="30" Canvas.Top="10"
-                                               Text="{Binding X, StringFormat='{}X = {0}'}"
-                                               IsHitTestVisible="False"
-                                               Visibility="Collapsed" x:Name="XText"/>
-
-                                        <TextBlock Canvas.Left="30" Canvas.Top="25"
-                                               Text="{Binding Y, StringFormat='{}Y = {0}'}"
-                                               IsHitTestVisible="False"
-                                               Visibility="Collapsed" x:Name="YText"/>
-                                    </Canvas>
                                     <ControlTemplate.Triggers>
                                         <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="True">
-                                            <Setter TargetName="Ellipse" Property="Fill" Value="Red"/>
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard x:Name="DashAnimation">
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetName="Breaker" Storyboard.TargetProperty="Opacity" From="1" To=".5" Duration="0:0:0.5" AutoReverse="True" RepeatBehavior="Forever" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                            <DataTrigger.ExitActions>
+                                                <StopStoryboard BeginStoryboardName="DashAnimation"/>
+                                            </DataTrigger.ExitActions>
                                         </DataTrigger>
                                         <Trigger Property="IsDragging" Value="True">
-                                            <Setter TargetName="Ellipse" Property="Fill" Value="Green"/>
+                                            <Setter TargetName="Breaker" Property="StrokeThickness" Value="3"/>
                                         </Trigger>
                                         <DataTrigger Binding="{Binding DataContext.ShowAllCoordinates, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Value="True">
                                             <Setter TargetName="XText" Property="Visibility" Value="Visible"/>
                                             <Setter TargetName="YText" Property="Visibility" Value="Visible"/>
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding IsHighlighted}" Value="True">
-                                            <Setter TargetName="Ellipse" Property="StrokeThickness" Value="2"/>
-                                            <Setter TargetName="Ellipse" Property="Stroke" Value="Red"/>
-                                            <Setter TargetName="Ellipse" Property="Fill" Value="White"/>
+                                            <Setter TargetName="Breaker" Property="StrokeThickness" Value="2"/>
+                                            <Setter TargetName="Breaker" Property="Stroke" Value="Red"/>
+                                            <Setter TargetName="Breaker" Property="Fill" Value="White"/>
                                         </DataTrigger>
                                         <MultiDataTrigger>
                                             <MultiDataTrigger.Conditions>
@@ -217,7 +218,15 @@
 
                 <ListBox SelectedItem="{Binding SelectedObject}" 
                      PreviewMouseMove="ListBox_PreviewMouseMove"
-                     PreviewMouseDown="ListBox_PreviewMouseDown">
+                     PreviewMouseDown="ListBox_PreviewMouseDown" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ListBoxUI">
+
+                    <ListBox.LayoutTransform>
+                        <ScaleTransform CenterX="0" CenterY="0" ScaleX="{Binding ZoomLevel}" ScaleY="{Binding ZoomLevel}"/>
+                    </ListBox.LayoutTransform>
+                    
+                    <ListBox.Background>
+                        <SolidColorBrush Color="#FF252525" Opacity="0.9"/>
+                    </ListBox.Background>
                     <ListBox.Template>
                         <ControlTemplate>
                             <Border>
@@ -287,5 +296,6 @@
                 </ListBox>
             </Grid>
         </Border>
+
     </Grid>
 </Controls:MetroWindow>

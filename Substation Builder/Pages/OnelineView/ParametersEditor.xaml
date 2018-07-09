@@ -4,34 +4,45 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="350" d:DesignWidth="300">
     <UserControl.Resources>
         <ResourceDictionary Source="EditorStyles.xaml"/>
+
+
     </UserControl.Resources>
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+    <StackPanel>
 
-        <Label Grid.Row="0" Content="Height:"/>
-        <Label Grid.Row="1" Content="Width:" />
+        <DockPanel Margin="0,20,0,0">
+            <Label Content="Height:" Width="50" HorizontalContentAlignment="Right"/>
+            <TextBox Text="{Binding AreaHeight, UpdateSourceTrigger=PropertyChanged, StringFormat=\{0:F0\}}" VerticalContentAlignment="Center" Width="40" HorizontalContentAlignment="Center"/>
+            <Slider Value="{Binding AreaHeight}" Minimum="500" Maximum="2000" TickFrequency="100" SmallChange="50" LargeChange="100" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Margin="5,0"/>
+        </DockPanel>
 
-        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding AreaHeight}"/>
-        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding AreaWidth}"/>
+        <DockPanel Margin="0,20,0,0">
+            <Label Content="Width:" Width="50" HorizontalContentAlignment="Right"/>
+            <TextBox Text="{Binding AreaWidth, UpdateSourceTrigger=PropertyChanged, StringFormat=\{0:F0\}}" VerticalContentAlignment="Center" Width="40" HorizontalContentAlignment="Center"/>
+            <Slider Value="{Binding AreaWidth}" Minimum="500" Maximum="2000" TickFrequency="100" SmallChange="50" LargeChange="100" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Margin="5,0"/>
+        </DockPanel>
 
-        <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
-            <CheckBox IsChecked="{Binding ShowNames}" Content="Show Names" HorizontalAlignment="Center"/>
-            <TextBlock Text="Show Coordinates:"/>
-            <RadioButton IsChecked="{Binding ShowAllCoordinates}" Content="All Nodes"/>
-            <RadioButton IsChecked="{Binding ShowCurrentCoordinates}" Content="Selected Node"/>
-            <RadioButton Content="None"/>
+        <DockPanel Margin="0,20,0,0">
+
+            <Label Content="Zoom:" Width="50" HorizontalContentAlignment="Right"/>
+
+            <TextBox Text="{Binding ZoomLevelPercent, Mode=OneWay}" VerticalContentAlignment="Center" Width="40" HorizontalContentAlignment="Center" IsEnabled="False"/>
+            <DockPanel>
+                <Slider Value="{Binding ZoomLevel}" Minimum=".25" Maximum="2" TickFrequency=".25" SmallChange=".25" LargeChange=".5" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Margin="5,0" Width="100"/>
+                <Button Content="Reset" Height="Auto" Width="Auto" HorizontalAlignment="Right" Background="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" Margin="2,2,5,2" RenderTransformOrigin="0,0" Command="{Binding ResetZoom, Mode=OneWay}" BorderBrush="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" Padding="2"/>
+            </DockPanel>
+        </DockPanel>
+
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Margin="0,20,0,0">
+            <CheckBox IsChecked="{Binding ShowNames}" Content="Show Names" HorizontalAlignment="Left" Margin="5"/>
+            <TextBlock Margin="5" Text="Show Coordinates:"/>
+            <RadioButton Margin="5" IsChecked="{Binding ShowAllCoordinates}" Content="All Nodes"/>
+            <RadioButton Margin="5" IsChecked="{Binding ShowCurrentCoordinates}" Content="Selected Node"/>
+            <RadioButton Margin="5" Content="None"/>
         </StackPanel>
-    </Grid>
+
+    </StackPanel>
 </UserControl>

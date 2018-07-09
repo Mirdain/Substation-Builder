@@ -30,7 +30,7 @@ namespace Substation_Builder.ViewModel
         {
             DatabaseViewOpenCommand = new RelayCommand(DatabaseViewOpen, Can_Open_DatabaseView);
             OnelineViewOpenCommand = new RelayCommand(OnelineViewOpen, Can_Open_OnelineView);
-            FaultViewOpenCommand = new RelayCommand(FaultViewOpen);
+            FaultViewOpenCommand = new RelayCommand(FaultViewOpen, Can_Open_DatabaseView);
 
             Monster monster = new Monster();
 
@@ -41,6 +41,7 @@ namespace Substation_Builder.ViewModel
             };
         }
 
+        //Database Module
         public void DatabaseViewOpen(object sender)
         {
             if (databaseViewModel == null)
@@ -58,7 +59,6 @@ namespace Substation_Builder.ViewModel
             }
         }
 
-
         public bool Can_Open_DatabaseView(object sender)
         {
             bool canexecute = false;
@@ -70,6 +70,7 @@ namespace Substation_Builder.ViewModel
             return canexecute;
         }
 
+        //One Line Module
         public void OnelineViewOpen(object sender)
         {
             if (onelineViewModel == null)
@@ -98,11 +99,23 @@ namespace Substation_Builder.ViewModel
             return canexecute;
         }
 
-
+        //Fault Module
         public void FaultViewOpen(object sender)
         {
           
 
         }
+
+        public bool Can_Open_FaultView(object sender)
+        {
+            bool canexecute = false;
+
+            if (!IsWindowOpen.WindowCheck<FaultView>())
+            {
+                canexecute = true;
+            }
+            return canexecute;
+        }
+
     }
 }

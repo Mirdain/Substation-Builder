@@ -109,7 +109,6 @@
     <Compile Include="Helpers\SystemIO.cs" />
     <Compile Include="Model\DiagramObject.cs" />
     <Compile Include="Model\Node.cs" />
-    <Compile Include="Model\NodesDataSource.cs" />
     <Compile Include="Model\Substation.cs" />
     <Compile Include="Pages\DatabaseView\BreakerPage.xaml.cs">
       <DependentUpon>BreakerPage.xaml</DependentUpon>

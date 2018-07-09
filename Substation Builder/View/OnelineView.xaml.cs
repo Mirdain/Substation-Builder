@@ -1,12 +1,11 @@
 ﻿using MahApps.Metro.Controls;
-using System.Threading.Tasks;
+using Substation_Builder.Model;
+using Substation_Builder.ViewModel;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using Substation_Builder.Model;
-using System.Collections.Generic;
 using System.Windows.Controls.Primitives;
-using Substation_Builder.ViewModel;
+using System.Windows.Input;
 
 namespace Substation_Builder.View
 {
@@ -56,10 +55,9 @@ namespace Substation_Builder.View
             }
         }
 
+        //Drop destination trigger
         private void Border_DragEnter(object sender, DragEventArgs e)
         {
-
-
 
         }
 
@@ -80,7 +78,6 @@ namespace Substation_Builder.View
 
             if (!(sender is ListBox listbox))
                 return;
-
 
             if (!(listbox.DataContext is OnelineViewModel vm))
                 return;
@@ -103,14 +100,16 @@ namespace Substation_Builder.View
             }
         }
 
-        private void ListBox_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void ListBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (DataContext is OnelineViewModel vm)
             {
+                //Connecting objects
                 if (vm.CreatingNewConnector)
                 {
                     var node = GetNodeUnderMouse();
                     var connector = vm.SelectedObject as Connector;
+
                     if (node != null && connector != null && connector.Start == null)
                     {
                         connector.Start = node;
@@ -120,14 +119,24 @@ namespace Substation_Builder.View
                     }
                 }
 
+                //Checks if new item - if not set to false
                 if (vm.SelectedObject != null)
+                {
                     vm.SelectedObject.IsNew = false;
+                }
+
+                //remove selected item if
+                if(GetItemUnderMouse() == false)
+                {
+                    ListBoxUI.SelectedItem = null;
+                }
 
                 vm.CreatingNewNode = false;
                 vm.CreatingNewConnector = false;
             }
         }
 
+        //Retruns the Node that is selected
         private Node GetNodeUnderMouse()
         {
             if (!(Mouse.DirectlyOver is ContentPresenter item))
@@ -135,5 +144,15 @@ namespace Substation_Builder.View
 
             return item.DataContext as Node;
         }
+
+        //Retruns the Node that is selected
+        private bool GetItemUnderMouse()
+        {
+            if ((Mouse.DirectlyOver.GetType() == typeof(System.Windows.Shapes.Rectangle)))
+                return true;
+
+            return false;
+        }
+
     }
 }

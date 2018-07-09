@@ -11,7 +11,7 @@
         
         <ToggleButton IsChecked="{Binding CreatingNewNode}">
             <Rectangle Height="20" Width="20" Stroke="Black" 
-                     StrokeThickness="1" Fill="Yellow">
+                     StrokeThickness="1" Fill="Red">
             </Rectangle>
         </ToggleButton>
         
@@ -23,12 +23,12 @@
 
                 <Rectangle Height="10" Width="10" Stroke="Black"
                          Canvas.Top="5" Canvas.Left="5"
-                     StrokeThickness="1" Fill="Yellow">
+                     StrokeThickness="1" Fill="Red">
                 </Rectangle>
 
                 <Rectangle Height="10" Width="10" Stroke="Black"
                          Canvas.Top="30" Canvas.Left="30"
-                     StrokeThickness="1" Fill="Yellow">
+                     StrokeThickness="1" Fill="Red">
                 </Rectangle>
             </Canvas>
         </ToggleButton>

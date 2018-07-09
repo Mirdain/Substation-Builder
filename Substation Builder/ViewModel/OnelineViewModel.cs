@@ -21,19 +21,50 @@ namespace Substation_Builder.ViewModel
 
         OnelineView OLView = new OnelineView();
 
+        public RelayCommand ResetZoom { get; private set; }
+
+        private double _zoomLevel = 1;
+        public double ZoomLevel
+        {
+            get { return _zoomLevel; }
+            set
+            {
+                _zoomLevel = value;
+                ZoomLevelPercent = (value * 100).ToString() + "%";
+                NotifyPropertyChanged("ZoomLevel");
+            }
+        }
+
+        private string _zoomLevelPercent = "100%";
+        public string ZoomLevelPercent
+        {
+            get { return _zoomLevelPercent; }
+            set{
+                _zoomLevelPercent = value;
+                NotifyPropertyChanged("ZoomLevelPercent");
+            }
+        }
+
         public OnelineViewModel(Substation refproject)
           {
             Project = refproject;
 
             //Copied section - this generates the random nodes to display
-            _nodes = new ObservableCollection<Node>(NodesDataSource.GetRandomNodes());
-            _connectors = new ObservableCollection<Connector>(NodesDataSource.GetRandomConnectors(Nodes.ToList()));
+            _nodes = new ObservableCollection<Node>();
+            _connectors = new ObservableCollection<Connector>();
+
+            ResetZoom = new RelayCommand(ResetZ);
 
             ShowAllCoordinates = true;
             ShowNames = true;
 
             OLView.DataContext = this;
             OLView.Show();
+        }
+
+        public void ResetZ(object sender)
+        {
+            ZoomLevel = 1;
         }
 
         #region Collections
@@ -64,8 +95,6 @@ namespace Substation_Builder.ViewModel
                 _selectedObject = value;
                 NotifyPropertyChanged("SelectedObject");
 
-                //DeleteCommand.IsEnabled = value != null;
-
                 if (value is Connector connector)
                 {
                     if (connector.Start != null)
@@ -74,7 +103,6 @@ namespace Substation_Builder.ViewModel
                     if (connector.End != null)
                         connector.End.IsHighlighted = true;
                 }
-
             }
         }
 
@@ -188,7 +216,7 @@ namespace Substation_Builder.ViewModel
         private RelayCommand _deleteCommand;
         public RelayCommand DeleteCommand
         {
-            get { return _deleteCommand ?? (_deleteCommand = new RelayCommand(Delete)); }
+            get { return _deleteCommand ?? (_deleteCommand = new RelayCommand(Delete,Can_Delete)); }
         }
 
         private void Delete(object sender)
@@ -202,6 +230,17 @@ namespace Substation_Builder.ViewModel
                 Connectors.Where(x => x.Start == node || x.End == node).ToList().ForEach(x => Connectors.Remove(x));
                 Nodes.Remove(node);
             }
+        }
+
+        private bool Can_Delete(object sender)
+        {
+            if (SelectedObject is Connector)
+                return true;
+
+            if (SelectedObject is Node)
+                return true;
+
+            return false;
         }
 
         #endregion
