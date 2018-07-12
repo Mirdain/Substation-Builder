@@ -247,7 +247,7 @@ namespace Substation_Builder.ViewModel
 
         #region Scrolling support
 
-        private double _areaHeight = 500;
+        private double _areaHeight = 600;
         public double AreaHeight
         {
             get { return _areaHeight; }
@@ -258,7 +258,7 @@ namespace Substation_Builder.ViewModel
             }
         }
 
-        private double _areaWidth = 500;
+        private double _areaWidth = 600;
         public double AreaWidth
         {
             get { return _areaWidth; }

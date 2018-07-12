@@ -13,7 +13,7 @@
                         Title="One line" ResizeMode="CanResizeWithGrip"
                         WindowStartupLocation="CenterScreen"
                         x:Name="view"
-                        BorderThickness="0" Height="500" Width="700" MinWidth="700" MinHeight="400" Background="{x:Null}">
+                        BorderThickness="0" Height="720" Width="1000" MinWidth="1000" MinHeight="720" Background="{x:Null}">
 
     <Controls:MetroWindow.TitleTemplate>
         <DataTemplate>
@@ -25,6 +25,7 @@
         <Style TargetType="Control" x:Key="EmptyFocusVisualStyle">
             <Setter Property="Template">
                 <Setter.Value>
+                    
                     <ControlTemplate/>
                 </Setter.Value>
             </Setter>
@@ -33,7 +34,7 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="325"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -41,7 +42,8 @@
             <Border.Background>
                 <SolidColorBrush Color="Black" Opacity="0.4"/>
             </Border.Background>
-            <StackPanel>
+            <ScrollViewer>
+            <StackPanel Margin="10,0,0,0">
                 <Grid>
                     <TreeView x:Name="OnelineTreeview" ItemsSource="{Binding Project}" FontSize="18" 
                               VerticalContentAlignment="Top" HorizontalContentAlignment="Left" Margin="10"
@@ -89,7 +91,7 @@
 
                     </TreeView>
                 </Grid>
-                
+
                 <StackPanel Margin="0">
                     <local1:ButtonsPanel/>
                     <Expander Margin="10" Content="{Binding SelectedObject}"
@@ -110,12 +112,13 @@
                     </Expander>
                 </StackPanel>
             </StackPanel>
+            </ScrollViewer>
         </Border>
 
 
 
         <!-- The Display UI -->
-        <Border Grid.Column="1" BorderThickness="2" CornerRadius="10" Margin="10,20" Padding="0" BorderBrush="#FF9C9595" AllowDrop="True" DragEnter="Border_DragEnter">
+        <Border Grid.Column="1" BorderThickness="2" CornerRadius="10" Margin="10,20" Padding="0" BorderBrush="#FF9C9595" DragOver="Border_DragOver" AllowDrop="True">
             <Border.Background>
                 <SolidColorBrush Color="Black" Opacity="0.4"/>
             </Border.Background>
@@ -218,7 +221,7 @@
 
                 <ListBox SelectedItem="{Binding SelectedObject}" 
                      PreviewMouseMove="ListBox_PreviewMouseMove"
-                     PreviewMouseDown="ListBox_PreviewMouseDown" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ListBoxUI">
+                     PreviewMouseDown="ListBox_PreviewMouseDown" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ListBoxUI" DragOver="ListBoxUI_DragOver" Drop="ListBoxUI_Drop">
 
                     <ListBox.LayoutTransform>
                         <ScaleTransform CenterX="0" CenterY="0" ScaleX="{Binding ZoomLevel}" ScaleY="{Binding ZoomLevel}"/>

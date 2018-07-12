@@ -16,22 +16,20 @@
         <DockPanel Margin="0,20,0,0">
             <Label Content="Height:" Width="50" HorizontalContentAlignment="Right"/>
             <TextBox Text="{Binding AreaHeight, UpdateSourceTrigger=PropertyChanged, StringFormat=\{0:F0\}}" VerticalContentAlignment="Center" Width="40" HorizontalContentAlignment="Center"/>
-            <Slider Value="{Binding AreaHeight}" Minimum="500" Maximum="2000" TickFrequency="100" SmallChange="50" LargeChange="100" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Margin="5,0"/>
+            <Slider Value="{Binding AreaHeight}" Minimum="600" Maximum="2000" TickFrequency="100" SmallChange="50" LargeChange="100" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Margin="5,0"/>
         </DockPanel>
 
         <DockPanel Margin="0,20,0,0">
             <Label Content="Width:" Width="50" HorizontalContentAlignment="Right"/>
             <TextBox Text="{Binding AreaWidth, UpdateSourceTrigger=PropertyChanged, StringFormat=\{0:F0\}}" VerticalContentAlignment="Center" Width="40" HorizontalContentAlignment="Center"/>
-            <Slider Value="{Binding AreaWidth}" Minimum="500" Maximum="2000" TickFrequency="100" SmallChange="50" LargeChange="100" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Margin="5,0"/>
+            <Slider Value="{Binding AreaWidth}" Minimum="600" Maximum="2000" TickFrequency="100" SmallChange="50" LargeChange="100" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Margin="5,0"/>
         </DockPanel>
 
         <DockPanel Margin="0,20,0,0">
-
             <Label Content="Zoom:" Width="50" HorizontalContentAlignment="Right"/>
-
             <TextBox Text="{Binding ZoomLevelPercent, Mode=OneWay}" VerticalContentAlignment="Center" Width="40" HorizontalContentAlignment="Center" IsEnabled="False"/>
             <DockPanel>
-                <Slider Value="{Binding ZoomLevel}" Minimum=".25" Maximum="2" TickFrequency=".25" SmallChange=".25" LargeChange=".5" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Margin="5,0" Width="100"/>
+                <Slider Value="{Binding ZoomLevel}" Minimum=".25" Maximum="2.5" TickFrequency=".25" SmallChange=".25" LargeChange=".5" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Margin="5,0" Width="100"/>
                 <Button Content="Reset" Height="Auto" Width="Auto" HorizontalAlignment="Right" Background="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" Margin="2,2,5,2" RenderTransformOrigin="0,0" Command="{Binding ResetZoom, Mode=OneWay}" BorderBrush="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" Padding="2"/>
             </DockPanel>
         </DockPanel>

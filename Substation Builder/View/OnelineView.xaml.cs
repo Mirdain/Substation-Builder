@@ -29,23 +29,24 @@ namespace Substation_Builder.View
             //Drag Source - Create a treeview and get the selected item
             TreeView treeview = sender as TreeView;
             if (treeview.SelectedItem != null && e.LeftButton == MouseButtonState.Pressed)
-            {;
+            {
+                DataObject data = new DataObject(DataFormats.Serializable, treeview.SelectedItem);
 
                 if (treeview.SelectedItem.GetType() == typeof(Relay))
                 {
-                    DragDrop.DoDragDrop(treeview, treeview.SelectedItem, DragDropEffects.Link);
+                    DragDrop.DoDragDrop(treeview, data, DragDropEffects.Link);
                 }
                 else if (treeview.SelectedItem.GetType() == typeof(Breaker))
                 {
-                    DragDrop.DoDragDrop(treeview, treeview.SelectedItem, DragDropEffects.Link);
+                    DragDrop.DoDragDrop(treeview, data, DragDropEffects.Link);
                 }
                 else if (treeview.SelectedItem.GetType() == typeof(Thevenin))
                 {
-                    DragDrop.DoDragDrop(treeview, treeview.SelectedItem, DragDropEffects.Link);
+                    DragDrop.DoDragDrop(treeview, data, DragDropEffects.Link);
                 }
                 else if (treeview.SelectedItem.GetType() == typeof(Transformer))
                 {
-                    DragDrop.DoDragDrop(treeview, treeview.SelectedItem, DragDropEffects.Link);
+                    DragDrop.DoDragDrop(treeview, data, DragDropEffects.Link);
                 }
                 else
                 {
@@ -55,12 +56,72 @@ namespace Substation_Builder.View
             }
         }
 
-        //Drop destination trigger
-        private void Border_DragEnter(object sender, DragEventArgs e)
+        //show link when over the listbox
+        private void ListBoxUI_DragOver(object sender, DragEventArgs e)
         {
+            if (e.Data.GetDataPresent(DataFormats.Serializable))
+            {
+                e.Effects = DragDropEffects.Link;
+            }
+            else
+            {
+                e.Effects = DragDropEffects.None;
+            }
+
+            e.Handled = true;
+        }
+
+        //Block out void space on boarder
+        private void Border_DragOver(object sender, DragEventArgs e)
+        {
+            e.Effects = DragDropEffects.None;
+            e.Handled = true;
+        }
+
+        //Drop action
+        private void ListBoxUI_Drop(object sender, DragEventArgs e)
+        {
+            object item = e.Data.GetData(DataFormats.Serializable);
+
+            if (item.GetType() == typeof(Relay))
+            {
+                Relay relay = (Relay)item;
+            }
+            else if (item.GetType() == typeof(Breaker))
+            {
+                Breaker breaker = (Breaker)item;
+            }
+            else if (item.GetType() == typeof(Thevenin))
+            {
+                Thevenin thevenin = (Thevenin)item;
+            }
+            else if (item.GetType() == typeof(Transformer))
+            {
+                Transformer transformer = (Transformer)item;
+            }
+            else
+            {
+
+            }
 
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //Begin the Node code
         private void Thumb_Drag(object sender, DragDeltaEventArgs e)
         {
             if (!(sender is Thumb thumb))
@@ -126,7 +187,7 @@ namespace Substation_Builder.View
                 }
 
                 //remove selected item if
-                if(GetItemUnderMouse() == false)
+                if (GetItemUnderMouse() == false)
                 {
                     ListBoxUI.SelectedItem = null;
                 }
@@ -153,6 +214,7 @@ namespace Substation_Builder.View
 
             return false;
         }
+
 
     }
 }
