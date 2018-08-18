@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="350" d:DesignWidth="300">
+             d:DesignHeight="350" d:DesignWidth="275">
     <UserControl.Resources>
         <ResourceDictionary Source="EditorStyles.xaml"/>
 
@@ -29,8 +29,8 @@
             <Label Content="Zoom:" Width="50" HorizontalContentAlignment="Right"/>
             <TextBox Text="{Binding ZoomLevelPercent, Mode=OneWay}" VerticalContentAlignment="Center" Width="40" HorizontalContentAlignment="Center" IsEnabled="False"/>
             <DockPanel>
-                <Slider Value="{Binding ZoomLevel}" Minimum=".25" Maximum="2.5" TickFrequency=".25" SmallChange=".25" LargeChange=".5" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Margin="5,0" Width="100"/>
-                <Button Content="Reset" Height="Auto" Width="Auto" HorizontalAlignment="Right" Background="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" Margin="2,2,5,2" RenderTransformOrigin="0,0" Command="{Binding ResetZoom, Mode=OneWay}" BorderBrush="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" Padding="2"/>
+                <Slider Value="{Binding ZoomLevel}" Minimum=".25" Maximum="3.5" TickFrequency="0.25" SmallChange=".25" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Margin="5,0" Width="110" LargeChange="0.5"/>
+                <Button Content="Reset" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" Background="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" Margin="2,2,5,2" RenderTransformOrigin="0,0" Command="{Binding ResetZoom, Mode=OneWay}" BorderBrush="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" Padding="2"/>
             </DockPanel>
         </DockPanel>
 

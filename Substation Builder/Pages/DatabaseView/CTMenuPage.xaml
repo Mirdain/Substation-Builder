@@ -1,4 +1,4 @@
-﻿<Page x:Class="Substation_Builder.View.CTMenuPage"
+﻿<UserControl x:Class="Substation_Builder.Pages.DatabaseView.CTMenuPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -6,8 +6,7 @@
       xmlns:EnumHelper="clr-namespace:Substation_Builder.Helpers"
       xmlns:model="clr-namespace:Substation_Builder.Model"
       xmlns:vm="clr-namespace:Substation_Builder.ViewModel"
-      mc:Ignorable="d" 
-      Title="CTMenuView">
+      mc:Ignorable="d">
     <StackPanel>
 
         <StackPanel.Triggers>
@@ -20,7 +19,7 @@
             </EventTrigger>
         </StackPanel.Triggers>
 
-        <Label Content="CT Connection" Margin="4,-10,0,10" Opacity="0.9" FontSize="22" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Label Content="CT Connection" Opacity="0.9" FontSize="22" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
 
         <StackPanel>
             <DockPanel HorizontalAlignment="Left">
@@ -110,4 +109,4 @@
         </StackPanel>
 
     </StackPanel>
-</Page>
+</UserControl>

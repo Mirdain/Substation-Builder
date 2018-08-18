@@ -8,6 +8,7 @@
                         xmlns:Helpers="clr-namespace:Substation_Builder.Helpers"
                         xmlns:local1="clr-namespace:Substation_Builder.Pages.OnelineView"
                         xmlns:local2="clr-namespace:Substation_Builder.Model"
+                        xmlns:local3="clr-namespace:Substation_Builder.Pages.DatabaseView"
                         mc:Ignorable="d"
                         Icon="..\Resources\Images\MainPageIcon.jpg"    
                         Title="One line" ResizeMode="CanResizeWithGrip"
@@ -22,10 +23,14 @@
     </Controls:MetroWindow.TitleTemplate>
 
     <Controls:MetroWindow.Resources>
+
+        <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource {x:Type TreeViewItem}}">
+            <Setter Property="Background" Value="{x:Null}"/>
+        </Style>
+
         <Style TargetType="Control" x:Key="EmptyFocusVisualStyle">
             <Setter Property="Template">
                 <Setter.Value>
-                    
                     <ControlTemplate/>
                 </Setter.Value>
             </Setter>
@@ -38,65 +43,64 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="0" BorderThickness="2" CornerRadius="10" Margin="10,20,0,20" Padding="0" BorderBrush="#FF9C9595">
+        <Border Grid.Column="0" BorderThickness="2" CornerRadius="10" Margin="10,10,0,10" Padding="0" BorderBrush="#FF9C9595">
             <Border.Background>
                 <SolidColorBrush Color="Black" Opacity="0.4"/>
             </Border.Background>
-            <ScrollViewer>
-            <StackPanel Margin="10,0,0,0">
-                <Grid>
-                    <TreeView x:Name="OnelineTreeview" ItemsSource="{Binding Project}" FontSize="18" 
-                              VerticalContentAlignment="Top" HorizontalContentAlignment="Left" Margin="10"
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="10">
+
+                    <Expander Header="Database" IsExpanded="True" BorderBrush="LightGray" BorderThickness="1" Margin="0,10">
+
+                        <TreeView x:Name="OnelineTreeview" ItemsSource="{Binding Project}" FontSize="18" 
+                              VerticalContentAlignment="Top" HorizontalContentAlignment="Left"
                               Background="{x:Null}" BorderBrush="{x:Null}" MouseMove="OnelineTreeview_MouseMove" AllowDrop="True">
 
-                        <TreeViewItem Header='Thevenins' ItemsSource="{Binding Project.Thevenins}">
-                            <TreeViewItem.ItemTemplate>
-                                <HierarchicalDataTemplate>
-                                    <TextBlock Text="{Binding Name}"/>
-                                </HierarchicalDataTemplate>
-                            </TreeViewItem.ItemTemplate>
-                        </TreeViewItem>
+                            <TreeViewItem Header='Thevenins' ItemsSource="{Binding Project.Thevenins}">
+                                <TreeViewItem.ItemTemplate>
+                                    <HierarchicalDataTemplate>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </HierarchicalDataTemplate>
+                                </TreeViewItem.ItemTemplate>
+                            </TreeViewItem>
 
-                        <TreeViewItem Header='Transformers' ItemsSource="{Binding Project.Transformers}">
-                            <TreeViewItem.ItemTemplate>
-                                <HierarchicalDataTemplate>
-                                    <TextBlock Text="{Binding Name}"/>
-                                </HierarchicalDataTemplate>
-                            </TreeViewItem.ItemTemplate>
-                        </TreeViewItem>
+                            <TreeViewItem Header='Transformers' ItemsSource="{Binding Project.Transformers}">
+                                <TreeViewItem.ItemTemplate>
+                                    <HierarchicalDataTemplate>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </HierarchicalDataTemplate>
+                                </TreeViewItem.ItemTemplate>
+                            </TreeViewItem>
 
-                        <TreeViewItem Header='Breakers' ItemsSource="{Binding Project.Breakers}">
-                            <TreeViewItem.ItemTemplate>
-                                <HierarchicalDataTemplate>
-                                    <TextBlock Text="{Binding Name}"/>
-                                </HierarchicalDataTemplate>
-                            </TreeViewItem.ItemTemplate>
-                        </TreeViewItem>
+                            <TreeViewItem Header='Breakers' ItemsSource="{Binding Project.Breakers}">
+                                <TreeViewItem.ItemTemplate>
+                                    <HierarchicalDataTemplate>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </HierarchicalDataTemplate>
+                                </TreeViewItem.ItemTemplate>
+                            </TreeViewItem>
 
-                        <TreeViewItem Header='Relays' ItemsSource="{Binding Project.Relays}">
-                            <TreeViewItem.ItemTemplate>
-                                <HierarchicalDataTemplate>
-                                    <TextBlock Text="{Binding Name}"/>
-                                </HierarchicalDataTemplate>
-                            </TreeViewItem.ItemTemplate>
-                        </TreeViewItem>
+                            <TreeViewItem Header='Relays' ItemsSource="{Binding Project.Relays}">
+                                <TreeViewItem.ItemTemplate>
+                                    <HierarchicalDataTemplate>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </HierarchicalDataTemplate>
+                                </TreeViewItem.ItemTemplate>
+                            </TreeViewItem>
 
-                        <TreeViewItem Header='Buses' ItemsSource="{Binding Project.Buses}">
-                            <TreeViewItem.ItemTemplate>
-                                <HierarchicalDataTemplate>
-                                    <TextBlock Text="{Binding Name}"/>
-                                </HierarchicalDataTemplate>
-                            </TreeViewItem.ItemTemplate>
-                        </TreeViewItem>
+                            <TreeViewItem Header='Buses' ItemsSource="{Binding Project.Buses}">
+                                <TreeViewItem.ItemTemplate>
+                                    <HierarchicalDataTemplate>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </HierarchicalDataTemplate>
+                                </TreeViewItem.ItemTemplate>
+                            </TreeViewItem>
 
-                    </TreeView>
-                </Grid>
+                        </TreeView>
+                    </Expander>
 
-                <StackPanel Margin="0">
-                    <local1:ButtonsPanel/>
-                    <Expander Margin="10" Content="{Binding SelectedObject}"
-                      Header="{Binding SelectedObject.Name,FallbackValue='[Select an Element]'}" 
-                      BorderThickness="1" BorderBrush="LightGray" FontWeight="Bold" IsExpanded="True">
+                    <Expander Margin="0,10" Content="{Binding SelectedObject}" Header="{Binding SelectedObject.Name,FallbackValue='[Select an Element]'}" BorderThickness="1" BorderBrush="LightGray" FontWeight="Bold" IsExpanded="True">
                         <Expander.Resources>
                             <DataTemplate DataType="{x:Type local2:Node}">
                                 <local1:NodePropertyEditor/>
@@ -106,26 +110,59 @@
                             </DataTemplate>
                         </Expander.Resources>
                     </Expander>
-                    <Expander Margin="10" Header="Options" IsExpanded="True"
-                      BorderBrush="LightGray" BorderThickness="1">
+
+                    <Expander Margin="0,10" Content="{Binding SelectedItem, ElementName=OnelineTreeview, Mode=OneWay,FallbackValue={x:Null}}" Header="{Binding Name,FallbackValue='[Select an Element]'}" BorderThickness="1" BorderBrush="LightGray" IsExpanded="True" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Auto" Padding="10">
+                        <Expander.Resources>
+                            <DataTemplate DataType="{x:Type local2:Substation}">
+                                <local3:SubstationPage/>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type local2:Thevenin}">
+                                <Border BorderThickness="2" CornerRadius="10" Margin="5" Padding="0" BorderBrush="#FF9C9595">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="Black" Opacity="0.4"/>
+                                    </Border.Background>
+                                    <local3:TheveninPage/>
+                                </Border>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type local2:Transformer}">
+                                <Viewbox>
+                                    <local3:TransformerPage/>
+                                </Viewbox>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type local2:Relay}">
+                                <Viewbox>
+                                    <local3:RelayPage/>
+                                </Viewbox>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type local2:Breaker}">
+                                <Viewbox>
+                                    <local3:BreakerPage/>
+                                </Viewbox>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type local2:CT}">
+                                <local3:CTMenuPage/>
+                            </DataTemplate>
+                        </Expander.Resources>
+                    </Expander>
+
+                    <Expander Margin="0,10" Header="Options" BorderBrush="LightGray" BorderThickness="1">
                         <local1:ParametersEditor/>
                     </Expander>
+
                 </StackPanel>
-            </StackPanel>
             </ScrollViewer>
         </Border>
 
-
-
         <!-- The Display UI -->
-        <Border Grid.Column="1" BorderThickness="2" CornerRadius="10" Margin="10,20" Padding="0" BorderBrush="#FF9C9595" DragOver="Border_DragOver" AllowDrop="True">
+        <Border Grid.Column="1" BorderThickness="2" CornerRadius="10" Margin="10" Padding="0" BorderBrush="#FF9C9595" DragOver="Border_DragOver" AllowDrop="True">
             <Border.Background>
                 <SolidColorBrush Color="Black" Opacity="0.4"/>
             </Border.Background>
 
-            <Grid Margin="10">
+            <Grid Margin="10" Grid.Row="0">
                 <Grid.Resources>
                     <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+                    
                     <!-- This CompositeCollection basically Concatenates the Nodes and Connectors in a single one -->
                     <CompositeCollection x:Key="Col">
                         <CollectionContainer Collection="{Binding DataContext.Connectors,Source={x:Reference view}}"/>
@@ -134,50 +171,61 @@
 
                     <!-- This is the DataTemplate that will be used to render the Breaker class -->
                     <DataTemplate DataType="{x:Type local2:Node}">
-                        <Thumb DragDelta="Thumb_Drag" 
-                           IsEnabled="{Binding IsSelected,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                        <Thumb DragDelta="Thumb_Drag" IsEnabled="{Binding IsSelected,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                             <Thumb.Template>
                                 <ControlTemplate TargetType="Thumb">
+
+                                    <!-- The breaker -->
                                     <DockPanel Margin="-20,-20,20,20">
+                                        <!-- visual of the breaker -->
                                         <Grid>
                                             <Rectangle Height="40" Width="40" Stroke="Black" StrokeThickness="1" Fill="Red" x:Name="Breaker" Stretch="Uniform" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" OpacityMask="Black"/>
-                                            <TextBlock TextAlignment="Center" Text="{Binding Name}" FontWeight="Bold"
-                                               IsHitTestVisible="False"
-                                               Visibility="{Binding DataContext.ShowNames, 
-                                                                    RelativeSource={RelativeSource FindAncestor, AncestorType=Window},
-                                                                    Converter={StaticResource BoolToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+                                            <TextBlock TextAlignment="Center" Text="{Binding Name}" FontWeight="Bold" IsHitTestVisible="False" Visibility="{Binding DataContext.ShowNames, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Converter={StaticResource BoolToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
                                         </Grid>
+                                        <!-- Coordinates for the item -->
                                         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0">
                                             <TextBlock Text="{Binding X, StringFormat='{}X = {0}'}" IsHitTestVisible="False" Visibility="Collapsed" x:Name="XText" HorizontalAlignment="Left"/>
                                             <TextBlock Text="{Binding Y, StringFormat='{}Y = {0}'}" IsHitTestVisible="False" Visibility="Collapsed" x:Name="YText" HorizontalAlignment="Left"/>
                                         </StackPanel>
                                     </DockPanel>
 
+                                    <!--#region -->
+                                    <!-- UI interactions -->
+
+                                    <!-- Flashes selected item -->
                                     <ControlTemplate.Triggers>
                                         <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="True">
                                             <DataTrigger.EnterActions>
-                                                <BeginStoryboard x:Name="DashAnimation">
+                                                <BeginStoryboard x:Name="Flash">
                                                     <Storyboard>
                                                         <DoubleAnimation Storyboard.TargetName="Breaker" Storyboard.TargetProperty="Opacity" From="1" To=".5" Duration="0:0:0.5" AutoReverse="True" RepeatBehavior="Forever" />
                                                     </Storyboard>
                                                 </BeginStoryboard>
                                             </DataTrigger.EnterActions>
                                             <DataTrigger.ExitActions>
-                                                <StopStoryboard BeginStoryboardName="DashAnimation"/>
+                                                <StopStoryboard BeginStoryboardName="Flash"/>
                                             </DataTrigger.ExitActions>
                                         </DataTrigger>
+
+                                        <!-- Change border thickness when dragging -->
                                         <Trigger Property="IsDragging" Value="True">
-                                            <Setter TargetName="Breaker" Property="StrokeThickness" Value="3"/>
+                                            <Setter TargetName="Breaker" Property="StrokeThickness" Value="2"/>
                                         </Trigger>
+
+                                        <!-- Hide/Show the grid displays -->
                                         <DataTrigger Binding="{Binding DataContext.ShowAllCoordinates, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Value="True">
                                             <Setter TargetName="XText" Property="Visibility" Value="Visible"/>
                                             <Setter TargetName="YText" Property="Visibility" Value="Visible"/>
                                         </DataTrigger>
+
+                                        <!--When selected for a connector -->
                                         <DataTrigger Binding="{Binding IsHighlighted}" Value="True">
                                             <Setter TargetName="Breaker" Property="StrokeThickness" Value="2"/>
                                             <Setter TargetName="Breaker" Property="Stroke" Value="Red"/>
                                             <Setter TargetName="Breaker" Property="Fill" Value="White"/>
                                         </DataTrigger>
+
+                                        <!-- Other end when connector is being placed -->
                                         <MultiDataTrigger>
                                             <MultiDataTrigger.Conditions>
                                                 <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="True"/>
@@ -186,7 +234,10 @@
                                             <Setter TargetName="XText" Property="Visibility" Value="Visible"/>
                                             <Setter TargetName="YText" Property="Visibility" Value="Visible"/>
                                         </MultiDataTrigger>
+
                                     </ControlTemplate.Triggers>
+                                    <!--#endregion-->
+
                                 </ControlTemplate>
                             </Thumb.Template>
                         </Thumb>
@@ -226,7 +277,7 @@
                     <ListBox.LayoutTransform>
                         <ScaleTransform CenterX="0" CenterY="0" ScaleX="{Binding ZoomLevel}" ScaleY="{Binding ZoomLevel}"/>
                     </ListBox.LayoutTransform>
-                    
+
                     <ListBox.Background>
                         <SolidColorBrush Color="#FF252525" Opacity="0.9"/>
                     </ListBox.Background>
@@ -299,6 +350,6 @@
                 </ListBox>
             </Grid>
         </Border>
-
     </Grid>
+
 </Controls:MetroWindow>

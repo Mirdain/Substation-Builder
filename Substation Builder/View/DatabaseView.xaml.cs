@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System;
 using System.Windows.Media;
 using Substation_Builder.ViewModel;
+using Substation_Builder.Pages.DatabaseView;
 
 namespace Substation_Builder.View
 {
@@ -20,12 +21,10 @@ namespace Substation_Builder.View
         private BreakerPage breakerView = new BreakerPage();
         private CTPage ctview = new CTPage();
         private TransformerPage transformerview = new TransformerPage();
-        private DefaultPage defaultPage = new DefaultPage();
 
         public DatabaseView()
         {
             InitializeComponent();
-            pagenavigation.Navigate(defaultPage);
         }
 
         //used to navigate to forms located in the xaml folder and bind to classes
@@ -67,7 +66,7 @@ namespace Substation_Builder.View
             }
             else
             {
-                pagenavigation.Navigate(defaultPage);
+
             }
         }
 

@@ -63,7 +63,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
@@ -137,9 +137,6 @@
     <Compile Include="ViewModel\OnelineViewModel.cs" />
     <Compile Include="View\DatabaseView.xaml.cs">
       <DependentUpon>DatabaseView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\DatabaseView\DefaultPage.xaml.cs">
-      <DependentUpon>DefaultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\FaultView.xaml.cs">
       <DependentUpon>FaultView.xaml</DependentUpon>
@@ -223,10 +220,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\DatabaseView\DefaultPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\DatabaseView\RelayPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -276,7 +269,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Substation Builder_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -308,10 +300,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\Trash.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\xfmr.png" />
+    <Resource Include="Resources\Icons\Trash.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\Chiyome_Mochizuki.jpg" />
@@ -322,7 +311,12 @@
   <ItemGroup>
     <Resource Include="Resources\Images\CT.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Icons\CT.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Transformer.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

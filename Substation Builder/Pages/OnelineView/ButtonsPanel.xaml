@@ -8,35 +8,60 @@
         <ResourceDictionary Source="EditorStyles.xaml"/>
     </UserControl.Resources>
     <DockPanel HorizontalAlignment="Center">
-        
+
         <ToggleButton IsChecked="{Binding CreatingNewNode}">
-            <Rectangle Height="20" Width="20" Stroke="Black" 
-                     StrokeThickness="1" Fill="Red">
-            </Rectangle>
+            <Grid>
+                <Rectangle Height="30" Width="30" Stroke="Black" StrokeThickness="1" Fill="Red"/>
+                <TextBlock Text="52" FontSize="12" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
         </ToggleButton>
-        
+
+        <ToggleButton IsChecked="{Binding CreatingNewNode}">
+            <Grid>
+                <Ellipse Height="30" Width="30" Stroke="Black" StrokeThickness="1" Fill="#FF3AFF00"/>
+                <TextBlock Text="51" FontSize="12" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+        </ToggleButton>
+
+        <ToggleButton IsChecked="{Binding CreatingNewNode}">
+            <Grid>
+                <Ellipse Height="30" Width="30" Stroke="Black" StrokeThickness="1" Fill="#FF3AFF00"/>
+                <TextBlock Text="87" FontSize="12" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+        </ToggleButton>
+
         <ToggleButton IsChecked="{Binding CreatingNewConnector}">
             <Canvas Height="45" Width="45">
-                <Line Stroke="Red" StrokeThickness="2" StrokeDashArray="2 3"
+                <Line Stroke="#FF1E44F1" StrokeThickness="3" StrokeDashArray="2 3"
                             X1="10" Y1="10"
                             X2="35" Y2="35"/>
 
                 <Rectangle Height="10" Width="10" Stroke="Black"
-                         Canvas.Top="5" Canvas.Left="5"
-                     StrokeThickness="1" Fill="Red">
-                </Rectangle>
+                     StrokeThickness="1" Fill="Red" Canvas.Left="3" Canvas.Top="3"/>
 
                 <Rectangle Height="10" Width="10" Stroke="Black"
-                         Canvas.Top="30" Canvas.Left="30"
+                         Canvas.Top="32" Canvas.Left="32"
                      StrokeThickness="1" Fill="Red">
                 </Rectangle>
             </Canvas>
         </ToggleButton>
-        
+
+        <Button>
+            <!--Need to add icon-->
+            <Image Source="/Substation Builder;component/Resources/Icons/CT.png" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Button>
+
+        <Button>
+            <!--Need to add icon-->
+            <Image Source="/Substation Builder;component/Resources/Icons/Transformer.png"/>
+        </Button>
+
         <Button Command="{Binding DeleteCommand}">
             <!--Need to add icon-->
             <Image HorizontalAlignment="Center" VerticalAlignment="Center"
-                   Width="40" Height="40" Source="/Substation Builder;component/Resources/Images/Trash.png"/>
+                   Width="40" Height="40" Source="/Substation Builder;component/Resources/Icons/Trash.png"/>
         </Button>
+
+
     </DockPanel>
 </UserControl>

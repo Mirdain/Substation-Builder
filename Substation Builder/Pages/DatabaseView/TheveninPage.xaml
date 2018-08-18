@@ -1,11 +1,10 @@
-﻿<Page x:Class="Substation_Builder.View.TheveninPage"
+﻿<UserControl x:Class="Substation_Builder.Pages.DatabaseView.TheveninPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:local="clr-namespace:Substation_Builder.View"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      mc:Ignorable="d" 
-      Title="Thevenin" >
+      mc:Ignorable="d">
     <!-- Thevenin Template -->
     <StackPanel>
 
@@ -20,7 +19,7 @@
         </StackPanel.Triggers>
 
         <StackPanel>
-            <Label Content="Thevenin" Margin="4,-10,0,10" Opacity="0.9" FontSize="22" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <Label Content="Thevenin" Opacity="0.9" FontSize="22" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
 
 
             <DockPanel>
@@ -74,4 +73,4 @@
 
     </StackPanel>
 
-</Page>
+</UserControl>

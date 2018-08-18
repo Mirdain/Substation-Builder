@@ -1,4 +1,4 @@
-﻿<Page x:Class="Substation_Builder.View.CTPage"
+﻿<UserControl x:Class="Substation_Builder.Pages.DatabaseView.CTPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,8 +6,7 @@
       xmlns:model="clr-namespace:Substation_Builder.Model"
       xmlns:local="clr-namespace:Substation_Builder"
       xmlns:EnumHelper="clr-namespace:Substation_Builder.Helpers"
-      mc:Ignorable="d" 
-      Title="CTView">
+      mc:Ignorable="d">
 
     <!-- CT Template -->
     <StackPanel>
@@ -23,7 +22,7 @@
         </StackPanel.Triggers>
 
         <StackPanel>
-            <Label Content="Current Transformer" Margin="4,-10,0,10" Opacity="0.9" FontSize="22" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <Label Content="Current Transformer" Opacity="0.9" FontSize="22" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
 
             <DockPanel>
                 <Label Content="Name:" Opacity="0.9" FontSize="16" Margin="0,5,0,0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="105"/>
@@ -58,4 +57,4 @@
         </StackPanel>
 
     </StackPanel>
-</Page>
+</UserControl>

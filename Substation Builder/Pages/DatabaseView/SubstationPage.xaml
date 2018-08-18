@@ -1,13 +1,12 @@
-﻿<Page
+﻿<UserControl
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:EnumHelper="clr-namespace:Substation_Builder.Helpers"
     xmlns:model="clr-namespace:Substation_Builder.Model"
-    x:Class="Substation_Builder.View.SubstationPage"
-    mc:Ignorable="d" 
-      Title="Substation">
+    x:Class="Substation_Builder.Pages.DatabaseView.SubstationPage"
+    mc:Ignorable="d">
 
     <StackPanel>
 
@@ -23,7 +22,7 @@
         </StackPanel.Triggers>
 
         <StackPanel>
-            <Label Content="Substation Data" Margin="4,-10,0,10" Opacity="0.9" FontSize="22" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <Label Content="Substation Data" Opacity="0.9" FontSize="22" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
 
             <DockPanel>
                 <Label Content="Substation Name:" HorizontalContentAlignment="Right" Margin="0,5,0,1" Opacity="0.9" FontSize="16" HorizontalAlignment="Center" Width="135" VerticalAlignment="Center" VerticalContentAlignment="Center" Padding="0,0,5,0"/>
@@ -60,4 +59,4 @@
         </StackPanel>
 
     </StackPanel>
-</Page>
+</UserControl>
