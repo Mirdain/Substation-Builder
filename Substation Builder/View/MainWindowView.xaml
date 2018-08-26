@@ -209,9 +209,7 @@
                         </Image.OpacityMask>
                     </Image>
                 </StackPanel>
-
             </Grid>
-
         </Viewbox>
 
         <StatusBar>

@@ -215,6 +215,56 @@ namespace Substation_Builder.View
             return false;
         }
 
+        private void OnelineTreeview_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
 
+            object TVSelectedItem = OnelineTreeview.SelectedItem;
+
+          //foreach (Window window in Application.Current.Windows)
+          // {
+          //    if (window.GetType() == typeof(DatabaseView))
+          //     {
+          //          (window as DatabaseView).DataBaseTreeview.
+          //     }
+          //   }
+
+            if (TVSelectedItem.GetType() != typeof(TreeViewItem))
+            {
+                if(TVSelectedItem.GetType() == typeof(Thevenin))
+                {
+                    Thevenin thevenin = (Thevenin)TVSelectedItem;
+                    TreeviewExpander.Content = TVSelectedItem;
+                    TreeviewExpander.Header = thevenin.Name;
+                }
+
+                if (TVSelectedItem.GetType() == typeof(Breaker))
+                {
+                    Breaker breaker = (Breaker)TVSelectedItem;
+                    TreeviewExpander.Content = TVSelectedItem;
+                    TreeviewExpander.Header = breaker.Name;
+                }
+
+                if (TVSelectedItem.GetType() == typeof(Transformer))
+                {
+                    Transformer transformer = (Transformer)TVSelectedItem;
+                    TreeviewExpander.Content = TVSelectedItem;
+                    TreeviewExpander.Header = transformer.Name;
+                }
+
+                if (TVSelectedItem.GetType() == typeof(Relay))
+                {
+                    Relay relay = (Relay)TVSelectedItem;
+                    TreeviewExpander.Content = TVSelectedItem;
+                    TreeviewExpander.Header = relay.Name;
+                }
+
+                if (TVSelectedItem.GetType() == typeof(CT))
+                {
+                    CT cT = (CT)TVSelectedItem;
+                    TreeviewExpander.Content = TVSelectedItem;
+                    TreeviewExpander.Header = cT.Name;
+                }
+            }
+        }
     }
 }

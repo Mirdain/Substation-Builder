@@ -35,11 +35,12 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
     </Controls:MetroWindow.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="325"/>
+            <ColumnDefinition Width="350"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -50,79 +51,72 @@
 
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel Margin="10">
-
                     <Expander Header="Database" IsExpanded="True" BorderBrush="LightGray" BorderThickness="1" Margin="0,10">
 
-                        <TreeView x:Name="OnelineTreeview" ItemsSource="{Binding Project}" FontSize="18" 
-                              VerticalContentAlignment="Top" HorizontalContentAlignment="Left"
-                              Background="{x:Null}" BorderBrush="{x:Null}" MouseMove="OnelineTreeview_MouseMove" AllowDrop="True">
+                        <TreeView FontSize="18" ItemsSource="{Binding Project}" x:Name="OnelineTreeview"
+                              VerticalContentAlignment="Top" HorizontalContentAlignment="Left" x:FieldModifier="public"
+                              Background="{x:Null}" BorderBrush="{x:Null}" MouseMove="OnelineTreeview_MouseMove" AllowDrop="True" SelectedItemChanged="OnelineTreeview_SelectedItemChanged">
 
-                            <TreeViewItem Header='Thevenins' ItemsSource="{Binding Project.Thevenins}">
-                                <TreeViewItem.ItemTemplate>
-                                    <HierarchicalDataTemplate>
-                                        <TextBlock Text="{Binding Name}"/>
-                                    </HierarchicalDataTemplate>
-                                </TreeViewItem.ItemTemplate>
+                            <TreeViewItem Header="{Binding Project.Name}" ItemsSource="{Binding Project}">
+
+                                <!-- This is the Header and Treeview Items for Thevenin-->
+                                <TreeViewItem x:Name="Subdata" Header='Substation Data' ItemsSource="{Binding Project}"/>
+
+
+                                <!-- This is the Header and Treeview Items for Thevenin-->
+                                <TreeViewItem Header='Thevenins' ItemsSource="{Binding Project.Thevenins}">
+                                    <!-- This is the treeview Items for Thevenin-->
+                                    <TreeViewItem.ItemTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <TextBlock Text="{Binding Name}"/>
+                                        </HierarchicalDataTemplate>
+                                    </TreeViewItem.ItemTemplate>
+                                </TreeViewItem>
+
+                                <!-- This is the Header and Transformers-->
+                                <TreeViewItem Header="Transformers" ItemsSource="{Binding Project.Transformers}">
+                                    <TreeViewItem.ItemTemplate>
+                                        <HierarchicalDataTemplate ItemsSource="{Binding CTs}">
+                                            <TextBlock Text="{Binding Name}"/>
+                                        </HierarchicalDataTemplate>
+                                    </TreeViewItem.ItemTemplate>
+                                </TreeViewItem>
+
+                                <!-- This is the Header and Breakers-->
+                                <TreeViewItem Header="Breakers" ItemsSource="{Binding Project.Breakers}">
+                                    <!-- This is the treeview Items for Breaker-->
+                                    <TreeViewItem.ItemTemplate>
+                                        <HierarchicalDataTemplate ItemsSource="{Binding CTs}">
+                                            <TextBlock Text="{Binding Name}"/>
+                                        </HierarchicalDataTemplate>
+                                    </TreeViewItem.ItemTemplate>
+                                </TreeViewItem>
+
+                                <!-- This is the Header and Treeview Items for Relay-->
+                                <TreeViewItem Header='Relays' ItemsSource="{Binding Project.Relays}">
+                                    <!-- This is the reeview Items for Relay-->
+                                    <TreeViewItem.ItemTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <TextBlock Text="{Binding Name}"/>
+                                        </HierarchicalDataTemplate>
+                                    </TreeViewItem.ItemTemplate>
+                                </TreeViewItem>
+
                             </TreeViewItem>
-
-                            <TreeViewItem Header='Transformers' ItemsSource="{Binding Project.Transformers}">
-                                <TreeViewItem.ItemTemplate>
-                                    <HierarchicalDataTemplate>
-                                        <TextBlock Text="{Binding Name}"/>
-                                    </HierarchicalDataTemplate>
-                                </TreeViewItem.ItemTemplate>
-                            </TreeViewItem>
-
-                            <TreeViewItem Header='Breakers' ItemsSource="{Binding Project.Breakers}">
-                                <TreeViewItem.ItemTemplate>
-                                    <HierarchicalDataTemplate>
-                                        <TextBlock Text="{Binding Name}"/>
-                                    </HierarchicalDataTemplate>
-                                </TreeViewItem.ItemTemplate>
-                            </TreeViewItem>
-
-                            <TreeViewItem Header='Relays' ItemsSource="{Binding Project.Relays}">
-                                <TreeViewItem.ItemTemplate>
-                                    <HierarchicalDataTemplate>
-                                        <TextBlock Text="{Binding Name}"/>
-                                    </HierarchicalDataTemplate>
-                                </TreeViewItem.ItemTemplate>
-                            </TreeViewItem>
-
-                            <TreeViewItem Header='Buses' ItemsSource="{Binding Project.Buses}">
-                                <TreeViewItem.ItemTemplate>
-                                    <HierarchicalDataTemplate>
-                                        <TextBlock Text="{Binding Name}"/>
-                                    </HierarchicalDataTemplate>
-                                </TreeViewItem.ItemTemplate>
-                            </TreeViewItem>
-
                         </TreeView>
                     </Expander>
 
-                    <Expander Margin="0,10" Content="{Binding SelectedObject}" Header="{Binding SelectedObject.Name,FallbackValue='[Select an Element]'}" BorderThickness="1" BorderBrush="LightGray" FontWeight="Bold" IsExpanded="True">
-                        <Expander.Resources>
-                            <DataTemplate DataType="{x:Type local2:Node}">
-                                <local1:NodePropertyEditor/>
-                            </DataTemplate>
-                            <DataTemplate DataType="{x:Type local2:Connector}">
-                                <local1:ConnectorPropertyEditor/>
-                            </DataTemplate>
-                        </Expander.Resources>
-                    </Expander>
-
-                    <Expander Margin="0,10" Content="{Binding SelectedItem, ElementName=OnelineTreeview, Mode=OneWay,FallbackValue={x:Null}}" Header="{Binding Name,FallbackValue='[Select an Element]'}" BorderThickness="1" BorderBrush="LightGray" IsExpanded="True" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Auto" Padding="10">
+                    <Expander x:Name="TreeviewExpander" Margin="0,10" Header="{Binding SelectedObject.Name,FallbackValue='[Select an Element]'}" BorderThickness="1" BorderBrush="LightGray" IsExpanded="True" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Auto" Padding="10">
                         <Expander.Resources>
                             <DataTemplate DataType="{x:Type local2:Substation}">
+                                <Viewbox>
                                 <local3:SubstationPage/>
+                                </Viewbox>
                             </DataTemplate>
                             <DataTemplate DataType="{x:Type local2:Thevenin}">
-                                <Border BorderThickness="2" CornerRadius="10" Margin="5" Padding="0" BorderBrush="#FF9C9595">
-                                    <Border.Background>
-                                        <SolidColorBrush Color="Black" Opacity="0.4"/>
-                                    </Border.Background>
+                                <Viewbox>
                                     <local3:TheveninPage/>
-                                </Border>
+                                </Viewbox>
                             </DataTemplate>
                             <DataTemplate DataType="{x:Type local2:Transformer}">
                                 <Viewbox>
@@ -140,7 +134,20 @@
                                 </Viewbox>
                             </DataTemplate>
                             <DataTemplate DataType="{x:Type local2:CT}">
-                                <local3:CTMenuPage/>
+                                <Viewbox>
+                                    <local3:CTMenuPage/>
+                                </Viewbox>
+                            </DataTemplate>
+                        </Expander.Resources>
+                    </Expander>
+
+                    <Expander Margin="0,10" Content="{Binding SelectedObject}" Header="{Binding SelectedObject.Name,FallbackValue='[Select an Element]'}" BorderThickness="1" BorderBrush="LightGray" FontWeight="Bold" IsExpanded="True">
+                        <Expander.Resources>
+                            <DataTemplate DataType="{x:Type local2:Node}">
+                                <local1:NodePropertyEditor/>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type local2:Connector}">
+                                <local1:ConnectorPropertyEditor/>
                             </DataTemplate>
                         </Expander.Resources>
                     </Expander>

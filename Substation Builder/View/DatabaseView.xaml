@@ -122,8 +122,8 @@
             </Border.Background>
 
             <Grid>
-                <TreeView x:Name="DataBaseTreeview" ItemsSource="{Binding Project}" SelectedItemChanged="LoadPage" FontSize="18" 
-                              VerticalContentAlignment="Top" HorizontalContentAlignment="Left" Padding="10" Margin="0" 
+                <TreeView x:Name="DataBaseTreeview" x:FieldModifier="public" ItemsSource="{Binding Project}" SelectedItemChanged="LoadPage" FontSize="18" 
+                              VerticalContentAlignment="Top" HorizontalContentAlignment="Left" Padding="10" Margin="0"
                               Background="{x:Null}" BorderBrush="{x:Null}" PreviewMouseRightButtonDown="DataBaseTreeview_PreviewMouseRightButtonDown">
 
                     <TreeViewItem Header="{Binding Project.Name}" ItemsSource="{Binding Project}" ContextMenu="{DynamicResource ProjectContext}">

@@ -1,8 +1,7 @@
 ﻿using Substation_Builder.Helpers;
 using Substation_Builder.Model;
-using Substation_Builder.View;
 using Substation_Builder.Resources.Monster;
-using System.Windows;
+using Substation_Builder.View;
 
 namespace Substation_Builder.ViewModel
 {
@@ -33,7 +32,7 @@ namespace Substation_Builder.ViewModel
             FaultViewOpenCommand = new RelayCommand(FaultViewOpen, Can_Open_DatabaseView);
 
             Monster monster = new Monster();
-
+            
             Project = new Substation
             {
                 Name = "No Project Set",
@@ -59,17 +58,6 @@ namespace Substation_Builder.ViewModel
             }
         }
 
-        public bool Can_Open_DatabaseView(object sender)
-        {
-            bool canexecute = false;
-
-            if(!IsWindowOpen.WindowCheck<DatabaseView>())
-            {
-                canexecute = true;
-            }
-            return canexecute;
-        }
-
         //One Line Module
         public void OnelineViewOpen(object sender)
         {
@@ -88,6 +76,26 @@ namespace Substation_Builder.ViewModel
             }
         }
 
+        //Fault Module
+        public void FaultViewOpen(object sender)
+        {
+          
+
+        }
+
+
+        //Checks if a windows are open
+        public bool Can_Open_DatabaseView(object sender)
+        {
+            bool canexecute = false;
+
+            if (!IsWindowOpen.WindowCheck<DatabaseView>())
+            {
+                canexecute = true;
+            }
+            return canexecute;
+        }
+
         public bool Can_Open_OnelineView(object sender)
         {
             bool canexecute = false;
@@ -97,13 +105,6 @@ namespace Substation_Builder.ViewModel
                 canexecute = true;
             }
             return canexecute;
-        }
-
-        //Fault Module
-        public void FaultViewOpen(object sender)
-        {
-          
-
         }
 
         public bool Can_Open_FaultView(object sender)
