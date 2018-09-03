@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Text;
 
 namespace Substation_Builder.View
 {
@@ -160,17 +161,6 @@ namespace Substation_Builder.View
 
 
 
-
-
-
-
-
-
-
-
-
-
-
         //Begin the Node code
         private void Thumb_Drag(object sender, DragDeltaEventArgs e)
         {
@@ -265,6 +255,8 @@ namespace Substation_Builder.View
             return false;
         }
 
+
+        //Set Data Context properly for Expander from Treeview
         private void OnelineTreeview_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             object TVSelectedItem = OnelineTreeview.SelectedItem;
@@ -305,11 +297,22 @@ namespace Substation_Builder.View
                     TreeviewExpander.Content = TVSelectedItem;
                     TreeviewExpander.Header = cT.Name;
                 }
+            }
+            else if (TVSelectedItem.GetType() == typeof(TreeViewItem))
+            {
+                TreeViewItem SelectedItem = (TreeViewItem) TVSelectedItem;
 
+                if(SelectedItem.Name == "Subdata")
+                {
+                    TreeviewExpander.Content = ((OnelineViewModel)SelectedItem.DataContext).Project.SubData;
+                    TreeviewExpander.Header = ((OnelineViewModel)SelectedItem.DataContext).Project.SubData.Name;
+                }
                 else
                 {
-          
+                    TreeviewExpander.Content = null;
+                    TreeviewExpander.Header = "[Select an Element]";
                 }
+
 
             }
         }

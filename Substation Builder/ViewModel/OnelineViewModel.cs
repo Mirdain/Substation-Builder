@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Linq;
 using System.Windows.Controls;
+using Substation_Builder.Resources.Monster;
 
 namespace Substation_Builder.ViewModel
 {
@@ -99,10 +100,17 @@ namespace Substation_Builder.ViewModel
         //Create Blank Project
         private void NewProject(object sender)
         {
+            Monster monster = new Monster();
+
             Substation substation = new Substation
             {
-                Name = "New Project"
+                SubData = new SubstationData
+                {
+                    Name = "New Project",
+                    Monster = monster.MonsterName()
+                }
             };
+
             Project.Replace(substation);
         }
 
@@ -134,18 +142,33 @@ namespace Substation_Builder.ViewModel
 
                 if (messageBoxResult == MessageBoxResult.No)
                 {
+                    Monster monster = new Monster();
+
                     Project = new Substation
                     {
-                        Name = "New Project"
+                        SubData = new SubstationData
+                        {
+                            Name = "New Project",
+                            Monster = monster.MonsterName()
+                        }
+    
                     };
+
                 }
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
                     SaveFile(sender);
 
+                    Monster monster = new Monster();
+
                     Project = new Substation
                     {
-                        Name = "New Project"
+                        SubData = new SubstationData
+                        {
+                            Name = "New Project",
+                            Monster = monster.MonsterName()
+                        }
+
                     };
                 }
             }

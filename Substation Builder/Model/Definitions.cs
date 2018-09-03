@@ -242,5 +242,21 @@ namespace Substation_Builder.Model
         public Relay Relay { get; set; }
     }
 
+    public class SubstationData
+    {
+        public string Name { get; set; }
+        public string Engineer { get; set; }
+        public string[] Monster { get; set; }
+        public SubType SubType { get; set; }
+        public BusType BusType { get; set; }
+        public PTR HighPTR { get; set; }
+        public PTR LowPTR { get; set; }
+        public ConnectionType HighPTCon { get; set; }
+        public ConnectionType LowPTCon { get; set; }
+        public double MVA { get; set; }
+        public Voltage HighVoltage { get; set; }
+        public Voltage LowVoltage { get; set; }
+    }
+
 }
 

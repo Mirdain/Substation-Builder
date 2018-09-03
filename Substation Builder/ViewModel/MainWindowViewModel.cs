@@ -27,17 +27,20 @@ namespace Substation_Builder.ViewModel
 
         public MainWindowViewModel()
         {
+            Monster monster = new Monster();
+
+            Project = new Substation
+            {
+                SubData = new SubstationData
+                {
+                    Name = "(Not Set)",
+                    Monster = monster.MonsterName()
+                }
+            };
+
             DatabaseViewOpenCommand = new RelayCommand(DatabaseViewOpen, Can_Open_DatabaseView);
             OnelineViewOpenCommand = new RelayCommand(OnelineViewOpen, Can_Open_OnelineView);
             FaultViewOpenCommand = new RelayCommand(FaultViewOpen, Can_Open_DatabaseView);
-
-            Monster monster = new Monster();
-            
-            Project = new Substation
-            {
-                Name = "No Project Set",
-                Engineer = monster.MonsterName()
-            };
         }
 
         //Database Module

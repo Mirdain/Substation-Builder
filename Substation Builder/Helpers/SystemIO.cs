@@ -2,6 +2,7 @@
 using System.IO;
 using Microsoft.Win32;
 using System.Xml.Serialization;
+using Substation_Builder.Resources.Monster;
 using System.Collections.ObjectModel;
 using System;
 
@@ -50,8 +51,16 @@ namespace Substation_Builder.Services
         //Loads a Template File
         public void LoadTemplate(Substation RefProject)
         {
+            Monster monster = new Monster();
 
             Substation Project = new Substation();
+            SubstationData Data = new SubstationData
+            {
+                Name = "Squash Bend Template",
+                Monster = monster.MonsterName()
+            };
+
+            Project.SubData = Data;
 
             CT XFMR1CT = new CT
             {
@@ -183,7 +192,6 @@ namespace Substation_Builder.Services
                 Type = RelayType.SEL_351S_7,
             };
 
-            Project.Name = "Squash Bend Template";
             Project.Thevenins.Add(BaseThevenin);
             Project.Thevenins.Add(SecondThevenin);
             Project.Transformers.Add(T1);
@@ -191,7 +199,6 @@ namespace Substation_Builder.Services
             Project.Relays.Add(FirstRelay);
             Project.Relays.Add(SecondRelay);
             Project.Breakers.Add(HighSide);
-
             RefProject.Replace(Project);
 
         }

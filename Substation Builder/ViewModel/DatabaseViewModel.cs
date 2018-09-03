@@ -1,5 +1,6 @@
 ﻿using Substation_Builder.Helpers;
 using Substation_Builder.Model;
+using Substation_Builder.Resources.Monster;
 using Substation_Builder.Services;
 using Substation_Builder.View;
 using System.Windows;
@@ -56,10 +57,17 @@ namespace Substation_Builder.ViewModel
         //Create Blank Project
         private void NewProject(object sender)
         {
+            Monster monster = new Monster();
+
             Substation substation = new Substation
             {
-                Name = "New Project"
+                SubData = new SubstationData
+                {
+                    Name = "New Project",
+                    Monster = monster.MonsterName()
+                }
             };
+
             Project.Replace(substation);
         }
 
@@ -79,6 +87,8 @@ namespace Substation_Builder.ViewModel
         public void AddItem(object sender)
         {
 
+            Monster monster = new Monster();
+
             if (sender.ToString() == "Thevenin")
             {
                 Thevenin thevenin = new Thevenin { Name = "New Thevenin " + (Project.Thevenins.Count + 1).ToString() };
@@ -91,9 +101,14 @@ namespace Substation_Builder.ViewModel
 
                 if ( messageBoxResult == MessageBoxResult.No)
                 {
+
                     Project = new Substation
                     {
-                        Name = "New Project"
+                        SubData = new SubstationData
+                        {
+                            Name = "New Project",
+                            Monster = monster.MonsterName()
+                        }
                     };
                 }
                 if (messageBoxResult == MessageBoxResult.Yes)
@@ -102,7 +117,11 @@ namespace Substation_Builder.ViewModel
 
                     Project = new Substation
                     {
-                        Name = "New Project"
+                        SubData = new SubstationData
+                        {
+                            Name = "New Project",
+                            Monster = monster.MonsterName()
+                        }
                     };
                 }
             }

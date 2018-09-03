@@ -269,6 +269,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Resources\Icons\Diablo_Icon.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

@@ -126,7 +126,7 @@
                               VerticalContentAlignment="Top" HorizontalContentAlignment="Left" Padding="10" Margin="0"
                               Background="{x:Null}" BorderBrush="{x:Null}" PreviewMouseRightButtonDown="DataBaseTreeview_PreviewMouseRightButtonDown">
 
-                    <TreeViewItem Header="{Binding Project.Name}" ItemsSource="{Binding Project}" ContextMenu="{DynamicResource ProjectContext}">
+                    <TreeViewItem Header="{Binding}" ItemsSource="{Binding Project.SubData}" ContextMenu="{DynamicResource ProjectContext}">
 
                         <!-- This is the Header and Treeview Items for Thevenin-->
                         <TreeViewItem x:Name="Subdata" Header='Substation Data' ItemsSource="{Binding Project}"/>

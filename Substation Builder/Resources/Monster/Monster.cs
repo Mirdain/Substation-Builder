@@ -191,9 +191,13 @@ namespace Substation_Builder.Resources.Monster
         "Savior",
         };
 
-        public string MonsterName()
+        public string[] MonsterName()
         {
-            string MonsterID = null;
+            string MonsterLong = null;
+            string MonsterFirst = null;
+            string MonsterLast = null;
+            string[] Monster = new string[3];
+
             Monster monster = new Monster();
             Random rnd = new Random();
             int prefixid = rnd.Next(0, monster.Prefix.Count());
@@ -201,9 +205,16 @@ namespace Substation_Builder.Resources.Monster
             int appelation = rnd.Next(0, monster.Appelation.Count());
             int level = rnd.Next(0, monster.Level.Count());
 
-            MonsterID = monster.Prefix[prefixid] + " " + monster.Suffix[suffixid] + " " + monster.Appelation[appelation] + " - " + monster.Level[level] + " of Engineers";
+            MonsterLong = monster.Prefix[prefixid] + " " + monster.Suffix[suffixid] + " " + monster.Appelation[appelation] + " - " + monster.Level[level] + " of Engineers";
 
-            return MonsterID;
+            MonsterFirst = monster.Prefix[prefixid] + " " + monster.Suffix[suffixid] + " " + monster.Appelation[appelation];
+            MonsterLast = monster.Level[level] + " of Engineers";
+
+            Monster[0] = MonsterFirst;
+            Monster[1] = MonsterLast;
+            Monster[2] = MonsterLong.ToUpper();
+
+            return Monster;
         }
 
     }

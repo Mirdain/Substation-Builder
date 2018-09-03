@@ -26,7 +26,7 @@
 
         <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource {x:Type TreeViewItem}}">
             <Setter Property="Background" Value="{x:Null}"/>
-            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontSize" Value="18"/>
         </Style>
 
         <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource {x:Type MenuItem}}">
@@ -109,112 +109,116 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-            <ScrollViewer VerticalScrollBarVisibility="Visible">
-                <StackPanel Margin="10" Background="Black">
-                    <Expander Header="Substation" IsExpanded="True">
+        <ScrollViewer VerticalScrollBarVisibility="Visible">
+            <StackPanel Margin="10" Background="Black">
+                <Expander Header="Substation" IsExpanded="True">
 
-                        <TreeView ItemsSource="{Binding Project}" x:Name="OnelineTreeview" PreviewMouseRightButtonDown="Oneline_PreviewMouseRightButtonDown"
+                    <TreeView x:Name="OnelineTreeview" PreviewMouseRightButtonDown="Oneline_PreviewMouseRightButtonDown"
                               VerticalContentAlignment="Top" HorizontalContentAlignment="Left" x:FieldModifier="public" Background="{x:Null}"
                               BorderBrush="{x:Null}" MouseMove="OnelineTreeview_MouseMove" AllowDrop="True" SelectedItemChanged="OnelineTreeview_SelectedItemChanged">
 
-                            <TreeViewItem Header="{Binding Project.Name}" ItemsSource="{Binding Project}" ContextMenu="{DynamicResource ProjectContext}">
+                        <!-- This is the Header and Treeview Items for Thevenin-->
+                        <TreeViewItem Header="{Binding Project.SubData.Name,FallbackValue='[No Project Set]'}" ContextMenu="{DynamicResource ProjectContext}">
 
-                                <!-- This is the Header and Treeview Items for Thevenin-->
-                                <TreeViewItem Header='Thevenins' ItemsSource="{Binding Project.Thevenins}" ContextMenu="{DynamicResource AddTheveninContext}">
-                                    <!-- This is the treeview Items for Thevenin-->
-                                    <TreeViewItem.ItemTemplate>
-                                        <HierarchicalDataTemplate>
-                                            <TextBlock Text="{Binding Name}"/>
-                                        </HierarchicalDataTemplate>
-                                    </TreeViewItem.ItemTemplate>
-                                </TreeViewItem>
+                            <!-- This is the Header and Treeview Items for Thevenin-->
+                            <TreeViewItem x:Name="Subdata" Header='Substation Data' ItemsSource="{Binding Project.SubData}"/>
 
-                                <!-- This is the Header and Transformers-->
-                                <TreeViewItem Header="Transformers" ItemsSource="{Binding Project.Transformers}" ContextMenu="{DynamicResource AddTransformerContext}">
-                                    <TreeViewItem.ItemTemplate>
-                                        <HierarchicalDataTemplate ItemsSource="{Binding CTs}">
-                                            <TextBlock Text="{Binding Name}"/>
-                                        </HierarchicalDataTemplate>
-                                    </TreeViewItem.ItemTemplate>
-                                </TreeViewItem>
-
-                                <!-- This is the Header and Breakers-->
-                                <TreeViewItem Header="Breakers" ItemsSource="{Binding Project.Breakers}" ContextMenu="{DynamicResource AddBreakerContext}">
-                                    <!-- This is the treeview Items for Breaker-->
-                                    <TreeViewItem.ItemTemplate>
-                                        <HierarchicalDataTemplate ItemsSource="{Binding CTs}">
-                                            <TextBlock Text="{Binding Name}"/>
-                                        </HierarchicalDataTemplate>
-                                    </TreeViewItem.ItemTemplate>
-                                </TreeViewItem>
-
-                                <!-- This is the Header and Treeview Items for Relay-->
-                                <TreeViewItem Header='Relays' ItemsSource="{Binding Project.Relays}" ContextMenu="{DynamicResource AddRelayContext}">
-                                    <!-- This is the reeview Items for Relay-->
-                                    <TreeViewItem.ItemTemplate>
-                                        <HierarchicalDataTemplate>
-                                            <TextBlock Text="{Binding Name}"/>
-                                        </HierarchicalDataTemplate>
-                                    </TreeViewItem.ItemTemplate>
-                                </TreeViewItem>
-
+                            <!-- This is the Header and Treeview Items for Thevenin-->
+                            <TreeViewItem Header='Thevenins' ItemsSource="{Binding Project.Thevenins}" ContextMenu="{DynamicResource AddTheveninContext}">
+                                <!-- This is the treeview Items for Thevenin-->
+                                <TreeViewItem.ItemTemplate>
+                                    <HierarchicalDataTemplate>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </HierarchicalDataTemplate>
+                                </TreeViewItem.ItemTemplate>
                             </TreeViewItem>
-                        </TreeView>
-                    </Expander>
 
-                    <!-- Displays the Forms from the selected Treeview Item -->
-                    <Expander x:Name="TreeviewExpander" Header="{Binding SelectedObject.Name,UpdateSourceTrigger=PropertyChanged,FallbackValue='[Select an Element]'}" IsExpanded="True">
-                        <Expander.Resources>
-                            <DataTemplate DataType="{x:Type local2:Substation}">
-                                <Viewbox StretchDirection="DownOnly">
+                            <!-- This is the Header and Transformers-->
+                            <TreeViewItem Header="Transformers" ItemsSource="{Binding Project.Transformers}" ContextMenu="{DynamicResource AddTransformerContext}">
+                                <TreeViewItem.ItemTemplate>
+                                    <HierarchicalDataTemplate ItemsSource="{Binding CTs}">
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </HierarchicalDataTemplate>
+                                </TreeViewItem.ItemTemplate>
+                            </TreeViewItem>
+
+                            <!-- This is the Header and Breakers-->
+                            <TreeViewItem Header="Breakers" ItemsSource="{Binding Project.Breakers}" ContextMenu="{DynamicResource AddBreakerContext}">
+                                <!-- This is the treeview Items for Breaker-->
+                                <TreeViewItem.ItemTemplate>
+                                    <HierarchicalDataTemplate ItemsSource="{Binding CTs}">
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </HierarchicalDataTemplate>
+                                </TreeViewItem.ItemTemplate>
+                            </TreeViewItem>
+
+                            <!-- This is the Header and Treeview Items for Relay-->
+                            <TreeViewItem Header='Relays' ItemsSource="{Binding Project.Relays}" ContextMenu="{DynamicResource AddRelayContext}">
+                                <!-- This is the reeview Items for Relay-->
+                                <TreeViewItem.ItemTemplate>
+                                    <HierarchicalDataTemplate>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </HierarchicalDataTemplate>
+                                </TreeViewItem.ItemTemplate>
+                            </TreeViewItem>
+                        </TreeViewItem>
+                    </TreeView>
+
+                </Expander>
+
+                <!-- Displays the Forms from the selected Treeview Item -->
+                <Expander x:Name="TreeviewExpander" Header="{Binding SelectedObject.Name,UpdateSourceTrigger=PropertyChanged,FallbackValue='[Select an Element]'}" IsExpanded="True">
+                    <Expander.Resources>
+                        <DataTemplate DataType="{x:Type local2:SubstationData}">
+                            <Viewbox StretchDirection="DownOnly">
                                 <local3:SubstationPage/>
-                                </Viewbox>
-                            </DataTemplate>
-                            <DataTemplate DataType="{x:Type local2:Thevenin}">
-                                <Viewbox StretchDirection="DownOnly">
-                                    <local3:TheveninPage/>
-                                </Viewbox>
-                            </DataTemplate>
-                            <DataTemplate DataType="{x:Type local2:Transformer}">
-                                <Viewbox StretchDirection="DownOnly">
-                                    <local3:TransformerPage/>
-                                </Viewbox>
-                            </DataTemplate>
-                            <DataTemplate DataType="{x:Type local2:Relay}">
-                                <Viewbox StretchDirection="DownOnly">
-                                    <local3:RelayPage/>
-                                </Viewbox>
-                            </DataTemplate>
-                            <DataTemplate DataType="{x:Type local2:Breaker}">
-                                <Viewbox StretchDirection="DownOnly">
-                                    <local3:BreakerPage/>
-                                </Viewbox>
-                            </DataTemplate>
-                            <DataTemplate DataType="{x:Type local2:CT}">
-                                <Viewbox StretchDirection="DownOnly">
-                                    <local3:CTMenuPage/>
-                                </Viewbox>
-                            </DataTemplate>
-                        </Expander.Resources>
-                    </Expander>
+                            </Viewbox>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type local2:Thevenin}">
+                            <Viewbox StretchDirection="DownOnly">
+                                <local3:TheveninPage/>
+                            </Viewbox>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type local2:Transformer}">
+                            <Viewbox StretchDirection="DownOnly">
+                                <local3:TransformerPage/>
+                            </Viewbox>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type local2:Relay}">
+                            <Viewbox StretchDirection="DownOnly">
+                                <local3:RelayPage/>
+                            </Viewbox>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type local2:Breaker}">
+                            <Viewbox StretchDirection="DownOnly">
+                                <local3:BreakerPage/>
+                            </Viewbox>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type local2:CT}">
+                            <Viewbox StretchDirection="DownOnly">
+                                <local3:CTMenuPage/>
+                            </Viewbox>
+                        </DataTemplate>
+                    </Expander.Resources>
+                </Expander>
 
-                    <Expander Content="{Binding SelectedObject}" Header="{Binding SelectedObject.Name,UpdateSourceTrigger=PropertyChanged,FallbackValue='[Select an Element]'}">
-                        <Expander.Resources>
-                            <DataTemplate DataType="{x:Type local2:Node}">
-                                <local1:NodePropertyEditor/>
-                            </DataTemplate>
-                            <DataTemplate DataType="{x:Type local2:Connector}">
-                                <local1:ConnectorPropertyEditor/>
-                            </DataTemplate>
-                        </Expander.Resources>
-                    </Expander>
+                <Expander Content="{Binding SelectedObject}" Header="{Binding SelectedObject.Name,UpdateSourceTrigger=PropertyChanged,FallbackValue='[Select an Element]'}">
+                    <Expander.Resources>
+                        <DataTemplate DataType="{x:Type local2:Node}">
+                            <local1:NodePropertyEditor/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type local2:Connector}">
+                            <local1:ConnectorPropertyEditor/>
+                        </DataTemplate>
+                    </Expander.Resources>
+                </Expander>
 
-                    <Expander Header="Options">
-                        <local1:ParametersEditor/>
-                    </Expander>
+                <Expander Header="Options">
+                    <local1:ParametersEditor/>
+                </Expander>
 
-                </StackPanel>
-            </ScrollViewer>
+            </StackPanel>
+        </ScrollViewer>
 
         <!-- The Display UI -->
         <Border Grid.Column="1" BorderThickness="2" CornerRadius="10" Margin="10" Padding="0" BorderBrush="#FF9C9595" DragOver="Border_DragOver" AllowDrop="True">
@@ -225,7 +229,7 @@
             <Grid Margin="10" Grid.Row="0">
                 <Grid.Resources>
                     <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
-                    
+
                     <!-- This CompositeCollection basically Concatenates the Nodes and Connectors in a single one -->
                     <CompositeCollection x:Key="Col">
                         <CollectionContainer Collection="{Binding DataContext.Connectors,Source={x:Reference view}}"/>

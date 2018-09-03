@@ -8,13 +8,13 @@
                       xmlns:vm="clr-namespace:Substation_Builder.ViewModel"
                       mc:Ignorable="d"
                       Icon="..\Resources\Images\MainPageIcon.jpg"    
-                      Title="Substation Builder" Height="578" Width="680" ResizeMode="CanMinimize"
+                      Title="Substation Builder" ResizeMode="CanMinimize"
                       WindowStartupLocation="CenterScreen"
-                      BorderThickness="0" HorizontalAlignment="Center">
+                      BorderThickness="0" Width="700" Height="500">
 
     <Controls:MetroWindow.TitleTemplate>
         <DataTemplate>
-            <TextBlock Text="{TemplateBinding Content}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" FontSize="25px" Margin="20,0,0,0"/>
+            <TextBlock Text="{TemplateBinding Content}" TextTrimming="CharacterEllipsis" FontSize="24" Margin="20,0,0,0"/>
         </DataTemplate>
     </Controls:MetroWindow.TitleTemplate>
 
@@ -23,14 +23,34 @@
     </Controls:MetroWindow.DataContext>
 
     <Controls:MetroWindow.Resources>
-        <mah:ToUpperConverter x:Key="ToUpper"/>
-        <Style TargetType="Controls:Tile">
-            <Setter Property="FontSize" Value="20"/>
+
+        <Style TargetType="{x:Type Controls:Tile}">
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background" Value="#828489"/>
                 </Trigger>
             </Style.Triggers>
+            <Setter Property="Opacity" Value="0.85"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Width" Value="240"/>
+            <Setter Property="Height" Value="50"/>
+
+            <Style.Resources>
+
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="FontSize" Value="26"/>
+                    <Setter Property="Opacity" Value="0.85"/>
+                    <Setter Property="VerticalAlignment" Value="Stretch"/>
+                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                    <Setter Property="Width" Value="235"/>
+                    <Setter Property="Padding" Value="5,0,0,0"/>
+                </Style>
+
+            </Style.Resources>
+
         </Style>
 
     </Controls:MetroWindow.Resources>
@@ -63,172 +83,116 @@
         </Controls:FlyoutsControl>
     </Controls:MetroWindow.Flyouts>
 
+
     <StackPanel>
-        <Viewbox>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="400"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+        <DockPanel HorizontalAlignment="Center" Margin="0,10,0,20">
+            <TextBlock Text="Project: " FontSize="22" TextAlignment="Center" Width="Auto"/>
+            <TextBlock Text="{Binding Project.SubData.Name}" FontSize="22" TextAlignment="Center" Width="Auto"/>
+        </DockPanel>
 
-                <Viewbox Grid.Column="0">
-                    <StackPanel Margin="25,0,40,0">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="400"/>
+            </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="Select Module" FontSize="48" TextAlignment="Center" Padding="0,0,0,10"/>
-                        <DockPanel>
-                            <Rectangle Margin="0" Height="{Binding ActualHeight, ElementName=tile3, Mode=OneWay}" Width="{Binding ActualHeight, ElementName=tile3, Mode=OneWay}" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Rectangle.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform ScaleX="0.8" ScaleY="0.8"/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform/>
-                                    </TransformGroup>
-                                </Rectangle.RenderTransform>
-                                <Rectangle.Fill>
-                                    <VisualBrush Visual="{StaticResource appbar_settings}" Stretch="Uniform"/>
-                                </Rectangle.Fill>
-                            </Rectangle>
-                            <Controls:Tile x:Name="tile1" Margin="5" Height="Auto" Width="Auto" HorizontalContentAlignment="Left" VerticalTitleAlignment="Center" VerticalAlignment="Center" Command="{Binding DatabaseViewOpenCommand, Mode=OneWay}">
-                                <TextBlock Margin="10,10,15,10" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="26">Project Settings</TextBlock>
-                            </Controls:Tile>
-                        </DockPanel>
+            <Viewbox Grid.Column="0" Margin="10,0,0,0">
+                <StackPanel>
 
-                        <DockPanel>
-                            <Rectangle Margin="0" Height="{Binding ActualHeight, ElementName=tile6, Mode=OneWay}" Width="{Binding ActualHeight, ElementName=tile6, Mode=OneWay}" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Rectangle.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform ScaleX="0.8" ScaleY="0.8"/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform/>
-                                    </TransformGroup>
-                                </Rectangle.RenderTransform>
-                                <Rectangle.Fill>
-                                    <VisualBrush Visual="{StaticResource appbar_diagram}" Stretch="Uniform"/>
-                                </Rectangle.Fill>
-                            </Rectangle>
-                            <Controls:Tile x:Name="tile6" Margin="5" Height="Auto" Width="Auto" HorizontalContentAlignment="Left" VerticalAlignment="Center" Command="{Binding OnelineViewOpenCommand, Mode=OneWay}">
-                                <TextBlock Margin="10,10,15,10" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="26">One Line</TextBlock>
-                            </Controls:Tile>
-                        </DockPanel>
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type Rectangle}">
+                            <Setter Property="Opacity" Value="0.85"/>
+                            <Setter Property="Height" Value="30"/>
+                            <Setter Property="Width" Value="30"/>
+                            <Setter Property="VerticalAlignment" Value="Stretch"/>
+                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                            <Setter Property="Margin" Value="10,10,10,10"/>
+                        </Style>
+                    </StackPanel.Resources>
 
-                        <DockPanel>
-                            <Rectangle Margin="0" Height="{Binding ActualHeight, ElementName=tile2, Mode=OneWay}" Width="{Binding ActualHeight, ElementName=tile2, Mode=OneWay}" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Rectangle.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform ScaleX="0.8" ScaleY="0.8"/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform/>
-                                    </TransformGroup>
-                                </Rectangle.RenderTransform>
-                                <Rectangle.Fill>
-                                    <VisualBrush Visual="{StaticResource appbar_camera_flash_off}" Stretch="Uniform"/>
-                                </Rectangle.Fill>
-                            </Rectangle>
-                            <Controls:Tile x:Name="tile2" Margin="5" Height="Auto" Width="Auto" HorizontalContentAlignment="Left" VerticalAlignment="Center">
-                                <TextBlock Margin="10,10,15,10" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="26">Fault Analysis</TextBlock>
-                            </Controls:Tile>
-                        </DockPanel>
+                    <TextBlock Text="Select Module" FontSize="28" TextAlignment="Center" Width="Auto" Margin="50,0,0,0"/>
 
-                        <DockPanel>
-                            <Rectangle Margin="0" Height="{Binding ActualHeight, ElementName=tile1, Mode=OneWay}" Width="{Binding ActualHeight, ElementName=tile1, Mode=OneWay}" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Rectangle.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform ScaleX="0.8" ScaleY="0.8"/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform/>
-                                    </TransformGroup>
-                                </Rectangle.RenderTransform>
-                                <Rectangle.Fill>
-                                    <VisualBrush Visual="{StaticResource appbar_clipboard_edit}" Stretch="Uniform"/>
-                                </Rectangle.Fill>
-                            </Rectangle>
-                            <Controls:Tile x:Name="tile3" Margin="5" Height="Auto" Width="Auto" HorizontalContentAlignment="Left" VerticalAlignment="Center">
-                                <TextBlock Margin="10,10,15,10" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="26">Relay Settings</TextBlock>
-                            </Controls:Tile>
-                        </DockPanel>
-
-                        <DockPanel>
-                            <Rectangle Margin="0" Height="{Binding ActualHeight, ElementName=tile4, Mode=OneWay}" Width="{Binding ActualHeight, ElementName=tile4, Mode=OneWay}" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Rectangle.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform ScaleX="0.8" ScaleY="0.8"/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform/>
-                                    </TransformGroup>
-                                </Rectangle.RenderTransform>
-                                <Rectangle.Fill>
-                                    <VisualBrush Visual="{StaticResource appbar_home_people_none}" Stretch="Uniform"/>
-                                </Rectangle.Fill>
-                            </Rectangle>
-                            <Controls:Tile x:Name="tile4" Margin="5" Height="Auto" Width="Auto" HorizontalContentAlignment="Left" VerticalAlignment="Center">
-                                <TextBlock Margin="10,10,15,10" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="26">SCADA</TextBlock>
-                            </Controls:Tile>
-                        </DockPanel>
-
-                        <DockPanel>
-                            <Rectangle Margin="0" Height="{Binding ActualHeight, ElementName=tile5, Mode=OneWay}" Width="{Binding ActualHeight, ElementName=tile5, Mode=OneWay}" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Rectangle.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform ScaleX="0.8" ScaleY="0.8"/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform/>
-                                    </TransformGroup>
-                                </Rectangle.RenderTransform>
-                                <Rectangle.Fill>
-                                    <VisualBrush Visual="{StaticResource appbar_book_open_writing}" Stretch="Uniform"/>
-                                </Rectangle.Fill>
-                            </Rectangle>
-                            <Controls:Tile x:Name="tile5" Margin="5" Height="Auto" Width="Auto" HorizontalContentAlignment="Left">
-                                <TextBlock Margin="10,10,15,10" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="26">Substation Report</TextBlock>
-                            </Controls:Tile>
-                        </DockPanel>
-
-
-                    </StackPanel>
-                </Viewbox>
-
-                <StackPanel  Grid.Column="1">
-                    <Image Margin="0" Name="MainPageBackground" Source="..\Resources\Images\MainPageBackground.png" 
-                   RenderTransformOrigin="0.5,0.5">
-                        <Image.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform ScaleY="1" ScaleX="-1"/>
-                                <SkewTransform AngleY="0" AngleX="0"/>
-                                <RotateTransform Angle="0"/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </Image.RenderTransform>
-                        <Image.OpacityMask>
-                            <ImageBrush ImageSource="..\Resources/Images/MainPageBackground.png"/>
-                        </Image.OpacityMask>
-                    </Image>
-                </StackPanel>
-            </Grid>
-        </Viewbox>
-
-        <StatusBar>
-            <StackPanel>
-                <StatusBarItem HorizontalAlignment="Left" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                     <DockPanel>
-                        <TextBlock Text="Project Overlord: " FontSize="16" Padding="0"/>
-                        <TextBlock Text="{Binding Project.Engineer}" FontSize="16"/>
+                        <Rectangle>
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{StaticResource appbar_diagram}" Stretch="Uniform"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Controls:Tile Command="{Binding OnelineViewOpenCommand, Mode=OneWay}">
+                            <TextBlock>One Line</TextBlock>
+                        </Controls:Tile>
                     </DockPanel>
-                </StatusBarItem>
-                <StatusBarItem HorizontalAlignment="Left" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="0,-5,0,0">
-                    <DockPanel Margin="0">
-                        <TextBlock Text="Current Project: " FontSize="16" Margin="0,0,0,-3" Padding="0"/>
-                        <TextBlock Text="{Binding Project.Name}" FontSize="16"/>
-                    </DockPanel>
-                </StatusBarItem>
-            </StackPanel>
-        </StatusBar>
 
+                    <DockPanel>
+                        <Rectangle>
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{StaticResource appbar_camera_flash_off}" Stretch="Uniform"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Controls:Tile Command="{Binding FaultViewOpenCommand, Mode=OneWay}">
+                            <TextBlock>Fault Analysis</TextBlock>
+                        </Controls:Tile>
+                    </DockPanel>
+
+                    <DockPanel>
+                        <Rectangle>
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{StaticResource appbar_clipboard_edit}" Stretch="Uniform"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Controls:Tile>
+                            <TextBlock>Relay Settings</TextBlock>
+                        </Controls:Tile>
+                    </DockPanel>
+
+                    <DockPanel>
+                        <Rectangle>
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{StaticResource appbar_home_people_none}" Stretch="Uniform"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Controls:Tile>
+                            <TextBlock>SCADA</TextBlock>
+                        </Controls:Tile>
+                    </DockPanel>
+
+                    <DockPanel>
+                        <Rectangle>
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{StaticResource appbar_book_open_writing}" Stretch="Uniform"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Controls:Tile>
+                            <TextBlock>Substation Report</TextBlock>
+                        </Controls:Tile>
+                    </DockPanel>
+
+                    <DockPanel>
+                        <Rectangle>
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{StaticResource appbar_settings}" Stretch="Uniform"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Controls:Tile>
+                            <TextBlock>Project Settings</TextBlock>
+                        </Controls:Tile>
+                    </DockPanel>
+
+                </StackPanel>
+            </Viewbox>
+
+            <StackPanel Grid.Column="1">
+                <StackPanel.Background>
+                    <ImageBrush ImageSource="/Substation Builder;component/Resources/Images/MainPageBackground.png" Stretch="Uniform"/>
+                </StackPanel.Background>
+            </StackPanel>
+        </Grid>
+
+        <DockPanel HorizontalAlignment="Center" Margin="0,15,0,0">
+            <TextBlock FontFamily="pack://application:,,,/Resources/Icons/#Exocet" Text="PROJECT OVERLORD: " FontSize="14"/>
+            <TextBlock FontFamily="pack://application:,,,/Resources/Icons/#Exocet" Text="{Binding Project.SubData.Monster[2]}" FontSize="14"/>
+        </DockPanel>
     </StackPanel>
+
 
 </Controls:MetroWindow>

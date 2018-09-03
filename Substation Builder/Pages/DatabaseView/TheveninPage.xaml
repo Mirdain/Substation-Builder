@@ -72,8 +72,7 @@
 
         </StackPanel.Resources>
 
-        <StackPanel>
-            <Label Content="Thevenin" Width="Auto" HorizontalContentAlignment="Center" FontSize="20"/>
+        <StackPanel Margin="10">
 
             <DockPanel>
                 <Label Content="Name:"/>

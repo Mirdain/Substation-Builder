@@ -62,8 +62,7 @@
 
         </StackPanel.Resources>
 
-        <StackPanel>
-            <Label Content="Protective Relay" Width="Auto" HorizontalContentAlignment="Center" FontSize="20"/>
+        <StackPanel Margin="10">
 
             <DockPanel>
                 <Label Content="Name:"/>
