@@ -18,7 +18,7 @@
 
     <Controls:MetroWindow.TitleTemplate>
         <DataTemplate>
-            <TextBlock Text="{TemplateBinding Content}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" FontSize="20px" Margin="20,0,0,0"/>
+            <TextBlock Text="{TemplateBinding Content}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" FontSize="22" Margin="20,0,0,0"/>
         </DataTemplate>
     </Controls:MetroWindow.TitleTemplate>
 
@@ -26,6 +26,22 @@
 
         <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource {x:Type TreeViewItem}}">
             <Setter Property="Background" Value="{x:Null}"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+
+        <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource {x:Type MenuItem}}">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Background" Value="#2d2d2d"/>
+        </Style>
+
+        <Style TargetType="{x:Type Expander}">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="LightGray"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Background" Value="#2d2d2d"/>
+            <Setter Property="Opacity" Value="0.85"/>
+            <Setter Property="Padding" Value="5,0,0,0"/>
         </Style>
 
         <Style TargetType="Control" x:Key="EmptyFocusVisualStyle">
@@ -36,35 +52,75 @@
             </Setter>
         </Style>
 
+        <Helpers:BindingProxy x:Key="DataContextProxy" Data="{Binding}"/>
+
+        <!-- Remove Context Menu for Items in the control-->
+        <!-- Incredibly evil as the contextmenu does not share the same datacontext as the treeview so the proxy is employed-->
+
+        <!-- Context that need assigned -->
+        <ContextMenu x:Key="RelayItemContext" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+            <MenuItem Header="Delete Relay" Command="{Binding Data.RemoveItemCommand, Source={StaticResource DataContextProxy}}" CommandParameter="{Binding}"/>
+        </ContextMenu>
+        <ContextMenu x:Key="CTItemContext" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+            <MenuItem Header="Delete CT" Command="{Binding Data.RemoveItemCommand, Source={StaticResource DataContextProxy}}" CommandParameter="{Binding}"/>
+        </ContextMenu>
+        <ContextMenu x:Key="TheveninItemContext" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+            <MenuItem Header="Delete Thevenin" Command="{Binding Data.RemoveItemCommand, Source={StaticResource DataContextProxy}}" CommandParameter="{Binding}"/>
+        </ContextMenu>
+        <ContextMenu x:Key="BreakerContext" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+            <MenuItem Header="Delete Breaker" Command="{Binding Data.RemoveItemCommand, Source={StaticResource DataContextProxy}}" CommandParameter="{Binding}"/>
+            <MenuItem Header="Add CT" Command="{Binding Data.AddCTCommand, Source={StaticResource DataContextProxy}}" CommandParameter="{Binding}"/>
+        </ContextMenu>
+        <ContextMenu x:Key="XFMRContext" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+            <MenuItem Header="Delete XFMR" Command="{Binding Data.RemoveItemCommand, Source={StaticResource DataContextProxy}}" CommandParameter="{Binding}"/>
+            <MenuItem Header="Add CT" Command="{Binding Data.AddCTCommand, Source={StaticResource DataContextProxy}}" CommandParameter="{Binding}"/>
+        </ContextMenu>
+
+        <!-- File menu -->
+
+        <ContextMenu x:Key="ProjectContext" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+            <MenuItem Header="New Project" Command="{Binding Data.NewCommand, Source={StaticResource DataContextProxy}}" CommandParameter="Project"/>
+            <MenuItem Header="Open Project" Command="{Binding Data.LoadCommand, Source={StaticResource DataContextProxy}}" CommandParameter="Project"/>
+            <MenuItem Header="Save Project" Command="{Binding Data.SaveCommand, Source={StaticResource DataContextProxy}}" CommandParameter="Project"/>
+            <MenuItem Header="Load Template" Command="{Binding Data.TemplateCommand, Source={StaticResource DataContextProxy}}" CommandParameter="Project"/>
+        </ContextMenu>
+
+        <!-- Add Items -->
+
+        <ContextMenu x:Key="AddTheveninContext" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+            <MenuItem Header="Add Thevenin" Command="{Binding Data.AddItemCommand, Source={StaticResource DataContextProxy}}" CommandParameter="Thevenin"/>
+        </ContextMenu>
+        <ContextMenu x:Key="AddTransformerContext" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+            <MenuItem Header="Add Transformer" Command="{Binding Data.AddItemCommand, Source={StaticResource DataContextProxy}}" CommandParameter="Transformer"/>
+        </ContextMenu>
+        <ContextMenu x:Key="AddRelayContext" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+            <MenuItem Header="Add Relay" Command="{Binding Data.AddItemCommand, Source={StaticResource DataContextProxy}}" CommandParameter="Relay"/>
+        </ContextMenu>
+        <ContextMenu x:Key="AddBreakerContext" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+            <MenuItem Header="Add Breaker" Command="{Binding Data.AddItemCommand, Source={StaticResource DataContextProxy}}" CommandParameter="Breaker"/>
+        </ContextMenu>
+
+
     </Controls:MetroWindow.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="350"/>
+            <ColumnDefinition Width="370"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="0" BorderThickness="2" CornerRadius="10" Margin="10,10,0,10" Padding="0" BorderBrush="#FF9C9595">
-            <Border.Background>
-                <SolidColorBrush Color="Black" Opacity="0.4"/>
-            </Border.Background>
+            <ScrollViewer VerticalScrollBarVisibility="Visible">
+                <StackPanel Margin="10" Background="Black">
+                    <Expander Header="Substation" IsExpanded="True">
 
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <StackPanel Margin="10">
-                    <Expander Header="Database" IsExpanded="True" BorderBrush="LightGray" BorderThickness="1" Margin="0,10">
+                        <TreeView ItemsSource="{Binding Project}" x:Name="OnelineTreeview" PreviewMouseRightButtonDown="Oneline_PreviewMouseRightButtonDown"
+                              VerticalContentAlignment="Top" HorizontalContentAlignment="Left" x:FieldModifier="public" Background="{x:Null}"
+                              BorderBrush="{x:Null}" MouseMove="OnelineTreeview_MouseMove" AllowDrop="True" SelectedItemChanged="OnelineTreeview_SelectedItemChanged">
 
-                        <TreeView FontSize="18" ItemsSource="{Binding Project}" x:Name="OnelineTreeview"
-                              VerticalContentAlignment="Top" HorizontalContentAlignment="Left" x:FieldModifier="public"
-                              Background="{x:Null}" BorderBrush="{x:Null}" MouseMove="OnelineTreeview_MouseMove" AllowDrop="True" SelectedItemChanged="OnelineTreeview_SelectedItemChanged">
-
-                            <TreeViewItem Header="{Binding Project.Name}" ItemsSource="{Binding Project}">
+                            <TreeViewItem Header="{Binding Project.Name}" ItemsSource="{Binding Project}" ContextMenu="{DynamicResource ProjectContext}">
 
                                 <!-- This is the Header and Treeview Items for Thevenin-->
-                                <TreeViewItem x:Name="Subdata" Header='Substation Data' ItemsSource="{Binding Project}"/>
-
-
-                                <!-- This is the Header and Treeview Items for Thevenin-->
-                                <TreeViewItem Header='Thevenins' ItemsSource="{Binding Project.Thevenins}">
+                                <TreeViewItem Header='Thevenins' ItemsSource="{Binding Project.Thevenins}" ContextMenu="{DynamicResource AddTheveninContext}">
                                     <!-- This is the treeview Items for Thevenin-->
                                     <TreeViewItem.ItemTemplate>
                                         <HierarchicalDataTemplate>
@@ -74,7 +130,7 @@
                                 </TreeViewItem>
 
                                 <!-- This is the Header and Transformers-->
-                                <TreeViewItem Header="Transformers" ItemsSource="{Binding Project.Transformers}">
+                                <TreeViewItem Header="Transformers" ItemsSource="{Binding Project.Transformers}" ContextMenu="{DynamicResource AddTransformerContext}">
                                     <TreeViewItem.ItemTemplate>
                                         <HierarchicalDataTemplate ItemsSource="{Binding CTs}">
                                             <TextBlock Text="{Binding Name}"/>
@@ -83,7 +139,7 @@
                                 </TreeViewItem>
 
                                 <!-- This is the Header and Breakers-->
-                                <TreeViewItem Header="Breakers" ItemsSource="{Binding Project.Breakers}">
+                                <TreeViewItem Header="Breakers" ItemsSource="{Binding Project.Breakers}" ContextMenu="{DynamicResource AddBreakerContext}">
                                     <!-- This is the treeview Items for Breaker-->
                                     <TreeViewItem.ItemTemplate>
                                         <HierarchicalDataTemplate ItemsSource="{Binding CTs}">
@@ -93,7 +149,7 @@
                                 </TreeViewItem>
 
                                 <!-- This is the Header and Treeview Items for Relay-->
-                                <TreeViewItem Header='Relays' ItemsSource="{Binding Project.Relays}">
+                                <TreeViewItem Header='Relays' ItemsSource="{Binding Project.Relays}" ContextMenu="{DynamicResource AddRelayContext}">
                                     <!-- This is the reeview Items for Relay-->
                                     <TreeViewItem.ItemTemplate>
                                         <HierarchicalDataTemplate>
@@ -106,42 +162,43 @@
                         </TreeView>
                     </Expander>
 
-                    <Expander x:Name="TreeviewExpander" Margin="0,10" Header="{Binding SelectedObject.Name,FallbackValue='[Select an Element]'}" BorderThickness="1" BorderBrush="LightGray" IsExpanded="True" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Auto" Padding="10">
+                    <!-- Displays the Forms from the selected Treeview Item -->
+                    <Expander x:Name="TreeviewExpander" Header="{Binding SelectedObject.Name,UpdateSourceTrigger=PropertyChanged,FallbackValue='[Select an Element]'}" IsExpanded="True">
                         <Expander.Resources>
                             <DataTemplate DataType="{x:Type local2:Substation}">
-                                <Viewbox>
+                                <Viewbox StretchDirection="DownOnly">
                                 <local3:SubstationPage/>
                                 </Viewbox>
                             </DataTemplate>
                             <DataTemplate DataType="{x:Type local2:Thevenin}">
-                                <Viewbox>
+                                <Viewbox StretchDirection="DownOnly">
                                     <local3:TheveninPage/>
                                 </Viewbox>
                             </DataTemplate>
                             <DataTemplate DataType="{x:Type local2:Transformer}">
-                                <Viewbox>
+                                <Viewbox StretchDirection="DownOnly">
                                     <local3:TransformerPage/>
                                 </Viewbox>
                             </DataTemplate>
                             <DataTemplate DataType="{x:Type local2:Relay}">
-                                <Viewbox>
+                                <Viewbox StretchDirection="DownOnly">
                                     <local3:RelayPage/>
                                 </Viewbox>
                             </DataTemplate>
                             <DataTemplate DataType="{x:Type local2:Breaker}">
-                                <Viewbox>
+                                <Viewbox StretchDirection="DownOnly">
                                     <local3:BreakerPage/>
                                 </Viewbox>
                             </DataTemplate>
                             <DataTemplate DataType="{x:Type local2:CT}">
-                                <Viewbox>
+                                <Viewbox StretchDirection="DownOnly">
                                     <local3:CTMenuPage/>
                                 </Viewbox>
                             </DataTemplate>
                         </Expander.Resources>
                     </Expander>
 
-                    <Expander Margin="0,10" Content="{Binding SelectedObject}" Header="{Binding SelectedObject.Name,FallbackValue='[Select an Element]'}" BorderThickness="1" BorderBrush="LightGray" FontWeight="Bold" IsExpanded="True">
+                    <Expander Content="{Binding SelectedObject}" Header="{Binding SelectedObject.Name,UpdateSourceTrigger=PropertyChanged,FallbackValue='[Select an Element]'}">
                         <Expander.Resources>
                             <DataTemplate DataType="{x:Type local2:Node}">
                                 <local1:NodePropertyEditor/>
@@ -152,13 +209,12 @@
                         </Expander.Resources>
                     </Expander>
 
-                    <Expander Margin="0,10" Header="Options" BorderBrush="LightGray" BorderThickness="1">
+                    <Expander Header="Options">
                         <local1:ParametersEditor/>
                     </Expander>
 
                 </StackPanel>
             </ScrollViewer>
-        </Border>
 
         <!-- The Display UI -->
         <Border Grid.Column="1" BorderThickness="2" CornerRadius="10" Margin="10" Padding="0" BorderBrush="#FF9C9595" DragOver="Border_DragOver" AllowDrop="True">

@@ -14,44 +14,85 @@
             <EventTrigger RoutedEvent="FrameworkElement.Loaded">
                 <BeginStoryboard>
                     <Storyboard>
-                        <DoubleAnimation Duration="0:0:0.7" Storyboard.TargetProperty="Opacity" From="0" To="1" />
+                        <DoubleAnimation Duration="0:0:1" Storyboard.TargetProperty="Opacity" From="0" To="1" />
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
         </StackPanel.Triggers>
 
-        <StackPanel Margin="20,0">
-            <Label Content="Protective Relay" Opacity="0.9" FontSize="22" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <StackPanel.Resources>
 
+            <Style TargetType="{x:Type Label}">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Background" Value="#2d2d2d"/>
+                <Setter Property="Opacity" Value="0.85"/>
+                <Setter Property="Margin" Value="5,0,5,5"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Stretch"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="Width" Value="110"/>
+            </Style>
+
+            <Style TargetType="{x:Type TextBox}">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Background" Value="#2d2d2d"/>
+                <Setter Property="Opacity" Value="0.85"/>
+                <Setter Property="Margin" Value="0,0,5,5"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Stretch"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="Width" Value="165"/>
+                <Setter Property="Background" Value="Black"/>
+                <Setter Property="Padding" Value="5,0,0,0"/>
+            </Style>
+
+            <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Opacity" Value="0.85"/>
+                <Setter Property="Margin" Value="0,0,5,5"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Stretch"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="Width" Value="165"/>
+                <Setter Property="Background" Value="Black"/>
+            </Style>
+
+        </StackPanel.Resources>
+
+        <StackPanel>
+            <Label Content="Protective Relay" Width="Auto" HorizontalContentAlignment="Center" FontSize="20"/>
 
             <DockPanel>
-                <Label Content="Name:" Opacity="0.9" FontSize="16" Margin="0,5,0,0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="115"/>
-                <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Opacity="0.9" FontSize="16" Margin="0,5,0,0" HorizontalAlignment="Left" MinWidth="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="220"/>
+                <Label Content="Name:"/>
+                <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
             </DockPanel>
 
             <DockPanel>
-                <Label Content="Description:" Opacity="0.9" FontSize="16" Margin="0,5,0,0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="115"/>
-                <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" Opacity="0.9" FontSize="16" Margin="0,5,0,0" HorizontalAlignment="Left" MinWidth="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="220"/>
+                <Label Content="Description:"/>
+                <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
             </DockPanel>
 
             <DockPanel>
-                <Label Content="Type:" Opacity="0.9" FontSize="16" Margin="0,5,0,0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="115"/>
-                <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:RelayType}}}" SelectedValue="{Binding Type}" Width="220" FontSize="16" HorizontalContentAlignment="Center" Margin="0,5,0,0" HorizontalAlignment="Left"/>
+                <Label Content="Type:"/>
+                <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:RelayType}}}" SelectedValue="{Binding Type}"/>
             </DockPanel>
 
             <DockPanel>
-                <Label Content="Function:" Opacity="0.9" FontSize="16" Margin="0,5,0,0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="115"/>
-                <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:RelayFunction}}}" SelectedValue="{Binding Function}" Width="220" FontSize="16" HorizontalContentAlignment="Center" Margin="0,5,0,0" HorizontalAlignment="Left"/>
+                <Label Content="Function:"/>
+                <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:RelayFunction}}}" SelectedValue="{Binding Function}"/>
             </DockPanel>
 
             <DockPanel>
-                <Label Content="Bus:" Opacity="0.9" FontSize="16" Margin="0,5,0,0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="115"/>
-                <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:Bus}}}" SelectedValue="{Binding Bus}" Width="220" FontSize="16" HorizontalContentAlignment="Center" Margin="0,5,0,0" HorizontalAlignment="Left"/>
+                <Label Content="Bus:"/>
+                <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:Bus}}}" SelectedValue="{Binding Bus}"/>
             </DockPanel>
 
             <DockPanel>
-                <Label Content="Position:" Opacity="0.9" FontSize="16" Margin="0,5,0,0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="115"/>
-                <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:RelayPosition}}}" SelectedValue="{Binding Position}" Width="220" FontSize="16" HorizontalContentAlignment="Center" Margin="0,5,0,0" HorizontalAlignment="Left"/>
+                <Label Content="Position:"/>
+                <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:RelayPosition}}}" SelectedValue="{Binding Position}"/>
             </DockPanel>
 
         </StackPanel>

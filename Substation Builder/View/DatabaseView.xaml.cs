@@ -31,8 +31,6 @@ namespace Substation_Builder.View
         private void LoadPage(object sender, RoutedEventArgs e)
         {
 
-           
-
             TreeView TV = (TreeView)sender;
             object TVI = TV.SelectedItem;
 

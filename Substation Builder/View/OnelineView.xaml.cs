@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Substation_Builder.View
 {
@@ -22,6 +23,55 @@ namespace Substation_Builder.View
         public OnelineView()
         {
             InitializeComponent();
+        }
+
+        //searches the treeview
+        static TreeViewItem VisualUpwardSearch(DependencyObject source)
+        {
+            while (source != null && !(source is TreeViewItem))
+                source = VisualTreeHelper.GetParent(source);
+
+            return source as TreeViewItem;
+        }
+
+        //used to jump to correct treenode and then open contextmenu screen
+        private void Oneline_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            TreeViewItem treeViewItem = VisualUpwardSearch(e.OriginalSource as DependencyObject);
+
+            if (treeViewItem != null)
+            {
+                treeViewItem.Focus();
+                e.Handled = true;
+            }
+
+            object TVItem = OnelineTreeview.SelectedItem;
+
+            if (TVItem.GetType() == typeof(Thevenin))
+            {
+                treeViewItem.ContextMenu = (ContextMenu) OnelineTreeview.TryFindResource("TheveninItemContext");
+            }
+            else if (TVItem.GetType() == typeof(Transformer))
+            {
+                treeViewItem.ContextMenu = (ContextMenu) OnelineTreeview.TryFindResource("XFMRContext");
+            }
+            else if (TVItem.GetType() == typeof(Breaker))
+            {
+                treeViewItem.ContextMenu = (ContextMenu) OnelineTreeview.TryFindResource("BreakerContext");
+            }
+            else if (TVItem.GetType() == typeof(Relay))
+            {
+                treeViewItem.ContextMenu = (ContextMenu) OnelineTreeview.TryFindResource("RelayItemContext");
+            }
+            else if (TVItem.GetType() == typeof(CT))
+            {
+                treeViewItem.ContextMenu = (ContextMenu) OnelineTreeview.TryFindResource("CTItemContext");
+            }
+            else if (TVItem.GetType() == typeof(TreeViewItem))
+            {
+
+
+            }
         }
 
         private void OnelineTreeview_MouseMove(object sender, MouseEventArgs e)
@@ -217,16 +267,7 @@ namespace Substation_Builder.View
 
         private void OnelineTreeview_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-
             object TVSelectedItem = OnelineTreeview.SelectedItem;
-
-          //foreach (Window window in Application.Current.Windows)
-          // {
-          //    if (window.GetType() == typeof(DatabaseView))
-          //     {
-          //          (window as DatabaseView).DataBaseTreeview.
-          //     }
-          //   }
 
             if (TVSelectedItem.GetType() != typeof(TreeViewItem))
             {
@@ -237,33 +278,39 @@ namespace Substation_Builder.View
                     TreeviewExpander.Header = thevenin.Name;
                 }
 
-                if (TVSelectedItem.GetType() == typeof(Breaker))
+                else if (TVSelectedItem.GetType() == typeof(Breaker))
                 {
                     Breaker breaker = (Breaker)TVSelectedItem;
                     TreeviewExpander.Content = TVSelectedItem;
                     TreeviewExpander.Header = breaker.Name;
                 }
 
-                if (TVSelectedItem.GetType() == typeof(Transformer))
+                else if (TVSelectedItem.GetType() == typeof(Transformer))
                 {
                     Transformer transformer = (Transformer)TVSelectedItem;
                     TreeviewExpander.Content = TVSelectedItem;
                     TreeviewExpander.Header = transformer.Name;
                 }
 
-                if (TVSelectedItem.GetType() == typeof(Relay))
+                else if (TVSelectedItem.GetType() == typeof(Relay))
                 {
                     Relay relay = (Relay)TVSelectedItem;
                     TreeviewExpander.Content = TVSelectedItem;
                     TreeviewExpander.Header = relay.Name;
                 }
 
-                if (TVSelectedItem.GetType() == typeof(CT))
+                else if (TVSelectedItem.GetType() == typeof(CT))
                 {
                     CT cT = (CT)TVSelectedItem;
                     TreeviewExpander.Content = TVSelectedItem;
                     TreeviewExpander.Header = cT.Name;
                 }
+
+                else
+                {
+          
+                }
+
             }
         }
     }

@@ -46,9 +46,10 @@ namespace Substation_Builder.Model
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum RelayFunction
     {
-        [Description("Backup Over Current")] BU_OC,
-        [Description("Transfromer Differential")] XFMR_Diff,
-        [Description("Bus Differential")] Bus_Diff,
+        [Description("High Side Backup")] HBU_OC,
+        [Description("Low Side Backup")] LBU_OC,
+        [Description("Transformer Diff")] XFMR_Diff,
+        [Description("Bus Diff")] Bus_Diff,
         [Description("Feeder Protection")] Feeder,
         [Description("Bus Tie Protection")] BT_OC,
     }

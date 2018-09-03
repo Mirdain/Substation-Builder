@@ -79,7 +79,7 @@
 
     <Controls:MetroWindow.TitleTemplate>
         <DataTemplate>
-            <TextBlock Text="{TemplateBinding Content}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" FontSize="20px" Margin="20,0,0,0"/>
+            <TextBlock Text="{TemplateBinding Content}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" FontSize="22px" Margin="20,0,0,0"/>
         </DataTemplate>
     </Controls:MetroWindow.TitleTemplate>
 
