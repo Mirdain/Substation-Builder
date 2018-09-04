@@ -8,8 +8,7 @@
     x:Class="Substation_Builder.Pages.DatabaseView.SubstationPage"
     mc:Ignorable="d">
 
-    <StackPanel>
-
+    <StackPanel Margin="10">
 
         <StackPanel.Triggers>
             <EventTrigger RoutedEvent="FrameworkElement.Loaded">
@@ -29,10 +28,10 @@
                 <Setter Property="Opacity" Value="0.85"/>
                 <Setter Property="Margin" Value="5,0,5,5"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
-                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="HorizontalContentAlignment" Value="Right"/>
                 <Setter Property="VerticalAlignment" Value="Stretch"/>
                 <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                <Setter Property="Width" Value="110"/>
+                <Setter Property="Width" Value="106"/>
             </Style>
 
             <Style TargetType="{x:Type TextBox}">
@@ -44,7 +43,7 @@
                 <Setter Property="HorizontalContentAlignment" Value="Left"/>
                 <Setter Property="VerticalAlignment" Value="Stretch"/>
                 <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                <Setter Property="Width" Value="165"/>
+                <Setter Property="Width" Value="169"/>
                 <Setter Property="Background" Value="Black"/>
                 <Setter Property="Padding" Value="5,0,0,0"/>
             </Style>
@@ -57,52 +56,49 @@
                 <Setter Property="HorizontalContentAlignment" Value="Left"/>
                 <Setter Property="VerticalAlignment" Value="Stretch"/>
                 <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                <Setter Property="Width" Value="165"/>
+                <Setter Property="Width" Value="170"/>
                 <Setter Property="Background" Value="Black"/>
             </Style>
 
         </StackPanel.Resources>
 
-        <StackPanel Margin="10">
+        <DockPanel>
+            <Label Content="Sub Name:"/>
+            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+        </DockPanel>
+        <DockPanel>
+            <Label Content="Sub Type:"/>
+            <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:SubType}}}" SelectedValue="{Binding SubType}" />
+        </DockPanel>
+        <DockPanel>
+            <Label Content="Bus Type:"/>
+            <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:BusType}}}" SelectedValue="{Binding BusType}"/>
+        </DockPanel>
+        <DockPanel>
+            <Label Content="High Side PT:"/>
+            <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:PTR}}}" SelectedValue="{Binding HighPTR}" Width="82" />
+            <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:ConnectionType}}}" SelectedValue="{Binding HighPTCon}" Width="82"/>
+        </DockPanel>
+        <DockPanel>
+            <Label Content="Low Side PT:"/>
+            <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:PTR}}}" SelectedValue="{Binding LowPTR}" Width="82"/>
+            <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:ConnectionType}}}" SelectedValue="{Binding LowPTCon}" Width="82"/>
+        </DockPanel>
+        <DockPanel>
+            <Label Content="High Side:"/>
+            <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:Voltage}}}" SelectedValue="{Binding HighVoltage}"/>
+        </DockPanel>
+        <DockPanel>
+            <Label Content="Low Side:"/>
+            <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:Voltage}}}" SelectedValue="{Binding LowVoltage}"/>
+        </DockPanel>
 
-            <DockPanel>
-                <Label Content="Sub Name:"/>
-                <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
-            </DockPanel>
-            <DockPanel>
-                <Label Content="Sub Type:"/>
-                <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:SubType}}}" SelectedValue="{Binding SubType}" />
-            </DockPanel>
-            <DockPanel>
-                <Label Content="Bus Type:"/>
-                <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:BusType}}}" SelectedValue="{Binding BusType}"/>
-            </DockPanel>
-            <DockPanel>
-                <Label Content="High Side PT:"/>
-                <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:PTR}}}" SelectedValue="{Binding HighPTR}" Width="80" />
-                <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:ConnectionType}}}" SelectedValue="{Binding HighPTCon}" Width="80"/>
-            </DockPanel>
-            <DockPanel>
-                <Label Content="Low Side PT:"/>
-                <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:PTR}}}" SelectedValue="{Binding LowPTR}" Width="80"/>
-                <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:ConnectionType}}}" SelectedValue="{Binding LowPTCon}" Width="80"/>
-            </DockPanel>
-            <DockPanel>
-                <Label Content="High Side:"/>
-                <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:Voltage}}}" SelectedValue="{Binding HighVoltage}"/>
-            </DockPanel>
-            <DockPanel>
-                <Label Content="Low Side:"/>
-                <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:Voltage}}}" SelectedValue="{Binding LowVoltage}"/>
-            </DockPanel>
-
-            <StackPanel>
-                <TextBox FontFamily="pack://application:,,,/Resources/Icons/#Exocet" Background="{x:Null}" Text="{Binding Engineer, UpdateSourceTrigger=PropertyChanged}" 
-                         HorizontalContentAlignment="Stretch" Width="Auto" BorderBrush="{x:Null}" FontSize="16"/>
-                <TextBox FontFamily="pack://application:,,,/Resources/Icons/#Exocet" Background="{x:Null}" Text="{Binding Engineer, UpdateSourceTrigger=PropertyChanged}" 
-                         HorizontalContentAlignment="Stretch" Width="Auto" BorderBrush="{x:Null}" FontSize="16"/>
-            </StackPanel>
+        <StackPanel Margin="0,5,0,0">
+            <TextBox FontFamily="pack://application:,,,/Resources/Icons/#Exocet" Background="{x:Null}" Text="{Binding Monster[0], UpdateSourceTrigger=PropertyChanged}" 
+                         HorizontalContentAlignment="Stretch" Width="Auto" BorderBrush="{x:Null}" FontSize="16" Margin="0" HorizontalAlignment="Center"/>
+            <TextBox FontFamily="pack://application:,,,/Resources/Icons/#Exocet" Background="{x:Null}" Text="{Binding Monster[1], UpdateSourceTrigger=PropertyChanged}" 
+                         HorizontalContentAlignment="Stretch" Width="Auto" BorderBrush="{x:Null}" FontSize="16" HorizontalAlignment="Center" Margin="0,0,0,5"/>
         </StackPanel>
-
     </StackPanel>
+
 </UserControl>

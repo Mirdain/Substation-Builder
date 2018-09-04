@@ -3,9 +3,12 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:EnumHelper="clr-namespace:Substation_Builder.Helpers"
+      xmlns:model="clr-namespace:Substation_Builder.Model"
       mc:Ignorable="d">
-    <!-- Thevenin Template -->
-    <StackPanel>
+
+    <!-- Transformer Template -->
+    <StackPanel Margin="10">
         <StackPanel.Triggers>
             <EventTrigger RoutedEvent="FrameworkElement.Loaded">
                 <BeginStoryboard>
@@ -16,48 +19,98 @@
             </EventTrigger>
         </StackPanel.Triggers>
 
-        <StackPanel>
-            <Label Content="Transformer" Opacity="0.9" FontSize="22" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <StackPanel.Resources>
+            <Style TargetType="{x:Type Label}">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Background" Value="#2d2d2d"/>
+                <Setter Property="Opacity" Value="0.85"/>
+                <Setter Property="Margin" Value="5,0,5,5"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Right"/>
+                <Setter Property="VerticalAlignment" Value="Stretch"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="Width" Value="100"/>
+            </Style>
 
-            <DockPanel>
-                <Label Content="Name:" Opacity="0.9" FontSize="16" Margin="0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="175"/>
-                <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Opacity="0.9" FontSize="16" Margin="0,4.5,0,0" HorizontalAlignment="Left" MinWidth="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="175"/>
-            </DockPanel>
-            <DockPanel>
-                <Label Content="Base MVA:" Opacity="0.9" FontSize="16" Margin="0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="175"/>
-                <TextBox Text="{Binding Size1}" Opacity="0.9" FontSize="16" VerticalContentAlignment="Center" Margin="0,4.5,0,0" HorizontalAlignment="Left" MinWidth="50" HorizontalContentAlignment="Center" Width="55"/>
-            </DockPanel>
-            <DockPanel>
-                <Label Content="Top MVA:" Opacity="0.9" FontSize="16" Margin="0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="175"/>
-                <TextBox Text="{Binding Size2}" Opacity="0.9" FontSize="16" VerticalContentAlignment="Center" Margin="0,4.5,0,0" HorizontalAlignment="Left" MinWidth="50" HorizontalContentAlignment="Center" Width="55"/>
-            </DockPanel>
-            <DockPanel>
-                <Label Content="High Voltage:" Opacity="0.9" FontSize="16" Margin="0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="175"/>
-                <TextBox Text="{Binding HighVoltage}" Opacity="0.9" FontSize="16" VerticalContentAlignment="Center" Margin="0,4.5,0,0" HorizontalAlignment="Left" MinWidth="50" HorizontalContentAlignment="Center" Width="55"/>
-            </DockPanel>
-            <DockPanel>
-                <Label Content="Low Voltage:" Opacity="0.9" FontSize="16" Margin="0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="175"/>
-                <TextBox Text="{Binding LowVoltage}" Opacity="0.9" FontSize="16" VerticalContentAlignment="Center" Margin="0,4.5,0,0" HorizontalAlignment="Left" MinWidth="50" HorizontalContentAlignment="Center" Width="55"/>
-            </DockPanel>
-            <DockPanel>
-                <Label Content="High Voltage Winding:" Opacity="0.9" FontSize="16" Margin="0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="175"/>
-                <ComboBox Text="{Binding HighVoltageWndg, UpdateSourceTrigger=PropertyChanged}" FontSize="16" Margin="0,4.5,0,0" HorizontalAlignment="Left" MinWidth="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="170">
-                    <ComboBoxItem Content="Delta"/>
-                    <ComboBoxItem Content="Grounded Wye"/>
-                    <ComboBoxItem Content="Ungrounded Wye"/>
-                    <ComboBoxItem Content="Imp Gnd Wye"/>
-                </ComboBox>
-            </DockPanel>
-            <DockPanel>
-                <Label Content="Low Voltage Winding:" Opacity="0.9" FontSize="16" Margin="0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="175"/>
-                <ComboBox Text="{Binding LowVoltageWndg, UpdateSourceTrigger=PropertyChanged}" FontSize="16" Margin="0,4.5,0,0" HorizontalAlignment="Left" MinWidth="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="170">
-                    <ComboBoxItem Content="Delta"/>
-                    <ComboBoxItem Content="Grounded Wye"/>
-                    <ComboBoxItem Content="Ungrounded Wye"/>
-                    <ComboBoxItem Content="Imp Gnd Wye"/>
-                </ComboBox>
-            </DockPanel>
-        </StackPanel>
+            <Style TargetType="{x:Type TextBox}">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Background" Value="#2d2d2d"/>
+                <Setter Property="Opacity" Value="0.85"/>
+                <Setter Property="Margin" Value="0,0,5,5"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Stretch"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="Width" Value="175"/>
+                <Setter Property="Background" Value="Black"/>
+                <Setter Property="Padding" Value="5,0,0,0"/>
+            </Style>
+
+            <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Opacity" Value="0.85"/>
+                <Setter Property="Margin" Value="0,0,5,5"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Stretch"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="Width" Value="175"/>
+                <Setter Property="Background" Value="Black"/>
+            </Style>
+
+            <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource {x:Type RadioButton}}">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Opacity" Value="0.85"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Stretch"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="Width" Value="80"/>
+            </Style>
+
+        </StackPanel.Resources>
+
+        <DockPanel>
+            <Label Content="Name:"/>
+            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+        </DockPanel>
+        <DockPanel>
+            <Label Content="Base MVA:"/>
+            <TextBox Text="{Binding Size1}"/>
+        </DockPanel>
+        <DockPanel>
+            <Label Content="Top MVA:"/>
+            <TextBox Text="{Binding Size2}"/>
+        </DockPanel>
+        <DockPanel>
+            <Label Content="HV Rating:"/>
+            <TextBox Text="{Binding HighVoltage}"/>
+        </DockPanel>
+        <DockPanel>
+            <Label Content="LV Rating:"/>
+            <TextBox Text="{Binding LowVoltage}"/>
+        </DockPanel>
+        <DockPanel>
+            <Label Content="HV Winding:"/>
+            <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:XFMRCon}}}" SelectedValue="{Binding HighVoltageWndg}"/>
+        </DockPanel>
+        <DockPanel>
+            <Label Content="LV Winding:" />
+            <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:XFMRCon}}}" SelectedValue="{Binding LowVoltageWndg}"/>
+        </DockPanel>
+        <DockPanel>
+            <Label Content="Z1%:"/>
+            <TextBox Text="{Binding Z1}"/>
+        </DockPanel>
+        <DockPanel>
+            <Label Content="Z0%:"/>
+            <TextBox Text="{Binding Z0}"/>
+        </DockPanel>
+        <DockPanel>
+            <Label Content="Losses (kW):"/>
+            <TextBox Text="{Binding Losses}"/>
+        </DockPanel>
+
     </StackPanel>
 
 </UserControl>

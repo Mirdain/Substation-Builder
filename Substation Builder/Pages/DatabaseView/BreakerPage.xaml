@@ -8,7 +8,7 @@
       mc:Ignorable="d">
 
     <!-- Breaker Template -->
-    <StackPanel>
+    <StackPanel Margin="10">
 
         <StackPanel.Triggers>
             <EventTrigger RoutedEvent="FrameworkElement.Loaded">
@@ -28,7 +28,7 @@
                 <Setter Property="Opacity" Value="0.85"/>
                 <Setter Property="Margin" Value="5,0,5,5"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
-                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="HorizontalContentAlignment" Value="Right"/>
                 <Setter Property="VerticalAlignment" Value="Stretch"/>
                 <Setter Property="HorizontalAlignment" Value="Stretch"/>
                 <Setter Property="Width" Value="110"/>
@@ -62,49 +62,45 @@
 
         </StackPanel.Resources>
 
+        <DockPanel>
+            <Label Content="Name:"/>
+            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+        </DockPanel>
 
-        <StackPanel Margin="10">
-            <DockPanel>
-                <Label Content="Name:"/>
-                <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
-            </DockPanel>
+        <DockPanel>
+            <Label Content="Description:"/>
+            <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
+        </DockPanel>
 
-            <DockPanel>
-                <Label Content="Description:"/>
-                <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
-            </DockPanel>
+        <DockPanel>
+            <Label Content="Breaker Size:"/>
+            <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:BreakerSize}}}" SelectedValue="{Binding Breaker_Size}"/>
+        </DockPanel>
 
-            <DockPanel>
-                <Label Content="Breaker Size:"/>
-                <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:BreakerSize}}}" SelectedValue="{Binding Breaker_Size}"/>
-            </DockPanel>
+        <DockPanel>
+            <Label Content="Bus:"/>
+            <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:Bus}}}" SelectedValue="{Binding Bus}"/>
+        </DockPanel>
 
-            <DockPanel>
-                <Label Content="Bus:"/>
-                <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:Bus}}}" SelectedValue="{Binding Bus}"/>
-            </DockPanel>
+        <DockPanel>
+            <Label Content="Position:"/>
+            <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:BreakerPosition}}}" SelectedValue="{Binding Breaker_Position}"/>
+        </DockPanel>
 
-            <DockPanel>
-                <Label Content="Position:"/>
-                <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:BreakerPosition}}}" SelectedValue="{Binding Breaker_Position}"/>
-            </DockPanel>
+        <DockPanel>
+            <Label Content="Voltage:"/>
+            <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:Voltage}}}" SelectedValue="{Binding Voltage}"/>
+        </DockPanel>
 
-            <DockPanel>
-                <Label Content="Voltage:"/>
-                <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:Voltage}}}" SelectedValue="{Binding Voltage}"/>
-            </DockPanel>
+        <DockPanel>
+            <Label Content="Type:"/>
+            <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:BreakerType}}}" SelectedValue="{Binding Breaker_Type}" />
+        </DockPanel>
 
-            <DockPanel>
-                <Label Content="Type:"/>
-                <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:BreakerType}}}" SelectedValue="{Binding Breaker_Type}" />
-            </DockPanel>
-
-            <DockPanel>
-                <Label Content="Manufacturer:"/>
-                <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:BrkManufacture}}}" SelectedValue="{Binding BrkMan}"/>
-            </DockPanel>
-
-        </StackPanel>
+        <DockPanel>
+            <Label Content="Manufacturer:"/>
+            <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:BrkManufacture}}}" SelectedValue="{Binding BrkMan}"/>
+        </DockPanel>
 
     </StackPanel>
 </UserControl>

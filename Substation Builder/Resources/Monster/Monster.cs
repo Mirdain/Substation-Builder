@@ -210,8 +210,8 @@ namespace Substation_Builder.Resources.Monster
             MonsterFirst = monster.Prefix[prefixid] + " " + monster.Suffix[suffixid] + " " + monster.Appelation[appelation];
             MonsterLast = monster.Level[level] + " of Engineers";
 
-            Monster[0] = MonsterFirst;
-            Monster[1] = MonsterLast;
+            Monster[0] = MonsterFirst.ToUpper();
+            Monster[1] = MonsterLast.ToUpper();
             Monster[2] = MonsterLong.ToUpper();
 
             return Monster;

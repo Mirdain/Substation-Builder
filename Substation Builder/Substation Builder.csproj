@@ -113,9 +113,6 @@
     <Compile Include="Pages\DatabaseView\BreakerPage.xaml.cs">
       <DependentUpon>BreakerPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\DatabaseView\CTMenuPage.xaml.cs">
-      <DependentUpon>CTMenuPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\DatabaseView\CTPage.xaml.cs">
       <DependentUpon>CTPage.xaml</DependentUpon>
     </Compile>
@@ -147,9 +144,6 @@
     <Compile Include="Pages\DatabaseView\SubstationPage.xaml.cs">
       <DependentUpon>SubstationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\DatabaseView\Transformer2Page.xaml.cs">
-      <DependentUpon>Transformer2Page.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\DatabaseView\TransformerPage.xaml.cs">
       <DependentUpon>TransformerPage.xaml</DependentUpon>
     </Compile>
@@ -161,10 +155,6 @@
       <DependentUpon>OnelineView.xaml</DependentUpon>
     </Compile>
     <Page Include="Pages\DatabaseView\BreakerPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\DatabaseView\CTMenuPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -225,10 +215,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\DatabaseView\SubstationPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\DatabaseView\Transformer2Page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -120,9 +120,9 @@ namespace Substation_Builder.Services
                 Z1 = 9.17,
                 Z0 = 9.06,
                 LowVoltage = 25,
-                LowVoltageWndg = "Grounded Wye",
+                LowVoltageWndg = XFMRCon.GrndWye,
                 HighVoltage = 69,
-                HighVoltageWndg = "Delta",
+                HighVoltageWndg = XFMRCon.Delta,
                 Losses = 60
             };
 
@@ -138,9 +138,9 @@ namespace Substation_Builder.Services
                 Z1 = 9.4,
                 Z0 = 9.26,
                 LowVoltage = 13.2,
-                LowVoltageWndg = "Grounded Wye",
+                LowVoltageWndg = XFMRCon.GrndWye,
                 HighVoltage = 69,
-                HighVoltageWndg = "Delta",
+                HighVoltageWndg = XFMRCon.Delta,
             };
 
             Thevenin BaseThevenin = new Thevenin

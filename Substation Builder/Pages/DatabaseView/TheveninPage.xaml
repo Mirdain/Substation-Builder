@@ -5,8 +5,9 @@
       xmlns:local="clr-namespace:Substation_Builder.View"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d">
+
     <!-- Thevenin Template -->
-    <StackPanel>
+    <StackPanel Margin="10">
 
         <StackPanel.Triggers>
             <EventTrigger RoutedEvent="FrameworkElement.Loaded">
@@ -26,7 +27,7 @@
                 <Setter Property="Opacity" Value="0.85"/>
                 <Setter Property="Margin" Value="5,0,5,5"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
-                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="HorizontalContentAlignment" Value="Right"/>
                 <Setter Property="VerticalAlignment" Value="Stretch"/>
                 <Setter Property="HorizontalAlignment" Value="Stretch"/>
                 <Setter Property="Width" Value="65"/>
@@ -38,24 +39,12 @@
                 <Setter Property="Opacity" Value="0.85"/>
                 <Setter Property="Margin" Value="0,0,5,5"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
-                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
                 <Setter Property="VerticalAlignment" Value="Stretch"/>
                 <Setter Property="HorizontalAlignment" Value="Stretch"/>
                 <Setter Property="Width" Value="85"/>
                 <Setter Property="Background" Value="Black"/>
                 <Setter Property="Padding" Value="5,0,0,0"/>
-            </Style>
-
-            <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="Opacity" Value="0.85"/>
-                <Setter Property="Margin" Value="0,0,5,5"/>
-                <Setter Property="VerticalContentAlignment" Value="Center"/>
-                <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                <Setter Property="VerticalAlignment" Value="Stretch"/>
-                <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                <Setter Property="Width" Value="175"/>
-                <Setter Property="Background" Value="Black"/>
             </Style>
 
             <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource {x:Type RadioButton}}">
@@ -72,56 +61,52 @@
 
         </StackPanel.Resources>
 
-        <StackPanel Margin="10">
+        <DockPanel>
+            <Label Content="Name:"/>
+            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Width="Auto"/>
+        </DockPanel>
 
-            <DockPanel>
-                <Label Content="Name:"/>
-                <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Width="Auto"/>
-            </DockPanel>
+        <DockPanel>
+            <Label Content="Units:"/>
+            <RadioButton  GroupName="TheveninUnits" x:Name="UseZ" Content="%Z" IsChecked="True"/>
+            <RadioButton  GroupName="TheveninUnits" x:Name="UseOhm" Content="Ohms"/>
+        </DockPanel>
 
-            <DockPanel>
-                <Label Content="Units:"/>
-                <RadioButton  GroupName="TheveninUnits" x:Name="UseZ" Content="%Z" IsChecked="True"/>
-                <RadioButton  GroupName="TheveninUnits" x:Name="UseOhm" Content="Ohms"/>
-            </DockPanel>
+        <DockPanel>
+            <Label Content="R1:"/>
+            <TextBox Text="{Binding R1_Z, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseZ}"/>
+            <TextBox Text="{Binding R1_Ohms, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseOhm}"/>
+        </DockPanel>
 
-            <DockPanel>
-                <Label Content="R1:"/>
-                <TextBox Text="{Binding R1_Z, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseZ}"/>
-                <TextBox Text="{Binding R1_Ohms, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseOhm}"/>
-            </DockPanel>
+        <DockPanel>
+            <Label Content="X1:"/>
+            <TextBox Text="{Binding X1_Z, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseZ}"/>
+            <TextBox Text="{Binding X1_Ohms, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseOhm}"/>
+        </DockPanel>
 
-            <DockPanel>
-                <Label Content="X1:"/>
-                <TextBox Text="{Binding X1_Z, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseZ}"/>
-                <TextBox Text="{Binding X1_Ohms, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseOhm}"/>
-            </DockPanel>
+        <DockPanel>
+            <Label Content="R2:"/>
+            <TextBox Text="{Binding R2_Z, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseZ}"/>
+            <TextBox Text="{Binding R2_Ohms, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseOhm}"/>
+        </DockPanel>
 
-            <DockPanel>
-                <Label Content="R2:"/>
-                <TextBox Text="{Binding R2_Z, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseZ}"/>
-                <TextBox Text="{Binding R2_Ohms, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseOhm}"/>
-            </DockPanel>
+        <DockPanel>
+            <Label Content="X2:"/>
+            <TextBox Text="{Binding X2_Z, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseZ}"/>
+            <TextBox Text="{Binding X2_Ohms, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseOhm}"/>
+        </DockPanel>
 
-            <DockPanel>
-                <Label Content="X2:"/>
-                <TextBox Text="{Binding X2_Z, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseZ}"/>
-                <TextBox Text="{Binding X2_Ohms, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseOhm}"/>
-            </DockPanel>
+        <DockPanel>
+            <Label Content="R0:"/>
+            <TextBox Text="{Binding R0_Z, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseZ}"/>
+            <TextBox Text="{Binding R0_Ohms, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseOhm}"/>
+        </DockPanel>
 
-            <DockPanel>
-                <Label Content="R0:"/>
-                <TextBox Text="{Binding R0_Z, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseZ}"/>
-                <TextBox Text="{Binding R0_Ohms, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseOhm}"/>
-            </DockPanel>
-
-            <DockPanel>
-                <Label Content="X0:"/>
-                <TextBox Text="{Binding X0_Z, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseZ}"/>
-                <TextBox Text="{Binding X0_Ohms, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseOhm}"/>
-            </DockPanel>
-
-        </StackPanel>
+        <DockPanel>
+            <Label Content="X0:"/>
+            <TextBox Text="{Binding X0_Z, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseZ}"/>
+            <TextBox Text="{Binding X0_Ohms, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseOhm}"/>
+        </DockPanel>
 
     </StackPanel>
 

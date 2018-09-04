@@ -21,6 +21,16 @@ namespace Substation_Builder.Model
     }
 
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
+    public enum XFMRCon
+    {
+        [Description("Delta")] Delta,
+        [Description("Grounded Wye")] GrndWye,
+        [Description("Ungrounded Wye")] UngrndWye,
+        [Description("Impedance Grnd")] ImpGrnd,
+        [Description("Zig-Zag")] ZigZag,
+    }
+
+    [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum BusType
     {
         [Description("Single Bus")] SingleBus,
@@ -227,8 +237,8 @@ namespace Substation_Builder.Model
         public double X0 { get; set; }
         public double LowVoltage { get; set; }
         public double HighVoltage { get; set; }
-        public string LowVoltageWndg { get; set; }
-        public string HighVoltageWndg { get; set; }
+        public XFMRCon LowVoltageWndg { get; set; }
+        public XFMRCon HighVoltageWndg { get; set; }
     }
     
     public class CT

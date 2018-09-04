@@ -196,7 +196,7 @@
                         </DataTemplate>
                         <DataTemplate DataType="{x:Type local2:CT}">
                             <Viewbox StretchDirection="DownOnly">
-                                <local3:CTMenuPage/>
+                                <local3:CTPage/>
                             </Viewbox>
                         </DataTemplate>
                     </Expander.Resources>

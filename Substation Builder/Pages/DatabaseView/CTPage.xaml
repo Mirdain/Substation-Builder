@@ -9,7 +9,7 @@
       mc:Ignorable="d">
 
     <!-- CT Template -->
-    <StackPanel>
+    <StackPanel Margin="10">
 
         <StackPanel.Triggers>
             <EventTrigger RoutedEvent="FrameworkElement.Loaded">
@@ -21,40 +21,77 @@
             </EventTrigger>
         </StackPanel.Triggers>
 
-        <StackPanel>
-            <Label Content="Current Transformer" Opacity="0.9" FontSize="22" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <StackPanel.Resources>
 
-            <DockPanel>
-                <Label Content="Name:" Opacity="0.9" FontSize="16" Margin="0,5,0,0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="105"/>
-                <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Opacity="0.9" FontSize="16" Margin="0,5,0,0" MinWidth="50" VerticalContentAlignment="Center" Width="165" HorizontalContentAlignment="Center"/>
-            </DockPanel>
+            <Style TargetType="{x:Type Label}">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Background" Value="#2d2d2d"/>
+                <Setter Property="Opacity" Value="0.85"/>
+                <Setter Property="Margin" Value="5,0,5,5"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Right"/>
+                <Setter Property="VerticalAlignment" Value="Stretch"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="Width" Value="100"/>
+            </Style>
 
-            <DockPanel>
-                <Label Content="Description:" Opacity="0.9" FontSize="16" Margin="0,5,0,0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="105"/>
-                <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" Opacity="0.9" FontSize="16" Margin="0,5,0,0" MinWidth="50" VerticalContentAlignment="Center" Width="165" HorizontalContentAlignment="Center"/>
-            </DockPanel>
+            <Style TargetType="{x:Type TextBox}">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Background" Value="#2d2d2d"/>
+                <Setter Property="Opacity" Value="0.85"/>
+                <Setter Property="Margin" Value="0,0,5,5"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Stretch"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="Width" Value="175"/>
+                <Setter Property="Background" Value="Black"/>
+                <Setter Property="Padding" Value="5,0,0,0"/>
+            </Style>
 
-            <DockPanel>
-                <Label Content="Rating:" Opacity="0.9" FontSize="16" Margin="0,5,0,0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="105"/>
-                <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:CTRating}}}" SelectedValue="{Binding Rating}" Width="165" FontSize="16" Margin="0,5,0,0" HorizontalContentAlignment="Center"/>
-            </DockPanel>
+            <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Opacity" Value="0.85"/>
+                <Setter Property="Margin" Value="0,0,5,5"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Stretch"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="Width" Value="175"/>
+                <Setter Property="Background" Value="Black"/>
+            </Style>
 
-            <DockPanel>
-                <Label Content="Full Ratio:" Opacity="0.9" FontSize="16" Margin="0,5,0,0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="105"/>
-                <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:CTTaps}}}" SelectedValue="{Binding CTR}" Width="165" FontSize="16" Margin="0,5,0,0" HorizontalContentAlignment="Center"/>
-            </DockPanel>
+        </StackPanel.Resources>
 
-            <DockPanel>
-                <Label Content="Tapped Ratio:" Opacity="0.9" FontSize="16" Margin="0,5,0,0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="105"/>
-                <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:CTTaps}}}" SelectedValue="{Binding Tap}" Width="165" FontSize="16" Margin="0,5,0,0" HorizontalContentAlignment="Center"/>
-            </DockPanel>
+        <DockPanel>
+            <Label Content="Name:"/>
+            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+        </DockPanel>
 
-            <DockPanel>
-                <Label Content="Polarity:" Opacity="0.9" FontSize="16" Margin="0,5,0,0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="105"/>
-                <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:Polarity}}}" SelectedValue="{Binding Polarity}" Width="165" FontSize="16" Margin="0,5,0,0" HorizontalContentAlignment="Center"/>
-            </DockPanel>
+        <DockPanel>
+            <Label Content="Description:"/>
+            <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
+        </DockPanel>
 
-        </StackPanel>
+        <DockPanel>
+            <Label Content="Rating:"/>
+            <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:CTRating}}}" SelectedValue="{Binding Rating}"/>
+        </DockPanel>
+
+        <DockPanel>
+            <Label Content="Full Ratio:"/>
+            <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:CTTaps}}}" SelectedValue="{Binding CTR}"/>
+        </DockPanel>
+
+        <DockPanel>
+            <Label Content="Tapped Ratio:"/>
+            <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:CTTaps}}}" SelectedValue="{Binding Tap}"/>
+        </DockPanel>
+
+        <DockPanel>
+            <Label Content="Polarity:"/>
+            <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:Polarity}}}" SelectedValue="{Binding Polarity}"/>
+        </DockPanel>
 
     </StackPanel>
 </UserControl>
