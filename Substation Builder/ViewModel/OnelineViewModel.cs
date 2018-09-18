@@ -31,32 +31,9 @@ namespace Substation_Builder.ViewModel
         public RelayCommand RemoveItemCommand { get; private set; }
         public RelayCommand AddCTCommand { get; private set; }
         public RelayCommand AddItemCommand { get; private set; }
-
-        OnelineView OLView = new OnelineView();
-
         public RelayCommand ResetZoom { get; private set; }
 
-        private double _zoomLevel = 1;
-        public double ZoomLevel
-        {
-            get { return _zoomLevel; }
-            set
-            {
-                _zoomLevel = value;
-                ZoomLevelPercent = (value * 100).ToString() + "%";
-                NotifyPropertyChanged("ZoomLevel");
-            }
-        }
-
-        private string _zoomLevelPercent = "100%";
-        public string ZoomLevelPercent
-        {
-            get { return _zoomLevelPercent; }
-            set{
-                _zoomLevelPercent = value;
-                NotifyPropertyChanged("ZoomLevelPercent");
-            }
-        }
+        OnelineView OLView = new OnelineView();
 
         public OnelineViewModel(Substation refproject)
           {
@@ -84,10 +61,6 @@ namespace Substation_Builder.ViewModel
             OLView.Show();
         }
 
-        public void ResetZ(object sender)
-        {
-            ZoomLevel = 1;
-        }
 
         #region Context Menu Section
 
@@ -494,6 +467,34 @@ namespace Substation_Builder.ViewModel
         #endregion
 
         #region Scrolling support
+
+        private double _zoomLevel = 1;
+        public double ZoomLevel
+        {
+            get { return _zoomLevel; }
+            set
+            {
+                _zoomLevel = value;
+                ZoomLevelPercent = (value * 100).ToString() + "%";
+                NotifyPropertyChanged("ZoomLevel");
+            }
+        }
+
+        private string _zoomLevelPercent = "100%";
+        public string ZoomLevelPercent
+        {
+            get { return _zoomLevelPercent; }
+            set
+            {
+                _zoomLevelPercent = value;
+                NotifyPropertyChanged("ZoomLevelPercent");
+            }
+        }
+
+        public void ResetZ(object sender)
+        {
+            ZoomLevel = 1;
+        }
 
         private double _areaHeight = 600;
         public double AreaHeight

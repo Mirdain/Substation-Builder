@@ -75,9 +75,9 @@ namespace Substation_Builder.View
             }
         }
 
+        //Drag Source - Create a treeview and get the selected item
         private void OnelineTreeview_MouseMove(object sender, MouseEventArgs e)
         {
-            //Drag Source - Create a treeview and get the selected item
             TreeView treeview = sender as TreeView;
             if (treeview.SelectedItem != null && e.LeftButton == MouseButtonState.Pressed)
             {
@@ -85,19 +85,19 @@ namespace Substation_Builder.View
 
                 if (treeview.SelectedItem.GetType() == typeof(Relay))
                 {
-                    DragDrop.DoDragDrop(treeview, data, DragDropEffects.Link);
+                    DragDrop.DoDragDrop(treeview, data, DragDropEffects.Copy);
                 }
                 else if (treeview.SelectedItem.GetType() == typeof(Breaker))
                 {
-                    DragDrop.DoDragDrop(treeview, data, DragDropEffects.Link);
+                    DragDrop.DoDragDrop(treeview, data, DragDropEffects.Copy);
                 }
                 else if (treeview.SelectedItem.GetType() == typeof(Thevenin))
                 {
-                    DragDrop.DoDragDrop(treeview, data, DragDropEffects.Link);
+                    DragDrop.DoDragDrop(treeview, data, DragDropEffects.Copy);
                 }
                 else if (treeview.SelectedItem.GetType() == typeof(Transformer))
                 {
-                    DragDrop.DoDragDrop(treeview, data, DragDropEffects.Link);
+                    DragDrop.DoDragDrop(treeview, data, DragDropEffects.Copy);
                 }
                 else
                 {
@@ -112,7 +112,7 @@ namespace Substation_Builder.View
         {
             if (e.Data.GetDataPresent(DataFormats.Serializable))
             {
-                e.Effects = DragDropEffects.Link;
+                e.Effects = DragDropEffects.Copy;
             }
             else
             {
@@ -156,8 +156,6 @@ namespace Substation_Builder.View
             }
 
         }
-
-
 
 
 
@@ -254,7 +252,6 @@ namespace Substation_Builder.View
 
             return false;
         }
-
 
         //Set Data Context properly for Expander from Treeview
         private void OnelineTreeview_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
