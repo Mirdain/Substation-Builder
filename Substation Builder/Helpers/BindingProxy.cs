@@ -9,6 +9,8 @@ namespace Substation_Builder.Helpers
 {
     public class BindingProxy : Freezable
     {
+        //Used to grab the correct treeview item
+
         #region Overrides of Freezable
 
         protected override Freezable CreateInstanceCore()

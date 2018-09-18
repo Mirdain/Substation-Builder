@@ -3,12 +3,59 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.Resources>
-        <ResourceDictionary Source="EditorStyles.xaml"/>
-    </UserControl.Resources>
-    <StackPanel>
+             mc:Ignorable="d">
+
+    <StackPanel Margin="10">
+
+        <StackPanel.Triggers>
+            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation Duration="0:0:1" Storyboard.TargetProperty="Opacity" From="0" To="1" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </StackPanel.Triggers>
+
+        <StackPanel.Resources>
+            <Style TargetType="{x:Type Label}">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Background" Value="#2d2d2d"/>
+                <Setter Property="Opacity" Value="0.85"/>
+                <Setter Property="Margin" Value="5,0,5,5"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Right"/>
+                <Setter Property="VerticalAlignment" Value="Stretch"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="Width" Value="55"/>
+            </Style>
+
+            <Style TargetType="{x:Type TextBox}">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Background" Value="#2d2d2d"/>
+                <Setter Property="Opacity" Value="0.85"/>
+                <Setter Property="Margin" Value="0,0,0,5"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="Width" Value="60"/>
+                <Setter Property="Background" Value="Black"/>
+            </Style>
+
+            <Style TargetType="{x:Type GroupBox}">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Opacity" Value="0.85"/>
+                <Setter Property="Margin" Value="5,0,0,5"/>
+            </Style>
+            
+        </StackPanel.Resources>
+
+        <DockPanel>
+            <Label Content="Name:"/>
+            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Width="185"/>
+        </DockPanel>
+        
         <GroupBox Header="Start" Content="{Binding Start}"/>
         <GroupBox Header="End" Content="{Binding End}"/>
+        
     </StackPanel>
 </UserControl>

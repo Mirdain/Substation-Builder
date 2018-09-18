@@ -4,64 +4,97 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d">
-    <UserControl.Resources>
-        <ResourceDictionary Source="EditorStyles.xaml"/>
-    </UserControl.Resources>
     <DockPanel HorizontalAlignment="Center">
 
-        <ToggleButton IsChecked="{Binding CreatingNewNode}">
-            <Grid>
-                <Rectangle Height="30" Width="30" Stroke="Black" StrokeThickness="1" Fill="Red"/>
-                <TextBlock Text="52" FontSize="12" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </Grid>
-        </ToggleButton>
+        <DockPanel.Resources>
 
-        <ToggleButton IsChecked="{Binding CreatingNewNode}">
-            <Grid>
-                <Ellipse Height="30" Width="30" Stroke="Black" StrokeThickness="1" Fill="#FF3AFF00"/>
-                <TextBlock Text="51" FontSize="12" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </Grid>
-        </ToggleButton>
+            <Style TargetType="{x:Type ToggleButton}">
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="Opacity" Value="0.85"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Stretch"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="Width" Value="50"/>
+                <Setter Property="Height" Value="50"/>
+                <Setter Property="Background" Value="LightGray"/>
+            </Style>
 
-        <ToggleButton IsChecked="{Binding CreatingNewNode}">
-            <Grid>
-                <Ellipse Height="30" Width="30" Stroke="Black" StrokeThickness="1" Fill="#FF3AFF00"/>
-                <TextBlock Text="87" FontSize="12" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </Grid>
-        </ToggleButton>
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="Opacity" Value="0.85"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Stretch"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="Width" Value="50"/>
+                <Setter Property="Height" Value="50"/>
+                <Setter Property="Background" Value="LightGray"/>
+            </Style>
 
-        <ToggleButton IsChecked="{Binding CreatingNewConnector}">
-            <Canvas Height="45" Width="45">
-                <Line Stroke="#FF1E44F1" StrokeThickness="3" StrokeDashArray="2 3"
-                            X1="10" Y1="10"
-                            X2="35" Y2="35"/>
+            <Style TargetType="{x:Type TextBlock}">
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="Opacity" Value="0.85"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+            </Style>
 
-                <Rectangle Height="10" Width="10" Stroke="Black"
-                     StrokeThickness="1" Fill="Red" Canvas.Left="3" Canvas.Top="3"/>
+        </DockPanel.Resources>
 
-                <Rectangle Height="10" Width="10" Stroke="Black"
-                         Canvas.Top="32" Canvas.Left="32"
-                     StrokeThickness="1" Fill="Red">
-                </Rectangle>
-            </Canvas>
-        </ToggleButton>
+        <StackPanel>
 
-        <Button>
-            <!--Need to add icon-->
-            <Image Source="/Substation Builder;component/Resources/Icons/CT.png" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        </Button>
+            <!-- Breaker Icon -->
+            <Button Command="{Binding AddBreaker}">
+                <Grid>
+                    <Rectangle Width="40" Height="40" Stroke="Black" StrokeThickness="2" Fill="Red"/>
+                    <TextBlock Text="52"/>
+                </Grid>
+            </Button>
 
-        <Button>
-            <!--Need to add icon-->
-            <Image Source="/Substation Builder;component/Resources/Icons/Transformer.png"/>
-        </Button>
+            <!-- Relay Icon -->
+            <ToggleButton IsChecked="{Binding CreatingNewNode}">
+                <Grid>
+                    <Ellipse Width="40" Height="40" Stroke="Black" StrokeThickness="2" Fill="#FF3AFF00"/>
+                    <TextBlock Text="51"/>
+                </Grid>
+            </ToggleButton>
 
-        <Button Command="{Binding DeleteCommand}">
-            <!--Need to add icon-->
-            <Image HorizontalAlignment="Center" VerticalAlignment="Center"
-                   Width="40" Height="40" Source="/Substation Builder;component/Resources/Icons/Trash.png"/>
-        </Button>
+            <!-- Delete Icon -->
+            <Button Command="{Binding DeleteCommand}">
+                <Grid>
+                    <Ellipse Width="40" Height="40" Stroke="Black" StrokeThickness="2" Fill="White"/>
+                    <TextBlock Text="DEL"/>
+                </Grid>
+            </Button>
 
+        </StackPanel>
+
+        <StackPanel>
+            
+            <!-- Transformer Icon -->
+            <ToggleButton IsChecked="{Binding CreatingNewNode}" Width="100" Height="100">
+                <Grid>
+                    <Line StrokeThickness="4" X1="0" X2="0" Y1="0" Y2="10" Stroke="Black" Margin="20,0,20,74" HorizontalAlignment="Center"/>
+                    <Ellipse Height="40" Width="40" Stroke="Black" StrokeThickness="4" Margin="0,0,0,25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Ellipse Height="40" Width="40" Stroke="Black" StrokeThickness="4" Margin="0,25,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Line StrokeThickness="4" X1="0" X2="0" Y1="0" Y2="10" Stroke="Black" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="20,0,20,0"/>
+                </Grid>
+            </ToggleButton>
+
+            <!-- Connector Icon -->
+            <ToggleButton IsChecked="{Binding CreatingNewConnector}">
+                
+                <Canvas Height="35" Width="35">
+                    <Line X1="0" Y1="0" X2="25" Y2="25" Height="25" Width="25" Stroke="#FF1E44F1" StrokeThickness="2" StrokeDashArray="2 1"/>
+                    <Rectangle Height="10" Width="10" Stroke="Black" StrokeThickness="2" Fill="Red"/>
+                    <Rectangle Height="10" Width="10" Stroke="Black" StrokeThickness="2" Fill="Red" Canvas.Left="23" Canvas.Top="23"/>
+                </Canvas>
+                
+            </ToggleButton>
+
+        </StackPanel>
 
     </DockPanel>
 </UserControl>

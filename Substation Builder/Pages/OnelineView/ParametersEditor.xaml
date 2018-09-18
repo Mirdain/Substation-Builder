@@ -4,13 +4,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d">
-    <UserControl.Resources>
-        <ResourceDictionary Source="EditorStyles.xaml"/>
-
-    </UserControl.Resources>
 
     <!-- Option Template -->
     <StackPanel Margin="10">
+
+        <StackPanel.Triggers>
+            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation Duration="0:0:1" Storyboard.TargetProperty="Opacity" From="0" To="1" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </StackPanel.Triggers>
 
         <StackPanel.Resources>
             <Style TargetType="{x:Type Label}">
@@ -34,7 +40,6 @@
                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
                 <Setter Property="Width" Value="50"/>
                 <Setter Property="Background" Value="Black"/>
-                <Setter Property="Padding" Value="5,0,0,0"/>
             </Style>
 
             <Style TargetType="{x:Type Slider}">

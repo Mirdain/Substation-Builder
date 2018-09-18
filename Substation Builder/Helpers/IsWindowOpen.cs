@@ -7,6 +7,7 @@ using System.Windows;
 
 namespace Substation_Builder.Helpers
 {
+    //check to see if the window is currently open
     class IsWindowOpen
     {
         public static bool WindowCheck<T>(string name = "") where T : Window

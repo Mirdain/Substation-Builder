@@ -179,7 +179,7 @@ namespace Substation_Builder.Model
         [Description("Delta")] Delta,
         [Description("Wye")] Wye,
     }
-    
+
     public class Thevenin
     {
         public string Name { get; set; }
@@ -197,7 +197,7 @@ namespace Substation_Builder.Model
         public double X1_Ohms { get; set; }
         public double X2_Ohms { get; set; }
     }
-    
+
     public class Relay
     {
         public string Name { get; set; }
@@ -208,7 +208,7 @@ namespace Substation_Builder.Model
         public RelayPosition Position { get; set; }
         public CT ConnectedCT { get; set; }
     }
-    
+
     public class Breaker
     {
         public ObservableCollection<CT> CTs { get; set; } = new ObservableCollection<CT>();
@@ -220,8 +220,11 @@ namespace Substation_Builder.Model
         public Voltage Voltage { get; set; }
         public BreakerType Breaker_Type { get; set; }
         public BrkManufacture BrkMan { get; set; }
+        public bool Visible { get; set; }
+        public double X { get; set; }
+        public double Y { get; set; }
     }
-    
+
     public class Transformer
     {
         public ObservableCollection<CT> CTs { get; set; } = new ObservableCollection<CT>();
@@ -240,7 +243,7 @@ namespace Substation_Builder.Model
         public XFMRCon LowVoltageWndg { get; set; }
         public XFMRCon HighVoltageWndg { get; set; }
     }
-    
+
     public class CT
     {
         public string Name { get; set; }

@@ -101,14 +101,12 @@
     <Compile Include="Helpers\BindingProxy.cs" />
     <Compile Include="Helpers\Enum.cs" />
     <Compile Include="Helpers\EnumConverter.cs" />
+    <Compile Include="Helpers\GetEnumDescription.cs" />
     <Compile Include="Helpers\IsWindowOpen.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\ViewModelBase.cs" />
-    <Compile Include="Model\Connector.cs" />
     <Compile Include="Model\Definitions.cs" />
     <Compile Include="Helpers\SystemIO.cs" />
-    <Compile Include="Model\DiagramObject.cs" />
-    <Compile Include="Model\Node.cs" />
     <Compile Include="Model\Substation.cs" />
     <Compile Include="Pages\DatabaseView\BreakerPage.xaml.cs">
       <DependentUpon>BreakerPage.xaml</DependentUpon>
@@ -121,9 +119,6 @@
     </Compile>
     <Compile Include="Pages\OnelineView\ConnectorPropertyEditor.xaml.cs">
       <DependentUpon>ConnectorPropertyEditor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\OnelineView\NodePropertyEditor.xaml.cs">
-      <DependentUpon>NodePropertyEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\OnelineView\ParametersEditor.xaml.cs">
       <DependentUpon>ParametersEditor.xaml</DependentUpon>
@@ -167,14 +162,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\OnelineView\ConnectorPropertyEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\OnelineView\EditorStyles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\OnelineView\NodePropertyEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

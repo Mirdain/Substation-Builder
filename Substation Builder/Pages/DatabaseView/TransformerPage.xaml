@@ -111,6 +111,14 @@
             <TextBox Text="{Binding Losses}"/>
         </DockPanel>
 
+        <DockPanel>
+            <Label Content="Position:"/>
+            <Label Content="X:" Width="30" Margin="0,0,5,5"/>
+            <TextBox Text="{Binding X, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
+            <Label Content="Y:" Width="30" Margin="0,0,5,5"/>
+            <TextBox Text="{Binding Y, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
+        </DockPanel>
+        
     </StackPanel>
 
 </UserControl>

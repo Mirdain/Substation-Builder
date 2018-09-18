@@ -165,6 +165,8 @@ namespace Substation_Builder.Services
                 Voltage = Voltage._69kV,
                 Breaker_Type = BreakerType.SF6,
                 Breaker_Size = BreakerSize.A2000,
+                X = 100,
+                Y = 100
             };
 
             HighSide.CTs.Add(BRK3CT);

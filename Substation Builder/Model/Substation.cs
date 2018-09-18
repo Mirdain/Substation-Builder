@@ -25,6 +25,7 @@ namespace Substation_Builder.Model
         public ObservableCollection<Breaker> Breakers { get; set; } = new ObservableCollection<Breaker>();
         public ObservableCollection<Transformer> Transformers { get; set; } = new ObservableCollection<Transformer>();
 
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {

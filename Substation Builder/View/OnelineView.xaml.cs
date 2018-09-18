@@ -1,13 +1,11 @@
 ﻿using MahApps.Metro.Controls;
 using Substation_Builder.Model;
 using Substation_Builder.ViewModel;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Text;
 
 namespace Substation_Builder.View
 {
@@ -17,14 +15,12 @@ namespace Substation_Builder.View
     public partial class OnelineView : MetroWindow
     {
 
-        public List<Node> Nodes { get; set; }
-        public List<Connector> Connectors { get; set; }
-
-
         public OnelineView()
         {
             InitializeComponent();
         }
+
+        //------------------  Treeview Section ----------------------------
 
         //searches the treeview
         static TreeViewItem VisualUpwardSearch(DependencyObject source)
@@ -75,29 +71,94 @@ namespace Substation_Builder.View
             }
         }
 
+        //Set Data Context properly for Expander from Treeview
+        private void OnelineTreeview_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            object TVSelectedItem = OnelineTreeview.SelectedItem;
+
+            if (TVSelectedItem.GetType() != typeof(TreeViewItem))
+            {
+                if (TVSelectedItem.GetType() == typeof(Thevenin))
+                {
+                    Thevenin thevenin = (Thevenin)TVSelectedItem;
+                    TreeviewExpander.Content = TVSelectedItem;
+                    TreeviewExpander.Header = thevenin.Name;
+                }
+
+                else if (TVSelectedItem.GetType() == typeof(Breaker))
+                {
+                    Breaker breaker = (Breaker)TVSelectedItem;
+                    TreeviewExpander.Content = TVSelectedItem;
+                    TreeviewExpander.Header = breaker.Name;
+                }
+
+                else if (TVSelectedItem.GetType() == typeof(Transformer))
+                {
+                    Transformer transformer = (Transformer)TVSelectedItem;
+                    TreeviewExpander.Content = TVSelectedItem;
+                    TreeviewExpander.Header = transformer.Name;
+                }
+
+                else if (TVSelectedItem.GetType() == typeof(Relay))
+                {
+                    Relay relay = (Relay)TVSelectedItem;
+                    TreeviewExpander.Content = TVSelectedItem;
+                    TreeviewExpander.Header = relay.Name;
+                }
+
+                else if (TVSelectedItem.GetType() == typeof(CT))
+                {
+                    CT cT = (CT)TVSelectedItem;
+                    TreeviewExpander.Content = TVSelectedItem;
+                    TreeviewExpander.Header = cT.Name;
+                }
+            }
+            else if (TVSelectedItem.GetType() == typeof(TreeViewItem))
+            {
+                TreeViewItem SelectedItem = (TreeViewItem)TVSelectedItem;
+
+                if (SelectedItem.Name == "Subdata")
+                {
+                    TreeviewExpander.Content = ((OnelineViewModel)SelectedItem.DataContext).Project.SubData;
+                    TreeviewExpander.Header = ((OnelineViewModel)SelectedItem.DataContext).Project.SubData.Name;
+                }
+                else
+                {
+                    TreeviewExpander.Content = null;
+                    TreeviewExpander.Header = "[Select an Element]";
+                }
+            }
+        }
+
+
+        //---------------- Drag / Drop Section --------------------------------
+
+        //Drag Source
         private void OnelineTreeview_MouseMove(object sender, MouseEventArgs e)
         {
             //Drag Source - Create a treeview and get the selected item
             TreeView treeview = sender as TreeView;
+
+            //If correct data type serialize it and put it in the dragdrop item
             if (treeview.SelectedItem != null && e.LeftButton == MouseButtonState.Pressed)
             {
                 DataObject data = new DataObject(DataFormats.Serializable, treeview.SelectedItem);
 
                 if (treeview.SelectedItem.GetType() == typeof(Relay))
                 {
-                    DragDrop.DoDragDrop(treeview, data, DragDropEffects.Link);
+                    DragDrop.DoDragDrop(treeview, data, DragDropEffects.Copy);
                 }
                 else if (treeview.SelectedItem.GetType() == typeof(Breaker))
                 {
-                    DragDrop.DoDragDrop(treeview, data, DragDropEffects.Link);
+                    DragDrop.DoDragDrop(treeview, data, DragDropEffects.Copy);
                 }
                 else if (treeview.SelectedItem.GetType() == typeof(Thevenin))
                 {
-                    DragDrop.DoDragDrop(treeview, data, DragDropEffects.Link);
+                    DragDrop.DoDragDrop(treeview, data, DragDropEffects.Copy);
                 }
                 else if (treeview.SelectedItem.GetType() == typeof(Transformer))
                 {
-                    DragDrop.DoDragDrop(treeview, data, DragDropEffects.Link);
+                    DragDrop.DoDragDrop(treeview, data, DragDropEffects.Copy);
                 }
                 else
                 {
@@ -107,12 +168,24 @@ namespace Substation_Builder.View
             }
         }
 
-        //show link when over the listbox
+        //show link when over the listbox and render a preview
         private void ListBoxUI_DragOver(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.Serializable))
             {
-                e.Effects = DragDropEffects.Link;
+                e.Effects = DragDropEffects.Copy;
+
+                var dataobject = e.Data as DataObject;
+
+                if (dataobject.GetData(DataFormats.Serializable).GetType() == typeof (Breaker))
+                {
+                    //Get the Breaker data
+                    Breaker breaker = (Breaker)dataobject.GetData(DataFormats.Serializable);
+
+                    //Make the breaker visible
+                    //((OnelineViewModel)DataContext).AddBreakerItem(breaker);
+                }
+
             }
             else
             {
@@ -162,159 +235,34 @@ namespace Substation_Builder.View
 
 
         //Begin the Node code
+
         private void Thumb_Drag(object sender, DragDeltaEventArgs e)
         {
-            if (!(sender is Thumb thumb))
-                return;
+            object item = ((FrameworkElement)sender).DataContext;
 
-            if (!(thumb.DataContext is Node node))
-                return;
+            if(item.GetType() == typeof(Breaker))
+            {
+                Breaker breaker = (Breaker)item;
+                breaker.X += e.HorizontalChange;
+                breaker.Y += e.VerticalChange;
+                
+            }
 
-            node.X += e.HorizontalChange;
-            node.Y += e.VerticalChange;
+
+
+            e.Handled = true;
         }
 
-        private void ListBox_PreviewMouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        private void ListBox_PreviewMouseMove(object sender, MouseEventArgs e)
         {
 
-            if (!(sender is ListBox listbox))
-                return;
 
-            if (!(listbox.DataContext is OnelineViewModel vm))
-                return;
-
-            if (vm.SelectedObject != null && vm.SelectedObject is Node && vm.SelectedObject.IsNew)
-            {
-                vm.SelectedObject.X = e.GetPosition(listbox).X;
-                vm.SelectedObject.Y = e.GetPosition(listbox).Y;
-            }
-            else if (vm.SelectedObject != null && vm.SelectedObject is Connector && vm.SelectedObject.IsNew)
-            {
-                var node = GetNodeUnderMouse();
-                if (node == null)
-                    return;
-
-                var connector = vm.SelectedObject as Connector;
-
-                if (connector.Start != null && node != connector.Start)
-                    connector.End = node;
-            }
         }
 
         private void ListBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (DataContext is OnelineViewModel vm)
-            {
-                //Connecting objects
-                if (vm.CreatingNewConnector)
-                {
-                    var node = GetNodeUnderMouse();
-                    var connector = vm.SelectedObject as Connector;
 
-                    if (node != null && connector != null && connector.Start == null)
-                    {
-                        connector.Start = node;
-                        node.IsHighlighted = true;
-                        e.Handled = true;
-                        return;
-                    }
-                }
-
-                //Checks if new item - if not set to false
-                if (vm.SelectedObject != null)
-                {
-                    vm.SelectedObject.IsNew = false;
-                }
-
-                //remove selected item if
-                if (GetItemUnderMouse() == false)
-                {
-                    ListBoxUI.SelectedItem = null;
-                }
-
-                vm.CreatingNewNode = false;
-                vm.CreatingNewConnector = false;
-            }
         }
 
-        //Retruns the Node that is selected
-        private Node GetNodeUnderMouse()
-        {
-            if (!(Mouse.DirectlyOver is ContentPresenter item))
-                return null;
-
-            return item.DataContext as Node;
-        }
-
-        //Retruns the Node that is selected
-        private bool GetItemUnderMouse()
-        {
-            if ((Mouse.DirectlyOver.GetType() == typeof(System.Windows.Shapes.Rectangle)))
-                return true;
-
-            return false;
-        }
-
-
-        //Set Data Context properly for Expander from Treeview
-        private void OnelineTreeview_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            object TVSelectedItem = OnelineTreeview.SelectedItem;
-
-            if (TVSelectedItem.GetType() != typeof(TreeViewItem))
-            {
-                if(TVSelectedItem.GetType() == typeof(Thevenin))
-                {
-                    Thevenin thevenin = (Thevenin)TVSelectedItem;
-                    TreeviewExpander.Content = TVSelectedItem;
-                    TreeviewExpander.Header = thevenin.Name;
-                }
-
-                else if (TVSelectedItem.GetType() == typeof(Breaker))
-                {
-                    Breaker breaker = (Breaker)TVSelectedItem;
-                    TreeviewExpander.Content = TVSelectedItem;
-                    TreeviewExpander.Header = breaker.Name;
-                }
-
-                else if (TVSelectedItem.GetType() == typeof(Transformer))
-                {
-                    Transformer transformer = (Transformer)TVSelectedItem;
-                    TreeviewExpander.Content = TVSelectedItem;
-                    TreeviewExpander.Header = transformer.Name;
-                }
-
-                else if (TVSelectedItem.GetType() == typeof(Relay))
-                {
-                    Relay relay = (Relay)TVSelectedItem;
-                    TreeviewExpander.Content = TVSelectedItem;
-                    TreeviewExpander.Header = relay.Name;
-                }
-
-                else if (TVSelectedItem.GetType() == typeof(CT))
-                {
-                    CT cT = (CT)TVSelectedItem;
-                    TreeviewExpander.Content = TVSelectedItem;
-                    TreeviewExpander.Header = cT.Name;
-                }
-            }
-            else if (TVSelectedItem.GetType() == typeof(TreeViewItem))
-            {
-                TreeViewItem SelectedItem = (TreeViewItem) TVSelectedItem;
-
-                if(SelectedItem.Name == "Subdata")
-                {
-                    TreeviewExpander.Content = ((OnelineViewModel)SelectedItem.DataContext).Project.SubData;
-                    TreeviewExpander.Header = ((OnelineViewModel)SelectedItem.DataContext).Project.SubData.Name;
-                }
-                else
-                {
-                    TreeviewExpander.Content = null;
-                    TreeviewExpander.Header = "[Select an Element]";
-                }
-
-
-            }
-        }
     }
 }

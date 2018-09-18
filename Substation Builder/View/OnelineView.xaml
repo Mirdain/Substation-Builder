@@ -167,7 +167,7 @@
                 </Expander>
 
                 <!-- Displays the Forms from the selected Treeview Item -->
-                <Expander x:Name="TreeviewExpander" Header="{Binding SelectedObject.Name,UpdateSourceTrigger=PropertyChanged,FallbackValue='[Select an Element]'}" IsExpanded="True">
+                <Expander x:Name="TreeviewExpander" Content="{Binding SelectedItem, ElementName=OnelineTreeview, Mode=OneWay}" Header="{Binding SelectedItem.Name,UpdateSourceTrigger=PropertyChanged,FallbackValue='[Select an Element]'}" IsExpanded="True">
                     <Expander.Resources>
                         <DataTemplate DataType="{x:Type local2:SubstationData}">
                             <Viewbox StretchDirection="DownOnly">
@@ -202,19 +202,12 @@
                     </Expander.Resources>
                 </Expander>
 
-                <Expander Content="{Binding SelectedObject}" Header="{Binding SelectedObject.Name,UpdateSourceTrigger=PropertyChanged,FallbackValue='[Select an Element]'}">
-                    <Expander.Resources>
-                        <DataTemplate DataType="{x:Type local2:Node}">
-                            <local1:NodePropertyEditor/>
-                        </DataTemplate>
-                        <DataTemplate DataType="{x:Type local2:Connector}">
-                            <local1:ConnectorPropertyEditor/>
-                        </DataTemplate>
-                    </Expander.Resources>
-                </Expander>
-
                 <Expander Header="Options">
                     <local1:ParametersEditor/>
+                </Expander>
+
+                <Expander Header="Test Buttons" IsExpanded="True">
+                    <local1:ButtonsPanel/>
                 </Expander>
 
             </StackPanel>
@@ -230,33 +223,29 @@
                 <Grid.Resources>
                     <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
 
-                    <!-- This CompositeCollection basically Concatenates the Nodes and Connectors in a single one -->
-                    <CompositeCollection x:Key="Col">
-                        <CollectionContainer Collection="{Binding DataContext.Connectors,Source={x:Reference view}}"/>
-                        <CollectionContainer Collection="{Binding DataContext.Nodes,Source={x:Reference view}}"/>
-                    </CompositeCollection>
-
                     <!-- This is the DataTemplate that will be used to render the Breaker class -->
-                    <DataTemplate DataType="{x:Type local2:Node}">
-                        <Thumb DragDelta="Thumb_Drag" IsEnabled="{Binding IsSelected,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                    <DataTemplate DataType="{x:Type local2:Breaker}">
+                        <Thumb DragDelta="Thumb_Drag" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                             <Thumb.Template>
                                 <ControlTemplate TargetType="Thumb">
 
                                     <!-- The breaker -->
                                     <DockPanel Margin="-20,-20,20,20">
+                                        
                                         <!-- visual of the breaker -->
                                         <Grid>
-                                            <Rectangle Height="40" Width="40" Stroke="Black" StrokeThickness="1" Fill="Red" x:Name="Breaker" Stretch="Uniform" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" OpacityMask="Black"/>
+                                            <Rectangle x:Name="Breaker" Height="40" Width="40" Stroke="Black" StrokeThickness="1" Fill="Red" Stretch="Uniform" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" OpacityMask="Black"/>
                                             <TextBlock TextAlignment="Center" Text="{Binding Name}" FontWeight="Bold" IsHitTestVisible="False" Visibility="{Binding DataContext.ShowNames, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Converter={StaticResource BoolToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
                                         </Grid>
-                                        <!-- Coordinates for the item -->
+                                        
+                                        <!-- Display Coordinates for the item -->
                                         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0">
                                             <TextBlock Text="{Binding X, StringFormat='{}X = {0}'}" IsHitTestVisible="False" Visibility="Collapsed" x:Name="XText" HorizontalAlignment="Left"/>
                                             <TextBlock Text="{Binding Y, StringFormat='{}Y = {0}'}" IsHitTestVisible="False" Visibility="Collapsed" x:Name="YText" HorizontalAlignment="Left"/>
                                         </StackPanel>
+                                        
                                     </DockPanel>
 
-                                    <!--#region -->
                                     <!-- UI interactions -->
 
                                     <!-- Flashes selected item -->
@@ -303,44 +292,23 @@
                                         </MultiDataTrigger>
 
                                     </ControlTemplate.Triggers>
-                                    <!--#endregion-->
 
                                 </ControlTemplate>
                             </Thumb.Template>
                         </Thumb>
                     </DataTemplate>
 
-                    <!-- This is the DataTemplate that will be used to render the Connector class -->
-                    <DataTemplate DataType="{x:Type local2:Connector}">
-                        <Line Stroke="Blue" StrokeThickness="3"
-                            X1="{Binding Start.X}" Y1="{Binding Start.Y}"
-                            X2="{Binding End.X}" Y2="{Binding End.Y}" x:Name="Line"/>
-                        <DataTemplate.Triggers>
-                            <DataTrigger Binding="{Binding End}" Value="{x:Null}">
-                                <Setter TargetName="Line" Property="Visibility" Value="Collapsed"/>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="True">
-                                <Setter TargetName="Line" Property="Stroke" Value="Red"/>
-                                <Setter TargetName="Line" Property="StrokeDashArray" Value="2 3"/>
-                                <DataTrigger.EnterActions>
-                                    <BeginStoryboard x:Name="DashAnimation">
-                                        <Storyboard Duration="00:00:01" RepeatBehavior="Forever">
-                                            <DoubleAnimation From="0" To="25" Storyboard.TargetName="Line" Storyboard.TargetProperty="StrokeDashOffset"/>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </DataTrigger.EnterActions>
-                                <DataTrigger.ExitActions>
-                                    <StopStoryboard BeginStoryboardName="DashAnimation"/>
-                                </DataTrigger.ExitActions>
-                            </DataTrigger>
-                        </DataTemplate.Triggers>
-                    </DataTemplate>
                 </Grid.Resources>
 
-                <ListBox SelectedItem="{Binding SelectedObject}" 
-                     PreviewMouseMove="ListBox_PreviewMouseMove"
-                     PreviewMouseDown="ListBox_PreviewMouseDown" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ListBoxUI" DragOver="ListBoxUI_DragOver" Drop="ListBoxUI_Drop">
-
+                <ListBox 
+                    x:Name="ListBoxUI"
+                    PreviewMouseMove="ListBox_PreviewMouseMove"
+                    PreviewMouseDown="ListBox_PreviewMouseDown" 
+                    DragOver="ListBoxUI_DragOver" 
+                    Drop="ListBoxUI_Drop"
+                    ItemsSource="{Binding BreakerList}"
+                    HorizontalAlignment="Center" VerticalAlignment="Center">
+                    
                     <ListBox.LayoutTransform>
                         <ScaleTransform CenterX="0" CenterY="0" ScaleX="{Binding ZoomLevel}" ScaleY="{Binding ZoomLevel}"/>
                     </ListBox.LayoutTransform>
@@ -348,6 +316,7 @@
                     <ListBox.Background>
                         <SolidColorBrush Color="#FF252525" Opacity="0.9"/>
                     </ListBox.Background>
+                    
                     <ListBox.Template>
                         <ControlTemplate>
                             <Border>
@@ -378,9 +347,7 @@
                             </Border>
                         </ControlTemplate>
                     </ListBox.Template>
-                    <ListBox.ItemsSource>
-                        <StaticResource ResourceKey="Col"/>
-                    </ListBox.ItemsSource>
+
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <Canvas IsItemsHost="True" Background="#01FFFFFF" 
