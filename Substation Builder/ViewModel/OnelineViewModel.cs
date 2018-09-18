@@ -33,12 +33,8 @@ namespace Substation_Builder.ViewModel
         public RelayCommand AddCTCommand { get; private set; }
         public RelayCommand AddItemCommand { get; private set; }
         public RelayCommand ResetZoom { get; private set; }
-        public RelayCommand AddBreaker { get; private set; }
-
 
         OnelineView OLView = new OnelineView();
-
-        public ObservableCollection<Breaker> BreakerList { get; set; } = new ObservableCollection<Breaker>();
 
         public OnelineViewModel(Substation refproject)
           {
@@ -52,20 +48,12 @@ namespace Substation_Builder.ViewModel
             RemoveItemCommand = new RelayCommand(RemoveItem, Can_Remove);
             AddCTCommand = new RelayCommand(AddCT);
             ResetZoom = new RelayCommand(ResetZ);
-            AddBreaker = new RelayCommand(AddBreakerItem);
-
 
             ShowAllCoordinates = true;
             ShowNames = true;
 
             OLView.DataContext = this;
             OLView.Show();
-        }
-
-        public void AddBreakerItem (object sender)
-        {
-            BreakerList.Add(Project.Breakers[0]);
-
         }
 
         #region Context Menu Section

@@ -14,7 +14,7 @@ namespace Substation_Builder.View
     /// </summary>
     public partial class OnelineView : MetroWindow
     {
-
+  
         public OnelineView()
         {
             InitializeComponent();
@@ -174,24 +174,11 @@ namespace Substation_Builder.View
             if (e.Data.GetDataPresent(DataFormats.Serializable))
             {
                 e.Effects = DragDropEffects.Copy;
-
-                var dataobject = e.Data as DataObject;
-
-                if (dataobject.GetData(DataFormats.Serializable).GetType() == typeof (Breaker))
-                {
-                    //Get the Breaker data
-                    Breaker breaker = (Breaker)dataobject.GetData(DataFormats.Serializable);
-
-                    //Make the breaker visible
-                    //((OnelineViewModel)DataContext).AddBreakerItem(breaker);
-                }
-
             }
             else
             {
                 e.Effects = DragDropEffects.None;
             }
-
             e.Handled = true;
         }
 
@@ -214,6 +201,8 @@ namespace Substation_Builder.View
             else if (item.GetType() == typeof(Breaker))
             {
                 Breaker breaker = (Breaker)item;
+                
+
             }
             else if (item.GetType() == typeof(Thevenin))
             {
@@ -245,10 +234,7 @@ namespace Substation_Builder.View
                 Breaker breaker = (Breaker)item;
                 breaker.X += e.HorizontalChange;
                 breaker.Y += e.VerticalChange;
-                
             }
-
-
 
             e.Handled = true;
         }
