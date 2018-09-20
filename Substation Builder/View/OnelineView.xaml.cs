@@ -164,11 +164,10 @@ namespace Substation_Builder.View
                 {
 
                 }
-
             }
         }
 
-        //show link when over the listbox and render a preview
+        //show copy cursor when over the listbox
         private void ListBoxUI_DragOver(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.Serializable))
@@ -188,7 +187,7 @@ namespace Substation_Builder.View
             e.Effects = DragDropEffects.None;
             e.Handled = true;
         }
-
+ 
         //Drop action
         private void ListBoxUI_Drop(object sender, DragEventArgs e)
         {
@@ -201,7 +200,10 @@ namespace Substation_Builder.View
             else if (item.GetType() == typeof(Breaker))
             {
                 Breaker breaker = (Breaker)item;
-                
+
+                var viewModel = (OnelineViewModel)DataContext;
+                if (viewModel.AddBreaker.CanExecute(null))
+                    viewModel.AddBreaker.Execute(breaker);
 
             }
             else if (item.GetType() == typeof(Thevenin))
@@ -219,24 +221,18 @@ namespace Substation_Builder.View
 
         }
 
-
-
-
-
-        //Begin the Node code
-
+        //Move the item
         private void Thumb_Drag(object sender, DragDeltaEventArgs e)
         {
-            object item = ((FrameworkElement)sender).DataContext;
 
-            if(item.GetType() == typeof(Breaker))
-            {
-                Breaker breaker = (Breaker)item;
-                breaker.X += e.HorizontalChange;
-                breaker.Y += e.VerticalChange;
-            }
+            if (!(sender is Thumb thumb))
+                return;
 
-            e.Handled = true;
+            if (!(thumb.DataContext is Breaker Breaker))
+                return;
+
+            Breaker.X += e.HorizontalChange;
+            Breaker.Y += e.VerticalChange;
         }
 
         private void ListBox_PreviewMouseMove(object sender, MouseEventArgs e)
@@ -247,8 +243,37 @@ namespace Substation_Builder.View
 
         private void ListBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (sender.GetType() == typeof(Breaker))
+            {
+                Breaker breaker = (Breaker)sender;
 
+                //Add section for context menu screen
+
+            }
         }
 
+        //Used to un-highlight a item
+        private void ListBoxUI_LostFocus(object sender, RoutedEventArgs e)
+        {
+            var item = ListBoxUI.SelectedItem;
+
+            if (item != null)
+            {
+                if (item.GetType() == typeof(Breaker))
+                {
+                    Breaker breaker = (Breaker)item;
+                    breaker.IsSelected = false;
+                }
+            }
+        }
+
+        private void ListBoxUI_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (sender.GetType() == typeof(Breaker))
+            {
+                Breaker breaker = (Breaker)sender;
+                breaker.IsSelected = true;
+            }
+        }
     }
 }

@@ -2,11 +2,12 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Substation_Builder.Helpers;
 
 namespace Substation_Builder.Model
 {
     [Serializable]
-    public class Substation : INotifyPropertyChanged
+    public class Substation : ObservableObject
     {
 
         private SubstationData subData;
@@ -16,7 +17,7 @@ namespace Substation_Builder.Model
             set
             {
                 subData = value;
-                NotifyPropertyChanged();
+                NotifyPropertyChanged("SubData");
             }
         }
 
@@ -24,13 +25,6 @@ namespace Substation_Builder.Model
         public ObservableCollection<Relay> Relays { get; set; } = new ObservableCollection<Relay>();
         public ObservableCollection<Breaker> Breakers { get; set; } = new ObservableCollection<Breaker>();
         public ObservableCollection<Transformer> Transformers { get; set; } = new ObservableCollection<Transformer>();
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
         public void Replace(Substation Append)
         {

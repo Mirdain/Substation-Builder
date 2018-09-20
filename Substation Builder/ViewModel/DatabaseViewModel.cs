@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 namespace Substation_Builder.ViewModel
 {
-    public partial class DatabaseViewModel : ViewModelBase
+    public partial class DatabaseViewModel : ObservableObject
     {
 
         private Substation project;

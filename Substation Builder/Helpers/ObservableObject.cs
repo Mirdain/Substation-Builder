@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace Substation_Builder.Helpers
 {
-    public abstract class ViewModelBase : INotifyPropertyChanged
+    public abstract class ObservableObject : INotifyPropertyChanged
     {
         // Property Change Logic  
         public event PropertyChangedEventHandler PropertyChanged;

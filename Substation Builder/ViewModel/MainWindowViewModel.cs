@@ -5,7 +5,7 @@ using Substation_Builder.View;
 
 namespace Substation_Builder.ViewModel
 {
-    class MainWindowViewModel : ViewModelBase
+    class MainWindowViewModel : ObservableObject
     {
         public RelayCommand DatabaseViewOpenCommand { get; private set; }
         public RelayCommand FaultViewOpenCommand { get; private set; }

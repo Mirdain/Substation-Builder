@@ -1,5 +1,4 @@
 ﻿using Substation_Builder.Helpers;
-using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
@@ -209,7 +208,7 @@ namespace Substation_Builder.Model
         public CT ConnectedCT { get; set; }
     }
 
-    public class Breaker
+    public class Breaker : DiagramObject
     {
         public ObservableCollection<CT> CTs { get; set; } = new ObservableCollection<CT>();
         public string Name { get; set; }
@@ -220,9 +219,6 @@ namespace Substation_Builder.Model
         public Voltage Voltage { get; set; }
         public BreakerType Breaker_Type { get; set; }
         public BrkManufacture BrkMan { get; set; }
-        public bool Visible { get; set; }
-        public double X { get; set; }
-        public double Y { get; set; }
     }
 
     public class Transformer

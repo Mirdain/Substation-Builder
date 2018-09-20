@@ -223,6 +223,12 @@
                 <Grid.Resources>
                     <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
 
+                    <!-- This CompositeCollection basically Concatenates the Nodes and Connectors in a single one -->
+                    <CompositeCollection x:Key="Col">
+                        <CollectionContainer Collection="{Binding DataContext.Connectors,Source={x:Reference view}}"/>
+                        <CollectionContainer Collection="{Binding DataContext.Breakers,Source={x:Reference view}}"/>
+                    </CompositeCollection>
+
                     <!-- This is the DataTemplate that will be used to render the Breaker class -->
                     <DataTemplate DataType="{x:Type local2:Breaker}">
                         <Thumb DragDelta="Thumb_Drag" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
@@ -306,9 +312,12 @@
                     PreviewMouseDown="ListBox_PreviewMouseDown" 
                     DragOver="ListBoxUI_DragOver" 
                     Drop="ListBoxUI_Drop"
-                    ItemsSource="{Binding BreakerList}"
-                    HorizontalAlignment="Center" VerticalAlignment="Center">
-                    
+                    LostFocus="ListBoxUI_LostFocus"
+                    MouseLeftButtonDown="ListBoxUI_MouseLeftButtonDown"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    ItemsSource="{Binding Breakers}"
+                    >
+
                     <ListBox.LayoutTransform>
                         <ScaleTransform CenterX="0" CenterY="0" ScaleX="{Binding ZoomLevel}" ScaleY="{Binding ZoomLevel}"/>
                     </ListBox.LayoutTransform>

@@ -2,7 +2,7 @@
 
 namespace Substation_Builder.ViewModel
 {
-    class FaultViewModel : ViewModelBase
+    class FaultViewModel : ObservableObject
     {
 
     }

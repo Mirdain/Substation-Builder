@@ -104,7 +104,7 @@
     <Compile Include="Helpers\GetEnumDescription.cs" />
     <Compile Include="Helpers\IsWindowOpen.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
-    <Compile Include="Helpers\ViewModelBase.cs" />
+    <Compile Include="Helpers\ObservableObject.cs" />
     <Compile Include="Model\Definitions.cs" />
     <Compile Include="Helpers\SystemIO.cs" />
     <Compile Include="Model\Substation.cs" />
@@ -120,6 +120,7 @@
     <Compile Include="Pages\OnelineView\ConnectorPropertyEditor.xaml.cs">
       <DependentUpon>ConnectorPropertyEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\DiagramObject.cs" />
     <Compile Include="Pages\OnelineView\ParametersEditor.xaml.cs">
       <DependentUpon>ParametersEditor.xaml</DependentUpon>
     </Compile>

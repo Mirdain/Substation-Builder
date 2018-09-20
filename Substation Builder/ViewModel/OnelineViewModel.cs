@@ -11,7 +11,7 @@ using System.Windows.Controls.Primitives;
 
 namespace Substation_Builder.ViewModel
 {
-    class OnelineViewModel : ViewModelBase
+    class OnelineViewModel : ObservableObject
     {
         private Substation project;
         public Substation Project
@@ -33,8 +33,20 @@ namespace Substation_Builder.ViewModel
         public RelayCommand AddCTCommand { get; private set; }
         public RelayCommand AddItemCommand { get; private set; }
         public RelayCommand ResetZoom { get; private set; }
+        public RelayCommand AddBreaker { get; private set; }
 
         OnelineView OLView = new OnelineView();
+
+        private ObservableCollection<Breaker> _breakers = new ObservableCollection<Breaker>();
+        public ObservableCollection<Breaker> Breakers
+        {
+            get { return _breakers; }
+            set
+            {
+                _breakers = value;
+                NotifyPropertyChanged("Breakers");
+            }
+        }
 
         public OnelineViewModel(Substation refproject)
           {
@@ -48,12 +60,18 @@ namespace Substation_Builder.ViewModel
             RemoveItemCommand = new RelayCommand(RemoveItem, Can_Remove);
             AddCTCommand = new RelayCommand(AddCT);
             ResetZoom = new RelayCommand(ResetZ);
+            AddBreaker = new RelayCommand(AddBreakerItem);
 
             ShowAllCoordinates = true;
             ShowNames = true;
 
             OLView.DataContext = this;
             OLView.Show();
+        }
+
+        public void AddBreakerItem(object sender)
+        {
+            Breakers.Add((Breaker)sender);
         }
 
         #region Context Menu Section
