@@ -14,7 +14,7 @@
                         Title="One line" ResizeMode="CanResizeWithGrip"
                         WindowStartupLocation="CenterScreen"
                         x:Name="view"
-                        BorderThickness="0" Height="720" Width="1000" MinWidth="1000" MinHeight="720" Background="{x:Null}">
+                        BorderThickness="0" Height="720" Width="1050" MinWidth="1000" MinHeight="720" Background="{x:Null}">
 
     <Controls:MetroWindow.TitleTemplate>
         <DataTemplate>
@@ -75,6 +75,9 @@
             <MenuItem Header="Delete XFMR" Command="{Binding Data.RemoveItemCommand, Source={StaticResource DataContextProxy}}" CommandParameter="{Binding}"/>
             <MenuItem Header="Add CT" Command="{Binding Data.AddCTCommand, Source={StaticResource DataContextProxy}}" CommandParameter="{Binding}"/>
         </ContextMenu>
+        <ContextMenu x:Key="RemoveDiagram">
+            <MenuItem Header="Remove" Command="{Binding Data.RemoveDiagramItem, Source={StaticResource DataContextProxy}}" CommandParameter="{Binding}"/>
+        </ContextMenu>
 
         <!-- File menu -->
 
@@ -111,6 +114,8 @@
 
         <ScrollViewer VerticalScrollBarVisibility="Visible">
             <StackPanel Margin="10" Background="Black">
+                
+                <!-- Treeview Expander -->
                 <Expander Header="Substation" IsExpanded="True">
 
                     <TreeView x:Name="OnelineTreeview" PreviewMouseRightButtonDown="Oneline_PreviewMouseRightButtonDown"
@@ -167,7 +172,7 @@
                 </Expander>
 
                 <!-- Displays the Forms from the selected Treeview Item -->
-                <Expander x:Name="TreeviewExpander" Content="{Binding SelectedItem, ElementName=OnelineTreeview, Mode=OneWay}" Header="{Binding SelectedItem.Name,UpdateSourceTrigger=PropertyChanged,FallbackValue='[Select an Element]'}" IsExpanded="True">
+                <Expander x:Name="TreeviewExpander" Content="{Binding SelectedItem}" Header="{Binding SelectedItem.Name,UpdateSourceTrigger=PropertyChanged,FallbackValue='[Select an Element]'}" IsExpanded="True">
                     <Expander.Resources>
                         <DataTemplate DataType="{x:Type local2:SubstationData}">
                             <Viewbox StretchDirection="DownOnly">
@@ -206,10 +211,6 @@
                     <local1:ParametersEditor/>
                 </Expander>
 
-                <Expander Header="Test Buttons" IsExpanded="True">
-                    <local1:ButtonsPanel/>
-                </Expander>
-
             </StackPanel>
         </ScrollViewer>
 
@@ -231,7 +232,7 @@
 
                     <!-- This is the DataTemplate that will be used to render the Breaker class -->
                     <DataTemplate DataType="{x:Type local2:Breaker}">
-                        <Thumb DragDelta="Thumb_Drag" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                        <Thumb DragDelta="Thumb_Drag" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ContextMenu="{Binding Mode=OneWay, Source={StaticResource RemoveDiagram}}">
                             <Thumb.Template>
                                 <ControlTemplate TargetType="Thumb">
 

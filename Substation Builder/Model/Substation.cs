@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Substation_Builder.Helpers;
+using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using Substation_Builder.Helpers;
 
 namespace Substation_Builder.Model
 {

@@ -172,7 +172,26 @@ namespace Substation_Builder.View
         {
             if (e.Data.GetDataPresent(DataFormats.Serializable))
             {
-                e.Effects = DragDropEffects.Copy;
+
+                object item = e.Data.GetData(DataFormats.Serializable);
+
+                if (item.GetType() == typeof(Relay))
+                {
+                    Relay relay = (Relay)item;
+                }
+                else if (item.GetType() == typeof(Breaker))
+                {
+                    Breaker breaker = (Breaker)item;
+
+                    var point = e.GetPosition(this.ListBoxUI);
+
+                    breaker.X = point.X - 20;
+                    breaker.Y = point.Y + 10;
+
+                    var viewModel = (OnelineViewModel)DataContext;
+                    if (viewModel.AddBreaker.CanExecute(null))
+                        viewModel.AddBreaker.Execute(breaker);
+                }
             }
             else
             {

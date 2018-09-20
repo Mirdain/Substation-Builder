@@ -179,7 +179,7 @@ namespace Substation_Builder.Model
         [Description("Wye")] Wye,
     }
 
-    public class Thevenin
+    public class Thevenin : DiagramObject
     {
         public string Name { get; set; }
         public double R0_Z { get; set; }
@@ -197,7 +197,7 @@ namespace Substation_Builder.Model
         public double X2_Ohms { get; set; }
     }
 
-    public class Relay
+    public class Relay : DiagramObject
     {
         public string Name { get; set; }
         public string Description { get; set; }
@@ -221,7 +221,7 @@ namespace Substation_Builder.Model
         public BrkManufacture BrkMan { get; set; }
     }
 
-    public class Transformer
+    public class Transformer : DiagramObject
     {
         public ObservableCollection<CT> CTs { get; set; } = new ObservableCollection<CT>();
         public string Name { get; set; }

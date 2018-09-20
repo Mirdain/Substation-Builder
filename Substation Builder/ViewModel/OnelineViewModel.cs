@@ -4,10 +4,8 @@ using Substation_Builder.View;
 using Substation_Builder.Services;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Linq;
 using System.Windows.Controls;
 using Substation_Builder.Resources.Monster;
-using System.Windows.Controls.Primitives;
 
 namespace Substation_Builder.ViewModel
 {
@@ -20,7 +18,7 @@ namespace Substation_Builder.ViewModel
             set
             {
                 project = value;
-                NotifyPropertyChanged();
+                NotifyPropertyChanged("Project");
             }
         }
 
@@ -34,6 +32,8 @@ namespace Substation_Builder.ViewModel
         public RelayCommand AddItemCommand { get; private set; }
         public RelayCommand ResetZoom { get; private set; }
         public RelayCommand AddBreaker { get; private set; }
+        public RelayCommand RemoveDiagramItem { get; private set; }
+
 
         OnelineView OLView = new OnelineView();
 
@@ -45,6 +45,20 @@ namespace Substation_Builder.ViewModel
             {
                 _breakers = value;
                 NotifyPropertyChanged("Breakers");
+            }
+        }
+
+        private object _selectedObject = new object();
+        public object SelectedObject
+        {
+            get
+            {
+                return _selectedObject;
+            }
+            set
+            {
+                _selectedObject = value;
+                NotifyPropertyChanged("SelectedObject");
             }
         }
 
@@ -61,6 +75,7 @@ namespace Substation_Builder.ViewModel
             AddCTCommand = new RelayCommand(AddCT);
             ResetZoom = new RelayCommand(ResetZ);
             AddBreaker = new RelayCommand(AddBreakerItem);
+            RemoveDiagramItem = new RelayCommand(RemoveDiagram);
 
             ShowAllCoordinates = true;
             ShowNames = true;
@@ -71,7 +86,20 @@ namespace Substation_Builder.ViewModel
 
         public void AddBreakerItem(object sender)
         {
-            Breakers.Add((Breaker)sender);
+            Breaker breaker = (Breaker)sender;
+
+            if (Breakers.Contains(breaker))
+                return;
+
+            breaker.Visible = true;
+            Breakers.Add(breaker);
+        }
+
+        public void RemoveDiagram(object sender)
+        {
+            if (sender.GetType() == typeof(Breaker))
+                Breakers.Remove((Breaker)sender);
+
         }
 
         #region Context Menu Section

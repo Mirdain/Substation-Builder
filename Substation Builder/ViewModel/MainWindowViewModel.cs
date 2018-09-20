@@ -7,11 +7,9 @@ namespace Substation_Builder.ViewModel
 {
     class MainWindowViewModel : ObservableObject
     {
-        public RelayCommand DatabaseViewOpenCommand { get; private set; }
         public RelayCommand FaultViewOpenCommand { get; private set; }
         public RelayCommand OnelineViewOpenCommand { get; private set; }
 
-        DatabaseViewModel databaseViewModel;
         OnelineViewModel onelineViewModel;
 
         private Substation project;
@@ -21,7 +19,7 @@ namespace Substation_Builder.ViewModel
             set
             {
                 project = value;
-                NotifyPropertyChanged();
+                NotifyPropertyChanged("Project");
             }
         }
 
@@ -38,27 +36,8 @@ namespace Substation_Builder.ViewModel
                 }
             };
 
-            DatabaseViewOpenCommand = new RelayCommand(DatabaseViewOpen, Can_Open_DatabaseView);
             OnelineViewOpenCommand = new RelayCommand(OnelineViewOpen, Can_Open_OnelineView);
-            FaultViewOpenCommand = new RelayCommand(FaultViewOpen, Can_Open_DatabaseView);
-        }
-
-        //Database Module
-        public void DatabaseViewOpen(object sender)
-        {
-            if (databaseViewModel == null)
-            {
-                databaseViewModel = new DatabaseViewModel(Project);
-            }
-            else
-            {
-                DatabaseView databaseView = new DatabaseView
-                {
-
-                    DataContext = databaseViewModel
-                };
-                databaseView.Show();
-            }
+            FaultViewOpenCommand = new RelayCommand(FaultViewOpen, Can_Open_FaultView);
         }
 
         //One Line Module
@@ -88,17 +67,6 @@ namespace Substation_Builder.ViewModel
 
 
         //Checks if a windows are open
-        public bool Can_Open_DatabaseView(object sender)
-        {
-            bool canexecute = false;
-
-            if (!IsWindowOpen.WindowCheck<DatabaseView>())
-            {
-                canexecute = true;
-            }
-            return canexecute;
-        }
-
         public bool Can_Open_OnelineView(object sender)
         {
             bool canexecute = false;
