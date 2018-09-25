@@ -76,14 +76,14 @@
             <MenuItem Header="Add CT" Command="{Binding Data.AddCTCommand, Source={StaticResource DataContextProxy}}" CommandParameter="{Binding}"/>
         </ContextMenu>
         <ContextMenu x:Key="RemoveDiagram">
-            <MenuItem Header="Remove" Command="{Binding Data.RemoveDiagramItem, Source={StaticResource DataContextProxy}}" CommandParameter="{Binding}"/>
+            <MenuItem Header="Remove" Click="MenuItem_Click"/>
         </ContextMenu>
 
         <!-- File menu -->
 
         <ContextMenu x:Key="ProjectContext" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
             <MenuItem Header="New Project" Command="{Binding Data.NewCommand, Source={StaticResource DataContextProxy}}" CommandParameter="Project"/>
-            <MenuItem Header="Open Project" Command="{Binding Data.LoadCommand, Source={StaticResource DataContextProxy}}" CommandParameter="Project"/>
+            <MenuItem Header="Open Project" Command="{Binding Data.LoadCommand, Source={StaticResource DataContextProxy}}" CommandParameter="{Binding}"/>
             <MenuItem Header="Save Project" Command="{Binding Data.SaveCommand, Source={StaticResource DataContextProxy}}" CommandParameter="Project"/>
             <MenuItem Header="Load Template" Command="{Binding Data.TemplateCommand, Source={StaticResource DataContextProxy}}" CommandParameter="Project"/>
         </ContextMenu>
@@ -114,7 +114,7 @@
 
         <ScrollViewer VerticalScrollBarVisibility="Visible">
             <StackPanel Margin="10" Background="Black">
-                
+
                 <!-- Treeview Expander -->
                 <Expander Header="Substation" IsExpanded="True">
 
@@ -123,10 +123,7 @@
                               BorderBrush="{x:Null}" MouseMove="OnelineTreeview_MouseMove" AllowDrop="True" SelectedItemChanged="OnelineTreeview_SelectedItemChanged">
 
                         <!-- This is the Header and Treeview Items for Thevenin-->
-                        <TreeViewItem Header="{Binding Project.SubData.Name,FallbackValue='[No Project Set]'}" ContextMenu="{DynamicResource ProjectContext}">
-
-                            <!-- This is the Header and Treeview Items for Thevenin-->
-                            <TreeViewItem x:Name="Subdata" Header='Substation Data' ItemsSource="{Binding Project.SubData}"/>
+                        <TreeViewItem x:Name="SubData" Header="{Binding Project.SubData.Name,FallbackValue='[No Project Set]'}" ContextMenu="{DynamicResource ProjectContext}">
 
                             <!-- This is the Header and Treeview Items for Thevenin-->
                             <TreeViewItem Header='Thevenins' ItemsSource="{Binding Project.Thevenins}" ContextMenu="{DynamicResource AddTheveninContext}">
@@ -172,7 +169,7 @@
                 </Expander>
 
                 <!-- Displays the Forms from the selected Treeview Item -->
-                <Expander x:Name="TreeviewExpander" Content="{Binding SelectedItem}" Header="{Binding SelectedItem.Name,UpdateSourceTrigger=PropertyChanged,FallbackValue='[Select an Element]'}" IsExpanded="True">
+                <Expander x:Name="TreeviewExpander" Content="{Binding SelectedItem}" Header="{Binding SelectedItem.Name,FallbackValue='[Select an Element]'}" IsExpanded="True">
                     <Expander.Resources>
                         <DataTemplate DataType="{x:Type local2:SubstationData}">
                             <Viewbox StretchDirection="DownOnly">
@@ -208,7 +205,7 @@
                 </Expander>
 
                 <Expander Header="Options">
-                    <local1:ParametersEditor/>
+                    <local1:ParametersEditor x:Name="parametersEditor"/>
                 </Expander>
 
             </StackPanel>
@@ -226,37 +223,37 @@
 
                     <!-- This CompositeCollection basically Concatenates the Nodes and Connectors in a single one -->
                     <CompositeCollection x:Key="Col">
-                        <CollectionContainer Collection="{Binding DataContext.Connectors,Source={x:Reference view}}"/>
-                        <CollectionContainer Collection="{Binding DataContext.Breakers,Source={x:Reference view}}"/>
+                        <CollectionContainer Collection="{Binding DataContext.Project.Breakers,Source={x:Reference view}}"/>
                     </CompositeCollection>
 
                     <!-- This is the DataTemplate that will be used to render the Breaker class -->
                     <DataTemplate DataType="{x:Type local2:Breaker}">
-                        <Thumb DragDelta="Thumb_Drag" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ContextMenu="{Binding Mode=OneWay, Source={StaticResource RemoveDiagram}}">
+                        <Thumb DragDelta="Thumb_Drag" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ContextMenu="{Binding Mode=OneWay, Source={StaticResource RemoveDiagram}}" Visibility="{Binding Visible}">
                             <Thumb.Template>
                                 <ControlTemplate TargetType="Thumb">
 
                                     <!-- The breaker -->
                                     <DockPanel Margin="-20,-20,20,20">
-                                        
+
                                         <!-- visual of the breaker -->
                                         <Grid>
-                                            <Rectangle x:Name="Breaker" Height="40" Width="40" Stroke="Black" StrokeThickness="1" Fill="Red" Stretch="Uniform" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" OpacityMask="Black"/>
-                                            <TextBlock TextAlignment="Center" Text="{Binding Name}" FontWeight="Bold" IsHitTestVisible="False" Visibility="{Binding DataContext.ShowNames, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Converter={StaticResource BoolToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+                                            <Rectangle x:Name="Breaker" Height="40" Width="40" Stroke="Black" StrokeThickness="1" Fill="Red" Stretch="Uniform" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" OpacityMask="Black" />
+                                            <TextBlock x:Name="BreakerTxt" TextAlignment="Center" Text="{Binding Breaker_Position}" FontWeight="Bold" IsHitTestVisible="False" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" Visibility="Collapsed"/>
                                         </Grid>
-                                        
+
                                         <!-- Display Coordinates for the item -->
                                         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0">
-                                            <TextBlock Text="{Binding X, StringFormat='{}X = {0}'}" IsHitTestVisible="False" Visibility="Collapsed" x:Name="XText" HorizontalAlignment="Left"/>
-                                            <TextBlock Text="{Binding Y, StringFormat='{}Y = {0}'}" IsHitTestVisible="False" Visibility="Collapsed" x:Name="YText" HorizontalAlignment="Left"/>
+                                            <TextBlock x:Name="XText" Text="{Binding X, StringFormat='{}X = {0}'}" IsHitTestVisible="False" Visibility="Collapsed"  HorizontalAlignment="Left"/>
+                                            <TextBlock x:Name="YText" Text="{Binding Y, StringFormat='{}Y = {0}'}" IsHitTestVisible="False" Visibility="Collapsed"  HorizontalAlignment="Left"/>
                                         </StackPanel>
-                                        
+
                                     </DockPanel>
 
                                     <!-- UI interactions -->
 
                                     <!-- Flashes selected item -->
                                     <ControlTemplate.Triggers>
+                                        
                                         <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="True">
                                             <DataTrigger.EnterActions>
                                                 <BeginStoryboard x:Name="Flash">
@@ -275,14 +272,19 @@
                                             <Setter TargetName="Breaker" Property="StrokeThickness" Value="2"/>
                                         </Trigger>
 
-                                        <!-- Hide/Show the grid displays -->
-                                        <DataTrigger Binding="{Binding DataContext.ShowAllCoordinates, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Value="True">
+                                        <!-- Hide/Show the name on item -->
+                                        <DataTrigger Binding="{Binding DataContext.Project.OnelinePref.ShowNames, ElementName=ListBoxUI}" Value="True">
+                                            <Setter TargetName="BreakerTxt" Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+
+                                        <!-- Hide/Show all grid displays -->
+                                        <DataTrigger Binding="{Binding DataContext.Project.OnelinePref.ShowAllCoordinates, ElementName=ListBoxUI}" Value="True">
                                             <Setter TargetName="XText" Property="Visibility" Value="Visible"/>
                                             <Setter TargetName="YText" Property="Visibility" Value="Visible"/>
                                         </DataTrigger>
 
                                         <!--When selected for a connector -->
-                                        <DataTrigger Binding="{Binding IsHighlighted}" Value="True">
+                                        <DataTrigger Binding="{Binding SelectedItem, ElementName=ListBoxUI}" Value="True">
                                             <Setter TargetName="Breaker" Property="StrokeThickness" Value="2"/>
                                             <Setter TargetName="Breaker" Property="Stroke" Value="Red"/>
                                             <Setter TargetName="Breaker" Property="Fill" Value="White"/>
@@ -292,7 +294,7 @@
                                         <MultiDataTrigger>
                                             <MultiDataTrigger.Conditions>
                                                 <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="True"/>
-                                                <Condition Binding="{Binding DataContext.ShowCurrentCoordinates, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Value="True"/>
+                                                <Condition Binding="{Binding Project.OnelinePref.ShowCurrentCoordinates}" Value="True"/>
                                             </MultiDataTrigger.Conditions>
                                             <Setter TargetName="XText" Property="Visibility" Value="Visible"/>
                                             <Setter TargetName="YText" Property="Visibility" Value="Visible"/>
@@ -310,23 +312,25 @@
                 <ListBox 
                     x:Name="ListBoxUI"
                     PreviewMouseMove="ListBox_PreviewMouseMove"
-                    PreviewMouseDown="ListBox_PreviewMouseDown" 
                     DragOver="ListBoxUI_DragOver" 
                     Drop="ListBoxUI_Drop"
                     LostFocus="ListBoxUI_LostFocus"
                     MouseLeftButtonDown="ListBoxUI_MouseLeftButtonDown"
                     HorizontalAlignment="Center" VerticalAlignment="Center"
-                    ItemsSource="{Binding Breakers}"
-                    >
+                    MouseDoubleClick="ListBoxUI_MouseDoubleClick">
 
                     <ListBox.LayoutTransform>
-                        <ScaleTransform CenterX="0" CenterY="0" ScaleX="{Binding ZoomLevel}" ScaleY="{Binding ZoomLevel}"/>
+                        <ScaleTransform CenterX="0" CenterY="0" ScaleX="{Binding Project.OnelinePref.ZoomLevel}" ScaleY="{Binding Project.OnelinePref.ZoomLevel}"/>
                     </ListBox.LayoutTransform>
+
+                    <ListBox.ItemsSource>
+                        <StaticResource ResourceKey="Col"/>
+                    </ListBox.ItemsSource>
 
                     <ListBox.Background>
                         <SolidColorBrush Color="#FF252525" Opacity="0.9"/>
                     </ListBox.Background>
-                    
+
                     <ListBox.Template>
                         <ControlTemplate>
                             <Border>
@@ -337,23 +341,21 @@
                                     </LinearGradientBrush>
                                 </Border.Background>
 
+                                <!-- This Border serves as a background and the VisualBrush used to paint its background serves as the "Snapping Grid" -->
+                                <!-- The "Snapping" Actually occurs in the Items classes, it has nothing to do with any UI Elements -->
                                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                                     <Border>
-                                        <!-- This Border serves as a background and the VisualBrush used to paint its background serves as the "Snapping Grid" -->
-                                        <!-- The "Snapping" Actually occurs in the Node class (see Node.X and Node.Y properties), it has nothing to do with any UI Elements -->
                                         <Border.Background>
-                                            <VisualBrush TileMode="Tile"
-                                        Viewport="0,0,25,25" ViewportUnits="Absolute" 
-                                        Viewbox="0,0,50,50" ViewboxUnits="Absolute">
+                                            <VisualBrush TileMode="Tile" Viewport="0,0,25,25" ViewportUnits="Absolute" Viewbox="0,0,50,50" ViewboxUnits="Absolute">
                                                 <VisualBrush.Visual>
-                                                    <Rectangle Stroke="Darkgray" StrokeThickness="1" Height="50" Width="50"
-                                            StrokeDashArray="5 3"/>
+                                                    <Rectangle Stroke="Darkgray" StrokeThickness="1" Height="50" Width="50" StrokeDashArray="5 3"/>
                                                 </VisualBrush.Visual>
                                             </VisualBrush>
                                         </Border.Background>
                                         <ItemsPresenter/>
                                     </Border>
                                 </ScrollViewer>
+                                
                             </Border>
                         </ControlTemplate>
                     </ListBox.Template>
@@ -361,10 +363,11 @@
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <Canvas IsItemsHost="True" Background="#01FFFFFF" 
-                                Height="{Binding AreaHeight}" Width="{Binding AreaWidth}"
+                                Height="{Binding Project.OnelinePref.AreaHeight}" Width="{Binding Project.OnelinePref.AreaWidth}"
                                 VerticalAlignment="Top" HorizontalAlignment="Left"/>
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
+                    
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="Canvas.Left" Value="{Binding X}"/>
@@ -375,6 +378,7 @@
                                     <ControlTemplate TargetType="ListBoxItem">
                                         <ContentPresenter x:Name="Content"/>
                                         <ControlTemplate.Triggers>
+                                            
                                             <Trigger Property="IsSelected" Value="True">
                                                 <Setter TargetName="Content" Property="Effect">
                                                     <Setter.Value>
@@ -382,9 +386,11 @@
                                                     </Setter.Value>
                                                 </Setter>
                                             </Trigger>
+                                            
                                             <DataTrigger Binding="{Binding IsNew}" Value="True">
                                                 <Setter Property="Opacity" Value=".5"/>
                                             </DataTrigger>
+                                            
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>
                                 </Setter.Value>

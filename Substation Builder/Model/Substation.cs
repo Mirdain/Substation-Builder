@@ -8,14 +8,25 @@ namespace Substation_Builder.Model
     public class Substation : ObservableObject
     {
 
-        private SubstationData subData;
+        private SubstationData _subData;
         public SubstationData SubData
         {
-            get { return subData; }
+            get { return _subData; }
             set
             {
-                subData = value;
+                _subData = value;
                 NotifyPropertyChanged("SubData");
+            }
+        }
+
+        private OnelinePreferences _onelinePref;
+        public OnelinePreferences OnelinePref
+        {
+            get { return _onelinePref; }
+            set
+            {
+                _onelinePref = value;
+                NotifyPropertyChanged("OnelinePref");
             }
         }
 
@@ -27,6 +38,7 @@ namespace Substation_Builder.Model
         public void Replace(Substation Append)
         {
             SubData = Append.SubData;
+            OnelinePref = Append.OnelinePref;
 
             Thevenins.Clear();
             for (int i=0; i<Append.Thevenins.Count;i++)

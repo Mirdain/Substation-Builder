@@ -19,8 +19,8 @@ namespace Substation_Builder.Model
             }
         }
 
-        private bool _visible { get; set; }
-        public bool Visible
+        private string _visible { get; set; }
+        public string Visible
         {
             get
             {

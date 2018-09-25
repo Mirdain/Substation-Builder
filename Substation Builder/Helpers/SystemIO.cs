@@ -57,9 +57,11 @@ namespace Substation_Builder.Services
                 Name = "Squash Bend Template",
                 Monster = monster.MonsterName()
             };
+            OnelinePreferences onelinePreferences = new OnelinePreferences();
 
             Project.SubData = Data;
-
+            Project.OnelinePref = onelinePreferences;
+                                 
             CT XFMR1CT = new CT
             {
                 CTR = CTTaps.T400,

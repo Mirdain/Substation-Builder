@@ -55,7 +55,8 @@
             </Style>
 
             <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource {x:Type RadioButton}}">
-                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontSize" Value="16
+                        "/>
                 <Setter Property="Opacity" Value="0.85"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
                 <Setter Property="HorizontalContentAlignment" Value="Left"/>
@@ -69,31 +70,31 @@
 
         <DockPanel>
             <Label Content="Height:"/>
-            <TextBox Text="{Binding AreaHeight, UpdateSourceTrigger=PropertyChanged, StringFormat=\{0:F0\}}"/>
-            <Slider Value="{Binding AreaHeight}"/>
+            <TextBox Text="{Binding Project.OnelinePref.AreaHeight, UpdateSourceTrigger=PropertyChanged, StringFormat=\{0:F0\}}"/>
+            <Slider Value="{Binding Project.OnelinePref.AreaHeight, UpdateSourceTrigger=PropertyChanged}"/>
         </DockPanel>
 
         <DockPanel>
             <Label Content="Width:"/>
-            <TextBox Text="{Binding AreaWidth, UpdateSourceTrigger=PropertyChanged, StringFormat=\{0:F0\}}"/>
-            <Slider Value="{Binding AreaWidth}"/>
+            <TextBox Text="{Binding Project.OnelinePref.AreaWidth, UpdateSourceTrigger=PropertyChanged, StringFormat=\{0:F0\}}"/>
+            <Slider Value="{Binding Project.OnelinePref.AreaWidth, UpdateSourceTrigger=PropertyChanged}"/>
         </DockPanel>
 
         <DockPanel>
             <Label Content="Zoom:"/>
-            <TextBox Text="{Binding ZoomLevelPercent, Mode=OneWay}"/>
+            <TextBox Text="{Binding Project.OnelinePref.ZoomLevelPercent, UpdateSourceTrigger=PropertyChanged}"/>
             <DockPanel>
-                <Slider Value="{Binding ZoomLevel}" Minimum=".25" Maximum="2" TickFrequency="0.25" SmallChange=".25" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Margin="5,0" Width="100" LargeChange="0.5"/>
+                <Slider Value="{Binding Project.OnelinePref.ZoomLevel, UpdateSourceTrigger=PropertyChanged}" Minimum=".25" Maximum="2" TickFrequency="0.25" SmallChange=".25" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Margin="5,0" Width="100" LargeChange="0.5"/>
                 <Button Content="Reset" Height="Auto" Width="Auto" Background="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" Command="{Binding ResetZoom, Mode=OneWay}" BorderBrush="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" HorizontalAlignment="Stretch" FontSize="12" Opacity="0.85" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2" Margin="5"/>
             </DockPanel>
         </DockPanel>
 
         <StackPanel Grid.Row="4" Grid.ColumnSpan="2">
-            <CheckBox IsChecked="{Binding ShowNames}" Content="Show Names" HorizontalAlignment="Left" Margin="5" FontSize="16" Padding="6,5,0,0"/>
+            <CheckBox IsChecked="{Binding Project.OnelinePref.ShowNames, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="Show Names" HorizontalAlignment="Left" Margin="5" FontSize="16" Padding="6,5,0,0"/>
             <TextBlock Margin="5" Text="Show Coordinates:" FontSize="16"/>
-            <RadioButton Margin="5" IsChecked="{Binding ShowAllCoordinates}" Content="All Nodes"/>
-            <RadioButton Margin="5" IsChecked="{Binding ShowCurrentCoordinates}" Content="Selected Node"/>
-            <RadioButton Margin="5" Content="None"/>
+            <RadioButton Margin="5" IsChecked="{Binding Project.OnelinePref.ShowAllCoordinates, UpdateSourceTrigger=PropertyChanged}" Content="All Nodes"/>
+            <RadioButton Margin="5" IsChecked="{Binding Project.OnelinePref.ShowCurrentCoordinates, UpdateSourceTrigger=PropertyChanged}" Content="Selected Node"/>
+            <RadioButton Margin="5" IsChecked="{Binding Project.OnelinePref.ShowNoCoordinates, UpdateSourceTrigger=PropertyChanged}" Content="None"/>
         </StackPanel>
 
     </StackPanel>

@@ -211,11 +211,35 @@ namespace Substation_Builder.Model
     public class Breaker : DiagramObject
     {
         public ObservableCollection<CT> CTs { get; set; } = new ObservableCollection<CT>();
-        public string Name { get; set; }
+        private string _name { get; set; }
+        public string Name
+        {
+            get
+            { return _name;
+            }
+            set
+            { _name = value;
+                NotifyPropertyChanged("Name");
+            }
+        }
         public string Description { get; set; }
         public BreakerSize Breaker_Size { get; set; }
         public Bus Bus { get; set; }
-        public BreakerPosition Breaker_Position { get; set; }
+
+        private BreakerPosition _breaker_Position { get; set; }
+        public BreakerPosition Breaker_Position
+        {
+            get
+            {
+                return _breaker_Position;
+            }
+            set
+            {
+                _breaker_Position = value;
+                NotifyPropertyChanged("Breaker_Position");
+            }
+        }
+
         public Voltage Voltage { get; set; }
         public BreakerType Breaker_Type { get; set; }
         public BrkManufacture BrkMan { get; set; }
@@ -265,6 +289,120 @@ namespace Substation_Builder.Model
         public double MVA { get; set; }
         public Voltage HighVoltage { get; set; }
         public Voltage LowVoltage { get; set; }
+    }
+
+    public class OnelinePreferences : ObservableObject
+    {
+        private double _zoomLevel { get; set; } = 1;
+        public double ZoomLevel
+        {
+            get { return _zoomLevel; }
+            set
+            {
+                _zoomLevel = value;
+                ZoomLevelPercent = (value * 100).ToString() + "%";
+                NotifyPropertyChanged("ZoomLevel");
+            }
+        }
+
+        private string _zoomLevelPercent { get; set; } = "100%";
+        public string ZoomLevelPercent
+        {
+            get
+            {
+                return _zoomLevelPercent;
+            }
+            set
+            {
+                _zoomLevelPercent = value;
+                NotifyPropertyChanged("ZoomLevelPercent");
+            }
+        }
+
+        private double _areaHeight { get; set; } = 600;
+        public double AreaHeight
+        {
+            get
+            {
+                return _areaHeight;
+            }
+            set
+            {
+                _areaHeight = value;
+                NotifyPropertyChanged("AreaHeight");
+            }
+        }
+
+        private double _areaWidth { get; set; } = 600;
+        public double AreaWidth
+        {
+            get
+            {
+                return _areaWidth;
+            }
+            set
+            {
+                _areaWidth = value;
+                NotifyPropertyChanged("AreaWidth");
+            }
+        }
+
+        private bool _showNames { get; set; }
+        public bool ShowNames
+        {
+            get
+            {
+                return _showNames;
+            }
+            set
+            {
+                _showNames = value;
+                NotifyPropertyChanged("ShowNames");
+            }
+        }
+
+
+        private bool _shownAllCoordinates { get; set; }
+        public bool ShowAllCoordinates
+        {
+            get
+            {
+                return _shownAllCoordinates;
+            }
+            set
+            {
+                _shownAllCoordinates = value;
+                NotifyPropertyChanged("ShowAllCoordinates");
+            }
+        }
+
+        private bool _showCurrentCoordinates { get; set; } = false;
+        public bool ShowCurrentCoordinates
+        {
+            get
+            {
+                return _showCurrentCoordinates;
+            }
+            set
+            {
+                _showCurrentCoordinates = value;
+                NotifyPropertyChanged("ShowCurrentCoordinates");
+            }
+        }
+
+        private bool _showNoCoordinates { get; set; } = false;
+        public bool ShowNoCoordinates
+        {
+            get
+            {
+                return _showNoCoordinates;
+            }
+            set
+            {
+                _showNoCoordinates = value;
+                NotifyPropertyChanged("ShowNoCoordinatesd");
+            }
+        }
     }
 
 }

@@ -31,36 +31,9 @@ namespace Substation_Builder.ViewModel
         public RelayCommand AddCTCommand { get; private set; }
         public RelayCommand AddItemCommand { get; private set; }
         public RelayCommand ResetZoom { get; private set; }
-        public RelayCommand AddBreaker { get; private set; }
-        public RelayCommand RemoveDiagramItem { get; private set; }
 
 
-        OnelineView OLView = new OnelineView();
-
-        private ObservableCollection<Breaker> _breakers = new ObservableCollection<Breaker>();
-        public ObservableCollection<Breaker> Breakers
-        {
-            get { return _breakers; }
-            set
-            {
-                _breakers = value;
-                NotifyPropertyChanged("Breakers");
-            }
-        }
-
-        private object _selectedObject = new object();
-        public object SelectedObject
-        {
-            get
-            {
-                return _selectedObject;
-            }
-            set
-            {
-                _selectedObject = value;
-                NotifyPropertyChanged("SelectedObject");
-            }
-        }
+        public OnelineView OLView = new OnelineView();
 
         public OnelineViewModel(Substation refproject)
           {
@@ -74,32 +47,9 @@ namespace Substation_Builder.ViewModel
             RemoveItemCommand = new RelayCommand(RemoveItem, Can_Remove);
             AddCTCommand = new RelayCommand(AddCT);
             ResetZoom = new RelayCommand(ResetZ);
-            AddBreaker = new RelayCommand(AddBreakerItem);
-            RemoveDiagramItem = new RelayCommand(RemoveDiagram);
-
-            ShowAllCoordinates = true;
-            ShowNames = true;
 
             OLView.DataContext = this;
             OLView.Show();
-        }
-
-        public void AddBreakerItem(object sender)
-        {
-            Breaker breaker = (Breaker)sender;
-
-            if (Breakers.Contains(breaker))
-                return;
-
-            breaker.Visible = true;
-            Breakers.Add(breaker);
-        }
-
-        public void RemoveDiagram(object sender)
-        {
-            if (sender.GetType() == typeof(Breaker))
-                Breakers.Remove((Breaker)sender);
-
         }
 
         #region Context Menu Section
@@ -108,6 +58,8 @@ namespace Substation_Builder.ViewModel
         private void LoadFile(object sender)
         {
             FileIO.FileOpen(Project);
+            OLView.TreeviewExpander.Content = Project.SubData;
+            OLView.TreeviewExpander.Header = Project.SubData.Name;
         }
 
         //Create Blank Project
@@ -125,6 +77,9 @@ namespace Substation_Builder.ViewModel
             };
 
             Project.Replace(substation);
+
+            OLView.TreeviewExpander.Content = Project.SubData;
+            OLView.TreeviewExpander.Header = Project.SubData.Name;
         }
 
         //Serialize the DataModel and save
@@ -137,6 +92,8 @@ namespace Substation_Builder.ViewModel
         public void LoadTemplate(object sender)
         {
             FileIO.LoadTemplate(Project);
+            OLView.TreeviewExpander.Content = Project.SubData;
+            OLView.TreeviewExpander.Header = Project.SubData.Name;
         }
 
         //Add Item in Treeview
@@ -145,7 +102,7 @@ namespace Substation_Builder.ViewModel
 
             if (sender.ToString() == "Thevenin")
             {
-                Thevenin thevenin = new Thevenin { Name = "New Thevenin " + (Project.Thevenins.Count + 1).ToString() };
+                Thevenin thevenin = new Thevenin { Name = "New Thevenin " + (Project.Thevenins.Count + 1).ToString(), IsSelected = false, Visible = "Hidden" };
                 Project.Thevenins.Add(thevenin);
             }
 
@@ -188,19 +145,20 @@ namespace Substation_Builder.ViewModel
 
             if (sender.ToString() == "Breaker")
             {
-                Breaker breaker = new Breaker { Name = "New Breaker " + (Project.Breakers.Count + 1).ToString() };
+                Breaker breaker = new Breaker { Name = "New Breaker " + (Project.Breakers.Count + 1).ToString(), IsSelected = false, Visible = "Hidden" };
                 Project.Breakers.Add(breaker);
+
             }
 
             if (sender.ToString() == "Relay")
             {
-                Relay relay = new Relay { Name = "New Relay " + (Project.Relays.Count + 1).ToString() };
+                Relay relay = new Relay { Name = "New Relay " + (Project.Relays.Count + 1).ToString(), IsSelected = false, Visible = "Hidden" };
                 Project.Relays.Add(relay);
             }
 
             if (sender.ToString() == "Transformer")
             {
-                Transformer transformer = new Transformer { Name = "New Transformer " + (Project.Transformers.Count + 1).ToString() };
+                Transformer transformer = new Transformer { Name = "New Transformer " + (Project.Transformers.Count + 1).ToString(), IsSelected = false, Visible = "Hidden" };
                 Project.Transformers.Add(transformer);
             }
         }
@@ -328,94 +286,14 @@ namespace Substation_Builder.ViewModel
 
         #endregion
 
-        #region Bool (Visibility) Options
-
-        private bool _showNames;
-        public bool ShowNames
-        {
-            get { return _showNames; }
-            set
-            {
-                _showNames = value;
-                NotifyPropertyChanged("ShowNames");
-            }
-        }
-
-        private bool _showCurrentCoordinates;
-        public bool ShowCurrentCoordinates
-        {
-            get { return _showCurrentCoordinates; }
-            set
-            {
-                _showCurrentCoordinates = value;
-                NotifyPropertyChanged("ShowCurrentCoordinates");
-            }
-        }
-
-        private bool _showAllCoordinates;
-        public bool ShowAllCoordinates
-        {
-            get { return _showAllCoordinates; }
-            set
-            {
-                _showAllCoordinates = value;
-                NotifyPropertyChanged("ShowAllCoordinates");
-            }
-        }
-
-        #endregion
-
         #region Scrolling support
 
         public void ResetZ(object sender)
         {
-            ZoomLevel = 1;
+            Project.OnelinePref.ZoomLevel = 1;
         }
 
-        private double _zoomLevel = 1;
-        public double ZoomLevel
-        {
-            get { return _zoomLevel; }
-            set
-            {
-                _zoomLevel = value;
-                ZoomLevelPercent = (value * 100).ToString() + "%";
-                NotifyPropertyChanged("ZoomLevel");
-            }
-        }
 
-        private string _zoomLevelPercent = "100%";
-        public string ZoomLevelPercent
-        {
-            get { return _zoomLevelPercent; }
-            set
-            {
-                _zoomLevelPercent = value;
-                NotifyPropertyChanged("ZoomLevelPercent");
-            }
-        }
-
-        private double _areaHeight = 600;
-        public double AreaHeight
-        {
-            get { return _areaHeight; }
-            set
-            {
-                _areaHeight = value;
-                NotifyPropertyChanged("AreaHeight");
-            }
-        }
-
-        private double _areaWidth = 600;
-        public double AreaWidth
-        {
-            get { return _areaWidth; }
-            set
-            {
-                _areaWidth = value;
-                NotifyPropertyChanged("AreaWidth");
-            }
-        }
 
         #endregion
     }

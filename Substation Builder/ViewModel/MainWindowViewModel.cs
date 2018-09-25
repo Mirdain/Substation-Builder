@@ -33,7 +33,8 @@ namespace Substation_Builder.ViewModel
                 {
                     Name = "(Not Set)",
                     Monster = monster.MonsterName()
-                }
+                },
+                OnelinePref = new OnelinePreferences()
             };
 
             OnelineViewOpenCommand = new RelayCommand(OnelineViewOpen, Can_Open_OnelineView);

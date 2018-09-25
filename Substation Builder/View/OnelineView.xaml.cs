@@ -34,6 +34,7 @@ namespace Substation_Builder.View
         //used to jump to correct treenode and then open contextmenu screen
         private void Oneline_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
+
             TreeViewItem treeViewItem = VisualUpwardSearch(e.OriginalSource as DependencyObject);
 
             if (treeViewItem != null)
@@ -117,7 +118,7 @@ namespace Substation_Builder.View
             {
                 TreeViewItem SelectedItem = (TreeViewItem)TVSelectedItem;
 
-                if (SelectedItem.Name == "Subdata")
+                if (SelectedItem.Name == "SubData")
                 {
                     TreeviewExpander.Content = ((OnelineViewModel)SelectedItem.DataContext).Project.SubData;
                     TreeviewExpander.Header = ((OnelineViewModel)SelectedItem.DataContext).Project.SubData.Name;
@@ -172,26 +173,7 @@ namespace Substation_Builder.View
         {
             if (e.Data.GetDataPresent(DataFormats.Serializable))
             {
-
-                object item = e.Data.GetData(DataFormats.Serializable);
-
-                if (item.GetType() == typeof(Relay))
-                {
-                    Relay relay = (Relay)item;
-                }
-                else if (item.GetType() == typeof(Breaker))
-                {
-                    Breaker breaker = (Breaker)item;
-
-                    var point = e.GetPosition(this.ListBoxUI);
-
-                    breaker.X = point.X - 20;
-                    breaker.Y = point.Y + 10;
-
-                    var viewModel = (OnelineViewModel)DataContext;
-                    if (viewModel.AddBreaker.CanExecute(null))
-                        viewModel.AddBreaker.Execute(breaker);
-                }
+                e.Effects = DragDropEffects.Copy;
             }
             else
             {
@@ -220,24 +202,14 @@ namespace Substation_Builder.View
             {
                 Breaker breaker = (Breaker)item;
 
-                var viewModel = (OnelineViewModel)DataContext;
-                if (viewModel.AddBreaker.CanExecute(null))
-                    viewModel.AddBreaker.Execute(breaker);
-
+                if (breaker.X == 0 && breaker.Y == 0)
+                {
+                    var point = e.GetPosition(this.ListBoxUI);
+                    breaker.X = point.X - 20;
+                    breaker.Y = point.Y + 10;
+                }
+                breaker.Visible = "Visible";
             }
-            else if (item.GetType() == typeof(Thevenin))
-            {
-                Thevenin thevenin = (Thevenin)item;
-            }
-            else if (item.GetType() == typeof(Transformer))
-            {
-                Transformer transformer = (Transformer)item;
-            }
-            else
-            {
-
-            }
-
         }
 
         //Move the item
@@ -260,17 +232,6 @@ namespace Substation_Builder.View
 
         }
 
-        private void ListBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (sender.GetType() == typeof(Breaker))
-            {
-                Breaker breaker = (Breaker)sender;
-
-                //Add section for context menu screen
-
-            }
-        }
-
         //Used to un-highlight a item
         private void ListBoxUI_LostFocus(object sender, RoutedEventArgs e)
         {
@@ -288,11 +249,41 @@ namespace Substation_Builder.View
 
         private void ListBoxUI_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (sender.GetType() == typeof(Breaker))
-            {
-                Breaker breaker = (Breaker)sender;
-                breaker.IsSelected = true;
-            }
+            ListBoxUI.SelectedItem = null;
         }
+
+        private void ListBoxUI_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            object item = e.OriginalSource;
+
+            if (item.GetType() == typeof(System.Windows.Shapes.Rectangle))
+            {
+                if (((FrameworkElement)item).DataContext.GetType() == typeof(Breaker))
+                {
+                    Breaker breaker = (Breaker)((FrameworkElement)item).DataContext;
+
+                    ListBoxUI.SelectedItem = breaker;
+
+                }
+
+            }
+
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            object item = ((FrameworkElement)sender).DataContext;
+
+            if (item.GetType() == typeof(Breaker))
+            {
+                Breaker breaker = (Breaker)item;
+
+                breaker.Visible = "Hidden";
+
+            }
+
+        }
+
+
     }
 }
