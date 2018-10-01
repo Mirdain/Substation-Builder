@@ -5,19 +5,6 @@ namespace Substation_Builder.Model
 {
     public class DiagramObject : ObservableObject
     {
-        private bool _isSelected { get; set; }
-        public bool IsSelected
-        {
-            get
-            {
-                return _isSelected;
-            }
-            set
-            {
-                _isSelected = value;
-                NotifyPropertyChanged("IsSelected");
-            }
-        }
 
         private string _visible { get; set; }
         public string Visible
@@ -33,6 +20,7 @@ namespace Substation_Builder.Model
             }
         }
 
+        
         private double _x { get; set; }
         public double X
         {

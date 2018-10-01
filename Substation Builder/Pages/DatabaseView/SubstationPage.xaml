@@ -94,9 +94,9 @@
         </DockPanel>
 
         <StackPanel Margin="0,5,0,0">
-            <TextBox FontFamily="pack://application:,,,/Resources/Icons/#Exocet" Background="{x:Null}" Text="{Binding Monster[0], UpdateSourceTrigger=PropertyChanged}" 
+            <Label FontFamily="pack://application:,,,/Resources/Icons/#Exocet" Background="{x:Null}" Content="{Binding Monster[0], UpdateSourceTrigger=PropertyChanged}" 
                          HorizontalContentAlignment="Stretch" Width="Auto" BorderBrush="{x:Null}" FontSize="16" Margin="0" HorizontalAlignment="Center"/>
-            <TextBox FontFamily="pack://application:,,,/Resources/Icons/#Exocet" Background="{x:Null}" Text="{Binding Monster[1], UpdateSourceTrigger=PropertyChanged}" 
+            <Label FontFamily="pack://application:,,,/Resources/Icons/#Exocet" Background="{x:Null}" Content="{Binding Monster[1], UpdateSourceTrigger=PropertyChanged}" 
                          HorizontalContentAlignment="Stretch" Width="Auto" BorderBrush="{x:Null}" FontSize="16" HorizontalAlignment="Center" Margin="0,0,0,5"/>
         </StackPanel>
     </StackPanel>

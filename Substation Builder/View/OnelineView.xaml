@@ -116,7 +116,7 @@
             <StackPanel Margin="10" Background="Black">
 
                 <!-- Treeview Expander -->
-                <Expander Header="Substation" IsExpanded="True">
+                <Expander Header="Substation" IsExpanded="True" PreviewMouseLeftButtonDown="Expander_PreviewMouseLeftButtonDown">
 
                     <TreeView x:Name="OnelineTreeview" PreviewMouseRightButtonDown="Oneline_PreviewMouseRightButtonDown"
                               VerticalContentAlignment="Top" HorizontalContentAlignment="Left" x:FieldModifier="public" Background="{x:Null}"
@@ -204,6 +204,7 @@
                     </Expander.Resources>
                 </Expander>
 
+                <!-- Displays the Options Form -->
                 <Expander Header="Options">
                     <local1:ParametersEditor x:Name="parametersEditor"/>
                 </Expander>
@@ -228,7 +229,8 @@
 
                     <!-- This is the DataTemplate that will be used to render the Breaker class -->
                     <DataTemplate DataType="{x:Type local2:Breaker}">
-                        <Thumb DragDelta="Thumb_Drag" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ContextMenu="{Binding Mode=OneWay, Source={StaticResource RemoveDiagram}}" Visibility="{Binding Visible}">
+                        <Thumb DragDelta="Thumb_Drag" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                               ContextMenu="{Binding Mode=OneWay, Source={StaticResource RemoveDiagram}}" Visibility="{Binding Visible}" PreviewMouseLeftButtonDown="Thumb_PreviewMouseLeftButtonDown">
                             <Thumb.Template>
                                 <ControlTemplate TargetType="Thumb">
 
@@ -237,14 +239,15 @@
 
                                         <!-- visual of the breaker -->
                                         <Grid>
-                                            <Rectangle x:Name="Breaker" Height="40" Width="40" Stroke="Black" StrokeThickness="1" Fill="Red" Stretch="Uniform" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" OpacityMask="Black" />
-                                            <TextBlock x:Name="BreakerTxt" TextAlignment="Center" Text="{Binding Breaker_Position}" FontWeight="Bold" IsHitTestVisible="False" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" Visibility="Collapsed"/>
+                                            <Ellipse Width="15" Height="15" Fill="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" Stroke="{x:Null}"></Ellipse>
+                                            <Rectangle x:Name="Breaker" Height="40" Width="40" Stroke="Black" StrokeThickness="1" Fill="Red" Stretch="Uniform" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" OpacityMask="Black"/>
+                                            <TextBlock x:Name="BreakerTxt" TextAlignment="Center" Text="{Binding Breaker_Position}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" Visibility="Collapsed"/>
                                         </Grid>
 
                                         <!-- Display Coordinates for the item -->
                                         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0">
-                                            <TextBlock x:Name="XText" Text="{Binding X, StringFormat='{}X = {0}'}" IsHitTestVisible="False" Visibility="Collapsed"  HorizontalAlignment="Left"/>
-                                            <TextBlock x:Name="YText" Text="{Binding Y, StringFormat='{}Y = {0}'}" IsHitTestVisible="False" Visibility="Collapsed"  HorizontalAlignment="Left"/>
+                                            <TextBlock x:Name="XText" Text="{Binding X, StringFormat='{}X = {0}'}" IsHitTestVisible="False" HorizontalAlignment="Left" Visibility="Collapsed"/>
+                                            <TextBlock x:Name="YText" Text="{Binding Y, StringFormat='{}Y = {0}'}" IsHitTestVisible="False" HorizontalAlignment="Left" Visibility="Collapsed"/>
                                         </StackPanel>
 
                                     </DockPanel>
@@ -272,32 +275,38 @@
                                             <Setter TargetName="Breaker" Property="StrokeThickness" Value="2"/>
                                         </Trigger>
 
-                                        <!-- Hide/Show the name on item -->
-                                        <DataTrigger Binding="{Binding DataContext.Project.OnelinePref.ShowNames, ElementName=ListBoxUI}" Value="True">
+                                        <!-- Show all names on displays -->
+                                        <DataTrigger Binding="{Binding DataContext.Project.OnelinePref.ShowAllNames, ElementName=view}" Value="True">
                                             <Setter TargetName="BreakerTxt" Property="Visibility" Value="Visible"/>
                                         </DataTrigger>
 
-                                        <!-- Hide/Show all grid displays -->
-                                        <DataTrigger Binding="{Binding DataContext.Project.OnelinePref.ShowAllCoordinates, ElementName=ListBoxUI}" Value="True">
-                                            <Setter TargetName="XText" Property="Visibility" Value="Visible"/>
-                                            <Setter TargetName="YText" Property="Visibility" Value="Visible"/>
-                                        </DataTrigger>
-
-                                        <!--When selected for a connector -->
-                                        <DataTrigger Binding="{Binding SelectedItem, ElementName=ListBoxUI}" Value="True">
-                                            <Setter TargetName="Breaker" Property="StrokeThickness" Value="2"/>
-                                            <Setter TargetName="Breaker" Property="Stroke" Value="Red"/>
-                                            <Setter TargetName="Breaker" Property="Fill" Value="White"/>
-                                        </DataTrigger>
-
-                                        <!-- Other end when connector is being placed -->
+                                        <!-- Show selected name on display -->
                                         <MultiDataTrigger>
                                             <MultiDataTrigger.Conditions>
                                                 <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="True"/>
-                                                <Condition Binding="{Binding Project.OnelinePref.ShowCurrentCoordinates}" Value="True"/>
+                                                <Condition Binding="{Binding DataContext.Project.OnelinePref.ShowCurrentNames, ElementName=view}" Value="True"/>
                                             </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter TargetName="BreakerTxt" Property="Visibility" Value="Visible"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+
+                                        <!-- Show all grid coordinates on display -->
+                                        <DataTrigger Binding="{Binding DataContext.Project.OnelinePref.ShowAllCoordinates, ElementName=view}" Value="True">
                                             <Setter TargetName="XText" Property="Visibility" Value="Visible"/>
                                             <Setter TargetName="YText" Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+
+                                        <!-- Show selected grid coordinates on display -->
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="True"/>
+                                                <Condition Binding="{Binding DataContext.Project.OnelinePref.ShowCurrentCoordinates, ElementName=view}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter TargetName="XText" Property="Visibility" Value="Visible"/>
+                                                <Setter TargetName="YText" Property="Visibility" Value="Visible"/>
+                                            </MultiDataTrigger.Setters>
                                         </MultiDataTrigger>
 
                                     </ControlTemplate.Triggers>
@@ -311,14 +320,11 @@
 
                 <ListBox 
                     x:Name="ListBoxUI"
-                    PreviewMouseMove="ListBox_PreviewMouseMove"
                     DragOver="ListBoxUI_DragOver" 
                     Drop="ListBoxUI_Drop"
-                    LostFocus="ListBoxUI_LostFocus"
-                    MouseLeftButtonDown="ListBoxUI_MouseLeftButtonDown"
-                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                    MouseDoubleClick="ListBoxUI_MouseDoubleClick">
+                    HorizontalAlignment="Center" VerticalAlignment="Center" PreviewMouseLeftButtonDown="ListBoxUI_PreviewMouseLeftButtonDown">
 
+                    <!-- Zooms in and out of the canvas -->
                     <ListBox.LayoutTransform>
                         <ScaleTransform CenterX="0" CenterY="0" ScaleX="{Binding Project.OnelinePref.ZoomLevel}" ScaleY="{Binding Project.OnelinePref.ZoomLevel}"/>
                     </ListBox.LayoutTransform>
@@ -341,7 +347,7 @@
                                     </LinearGradientBrush>
                                 </Border.Background>
 
-                                <!-- This Border serves as a background and the VisualBrush used to paint its background serves as the "Snapping Grid" -->
+                                <!-- This Border serves as a background grid -->
                                 <!-- The "Snapping" Actually occurs in the Items classes, it has nothing to do with any UI Elements -->
                                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                                     <Border>
@@ -360,11 +366,10 @@
                         </ControlTemplate>
                     </ListBox.Template>
 
+                     <!-- Sized the Display canvas-->
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <Canvas IsItemsHost="True" Background="#01FFFFFF" 
-                                Height="{Binding Project.OnelinePref.AreaHeight}" Width="{Binding Project.OnelinePref.AreaWidth}"
-                                VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                            <Canvas IsItemsHost="True" Background="#01FFFFFF" Height="{Binding Project.OnelinePref.AreaHeight}" Width="{Binding Project.OnelinePref.AreaWidth}" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
                     
@@ -386,10 +391,6 @@
                                                     </Setter.Value>
                                                 </Setter>
                                             </Trigger>
-                                            
-                                            <DataTrigger Binding="{Binding IsNew}" Value="True">
-                                                <Setter Property="Opacity" Value=".5"/>
-                                            </DataTrigger>
                                             
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>

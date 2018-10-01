@@ -25,14 +25,13 @@ namespace Substation_Builder.ViewModel
 
         public MainWindowViewModel()
         {
-            Monster monster = new Monster();
 
             Project = new Substation
             {
                 SubData = new SubstationData
                 {
                     Name = "(Not Set)",
-                    Monster = monster.MonsterName()
+                    Monster = Monster.MonsterName()
                 },
                 OnelinePref = new OnelinePreferences()
             };

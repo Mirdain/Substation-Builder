@@ -226,50 +226,7 @@ namespace Substation_Builder.View
             Breaker.Y += e.VerticalChange;
         }
 
-        private void ListBox_PreviewMouseMove(object sender, MouseEventArgs e)
-        {
-
-
-        }
-
-        //Used to un-highlight a item
-        private void ListBoxUI_LostFocus(object sender, RoutedEventArgs e)
-        {
-            var item = ListBoxUI.SelectedItem;
-
-            if (item != null)
-            {
-                if (item.GetType() == typeof(Breaker))
-                {
-                    Breaker breaker = (Breaker)item;
-                    breaker.IsSelected = false;
-                }
-            }
-        }
-
-        private void ListBoxUI_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            ListBoxUI.SelectedItem = null;
-        }
-
-        private void ListBoxUI_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            object item = e.OriginalSource;
-
-            if (item.GetType() == typeof(System.Windows.Shapes.Rectangle))
-            {
-                if (((FrameworkElement)item).DataContext.GetType() == typeof(Breaker))
-                {
-                    Breaker breaker = (Breaker)((FrameworkElement)item).DataContext;
-
-                    ListBoxUI.SelectedItem = breaker;
-
-                }
-
-            }
-
-        }
-
+        //Remove item from UI (MenuItem is context menu screen)
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             object item = ((FrameworkElement)sender).DataContext;
@@ -279,11 +236,30 @@ namespace Substation_Builder.View
                 Breaker breaker = (Breaker)item;
 
                 breaker.Visible = "Hidden";
+            }
+        }
 
+        //Used to select an object
+        private void Thumb_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            object item = e.OriginalSource;
+
+            if (((FrameworkElement)item).DataContext.GetType() == typeof(Breaker))
+            {
+                Breaker breaker = (Breaker)((FrameworkElement)item).DataContext;
+                ListBoxUI.SelectedItem = breaker;
             }
 
         }
 
+        private void ListBoxUI_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ListBoxUI.SelectedItem = null;
+        }
 
+        private void Expander_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ListBoxUI.SelectedItem = null;
+        }
     }
 }

@@ -3,9 +3,10 @@ using System.Linq;
 
 namespace Substation_Builder.Resources.Monster
 {
-    public class Monster
+    static public class Monster
     {
-        public string[] Prefix = new string[] {
+        static string[] Prefix = 
+        {
         "Gloom",
         "Gray",
         "Dire",
@@ -61,7 +62,8 @@ namespace Substation_Builder.Resources.Monster
         "Devil",
         };
 
-        public string[] Suffix = new string[] {
+        static string[] Suffix = 
+        {
         "Touch",
         "Spell",
         "Feast",
@@ -133,7 +135,8 @@ namespace Substation_Builder.Resources.Monster
         "Lust",
         };
 
-        public string[] Appelation = new string[] {
+        static string[] Appelation = 
+        {
         "the Hammer",
         "the Axe",
         "the Sharp",
@@ -176,7 +179,7 @@ namespace Substation_Builder.Resources.Monster
         // Example
 
         //Snot, thirst, the Unclean, - ,Champion, of Engineers
-        public string[] Level = new string[] 
+        static string[] Level = 
         {
         "Ruler",
         "Leader",
@@ -191,24 +194,23 @@ namespace Substation_Builder.Resources.Monster
         "Savior",
         };
 
-        public string[] MonsterName()
+        public static string[] MonsterName()
         {
             string MonsterLong = null;
             string MonsterFirst = null;
             string MonsterLast = null;
             string[] Monster = new string[3];
 
-            Monster monster = new Monster();
             Random rnd = new Random();
-            int prefixid = rnd.Next(0, monster.Prefix.Count());
-            int suffixid = rnd.Next(0, monster.Suffix.Count());
-            int appelation = rnd.Next(0, monster.Appelation.Count());
-            int level = rnd.Next(0, monster.Level.Count());
+            int prefixid = rnd.Next(0, Prefix.Count());
+            int suffixid = rnd.Next(0, Suffix.Count());
+            int appelation = rnd.Next(0, Appelation.Count());
+            int level = rnd.Next(0, Level.Count());
 
-            MonsterLong = monster.Prefix[prefixid] + " " + monster.Suffix[suffixid] + " " + monster.Appelation[appelation] + " - " + monster.Level[level] + " of Engineers";
+            MonsterLong = Prefix[prefixid] + " " + Suffix[suffixid] + " " + Appelation[appelation] + " - " + Level[level] + " of Engineers";
 
-            MonsterFirst = monster.Prefix[prefixid] + " " + monster.Suffix[suffixid] + " " + monster.Appelation[appelation];
-            MonsterLast = monster.Level[level] + " of Engineers";
+            MonsterFirst = Prefix[prefixid] + " " + Suffix[suffixid] + " " + Appelation[appelation];
+            MonsterLast = Level[level] + " of Engineers";
 
             Monster[0] = MonsterFirst.ToUpper();
             Monster[1] = MonsterLast.ToUpper();
@@ -218,5 +220,4 @@ namespace Substation_Builder.Resources.Monster
         }
 
     }
-    
 }

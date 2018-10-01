@@ -90,11 +90,21 @@
         </DockPanel>
 
         <StackPanel Grid.Row="4" Grid.ColumnSpan="2">
-            <CheckBox IsChecked="{Binding Project.OnelinePref.ShowNames, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="Show Names" HorizontalAlignment="Left" Margin="5" FontSize="16" Padding="6,5,0,0"/>
-            <TextBlock Margin="5" Text="Show Coordinates:" FontSize="16"/>
-            <RadioButton Margin="5" IsChecked="{Binding Project.OnelinePref.ShowAllCoordinates, UpdateSourceTrigger=PropertyChanged}" Content="All Nodes"/>
-            <RadioButton Margin="5" IsChecked="{Binding Project.OnelinePref.ShowCurrentCoordinates, UpdateSourceTrigger=PropertyChanged}" Content="Selected Node"/>
-            <RadioButton Margin="5" IsChecked="{Binding Project.OnelinePref.ShowNoCoordinates, UpdateSourceTrigger=PropertyChanged}" Content="None"/>
+            
+            <StackPanel>
+                <TextBlock Margin="5" Text="Show Names:" FontSize="16"/>
+                <RadioButton Margin="5" IsChecked="{Binding Project.OnelinePref.ShowAllNames, UpdateSourceTrigger=PropertyChanged}" Content="All Items"/>
+                <RadioButton Margin="5" IsChecked="{Binding Project.OnelinePref.ShowCurrentNames, UpdateSourceTrigger=PropertyChanged}" Content="Selected Item"/>
+                <RadioButton Margin="5" IsChecked="{Binding Project.OnelinePref.ShowNoNames, UpdateSourceTrigger=PropertyChanged}" Content="None"/>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Margin="5" Text="Show Coordinates:" FontSize="16"/>
+                <RadioButton Margin="5" IsChecked="{Binding Project.OnelinePref.ShowAllCoordinates, UpdateSourceTrigger=PropertyChanged}" Content="All Items"/>
+                <RadioButton Margin="5" IsChecked="{Binding Project.OnelinePref.ShowCurrentCoordinates, UpdateSourceTrigger=PropertyChanged}" Content="Selected Item"/>
+                <RadioButton Margin="5" IsChecked="{Binding Project.OnelinePref.ShowNoCoordinates, UpdateSourceTrigger=PropertyChanged}" Content="None"/>
+            </StackPanel>
+            
         </StackPanel>
 
     </StackPanel>

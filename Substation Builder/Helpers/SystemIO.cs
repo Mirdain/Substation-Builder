@@ -49,13 +49,12 @@ namespace Substation_Builder.Services
         //Loads a Template File
         public void LoadTemplate(Substation RefProject)
         {
-            Monster monster = new Monster();
 
             Substation Project = new Substation();
             SubstationData Data = new SubstationData
             {
                 Name = "Squash Bend Template",
-                Monster = monster.MonsterName()
+                Monster = Monster.MonsterName()
             };
             OnelinePreferences onelinePreferences = new OnelinePreferences();
 
@@ -170,6 +169,7 @@ namespace Substation_Builder.Services
             };
 
             HighSide.CTs.Add(BRK3CT);
+            
             HighSide.CTs.Add(BRK1CT);
             HighSide.CTs.Add(BRK1CT);
 
@@ -184,6 +184,7 @@ namespace Substation_Builder.Services
 
             Relay FirstRelay = new Relay
             {
+
                 Name = "Xfmr Diff",
                 Type = RelayType.SEL_387,
             };

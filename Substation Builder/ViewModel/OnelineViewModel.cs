@@ -65,14 +65,12 @@ namespace Substation_Builder.ViewModel
         //Create Blank Project
         private void NewProject(object sender)
         {
-            Monster monster = new Monster();
-
             Substation substation = new Substation
             {
                 SubData = new SubstationData
                 {
                     Name = "New Project",
-                    Monster = monster.MonsterName()
+                    Monster = Monster.MonsterName()
                 }
             };
 
@@ -102,7 +100,7 @@ namespace Substation_Builder.ViewModel
 
             if (sender.ToString() == "Thevenin")
             {
-                Thevenin thevenin = new Thevenin { Name = "New Thevenin " + (Project.Thevenins.Count + 1).ToString(), IsSelected = false, Visible = "Hidden" };
+                Thevenin thevenin = new Thevenin { Name = "New Thevenin " + (Project.Thevenins.Count + 1).ToString(), Visible = "Hidden" };
                 Project.Thevenins.Add(thevenin);
             }
 
@@ -112,14 +110,12 @@ namespace Substation_Builder.ViewModel
 
                 if (messageBoxResult == MessageBoxResult.No)
                 {
-                    Monster monster = new Monster();
-
                     Project = new Substation
                     {
                         SubData = new SubstationData
                         {
                             Name = "New Project",
-                            Monster = monster.MonsterName()
+                            Monster = Monster.MonsterName()
                         }
     
                     };
@@ -129,14 +125,12 @@ namespace Substation_Builder.ViewModel
                 {
                     SaveFile(sender);
 
-                    Monster monster = new Monster();
-
                     Project = new Substation
                     {
                         SubData = new SubstationData
                         {
                             Name = "New Project",
-                            Monster = monster.MonsterName()
+                            Monster = Monster.MonsterName()
                         }
 
                     };
@@ -145,20 +139,20 @@ namespace Substation_Builder.ViewModel
 
             if (sender.ToString() == "Breaker")
             {
-                Breaker breaker = new Breaker { Name = "New Breaker " + (Project.Breakers.Count + 1).ToString(), IsSelected = false, Visible = "Hidden" };
+                Breaker breaker = new Breaker { Name = "New Breaker " + (Project.Breakers.Count + 1).ToString(), Visible = "Hidden" };
                 Project.Breakers.Add(breaker);
 
             }
 
             if (sender.ToString() == "Relay")
             {
-                Relay relay = new Relay { Name = "New Relay " + (Project.Relays.Count + 1).ToString(), IsSelected = false, Visible = "Hidden" };
+                Relay relay = new Relay { Name = "New Relay " + (Project.Relays.Count + 1).ToString(), Visible = "Hidden" };
                 Project.Relays.Add(relay);
             }
 
             if (sender.ToString() == "Transformer")
             {
-                Transformer transformer = new Transformer { Name = "New Transformer " + (Project.Transformers.Count + 1).ToString(), IsSelected = false, Visible = "Hidden" };
+                Transformer transformer = new Transformer { Name = "New Transformer " + (Project.Transformers.Count + 1).ToString(), Visible = "Hidden" };
                 Project.Transformers.Add(transformer);
             }
         }

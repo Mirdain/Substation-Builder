@@ -211,6 +211,7 @@ namespace Substation_Builder.Model
     public class Breaker : DiagramObject
     {
         public ObservableCollection<CT> CTs { get; set; } = new ObservableCollection<CT>();
+
         private string _name { get; set; }
         public string Name
         {
@@ -222,9 +223,6 @@ namespace Substation_Builder.Model
                 NotifyPropertyChanged("Name");
             }
         }
-        public string Description { get; set; }
-        public BreakerSize Breaker_Size { get; set; }
-        public Bus Bus { get; set; }
 
         private BreakerPosition _breaker_Position { get; set; }
         public BreakerPosition Breaker_Position
@@ -240,6 +238,9 @@ namespace Substation_Builder.Model
             }
         }
 
+        public string Description { get; set; }
+        public BreakerSize Breaker_Size { get; set; }
+        public Bus Bus { get; set; }
         public Voltage Voltage { get; set; }
         public BreakerType Breaker_Type { get; set; }
         public BrkManufacture BrkMan { get; set; }
@@ -347,22 +348,49 @@ namespace Substation_Builder.Model
             }
         }
 
-        private bool _showNames { get; set; }
-        public bool ShowNames
+        private bool _showAllNames { get; set; } = true;
+        public bool ShowAllNames
         {
             get
             {
-                return _showNames;
+                return _showAllNames;
             }
             set
             {
-                _showNames = value;
-                NotifyPropertyChanged("ShowNames");
+                _showAllNames = value;
+                NotifyPropertyChanged("ShowAllNames");
             }
         }
 
+        private bool _showCurrentNames { get; set; } = false;
+        public bool ShowCurrentNames
+        {
+            get
+            {
+                return _showCurrentNames;
+            }
+            set
+            {
+                _showCurrentNames = value;
+                NotifyPropertyChanged("ShowCurrentNames");
+            }
+        }
 
-        private bool _shownAllCoordinates { get; set; }
+        private bool _showNoNames { get; set; } = false;
+        public bool ShowNoNames
+        {
+            get
+            {
+                return _showNoNames;
+            }
+            set
+            {
+                _showNoNames = value;
+                NotifyPropertyChanged("ShowNoNames");
+            }
+        }
+
+        private bool _shownAllCoordinates { get; set; } = true;
         public bool ShowAllCoordinates
         {
             get
