@@ -6,7 +6,7 @@ namespace Substation_Builder.Model
     public class DiagramObject : ObservableObject
     {
 
-        private string _visible { get; set; }
+        private string _visible { get; set; } = "Hidden";
         public string Visible
         {
             get
@@ -20,7 +20,6 @@ namespace Substation_Builder.Model
             }
         }
 
-        
         private double _x { get; set; }
         public double X
         {

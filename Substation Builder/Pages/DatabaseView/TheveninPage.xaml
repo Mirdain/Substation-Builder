@@ -108,6 +108,14 @@
             <TextBox Text="{Binding X0_Ohms, StringFormat=\{0:F5\}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsChecked, ElementName=UseOhm}"/>
         </DockPanel>
 
+        <DockPanel>
+            <Label Content="Position:"/>
+            <Label Content="X:" Width="25" Margin="0,0,5,5"/>
+            <TextBox Text="{Binding X, StringFormat=\{0:F0\}, UpdateSourceTrigger=PropertyChanged}" Width="54"/>
+            <Label Content="Y:" Width="25" Margin="0,0,5,5"/>
+            <TextBox Text="{Binding Y, StringFormat=\{0:F0\}, UpdateSourceTrigger=PropertyChanged}" Width="54"/>
+        </DockPanel>
+
     </StackPanel>
 
 </UserControl>

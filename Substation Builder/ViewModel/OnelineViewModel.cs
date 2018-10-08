@@ -31,8 +31,7 @@ namespace Substation_Builder.ViewModel
         public RelayCommand AddCTCommand { get; private set; }
         public RelayCommand AddItemCommand { get; private set; }
         public RelayCommand ResetZoom { get; private set; }
-
-
+  
         public OnelineView OLView = new OnelineView();
 
         public OnelineViewModel(Substation refproject)
@@ -52,7 +51,7 @@ namespace Substation_Builder.ViewModel
             OLView.Show();
         }
 
-        #region Context Menu Section
+        #region File Context Menu Section
 
         //read a .xaml file and load into the Datamodel classes
         private void LoadFile(object sender)
@@ -71,8 +70,10 @@ namespace Substation_Builder.ViewModel
                 {
                     Name = "New Project",
                     Monster = Monster.MonsterName()
-                }
+                },
+                OnelinePref = new OnelinePreferences()
             };
+
 
             Project.Replace(substation);
 
@@ -152,6 +153,7 @@ namespace Substation_Builder.ViewModel
 
             if (sender.ToString() == "Transformer")
             {
+
                 Transformer transformer = new Transformer { Name = "New Transformer " + (Project.Transformers.Count + 1).ToString(), Visible = "Hidden" };
                 Project.Transformers.Add(transformer);
             }
@@ -163,6 +165,7 @@ namespace Substation_Builder.ViewModel
             if (sender != null)
             {
                 if (sender.GetType() == typeof(Breaker))
+
                 {
                     int index = Project.Breakers.IndexOf(sender as Breaker);
                     CT ct = new CT { Name = "CT" + (Project.Breakers[index].CTs.Count + 1).ToString() };
@@ -286,9 +289,6 @@ namespace Substation_Builder.ViewModel
         {
             Project.OnelinePref.ZoomLevel = 1;
         }
-
-
-
         #endregion
     }
 

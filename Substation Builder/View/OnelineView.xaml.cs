@@ -4,6 +4,7 @@ using Substation_Builder.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -45,92 +46,106 @@ namespace Substation_Builder.View
 
             object TVItem = OnelineTreeview.SelectedItem;
 
-            if (TVItem.GetType() == typeof(Thevenin))
+            if (TVItem != null)
             {
-                treeViewItem.ContextMenu = (ContextMenu) OnelineTreeview.TryFindResource("TheveninItemContext");
-            }
-            else if (TVItem.GetType() == typeof(Transformer))
-            {
-                treeViewItem.ContextMenu = (ContextMenu) OnelineTreeview.TryFindResource("XFMRContext");
-            }
-            else if (TVItem.GetType() == typeof(Breaker))
-            {
-                treeViewItem.ContextMenu = (ContextMenu) OnelineTreeview.TryFindResource("BreakerContext");
-            }
-            else if (TVItem.GetType() == typeof(Relay))
-            {
-                treeViewItem.ContextMenu = (ContextMenu) OnelineTreeview.TryFindResource("RelayItemContext");
-            }
-            else if (TVItem.GetType() == typeof(CT))
-            {
-                treeViewItem.ContextMenu = (ContextMenu) OnelineTreeview.TryFindResource("CTItemContext");
-            }
-            else if (TVItem.GetType() == typeof(TreeViewItem))
-            {
+                if (TVItem.GetType() == typeof(Thevenin))
+                {
+                    treeViewItem.ContextMenu = (ContextMenu)OnelineTreeview.TryFindResource("TheveninItemContext");
+                }
+                else if (TVItem.GetType() == typeof(Transformer))
+                {
+                    treeViewItem.ContextMenu = (ContextMenu)OnelineTreeview.TryFindResource("XFMRContext");
+                }
+                else if (TVItem.GetType() == typeof(Breaker))
+                {
+                    treeViewItem.ContextMenu = (ContextMenu)OnelineTreeview.TryFindResource("BreakerContext");
+                }
+                else if (TVItem.GetType() == typeof(Relay))
+                {
+                    treeViewItem.ContextMenu = (ContextMenu)OnelineTreeview.TryFindResource("RelayItemContext");
+                }
+                else if (TVItem.GetType() == typeof(CT))
+                {
+                    treeViewItem.ContextMenu = (ContextMenu)OnelineTreeview.TryFindResource("CTItemContext");
+                }
+                else if (TVItem.GetType() == typeof(TreeViewItem))
+                {
 
-
+                }
             }
         }
 
         //Set Data Context properly for Expander from Treeview
         private void OnelineTreeview_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
+            UpdateExpander();
+        }
+
+        private void OnelineTreeview_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            UpdateExpander();
+        }
+
+        private void UpdateExpander()
+        {
             object TVSelectedItem = OnelineTreeview.SelectedItem;
 
-            if (TVSelectedItem.GetType() != typeof(TreeViewItem))
+            if (TVSelectedItem != null)
             {
-                if (TVSelectedItem.GetType() == typeof(Thevenin))
+                if (TVSelectedItem.GetType() != typeof(TreeViewItem))
                 {
-                    Thevenin thevenin = (Thevenin)TVSelectedItem;
-                    TreeviewExpander.Content = TVSelectedItem;
-                    TreeviewExpander.Header = thevenin.Name;
-                }
+                    if (TVSelectedItem.GetType() == typeof(Thevenin))
+                    {
+                        Thevenin thevenin = (Thevenin)TVSelectedItem;
+                        TreeviewExpander.Content = TVSelectedItem;
+                        TreeviewExpander.Header = thevenin.Name;
+                    }
 
-                else if (TVSelectedItem.GetType() == typeof(Breaker))
-                {
-                    Breaker breaker = (Breaker)TVSelectedItem;
-                    TreeviewExpander.Content = TVSelectedItem;
-                    TreeviewExpander.Header = breaker.Name;
-                }
+                    else if (TVSelectedItem.GetType() == typeof(Breaker))
+                    {
+                        Breaker breaker = (Breaker)TVSelectedItem;
+                        TreeviewExpander.Content = TVSelectedItem;
+                        TreeviewExpander.Header = breaker.Name;
+                    }
 
-                else if (TVSelectedItem.GetType() == typeof(Transformer))
-                {
-                    Transformer transformer = (Transformer)TVSelectedItem;
-                    TreeviewExpander.Content = TVSelectedItem;
-                    TreeviewExpander.Header = transformer.Name;
-                }
+                    else if (TVSelectedItem.GetType() == typeof(Transformer))
+                    {
+                        Transformer transformer = (Transformer)TVSelectedItem;
+                        TreeviewExpander.Content = TVSelectedItem;
+                        TreeviewExpander.Header = transformer.Name;
+                    }
 
-                else if (TVSelectedItem.GetType() == typeof(Relay))
-                {
-                    Relay relay = (Relay)TVSelectedItem;
-                    TreeviewExpander.Content = TVSelectedItem;
-                    TreeviewExpander.Header = relay.Name;
-                }
+                    else if (TVSelectedItem.GetType() == typeof(Relay))
+                    {
+                        Relay relay = (Relay)TVSelectedItem;
+                        TreeviewExpander.Content = TVSelectedItem;
+                        TreeviewExpander.Header = relay.Name;
+                    }
 
-                else if (TVSelectedItem.GetType() == typeof(CT))
-                {
-                    CT cT = (CT)TVSelectedItem;
-                    TreeviewExpander.Content = TVSelectedItem;
-                    TreeviewExpander.Header = cT.Name;
+                    else if (TVSelectedItem.GetType() == typeof(CT))
+                    {
+                        CT cT = (CT)TVSelectedItem;
+                        TreeviewExpander.Content = TVSelectedItem;
+                        TreeviewExpander.Header = cT.Name;
+                    }
                 }
-            }
-            else if (TVSelectedItem.GetType() == typeof(TreeViewItem))
-            {
-                TreeViewItem SelectedItem = (TreeViewItem)TVSelectedItem;
+                else if (TVSelectedItem.GetType() == typeof(TreeViewItem))
+                {
+                    TreeViewItem SelectedItem = (TreeViewItem)TVSelectedItem;
 
-                if (SelectedItem.Name == "SubData")
-                {
-                    TreeviewExpander.Content = ((OnelineViewModel)SelectedItem.DataContext).Project.SubData;
-                    TreeviewExpander.Header = ((OnelineViewModel)SelectedItem.DataContext).Project.SubData.Name;
-                }
-                else
-                {
-                    TreeviewExpander.Content = null;
-                    TreeviewExpander.Header = "[Select an Element]";
+                    if (SelectedItem.Name == "SubData")
+                    {
+                        TreeviewExpander.Content = ((OnelineViewModel)SelectedItem.DataContext).Project.SubData;
+                        TreeviewExpander.Header = ((OnelineViewModel)SelectedItem.DataContext).Project.SubData.Name;
+                    }
+                    else
+                    {
+                        TreeviewExpander.Content = null;
+                        TreeviewExpander.Header = "[Select an Element]";
+                    }
                 }
             }
         }
-
 
         //---------------- Drag / Drop Section --------------------------------
 
@@ -188,7 +203,7 @@ namespace Substation_Builder.View
             e.Effects = DragDropEffects.None;
             e.Handled = true;
         }
- 
+
         //Drop action
         private void ListBoxUI_Drop(object sender, DragEventArgs e)
         {
@@ -197,18 +212,26 @@ namespace Substation_Builder.View
             if (item.GetType() == typeof(Relay))
             {
                 Relay relay = (Relay)item;
+                var point = e.GetPosition(this.ListBoxUI);
+                relay.X = point.X - 20;
+                relay.Y = point.Y + 10;
+                relay.Visible = "Visible";
             }
             else if (item.GetType() == typeof(Breaker))
             {
                 Breaker breaker = (Breaker)item;
-
-                if (breaker.X == 0 && breaker.Y == 0)
-                {
-                    var point = e.GetPosition(this.ListBoxUI);
-                    breaker.X = point.X - 20;
-                    breaker.Y = point.Y + 10;
-                }
+                var point = e.GetPosition(this.ListBoxUI);
+                breaker.X = point.X - 20;
+                breaker.Y = point.Y + 10;
                 breaker.Visible = "Visible";
+            }
+            else if (item.GetType() == typeof(Thevenin))
+            {
+                Thevenin thevenin = (Thevenin)item;
+                var point = e.GetPosition(this.ListBoxUI);
+                thevenin.X = point.X - 20;
+                thevenin.Y = point.Y + 10;
+                thevenin.Visible = "Visible";
             }
         }
 
@@ -219,15 +242,38 @@ namespace Substation_Builder.View
             if (!(sender is Thumb thumb))
                 return;
 
-            if (!(thumb.DataContext is Breaker Breaker))
-                return;
+            if (thumb.DataContext is Breaker breaker)
+            {
+                breaker.X += e.HorizontalChange;
+                breaker.Y += e.VerticalChange;
+            }
+            else if (thumb.DataContext is Thevenin thevenin)
+            {
+                thevenin.X += e.HorizontalChange;
+                thevenin.Y += e.VerticalChange;
+            }
 
-            Breaker.X += e.HorizontalChange;
-            Breaker.Y += e.VerticalChange;
         }
 
         //Remove item from UI (MenuItem is context menu screen)
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void Remove_Click(object sender, RoutedEventArgs e)
+        {
+            object item = ((FrameworkElement)sender).DataContext;
+
+            if (item.GetType() == typeof(Breaker))
+            {
+                Breaker breaker = (Breaker)item;
+                breaker.Visible = "Hidden";
+            }
+            if (item.GetType() == typeof(Thevenin))
+            {
+                Thevenin thevenin = (Thevenin)item;
+                thevenin.Visible = "Hidden";
+            }
+        }
+
+        //Open or Close Breaker
+        private void Open_Close_Click(object sender, RoutedEventArgs e)
         {
             object item = ((FrameworkElement)sender).DataContext;
 
@@ -235,8 +281,12 @@ namespace Substation_Builder.View
             {
                 Breaker breaker = (Breaker)item;
 
-                breaker.Visible = "Hidden";
+                if (breaker.BreakerOpen == true)
+                    breaker.BreakerOpen = false;
+                else
+                    breaker.BreakerOpen = true;
             }
+
         }
 
         //Used to select an object
@@ -248,9 +298,19 @@ namespace Substation_Builder.View
             {
                 Breaker breaker = (Breaker)((FrameworkElement)item).DataContext;
                 ListBoxUI.SelectedItem = breaker;
+                TreeviewExpander.Content = breaker;
+                TreeviewExpander.Header = breaker.Name;
+            }
+            else if (((FrameworkElement)item).DataContext.GetType() == typeof(Thevenin))
+            {
+                Thevenin thevenin = (Thevenin)((FrameworkElement)item).DataContext;
+                ListBoxUI.SelectedItem = thevenin;
+                TreeviewExpander.Content = thevenin;
+                TreeviewExpander.Header = thevenin.Name;
             }
 
         }
+
 
         private void ListBoxUI_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -261,5 +321,7 @@ namespace Substation_Builder.View
         {
             ListBoxUI.SelectedItem = null;
         }
+
+
     }
 }

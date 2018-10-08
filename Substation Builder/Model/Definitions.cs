@@ -181,7 +181,20 @@ namespace Substation_Builder.Model
 
     public class Thevenin : DiagramObject
     {
-        public string Name { get; set; }
+        private string _name { get; set; }
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                _name = value;
+                NotifyPropertyChanged("Name");
+            }
+        }
+
         public double R0_Z { get; set; }
         public double R1_Z { get; set; }
         public double R2_Z { get; set; }
@@ -216,10 +229,12 @@ namespace Substation_Builder.Model
         public string Name
         {
             get
-            { return _name;
+            {
+                return _name;
             }
             set
-            { _name = value;
+            {
+                _name = value;
                 NotifyPropertyChanged("Name");
             }
         }
@@ -244,6 +259,20 @@ namespace Substation_Builder.Model
         public Voltage Voltage { get; set; }
         public BreakerType Breaker_Type { get; set; }
         public BrkManufacture BrkMan { get; set; }
+
+        private bool _breakerOpen { get; set; }
+        public bool BreakerOpen
+        {
+            get
+            {
+                return _breakerOpen;
+            }
+            set
+            {
+                _breakerOpen = value;
+                NotifyPropertyChanged("BreakerOpen");
+            }
+        }
     }
 
     public class Transformer : DiagramObject
@@ -352,6 +381,7 @@ namespace Substation_Builder.Model
         public bool ShowAllNames
         {
             get
+
             {
                 return _showAllNames;
             }

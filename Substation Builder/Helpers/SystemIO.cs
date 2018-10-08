@@ -49,17 +49,15 @@ namespace Substation_Builder.Services
         //Loads a Template File
         public void LoadTemplate(Substation RefProject)
         {
-
-            Substation Project = new Substation();
-            SubstationData Data = new SubstationData
+            Substation Project = new Substation
             {
-                Name = "Squash Bend Template",
-                Monster = Monster.MonsterName()
+                SubData = new SubstationData
+                {
+                    Name = "Squash Bend Template",
+                    Monster = Monster.MonsterName()
+                },
+                OnelinePref = new OnelinePreferences()
             };
-            OnelinePreferences onelinePreferences = new OnelinePreferences();
-
-            Project.SubData = Data;
-            Project.OnelinePref = onelinePreferences;
                                  
             CT XFMR1CT = new CT
             {
@@ -202,6 +200,7 @@ namespace Substation_Builder.Services
             Project.Relays.Add(FirstRelay);
             Project.Relays.Add(SecondRelay);
             Project.Breakers.Add(HighSide);
+
             RefProject.Replace(Project);
 
         }
