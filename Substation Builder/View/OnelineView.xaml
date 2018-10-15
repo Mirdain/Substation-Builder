@@ -53,11 +53,12 @@
         </Style>
 
         <Helpers:BindingProxy x:Key="DataContextProxy" Data="{Binding}"/>
-        
+
         <!-- Breaker-->
-        <ContextMenu x:Key="BreakerDiagram">
+        <ContextMenu x:Key="BreakerDiagram" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
             <MenuItem Header="Remove" Click="Remove_Click"/>
-            <MenuItem Header="Open / Close" Click="Open_Close_Click"/>
+            <MenuItem Header="Open" Command="{Binding Data.OpenBreakerCommand, Source={StaticResource DataContextProxy}}" CommandParameter="{Binding}"/>
+            <MenuItem Header="Close" Command="{Binding Data.CloseBreakerCommand, Source={StaticResource DataContextProxy}}" CommandParameter="{Binding}"/>
         </ContextMenu>
 
         <!-- Thevenin-->
@@ -89,7 +90,7 @@
 
         <!-- Remove Context Menu for Items in the control-->
         <!-- Incredibly evil as the contextmenu does not share the same datacontext as the treeview so the proxy is employed-->
-        
+
         <!-- Remove Items -->
         <ContextMenu x:Key="RelayItemContext" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
             <MenuItem Header="Delete Relay" Command="{Binding Data.RemoveItemCommand, Source={StaticResource DataContextProxy}}" CommandParameter="{Binding}"/>
@@ -233,6 +234,7 @@
                     <CompositeCollection x:Key="Col">
                         <CollectionContainer Collection="{Binding DataContext.Project.Breakers,Source={x:Reference view}}"/>
                         <CollectionContainer Collection="{Binding DataContext.Project.Thevenins,Source={x:Reference view}}"/>
+                        <CollectionContainer Collection="{Binding DataContext.Project.Transformers,Source={x:Reference view}}"/>
                     </CompositeCollection>
 
                     <!-- This is the DataTemplate that will be used to render the Breaker class -->
@@ -242,13 +244,12 @@
                             <Thumb.Template>
                                 <ControlTemplate TargetType="Thumb">
 
-                                    <!-- The breaker -->
-                                    <DockPanel Margin="-20,-20,20,20">
+                                    <!-- visual of the breaker -->
+                                    <DockPanel Margin="-25,-25,25,25" HorizontalAlignment="Center" VerticalAlignment="Center">
 
-                                        <!-- visual of the breaker -->
-                                        <Grid>
-                                            <Ellipse Width="15" Height="15" Fill="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" Stroke="{x:Null}"></Ellipse>
-                                            <Rectangle x:Name="Breaker" Fill="Red" Height="40" Width="40" Stroke="Black" StrokeThickness="1" Stretch="Uniform" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" OpacityMask="Black"/>
+                                        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <Ellipse Width="20" Height="20" Fill="Red" HorizontalAlignment="Center" VerticalAlignment="Center" Stroke="{x:Null}"></Ellipse>
+                                            <Rectangle x:Name="Breaker" Fill="Red" Height="50" Width="50" Stroke="Black" StrokeThickness="3" Stretch="Uniform" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" OpacityMask="Black"/>
                                             <TextBlock x:Name="BreakerTxt" TextAlignment="Center" Text="{Binding Breaker_Position}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" Visibility="Collapsed"/>
                                         </Grid>
 
@@ -262,7 +263,7 @@
 
                                     <!-- UI interactions -->
                                     <ControlTemplate.Triggers>
-                                        
+
                                         <!-- Flashes selected item -->
                                         <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="True">
                                             <DataTrigger.EnterActions>
@@ -279,14 +280,14 @@
 
                                         <!-- Change border thickness when dragging -->
                                         <Trigger Property="IsDragging" Value="True">
-                                            <Setter TargetName="Breaker" Property="StrokeThickness" Value="2"/>
+                                            <Setter TargetName="Breaker" Property="StrokeThickness" Value="5"/>
                                         </Trigger>
 
                                         <!-- Open / Close Breaker -->
                                         <DataTrigger Binding="{Binding BreakerOpen}" Value="True">
                                             <Setter TargetName="Breaker" Property="Fill" Value="Green"/>
                                         </DataTrigger>
-                                        
+
                                         <!-- Show all names on displays -->
                                         <DataTrigger Binding="{Binding DataContext.Project.OnelinePref.ShowAllNames, ElementName=view}" Value="True">
                                             <Setter TargetName="BreakerTxt" Property="Visibility" Value="Visible"/>
@@ -328,24 +329,20 @@
                         </Thumb>
                     </DataTemplate>
 
-                    <!-- This is the DataTemplate that will be used to render the Breaker class -->
+                    <!-- This is the DataTemplate that will be used to render the Thevenin class -->
                     <DataTemplate DataType="{x:Type local2:Thevenin}">
                         <Thumb DragDelta="Thumb_Drag" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
                                ContextMenu="{Binding Mode=OneWay, Source={StaticResource TheveninDiagram}}" Visibility="{Binding Visible}" PreviewMouseLeftButtonDown="Thumb_PreviewMouseLeftButtonDown">
                             <Thumb.Template>
                                 <ControlTemplate TargetType="Thumb">
 
-                                    <!-- The breaker -->
-                                    <DockPanel Margin="-20,-20,20,20">
-
-                                        <!-- visual of the breaker -->
-                                        <!-- visual of the breaker -->
+                                    <!-- visual of the thevenin -->
+                                    <DockPanel>
                                         <Grid>
-                                            <Ellipse Width="15" Height="15" Fill="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" Stroke="{x:Null}"></Ellipse>
+                                            <Ellipse Width="20" Height="20" Fill="Red" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stroke="{x:Null}"></Ellipse>
                                             <Ellipse x:Name="Thevenin" Fill="White" Height="50" Width="100" Stroke="Black" StrokeThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center" OpacityMask="Black"/>
                                             <TextBlock x:Name="TheveninTxt" TextAlignment="Center" Text="{Binding Name}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" Visibility="Collapsed"/>
                                         </Grid>
-
                                         <!-- Display Coordinates for the item -->
                                         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0">
                                             <TextBlock x:Name="XText" Text="{Binding X, StringFormat='{}X = {0}'}" IsHitTestVisible="False" HorizontalAlignment="Left" Visibility="Collapsed"/>
@@ -417,6 +414,356 @@
                         </Thumb>
                     </DataTemplate>
 
+                    <!-- This is the DataTemplate that will be used to render the Transformer class -->
+                    <DataTemplate DataType="{x:Type local2:Transformer}">
+                        <Thumb DragDelta="Thumb_Drag" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                               ContextMenu="{Binding Mode=OneWay, Source={StaticResource TheveninDiagram}}" Visibility="{Binding Visible}" PreviewMouseLeftButtonDown="Thumb_PreviewMouseLeftButtonDown">
+                            <Thumb.Template>
+                                <ControlTemplate TargetType="Thumb">
+
+                                    <DockPanel>
+
+                                        <!-- visual of the transformer -->
+                                        <Grid Height="175" Width="200">
+                                            <Rectangle Fill="{x:Null}"/>
+                                            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <Rectangle x:Name="Transformer" Width="50" Height="80" Stroke="Black" StrokeThickness="3" Fill="#FFBFBCBC"/>
+                                                <TextBlock Text="H1 H2 H3" FontSize="8" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,3,0,0"/>
+                                                <TextBlock Text="X1 X2 X3" FontSize="8" FontWeight="Bold" Foreground="Black" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,3"/>
+                                            </Grid>
+
+                                            <Line StrokeThickness="3" X1="0" X2="0" Y1="0" Y2="50" Stroke="Black" HorizontalAlignment="Center" Margin="2,0,0,0" VerticalAlignment="Top"/>
+                                            <Line StrokeThickness="3" X1="0" X2="0" Y1="0" Y2="50" Stroke="Black" HorizontalAlignment="Center" Margin="2,0,0,0" VerticalAlignment="Bottom"/>
+                                            <Ellipse Height="30" Width="30" Stroke="Black" StrokeThickness="3" Margin="0,0,0,20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <Ellipse Height="30" Width="30" Stroke="Black" StrokeThickness="3" Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <Ellipse Height="10" Width="10" Stroke="Black" StrokeThickness="3" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Top" Fill="Black"/>
+                                            <Ellipse Height="10" Width="10" Stroke="Black" StrokeThickness="3" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Fill="Black"/>
+                                            <Ellipse x:Name="XFMR_X1" Height="10" Width="10" Stroke="Red" StrokeThickness="3" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Top" Fill="Red" Opacity="0"/>
+                                            <Ellipse x:Name="XFMR_H1" Height="10" Width="10" Stroke="Red" StrokeThickness="3" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Fill="Red" Opacity="0"/>
+
+
+                                            <StackPanel x:Name="TransformerTxt" Visibility="Collapsed" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,130,0">
+                                                <TextBlock Text="{Binding Name}" HorizontalAlignment="Right"/>
+                                                <DockPanel HorizontalAlignment="Right">
+                                                    <TextBlock Text="{Binding HighVoltage}"/>
+                                                    <TextBlock Text="/"/>
+                                                    <TextBlock Text="{Binding LowVoltage}"/>
+                                                    <TextBlock Text=" kV"/>
+                                                </DockPanel>
+                                                <DockPanel HorizontalAlignment="Right">
+                                                    <TextBlock Text="{Binding Size1}"/>
+                                                    <TextBlock Text="/"/>
+                                                    <TextBlock Text="{Binding Size2}"/>
+                                                    <TextBlock Text=" MVA"/>
+                                                </DockPanel>
+                                            </StackPanel>
+
+                                            <Grid x:Name="CT1" Margin="95,15,0,0" VerticalAlignment="Top" Visibility="Collapsed">
+                                                <DockPanel>
+                                                    <Rectangle x:Name="CT1rectangle" Height="10" Width="10" Fill="#FFBFBCBC" Stroke="Black" StrokeThickness="2"/>
+                                                    <TextBlock x:Name="CT1Txt" Text="CT1" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="0" Padding="3,0,0,0"/>
+                                                </DockPanel>
+                                            </Grid>
+
+                                            <Grid x:Name="CT3" Margin="95,30,0,0" VerticalAlignment="Top" Visibility="Collapsed">
+                                                <DockPanel>
+                                                    <Rectangle x:Name="CT3rectangle" Height="10" Width="10" Fill="#FFBFBCBC" Stroke="Black" StrokeThickness="2"/>
+                                                    <TextBlock x:Name="CT3Txt" Text="CT1" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="0" Padding="3,0,0,0"/>
+                                                </DockPanel>
+                                            </Grid>
+
+                                            <Grid x:Name="CT2" Margin="95,0,0,30" VerticalAlignment="Bottom" Visibility="Collapsed">
+                                                <DockPanel>
+                                                    <Rectangle x:Name="CT2rectangle" Height="10" Width="10" Fill="#FFBFBCBC" Stroke="Black" StrokeThickness="2"/>
+                                                    <TextBlock x:Name="CT2Txt" Text="CT1" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="0" Padding="3,0,0,0"/>
+                                                </DockPanel>
+                                            </Grid>
+                                            
+                                            <Grid x:Name="CT4" Margin="95,0,0,15" VerticalAlignment="Bottom" Visibility="Collapsed">
+                                                <DockPanel>
+                                                    <Rectangle x:Name="CT4rectangle" Height="10" Width="10" Fill="#FFBFBCBC" Stroke="Black" StrokeThickness="2"/>
+                                                    <TextBlock x:Name="CT4Txt" Text="CT1" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="0" Padding="3,0,0,0"/>
+                                                </DockPanel>
+                                            </Grid>
+
+                                            <!-- Display Coordinates for the item -->
+                                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="105,0,5,0">
+                                                <TextBlock x:Name="XText" Text="{Binding X, StringFormat='{}X = {0}'}" IsHitTestVisible="False" HorizontalAlignment="Stretch" Visibility="Collapsed"/>
+                                                <TextBlock x:Name="YText" Text="{Binding Y, StringFormat='{}Y = {0}'}" IsHitTestVisible="False" HorizontalAlignment="Stretch" Visibility="Collapsed"/>
+                                            </StackPanel>
+                                        </Grid>
+
+                                    </DockPanel>
+
+                                    <!-- UI interactions -->
+                                    <ControlTemplate.Triggers>
+
+                                        <!-- Flashes selected item -->
+                                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="True">
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard x:Name="Flash">
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetName="Transformer" Storyboard.TargetProperty="Opacity" From="1" To=".5" Duration="0:0:0.5" AutoReverse="True" RepeatBehavior="Forever" />
+                                                        <DoubleAnimation Storyboard.TargetName="XFMR_H1" Storyboard.TargetProperty="Opacity" From="1" To=".5" Duration="0:0:0.5" AutoReverse="True" RepeatBehavior="Forever" />
+                                                        <DoubleAnimation Storyboard.TargetName="XFMR_X1" Storyboard.TargetProperty="Opacity" From="1" To=".5" Duration="0:0:0.5" AutoReverse="True" RepeatBehavior="Forever" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                            <DataTrigger.ExitActions>
+                                                <StopStoryboard BeginStoryboardName="Flash"/>
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+
+                                        <!-- Change border thickness when dragging -->
+                                        <Trigger Property="IsDragging" Value="True">
+                                            <Setter TargetName="Transformer" Property="StrokeThickness" Value="5"/>
+                                        </Trigger>
+
+                                        <!-- Show all names on displays -->
+                                        <DataTrigger Binding="{Binding DataContext.Project.OnelinePref.ShowAllNames, ElementName=view}" Value="True">
+                                            <Setter TargetName="TransformerTxt" Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+
+                                        <!-- Show selected name on display -->
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="True"/>
+                                                <Condition Binding="{Binding DataContext.Project.OnelinePref.ShowCurrentNames, ElementName=view}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter TargetName="TransformerTxt" Property="Visibility" Value="Visible"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+
+                                        <!-- Show all grid coordinates on display -->
+                                        <DataTrigger Binding="{Binding DataContext.Project.OnelinePref.ShowAllCoordinates, ElementName=view}" Value="True">
+                                            <Setter TargetName="XText" Property="Visibility" Value="Visible"/>
+                                            <Setter TargetName="YText" Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+
+                                        <!-- Show selected grid coordinates on display -->
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="True"/>
+                                                <Condition Binding="{Binding DataContext.Project.OnelinePref.ShowCurrentCoordinates, ElementName=view}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter TargetName="XText" Property="Visibility" Value="Visible"/>
+                                                <Setter TargetName="YText" Property="Visibility" Value="Visible"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+
+                                        <!-- Show CT1 on display -->
+                                        <!--#region CT1 Display -->
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding CTs[0].CT_Position}" Value="CT1"/>
+                                                <Condition Binding="{Binding CTs[0].Is_Visible}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter TargetName="CT1" Property="Visibility" Value="Visible"/>
+                                                <Setter TargetName="CT1Txt" Property="TextBlock.Text" Value="{Binding CTs[0].Name}"/>
+                                                <Setter TargetName="CT1rectangle" Property="DataContext" Value="{Binding CTs[0]}"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding CTs[1].CT_Position}" Value="CT1"/>
+                                                <Condition Binding="{Binding CTs[1].Is_Visible}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter TargetName="CT1" Property="Visibility" Value="Visible"/>
+                                                <Setter TargetName="CT1Txt" Property="TextBlock.Text" Value="{Binding CTs[1].Name}"/>
+                                                <Setter TargetName="CT1rectangle" Property="DataContext" Value="{Binding CTs[1]}"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding CTs[2].CT_Position}" Value="CT1"/>
+                                                <Condition Binding="{Binding CTs[2].Is_Visible}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter TargetName="CT1" Property="Visibility" Value="Visible"/>
+                                                <Setter TargetName="CT1Txt" Property="TextBlock.Text" Value="{Binding CTs[2].Name}"/>
+                                                <Setter TargetName="CT1rectangle" Property="DataContext" Value="{Binding CTs[2]}"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding CTs[3].CT_Position}" Value="CT1"/>
+                                                <Condition Binding="{Binding CTs[3].Is_Visible}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter TargetName="CT1" Property="Visibility" Value="Visible"/>
+                                                <Setter TargetName="CT1Txt" Property="TextBlock.Text" Value="{Binding CTs[3].Name}"/>
+                                                <Setter TargetName="CT1rectangle" Property="DataContext" Value="{Binding CTs[3]}"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+                                        <!--#endregion-->
+
+                                        <!-- Show CT2 on display -->
+                                        <!--#region CT2 Display -->
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding CTs[0].CT_Position}" Value="CT2"/>
+                                                <Condition Binding="{Binding CTs[0].Is_Visible}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter TargetName="CT2" Property="Visibility" Value="Visible"/>
+                                                <Setter TargetName="CT2Txt" Property="TextBlock.Text" Value="{Binding CTs[0].Name}"/>
+                                                <Setter TargetName="CT2rectangle" Property="DataContext" Value="{Binding CTs[0]}"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding CTs[1].CT_Position}" Value="CT2"/>
+                                                <Condition Binding="{Binding CTs[1].Is_Visible}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter TargetName="CT2" Property="Visibility" Value="Visible"/>
+                                                <Setter TargetName="CT2Txt" Property="TextBlock.Text" Value="{Binding CTs[1].Name}"/>
+                                                <Setter TargetName="CT2rectangle" Property="DataContext" Value="{Binding CTs[1]}"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding CTs[2].CT_Position}" Value="CT2"/>
+                                                <Condition Binding="{Binding CTs[2].Is_Visible}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter TargetName="CT2" Property="Visibility" Value="Visible"/>
+                                                <Setter TargetName="CT2Txt" Property="TextBlock.Text" Value="{Binding CTs[2].Name}"/>
+                                                <Setter TargetName="CT2rectangle" Property="DataContext" Value="{Binding CTs[2]}"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding CTs[3].CT_Position}" Value="CT2"/>
+                                                <Condition Binding="{Binding CTs[3].Is_Visible}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter TargetName="CT2" Property="Visibility" Value="Visible"/>
+                                                <Setter TargetName="CT2Txt" Property="TextBlock.Text" Value="{Binding CTs[3].Name}"/>
+                                                <Setter TargetName="CT2rectangle" Property="DataContext" Value="{Binding CTs[3]}"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+                                        <!--#endregion-->
+
+                                        <!-- Show CT3 on display -->
+                                        <!--#region CT3 Display -->
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding CTs[0].CT_Position}" Value="CT3"/>
+                                                <Condition Binding="{Binding CTs[0].Is_Visible}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter TargetName="CT3" Property="Visibility" Value="Visible"/>
+                                                <Setter TargetName="CT3Txt" Property="TextBlock.Text" Value="{Binding CTs[0].Name}"/>
+                                                <Setter TargetName="CT3rectangle" Property="DataContext" Value="{Binding CTs[0]}"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding CTs[1].CT_Position}" Value="CT3"/>
+                                                <Condition Binding="{Binding CTs[1].Is_Visible}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter TargetName="CT3" Property="Visibility" Value="Visible"/>
+                                                <Setter TargetName="CT3Txt" Property="TextBlock.Text" Value="{Binding CTs[1].Name}"/>
+                                                <Setter TargetName="CT3rectangle" Property="DataContext" Value="{Binding CTs[1]}"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding CTs[2].CT_Position}" Value="CT3"/>
+                                                <Condition Binding="{Binding CTs[2].Is_Visible}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter TargetName="CT3" Property="Visibility" Value="Visible"/>
+                                                <Setter TargetName="CT3Txt" Property="TextBlock.Text" Value="{Binding CTs[2].Name}"/>
+                                                <Setter TargetName="CT3rectangle" Property="DataContext" Value="{Binding CTs[2]}"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding CTs[3].CT_Position}" Value="CT3"/>
+                                                <Condition Binding="{Binding CTs[3].Is_Visible}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter TargetName="CT3" Property="Visibility" Value="Visible"/>
+                                                <Setter TargetName="CT3Txt" Property="TextBlock.Text" Value="{Binding CTs[3].Name}"/>
+                                                <Setter TargetName="CT3rectangle" Property="DataContext" Value="{Binding CTs[3]}"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+                                        <!--#endregion-->
+
+                                        <!-- Show CT4 on display -->
+                                        <!--#region CT4 Display -->
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding CTs[0].CT_Position}" Value="CT4"/>
+                                                <Condition Binding="{Binding CTs[0].Is_Visible}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter TargetName="CT4" Property="Visibility" Value="Visible"/>
+                                                <Setter TargetName="CT4Txt" Property="TextBlock.Text" Value="{Binding CTs[0].Name}"/>
+                                                <Setter TargetName="CT4rectangle" Property="DataContext" Value="{Binding CTs[0]}"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding CTs[1].CT_Position}" Value="CT4"/>
+                                                <Condition Binding="{Binding CTs[1].Is_Visible}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter TargetName="CT4" Property="Visibility" Value="Visible"/>
+                                                <Setter TargetName="CT4Txt" Property="TextBlock.Text" Value="{Binding CTs[1].Name}"/>
+                                                <Setter TargetName="CT4rectangle" Property="DataContext" Value="{Binding CTs[1]}"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding CTs[2].CT_Position}" Value="CT4"/>
+                                                <Condition Binding="{Binding CTs[2].Is_Visible}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter TargetName="CT4" Property="Visibility" Value="Visible"/>
+                                                <Setter TargetName="CT4Txt" Property="TextBlock.Text" Value="{Binding CTs[2].Name}"/>
+                                                <Setter TargetName="CT4rectangle" Property="DataContext" Value="{Binding CTs[2]}"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding CTs[3].CT_Position}" Value="CT4"/>
+                                                <Condition Binding="{Binding CTs[3].Is_Visible}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter TargetName="CT4" Property="Visibility" Value="Visible"/>
+                                                <Setter TargetName="CT4Txt" Property="TextBlock.Text" Value="{Binding CTs[3].Name}"/>
+                                                <Setter TargetName="CT4rectangle" Property="DataContext" Value="{Binding CTs[3]}"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+                                        <!--#endregion-->
+
+                                    </ControlTemplate.Triggers>
+
+                                </ControlTemplate>
+                            </Thumb.Template>
+                        </Thumb>
+                    </DataTemplate>
+
                 </Grid.Resources>
 
                 <ListBox 
@@ -462,18 +809,18 @@
                                         <ItemsPresenter/>
                                     </Border>
                                 </ScrollViewer>
-                                
+
                             </Border>
                         </ControlTemplate>
                     </ListBox.Template>
 
-                     <!-- Sized the Display canvas-->
+                    <!-- Sized the Display canvas-->
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <Canvas IsItemsHost="True" Background="#01FFFFFF" Height="{Binding Project.OnelinePref.AreaHeight}" Width="{Binding Project.OnelinePref.AreaWidth}" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
-                    
+
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="Canvas.Left" Value="{Binding X}"/>
@@ -484,7 +831,7 @@
                                     <ControlTemplate TargetType="ListBoxItem">
                                         <ContentPresenter x:Name="Content"/>
                                         <ControlTemplate.Triggers>
-                                            
+
                                             <Trigger Property="IsSelected" Value="True">
                                                 <Setter TargetName="Content" Property="Effect">
                                                     <Setter.Value>
@@ -492,7 +839,7 @@
                                                     </Setter.Value>
                                                 </Setter>
                                             </Trigger>
-                                            
+
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>
                                 </Setter.Value>

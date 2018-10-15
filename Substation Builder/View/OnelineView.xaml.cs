@@ -81,11 +81,13 @@ namespace Substation_Builder.View
             UpdateExpander();
         }
 
+        //Set datacontext of the expander
         private void OnelineTreeview_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             UpdateExpander();
         }
 
+        //Update expander with selected item from UI
         private void UpdateExpander()
         {
             object TVSelectedItem = OnelineTreeview.SelectedItem;
@@ -233,6 +235,19 @@ namespace Substation_Builder.View
                 thevenin.Y = point.Y + 10;
                 thevenin.Visible = "Visible";
             }
+            else if (item.GetType() == typeof(Transformer))
+            {
+                Transformer transformer = (Transformer)item;
+                var point = e.GetPosition(this.ListBoxUI);
+                transformer.X = point.X - 20;
+                transformer.Y = point.Y + 10;
+                transformer.Visible = "Visible";
+            }
+            else if (item.GetType() == typeof(Transformer))
+            {
+                CT ct = (CT)item;
+                ct.Visible = "Visible";
+            }
         }
 
         //Move the item
@@ -252,6 +267,11 @@ namespace Substation_Builder.View
                 thevenin.X += e.HorizontalChange;
                 thevenin.Y += e.VerticalChange;
             }
+            else if (thumb.DataContext is Transformer transformer)
+            {
+                transformer.X += e.HorizontalChange;
+                transformer.Y += e.VerticalChange;
+            }
 
         }
 
@@ -265,28 +285,16 @@ namespace Substation_Builder.View
                 Breaker breaker = (Breaker)item;
                 breaker.Visible = "Hidden";
             }
-            if (item.GetType() == typeof(Thevenin))
+            else if (item.GetType() == typeof(Thevenin))
             {
                 Thevenin thevenin = (Thevenin)item;
                 thevenin.Visible = "Hidden";
             }
-        }
-
-        //Open or Close Breaker
-        private void Open_Close_Click(object sender, RoutedEventArgs e)
-        {
-            object item = ((FrameworkElement)sender).DataContext;
-
-            if (item.GetType() == typeof(Breaker))
+            else if (item.GetType() == typeof(Transformer))
             {
-                Breaker breaker = (Breaker)item;
-
-                if (breaker.BreakerOpen == true)
-                    breaker.BreakerOpen = false;
-                else
-                    breaker.BreakerOpen = true;
+                Transformer transformer = (Transformer)item;
+                transformer.Visible = "Hidden";
             }
-
         }
 
         //Used to select an object
@@ -308,12 +316,30 @@ namespace Substation_Builder.View
                 TreeviewExpander.Content = thevenin;
                 TreeviewExpander.Header = thevenin.Name;
             }
+            else if (((FrameworkElement)item).DataContext.GetType() == typeof(Transformer))
+            {
+                Transformer transformer = (Transformer)((FrameworkElement)item).DataContext;
+                ListBoxUI.SelectedItem = transformer;
+                TreeviewExpander.Content = transformer;
+                TreeviewExpander.Header = transformer.Name;
+            }
+            else if (((FrameworkElement)item).DataContext.GetType() == typeof(CT))
+            {
+                CT ct = (CT)((FrameworkElement)item).DataContext;
+                ListBoxUI.SelectedItem = ct;
+                TreeviewExpander.Content = ct;
+                TreeviewExpander.Header = ct.Name;
+            }
 
         }
 
 
         private void ListBoxUI_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+
+            object item = Mouse.DirectlyOver;
+
+
             ListBoxUI.SelectedItem = null;
         }
 

@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using Substation_Builder.Resources.Monster;
+using System;
 
 namespace Substation_Builder.ViewModel
 {
@@ -22,6 +23,8 @@ namespace Substation_Builder.ViewModel
             }
         }
 
+
+
         private SystemIO FileIO = new SystemIO();
         public RelayCommand SaveCommand { get; private set; }
         public RelayCommand LoadCommand { get; private set; }
@@ -31,7 +34,9 @@ namespace Substation_Builder.ViewModel
         public RelayCommand AddCTCommand { get; private set; }
         public RelayCommand AddItemCommand { get; private set; }
         public RelayCommand ResetZoom { get; private set; }
-  
+        public RelayCommand OpenBreakerCommand { get; private set; }
+        public RelayCommand CloseBreakerCommand { get; private set; }
+
         public OnelineView OLView = new OnelineView();
 
         public OnelineViewModel(Substation refproject)
@@ -44,8 +49,10 @@ namespace Substation_Builder.ViewModel
             NewCommand = new RelayCommand(NewProject);
             AddItemCommand = new RelayCommand(AddItem, Can_Add);
             RemoveItemCommand = new RelayCommand(RemoveItem, Can_Remove);
-            AddCTCommand = new RelayCommand(AddCT);
+            AddCTCommand = new RelayCommand(AddCT, Can_AddCT);
             ResetZoom = new RelayCommand(ResetZ);
+            OpenBreakerCommand = new RelayCommand(OpenBreaker, Can_Open);
+            CloseBreakerCommand = new RelayCommand(CloseBreaker, Can_Close);
 
             OLView.DataContext = this;
             OLView.Show();
@@ -164,21 +171,102 @@ namespace Substation_Builder.ViewModel
         {
             if (sender != null)
             {
+                //CT for Breaker
                 if (sender.GetType() == typeof(Breaker))
-
                 {
                     int index = Project.Breakers.IndexOf(sender as Breaker);
-                    CT ct = new CT { Name = "CT" + (Project.Breakers[index].CTs.Count + 1).ToString() };
-                    Project.Breakers[index].CTs.Add(ct);
+                    Breaker breaker = Project.Breakers[index];
+                    CT ct = new CT();
+                    CT[] cTs = new CT[4];
+                    breaker.CTs.CopyTo(cTs, 0);
+
+                    string[] cTPositions = new string[4];
+
+                    for (int i = 0; i < 4; i++)
+                    {
+                        if (cTs[i] != null)
+                        {
+                            if (cTs[i].CT_Position == CTPosition.CT1)
+                                cTPositions[0] = CTPosition.CT1.ToString();
+                            if (cTs[i].CT_Position == CTPosition.CT2)
+                                cTPositions[1] = CTPosition.CT2.ToString();
+                            if (cTs[i].CT_Position == CTPosition.CT3)
+                                cTPositions[2] = CTPosition.CT3.ToString();
+                            if (cTs[i].CT_Position == CTPosition.CT4)
+                                cTPositions[3] = CTPosition.CT4.ToString();
+                        }
+                    }
+
+                    for (int j = 0; j < 4; j++)
+                    {
+                        if (cTPositions[j] == null)
+                        {
+                            ct.CT_Position = (CTPosition)j;
+                            j = 3;
+                        }
+                    }
+                   Project.Breakers[index].CTs.Add(ct);
                 }
+
+                //CT for Transformer
                 else if (sender.GetType() == typeof(Transformer))
                 {
                     int index = Project.Transformers.IndexOf(sender as Transformer);
-                    CT ct = new CT { Name = "CT" + (Project.Transformers[index].CTs.Count + 1).ToString() };
+                    Transformer transformer = Project.Transformers[index];
+                    CT ct = new CT();
+                    CT[] cTs = new CT[4];
+                    transformer.CTs.CopyTo(cTs, 0);
+
+                    string[] cTPositions = new string[4];
+
+                    for (int i = 0; i < 4; i++)
+                    {
+                        if (cTs[i] != null)
+                        {
+                            if (cTs[i].CT_Position == CTPosition.CT1)
+                                cTPositions[0] = CTPosition.CT1.ToString();
+                            if (cTs[i].CT_Position == CTPosition.CT2)
+                                cTPositions[1] = CTPosition.CT2.ToString();
+                            if (cTs[i].CT_Position == CTPosition.CT3)
+                                cTPositions[2] = CTPosition.CT3.ToString();
+                            if (cTs[i].CT_Position == CTPosition.CT4)
+                                cTPositions[3] = CTPosition.CT4.ToString();
+                        }
+                    }
+
+                    for (int j = 0; j < 4; j++)
+                    {
+                        if (cTPositions[j] == null)
+                        {
+                            ct.CT_Position = (CTPosition)j;
+                            j = 3;
+                        }
+                    }
                     Project.Transformers[index].CTs.Add(ct);
                 }
             }
         }
+
+        public bool Can_AddCT(object sender)
+        {
+            if (sender == null)
+                return false;
+
+            if (sender.GetType() == typeof(Breaker))
+            {
+                Breaker breaker = (Breaker)sender;
+                if (breaker.CTs.Count > 3)
+                    return false;
+            }
+            else if (sender.GetType() == typeof(Transformer))
+            {
+                Transformer transformer = (Transformer)sender;
+                if (transformer.CTs.Count > 3)
+                    return false;
+            }
+            return true;
+        }
+
 
         //Select Item to remove
         public void RemoveItem(object sender)
@@ -220,6 +308,9 @@ namespace Substation_Builder.ViewModel
         //Controls abiliity to add/remove items
         public bool Can_Add(object sender)
         {
+            if (sender == null)
+                return false;
+
             bool canexecute = false;
 
             if (OLView.OnelineTreeview.SelectedItem != null)
@@ -252,6 +343,10 @@ namespace Substation_Builder.ViewModel
         //Controls abiliity to add/remove items
         public bool Can_Remove(object sender)
         {
+
+            if (sender == null)
+                return false;
+
             bool canexecute = false;
 
             if (OLView.OnelineTreeview.SelectedItem != null)
@@ -279,6 +374,46 @@ namespace Substation_Builder.ViewModel
 
             }
             return canexecute;
+        }
+
+        #endregion
+
+        #region Breaker Context Menu
+
+        public void OpenBreaker(object sender)
+        {
+            Breaker breaker = (Breaker)sender;
+            breaker.BreakerOpen = true;
+
+        }
+        public bool Can_Open(object sender)
+        {
+            if (sender == null)
+                return false;
+
+            Breaker breaker = (Breaker)sender;
+
+            if (breaker.BreakerOpen == false)
+                return true;
+            else
+                return false;
+        }
+
+        public void CloseBreaker(object sender)
+        {
+            Breaker breaker = (Breaker)sender;
+            breaker.BreakerOpen = false;
+        }
+        public bool Can_Close (object sender)
+        {
+            if (sender == null)
+                return false;
+
+            Breaker breaker = (Breaker)sender;
+            if (breaker.BreakerOpen == false)
+                return false;
+            else
+                return true;
         }
 
         #endregion

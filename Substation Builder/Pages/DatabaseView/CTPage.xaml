@@ -63,16 +63,17 @@
 
         </StackPanel.Resources>
 
+
         <DockPanel>
-            <Label Content="Name:"/>
-            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Content="Position:"/>
+            <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:CTPosition}}}" SelectedValue="{Binding CT_Position}"/>
         </DockPanel>
 
         <DockPanel>
             <Label Content="Description:"/>
             <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
         </DockPanel>
-
+        
         <DockPanel>
             <Label Content="Rating:"/>
             <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:CTRating}}}" SelectedValue="{Binding Rating}"/>
@@ -84,13 +85,19 @@
         </DockPanel>
 
         <DockPanel>
-            <Label Content="Tapped Ratio:"/>
+            <Label Content="Tap:"/>
             <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:CTTaps}}}" SelectedValue="{Binding Tap}"/>
         </DockPanel>
 
         <DockPanel>
             <Label Content="Polarity:"/>
             <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:Polarity}}}" SelectedValue="{Binding Polarity}"/>
+        </DockPanel>
+
+        <DockPanel>
+            <Label Content="Display:"/>
+            <RadioButton  GroupName="Display" x:Name="Display" Content="Show" IsChecked="{Binding Is_Visible}" Margin="5,0,0,0" FontSize="16"/>
+            <RadioButton  GroupName="Display" x:Name="Hide" Content="Hide" Margin="25,0,0,0" FontSize="16" IsChecked="{Binding Is_Hidden}"/>
         </DockPanel>
 
     </StackPanel>

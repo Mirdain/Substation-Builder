@@ -63,7 +63,6 @@ namespace Substation_Builder.Services
             {
                 CTR = CTTaps.T400,
                 Rating = CTRating.C400,
-                Name = "CT1",
                 Polarity = Polarity.OnPolarity,
                 Tap = CTTaps.T180
             };
@@ -71,7 +70,6 @@ namespace Substation_Builder.Services
             {
                 CTR = CTTaps.T400,
                 Rating = CTRating.C400,
-                Name = "CT2",
                 Polarity = Polarity.OnPolarity,
                 Tap = CTTaps.T400
             };
@@ -79,7 +77,6 @@ namespace Substation_Builder.Services
             {
                 CTR = CTTaps.T400,
                 Rating = CTRating.C400,
-                Name = "CT3",
                 Polarity = Polarity.OnPolarity,
                 Tap = CTTaps.T180
             };
@@ -88,7 +85,6 @@ namespace Substation_Builder.Services
             {
                 CTR = CTTaps.T400,
                 Rating = CTRating.C400,
-                Name = "CT1B",
                 Polarity = Polarity.OnPolarity,
                 Tap = CTTaps.T120
             };
@@ -96,7 +92,6 @@ namespace Substation_Builder.Services
             {
                 CTR = CTTaps.T400,
                 Rating = CTRating.C400,
-                Name = "CT2B",
                 Polarity = Polarity.OnPolarity,
                 Tap = CTTaps.T160
             };
@@ -104,7 +99,6 @@ namespace Substation_Builder.Services
             {
                 CTR = CTTaps.T240,
                 Rating = CTRating.C400,
-                Name = "CT3B",
                 Polarity = Polarity.OnPolarity,
                 Tap = CTTaps.T120
             };
@@ -173,7 +167,6 @@ namespace Substation_Builder.Services
 
             CT CT1 = new CT
             {
-                Name = "BH1 CT1",
                 Rating = CTRating.C400,
                 CTR = CTTaps.T240,
                 Tap = CTTaps.T120,

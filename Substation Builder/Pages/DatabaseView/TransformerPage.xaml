@@ -83,11 +83,11 @@
             <TextBox Text="{Binding Size2}"/>
         </DockPanel>
         <DockPanel>
-            <Label Content="HV Rating:"/>
+            <Label Content="HV kV:"/>
             <TextBox Text="{Binding HighVoltage}"/>
         </DockPanel>
         <DockPanel>
-            <Label Content="LV Rating:"/>
+            <Label Content="LV kV:"/>
             <TextBox Text="{Binding LowVoltage}"/>
         </DockPanel>
         <DockPanel>

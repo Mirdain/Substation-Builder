@@ -151,14 +151,24 @@ namespace Substation_Builder.Model
     }
 
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
+    public enum CTPosition
+    {
+        [Description("CT1")] CT1,
+        [Description("CT2")] CT2,
+        [Description("CT3")] CT3,
+        [Description("CT4")] CT4,
+    }
+
+    [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum CTTaps
     {
-        [Description("2000:5 - (400:1)")] T400,
-        [Description("1500:5 - (300:1)")] T300,
-        [Description("1200:5 - (240:1)")] T240,
-        [Description("900:5 - (180:1)")] T180,
-        [Description("800:5 - (160:1)")] T160,
-        [Description("600:5 - (120:1)")] T120,
+        [Description("2000:5")] T400,
+        [Description("1500:5")] T300,
+        [Description("1200:5")] T240,
+        [Description("900:5")] T180,
+        [Description("800:5")] T160,
+        [Description("600:5")] T120,
+        [Description("SHORTED")] SHORTED,
     }
 
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
@@ -278,9 +288,77 @@ namespace Substation_Builder.Model
     public class Transformer : DiagramObject
     {
         public ObservableCollection<CT> CTs { get; set; } = new ObservableCollection<CT>();
-        public string Name { get; set; }
-        public double Size1 { get; set; }
-        public double Size2 { get; set; }
+
+        private string _name { get; set; }
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                _name = value;
+                NotifyPropertyChanged("Name");
+            }
+        }
+
+        private double _size1 { get; set; }
+        public double Size1
+        {
+            get
+            {
+                return _size1;
+            }
+            set
+            {
+                _size1 = value;
+                NotifyPropertyChanged("Size1");
+            }
+        }
+
+        private double _size2 { get; set; }
+        public double Size2
+        {
+            get
+            {
+                return _size2;
+            }
+            set
+            {
+                _size2 = value;
+                NotifyPropertyChanged("Size1");
+            }
+        }
+
+        private double _lowVoltage { get; set; }
+        public double LowVoltage
+        {
+            get
+            {
+                return _lowVoltage;
+            }
+            set
+            {
+                _lowVoltage = value;
+                NotifyPropertyChanged("LowVoltage");
+            }
+        }
+
+        private double _highVoltage { get; set; }
+        public double HighVoltage
+        {
+            get
+            {
+                return _highVoltage;
+            }
+            set
+            {
+                _highVoltage = value;
+                NotifyPropertyChanged("HighVoltage");
+            }
+        }
+
         public double Z1 { get; set; }
         public double Z0 { get; set; }
         public double Losses { get; set; }
@@ -288,21 +366,85 @@ namespace Substation_Builder.Model
         public double X1 { get; set; }
         public double R0 { get; set; }
         public double X0 { get; set; }
-        public double LowVoltage { get; set; }
-        public double HighVoltage { get; set; }
+
         public XFMRCon LowVoltageWndg { get; set; }
         public XFMRCon HighVoltageWndg { get; set; }
     }
 
-    public class CT
+    public class CT : DiagramObject
     {
-        public string Name { get; set; }
+        private string _name { get; set; }
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                _name = value;
+            }
+        }
+
+        private CTPosition _cT_Position { get; set; }
+        public CTPosition CT_Position
+        {
+            get
+            {
+                return _cT_Position;
+            }
+            set
+            {
+                _cT_Position = value;
+                _name = value.ToString();
+                NotifyPropertyChanged("CT_Position");
+                NotifyPropertyChanged("Name");
+            }
+        }
+
+        private bool _isVisible { get; set; } = false;
+        public bool Is_Visible
+        {
+            get
+            {
+                return _isVisible;
+            }
+            set
+            {
+                _isVisible = value;
+
+                if (value == true)
+                    Visible = "Visible";
+
+                NotifyPropertyChanged("Is_Visible");
+            }
+        }
+
+        private bool _isHidden { get; set; } = true;
+        public bool Is_Hidden
+        {
+            get
+            {
+                return _isHidden;
+            }
+            set
+            {
+                _isHidden = value;
+
+                if (value == true)
+                    Visible = "Hidden";
+
+                NotifyPropertyChanged("Is_Hidden");
+            }
+        }
+
         public string Description { get; set; }
         public CTRating Rating { get; set; }
         public CTTaps CTR { get; set; }
         public CTTaps Tap { get; set; }
         public Polarity Polarity { get; set; }
         public Relay Relay { get; set; }
+        
     }
 
     public class SubstationData
