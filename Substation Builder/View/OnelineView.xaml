@@ -177,7 +177,8 @@
                 </Expander>
 
                 <!-- Displays the Forms from the selected Treeview Item -->
-                <Expander x:Name="TreeviewExpander" Header="{Binding SelectedItem.Name,FallbackValue='[Select an Element]'}" IsExpanded="True">
+                <Expander x:Name="TreeviewExpander" Header="[Select an Element]" IsExpanded="True">
+
                     <Expander.Resources>
                         <DataTemplate DataType="{x:Type local2:SubstationData}">
                             <Viewbox StretchDirection="DownOnly">
@@ -248,7 +249,6 @@
                                     <DockPanel Margin="-25,-25,25,25" HorizontalAlignment="Center" VerticalAlignment="Center">
 
                                         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <Ellipse Width="20" Height="20" Fill="Red" HorizontalAlignment="Center" VerticalAlignment="Center" Stroke="{x:Null}"></Ellipse>
                                             <Rectangle x:Name="Breaker" Fill="Red" Height="50" Width="50" Stroke="Black" StrokeThickness="3" Stretch="Uniform" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" OpacityMask="Black"/>
                                             <TextBlock x:Name="BreakerTxt" TextAlignment="Center" Text="{Binding Breaker_Position}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" Visibility="Collapsed"/>
                                         </Grid>
@@ -339,7 +339,6 @@
                                     <!-- visual of the thevenin -->
                                     <DockPanel>
                                         <Grid>
-                                            <Ellipse Width="20" Height="20" Fill="Red" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stroke="{x:Null}"></Ellipse>
                                             <Ellipse x:Name="Thevenin" Fill="White" Height="50" Width="100" Stroke="Black" StrokeThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center" OpacityMask="Black"/>
                                             <TextBlock x:Name="TheveninTxt" TextAlignment="Center" Text="{Binding Name}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" Visibility="Collapsed"/>
                                         </Grid>
@@ -446,13 +445,13 @@
                                                 <TextBlock Text="{Binding Name}" HorizontalAlignment="Right"/>
                                                 <DockPanel HorizontalAlignment="Right">
                                                     <TextBlock Text="{Binding HighVoltage}"/>
-                                                    <TextBlock Text="/"/>
+                                                    <TextBlock Text=" / "/>
                                                     <TextBlock Text="{Binding LowVoltage}"/>
                                                     <TextBlock Text=" kV"/>
                                                 </DockPanel>
                                                 <DockPanel HorizontalAlignment="Right">
                                                     <TextBlock Text="{Binding Size1}"/>
-                                                    <TextBlock Text="/"/>
+                                                    <TextBlock Text=" / "/>
                                                     <TextBlock Text="{Binding Size2}"/>
                                                     <TextBlock Text=" MVA"/>
                                                 </DockPanel>
@@ -461,28 +460,48 @@
                                             <Grid x:Name="CT1" Margin="95,15,0,0" VerticalAlignment="Top" Visibility="Collapsed">
                                                 <DockPanel>
                                                     <Rectangle x:Name="CT1rectangle" Height="10" Width="10" Fill="#FFBFBCBC" Stroke="Black" StrokeThickness="2"/>
-                                                    <TextBlock x:Name="CT1Txt" Text="CT1" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="0" Padding="3,0,0,0"/>
+                                                    <DockPanel x:Name="CT1Txt" Visibility="Collapsed">
+                                                        <TextBlock Text="CT1" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="0" Padding="3,0,0,0"/>
+                                                        <TextBlock Text=" (" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
+                                                        <TextBlock x:Name="CT1Tap" Text="" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
+                                                        <TextBlock Text=")" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
+                                                    </DockPanel>
                                                 </DockPanel>
                                             </Grid>
 
                                             <Grid x:Name="CT3" Margin="95,30,0,0" VerticalAlignment="Top" Visibility="Collapsed">
                                                 <DockPanel>
                                                     <Rectangle x:Name="CT3rectangle" Height="10" Width="10" Fill="#FFBFBCBC" Stroke="Black" StrokeThickness="2"/>
-                                                    <TextBlock x:Name="CT3Txt" Text="CT1" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="0" Padding="3,0,0,0"/>
+                                                    <DockPanel x:Name="CT3Txt" Visibility="Collapsed">
+                                                        <TextBlock Text="CT3" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="0" Padding="3,0,0,0"/>
+                                                        <TextBlock Text=" (" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
+                                                        <TextBlock x:Name="CT3Tap" Text="" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
+                                                        <TextBlock Text=")" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
+                                                    </DockPanel>
                                                 </DockPanel>
                                             </Grid>
 
                                             <Grid x:Name="CT2" Margin="95,0,0,30" VerticalAlignment="Bottom" Visibility="Collapsed">
                                                 <DockPanel>
                                                     <Rectangle x:Name="CT2rectangle" Height="10" Width="10" Fill="#FFBFBCBC" Stroke="Black" StrokeThickness="2"/>
-                                                    <TextBlock x:Name="CT2Txt" Text="CT1" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="0" Padding="3,0,0,0"/>
+                                                    <DockPanel x:Name="CT2Txt" Visibility="Collapsed">
+                                                        <TextBlock Text="CT2" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="0" Padding="3,0,0,0"/>
+                                                        <TextBlock Text=" (" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
+                                                        <TextBlock x:Name="CT2Tap" Text="" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
+                                                        <TextBlock Text=")" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
+                                                    </DockPanel>
                                                 </DockPanel>
                                             </Grid>
-                                            
+
                                             <Grid x:Name="CT4" Margin="95,0,0,15" VerticalAlignment="Bottom" Visibility="Collapsed">
                                                 <DockPanel>
                                                     <Rectangle x:Name="CT4rectangle" Height="10" Width="10" Fill="#FFBFBCBC" Stroke="Black" StrokeThickness="2"/>
-                                                    <TextBlock x:Name="CT4Txt" Text="CT1" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="0" Padding="3,0,0,0"/>
+                                                    <DockPanel x:Name="CT4Txt" Visibility="Collapsed">
+                                                        <TextBlock Text="CT4" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="0" Padding="3,0,0,0"/>
+                                                        <TextBlock Text=" (" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
+                                                        <TextBlock x:Name="CT4Tap" Text="" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
+                                                        <TextBlock Text=")" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
+                                                    </DockPanel>
                                                 </DockPanel>
                                             </Grid>
 
@@ -498,7 +517,7 @@
                                     <!-- UI interactions -->
                                     <ControlTemplate.Triggers>
 
-                                        <!-- Flashes selected item -->
+                                        <!-- Flashes Transformers when selected -->
                                         <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="True">
                                             <DataTrigger.EnterActions>
                                                 <BeginStoryboard x:Name="Flash">
@@ -514,6 +533,62 @@
                                             </DataTrigger.ExitActions>
                                         </DataTrigger>
 
+                                        <!-- Flashes CT1 when selected -->
+                                        <DataTrigger Binding="{Binding Tag, ElementName=TreeviewExpander}" Value="CT1">
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard x:Name="FlashCT1">
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetName="CT1" Storyboard.TargetProperty="Opacity" From="1" To=".5" Duration="0:0:0.5" AutoReverse="True" RepeatBehavior="Forever" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                            <DataTrigger.ExitActions>
+                                                <StopStoryboard BeginStoryboardName="FlashCT1"/>
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+
+                                        <!-- Flashes CT2 when selected -->
+                                        <DataTrigger Binding="{Binding Tag, ElementName=TreeviewExpander}" Value="CT2">
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard x:Name="FlashCT2">
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetName="CT2" Storyboard.TargetProperty="Opacity" From="1" To=".5" Duration="0:0:0.5" AutoReverse="True" RepeatBehavior="Forever" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                            <DataTrigger.ExitActions>
+                                                <StopStoryboard BeginStoryboardName="FlashCT2"/>
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+
+                                        <!-- Flashes CT3 when selected -->
+                                        <DataTrigger Binding="{Binding Tag, ElementName=TreeviewExpander}" Value="CT3">
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard x:Name="FlashCT3">
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetName="CT3" Storyboard.TargetProperty="Opacity" From="1" To=".5" Duration="0:0:0.5" AutoReverse="True" RepeatBehavior="Forever" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                            <DataTrigger.ExitActions>
+                                                <StopStoryboard BeginStoryboardName="FlashCT3"/>
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+
+                                        <!-- Flashes CT4 when selected -->
+                                        <DataTrigger Binding="{Binding Tag, ElementName=TreeviewExpander}" Value="CT4">
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard x:Name="FlashCT4">
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetName="CT4" Storyboard.TargetProperty="Opacity" From="1" To=".5" Duration="0:0:0.5" AutoReverse="True" RepeatBehavior="Forever" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                            <DataTrigger.ExitActions>
+                                                <StopStoryboard BeginStoryboardName="FlashCT4"/>
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+
                                         <!-- Change border thickness when dragging -->
                                         <Trigger Property="IsDragging" Value="True">
                                             <Setter TargetName="Transformer" Property="StrokeThickness" Value="5"/>
@@ -522,6 +597,10 @@
                                         <!-- Show all names on displays -->
                                         <DataTrigger Binding="{Binding DataContext.Project.OnelinePref.ShowAllNames, ElementName=view}" Value="True">
                                             <Setter TargetName="TransformerTxt" Property="Visibility" Value="Visible"/>
+                                            <Setter TargetName="CT1Txt" Property="Visibility" Value="Visible"/>
+                                            <Setter TargetName="CT2Txt" Property="Visibility" Value="Visible"/>
+                                            <Setter TargetName="CT3Txt" Property="Visibility" Value="Visible"/>
+                                            <Setter TargetName="CT4Txt" Property="Visibility" Value="Visible"/>
                                         </DataTrigger>
 
                                         <!-- Show selected name on display -->
@@ -532,6 +611,46 @@
                                             </MultiDataTrigger.Conditions>
                                             <MultiDataTrigger.Setters>
                                                 <Setter TargetName="TransformerTxt" Property="Visibility" Value="Visible"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding DataContext.Project.OnelinePref.ShowCurrentNames, ElementName=view}" Value="True"/>
+                                                <Condition Binding="{Binding Tag, ElementName=TreeviewExpander}" Value="CT1"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter TargetName="CT1Txt" Property="Visibility" Value="Visible"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding DataContext.Project.OnelinePref.ShowCurrentNames, ElementName=view}" Value="True"/>
+                                                <Condition Binding="{Binding Tag, ElementName=TreeviewExpander}" Value="CT2"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter TargetName="CT2Txt" Property="Visibility" Value="Visible"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding DataContext.Project.OnelinePref.ShowCurrentNames, ElementName=view}" Value="True"/>
+                                                <Condition Binding="{Binding Tag, ElementName=TreeviewExpander}" Value="CT3"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter TargetName="CT3Txt" Property="Visibility" Value="Visible"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding DataContext.Project.OnelinePref.ShowCurrentNames, ElementName=view}" Value="True"/>
+                                                <Condition Binding="{Binding Tag, ElementName=TreeviewExpander}" Value="CT4"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter TargetName="CT4Txt" Property="Visibility" Value="Visible"/>
                                             </MultiDataTrigger.Setters>
                                         </MultiDataTrigger>
 
@@ -562,7 +681,7 @@
                                             </MultiDataTrigger.Conditions>
                                             <MultiDataTrigger.Setters>
                                                 <Setter TargetName="CT1" Property="Visibility" Value="Visible"/>
-                                                <Setter TargetName="CT1Txt" Property="TextBlock.Text" Value="{Binding CTs[0].Name}"/>
+                                                <Setter TargetName="CT1Tap" Property="TextBlock.Text" Value="{Binding CTs[0].Tap}"/>
                                                 <Setter TargetName="CT1rectangle" Property="DataContext" Value="{Binding CTs[0]}"/>
                                             </MultiDataTrigger.Setters>
                                         </MultiDataTrigger>
@@ -574,7 +693,7 @@
                                             </MultiDataTrigger.Conditions>
                                             <MultiDataTrigger.Setters>
                                                 <Setter TargetName="CT1" Property="Visibility" Value="Visible"/>
-                                                <Setter TargetName="CT1Txt" Property="TextBlock.Text" Value="{Binding CTs[1].Name}"/>
+                                                <Setter TargetName="CT1Tap" Property="TextBlock.Text" Value="{Binding CTs[1].Tap}"/>
                                                 <Setter TargetName="CT1rectangle" Property="DataContext" Value="{Binding CTs[1]}"/>
                                             </MultiDataTrigger.Setters>
                                         </MultiDataTrigger>
@@ -586,7 +705,7 @@
                                             </MultiDataTrigger.Conditions>
                                             <MultiDataTrigger.Setters>
                                                 <Setter TargetName="CT1" Property="Visibility" Value="Visible"/>
-                                                <Setter TargetName="CT1Txt" Property="TextBlock.Text" Value="{Binding CTs[2].Name}"/>
+                                                <Setter TargetName="CT1Tap" Property="TextBlock.Text" Value="{Binding CTs[2].Tap}"/>
                                                 <Setter TargetName="CT1rectangle" Property="DataContext" Value="{Binding CTs[2]}"/>
                                             </MultiDataTrigger.Setters>
                                         </MultiDataTrigger>
@@ -598,7 +717,7 @@
                                             </MultiDataTrigger.Conditions>
                                             <MultiDataTrigger.Setters>
                                                 <Setter TargetName="CT1" Property="Visibility" Value="Visible"/>
-                                                <Setter TargetName="CT1Txt" Property="TextBlock.Text" Value="{Binding CTs[3].Name}"/>
+                                                <Setter TargetName="CT1Tap" Property="TextBlock.Text" Value="{Binding CTs[3].Tap}"/>
                                                 <Setter TargetName="CT1rectangle" Property="DataContext" Value="{Binding CTs[3]}"/>
                                             </MultiDataTrigger.Setters>
                                         </MultiDataTrigger>
@@ -613,7 +732,7 @@
                                             </MultiDataTrigger.Conditions>
                                             <MultiDataTrigger.Setters>
                                                 <Setter TargetName="CT2" Property="Visibility" Value="Visible"/>
-                                                <Setter TargetName="CT2Txt" Property="TextBlock.Text" Value="{Binding CTs[0].Name}"/>
+                                                <Setter TargetName="CT2Tap" Property="TextBlock.Text" Value="{Binding CTs[0].Tap}"/>
                                                 <Setter TargetName="CT2rectangle" Property="DataContext" Value="{Binding CTs[0]}"/>
                                             </MultiDataTrigger.Setters>
                                         </MultiDataTrigger>
@@ -625,7 +744,7 @@
                                             </MultiDataTrigger.Conditions>
                                             <MultiDataTrigger.Setters>
                                                 <Setter TargetName="CT2" Property="Visibility" Value="Visible"/>
-                                                <Setter TargetName="CT2Txt" Property="TextBlock.Text" Value="{Binding CTs[1].Name}"/>
+                                                <Setter TargetName="CT2Tap" Property="TextBlock.Text" Value="{Binding CTs[1].Tap}"/>
                                                 <Setter TargetName="CT2rectangle" Property="DataContext" Value="{Binding CTs[1]}"/>
                                             </MultiDataTrigger.Setters>
                                         </MultiDataTrigger>
@@ -637,7 +756,7 @@
                                             </MultiDataTrigger.Conditions>
                                             <MultiDataTrigger.Setters>
                                                 <Setter TargetName="CT2" Property="Visibility" Value="Visible"/>
-                                                <Setter TargetName="CT2Txt" Property="TextBlock.Text" Value="{Binding CTs[2].Name}"/>
+                                                <Setter TargetName="CT2Tap" Property="TextBlock.Text" Value="{Binding CTs[2].Tap}"/>
                                                 <Setter TargetName="CT2rectangle" Property="DataContext" Value="{Binding CTs[2]}"/>
                                             </MultiDataTrigger.Setters>
                                         </MultiDataTrigger>
@@ -649,7 +768,7 @@
                                             </MultiDataTrigger.Conditions>
                                             <MultiDataTrigger.Setters>
                                                 <Setter TargetName="CT2" Property="Visibility" Value="Visible"/>
-                                                <Setter TargetName="CT2Txt" Property="TextBlock.Text" Value="{Binding CTs[3].Name}"/>
+                                                <Setter TargetName="CT2Tap" Property="TextBlock.Text" Value="{Binding CTs[3].Tap}"/>
                                                 <Setter TargetName="CT2rectangle" Property="DataContext" Value="{Binding CTs[3]}"/>
                                             </MultiDataTrigger.Setters>
                                         </MultiDataTrigger>
@@ -664,7 +783,7 @@
                                             </MultiDataTrigger.Conditions>
                                             <MultiDataTrigger.Setters>
                                                 <Setter TargetName="CT3" Property="Visibility" Value="Visible"/>
-                                                <Setter TargetName="CT3Txt" Property="TextBlock.Text" Value="{Binding CTs[0].Name}"/>
+                                                <Setter TargetName="CT3Tap" Property="TextBlock.Text" Value="{Binding CTs[0].Tap}"/>
                                                 <Setter TargetName="CT3rectangle" Property="DataContext" Value="{Binding CTs[0]}"/>
                                             </MultiDataTrigger.Setters>
                                         </MultiDataTrigger>
@@ -676,7 +795,7 @@
                                             </MultiDataTrigger.Conditions>
                                             <MultiDataTrigger.Setters>
                                                 <Setter TargetName="CT3" Property="Visibility" Value="Visible"/>
-                                                <Setter TargetName="CT3Txt" Property="TextBlock.Text" Value="{Binding CTs[1].Name}"/>
+                                                <Setter TargetName="CT3Tap" Property="TextBlock.Text" Value="{Binding CTs[1].Tap}"/>
                                                 <Setter TargetName="CT3rectangle" Property="DataContext" Value="{Binding CTs[1]}"/>
                                             </MultiDataTrigger.Setters>
                                         </MultiDataTrigger>
@@ -688,7 +807,7 @@
                                             </MultiDataTrigger.Conditions>
                                             <MultiDataTrigger.Setters>
                                                 <Setter TargetName="CT3" Property="Visibility" Value="Visible"/>
-                                                <Setter TargetName="CT3Txt" Property="TextBlock.Text" Value="{Binding CTs[2].Name}"/>
+                                                <Setter TargetName="CT3Tap" Property="TextBlock.Text" Value="{Binding CTs[2].Tap}"/>
                                                 <Setter TargetName="CT3rectangle" Property="DataContext" Value="{Binding CTs[2]}"/>
                                             </MultiDataTrigger.Setters>
                                         </MultiDataTrigger>
@@ -700,7 +819,7 @@
                                             </MultiDataTrigger.Conditions>
                                             <MultiDataTrigger.Setters>
                                                 <Setter TargetName="CT3" Property="Visibility" Value="Visible"/>
-                                                <Setter TargetName="CT3Txt" Property="TextBlock.Text" Value="{Binding CTs[3].Name}"/>
+                                                <Setter TargetName="CT3Tap" Property="TextBlock.Text" Value="{Binding CTs[3].Tap}"/>
                                                 <Setter TargetName="CT3rectangle" Property="DataContext" Value="{Binding CTs[3]}"/>
                                             </MultiDataTrigger.Setters>
                                         </MultiDataTrigger>
@@ -715,7 +834,7 @@
                                             </MultiDataTrigger.Conditions>
                                             <MultiDataTrigger.Setters>
                                                 <Setter TargetName="CT4" Property="Visibility" Value="Visible"/>
-                                                <Setter TargetName="CT4Txt" Property="TextBlock.Text" Value="{Binding CTs[0].Name}"/>
+                                                <Setter TargetName="CT4Tap" Property="TextBlock.Text" Value="{Binding CTs[0].Tap}"/>
                                                 <Setter TargetName="CT4rectangle" Property="DataContext" Value="{Binding CTs[0]}"/>
                                             </MultiDataTrigger.Setters>
                                         </MultiDataTrigger>
@@ -727,7 +846,7 @@
                                             </MultiDataTrigger.Conditions>
                                             <MultiDataTrigger.Setters>
                                                 <Setter TargetName="CT4" Property="Visibility" Value="Visible"/>
-                                                <Setter TargetName="CT4Txt" Property="TextBlock.Text" Value="{Binding CTs[1].Name}"/>
+                                                <Setter TargetName="CT4Tap" Property="TextBlock.Text" Value="{Binding CTs[1].Tap}"/>
                                                 <Setter TargetName="CT4rectangle" Property="DataContext" Value="{Binding CTs[1]}"/>
                                             </MultiDataTrigger.Setters>
                                         </MultiDataTrigger>
@@ -739,7 +858,7 @@
                                             </MultiDataTrigger.Conditions>
                                             <MultiDataTrigger.Setters>
                                                 <Setter TargetName="CT4" Property="Visibility" Value="Visible"/>
-                                                <Setter TargetName="CT4Txt" Property="TextBlock.Text" Value="{Binding CTs[2].Name}"/>
+                                                <Setter TargetName="CT4Tap" Property="TextBlock.Text" Value="{Binding CTs[2].Tap}"/>
                                                 <Setter TargetName="CT4rectangle" Property="DataContext" Value="{Binding CTs[2]}"/>
                                             </MultiDataTrigger.Setters>
                                         </MultiDataTrigger>
@@ -751,7 +870,7 @@
                                             </MultiDataTrigger.Conditions>
                                             <MultiDataTrigger.Setters>
                                                 <Setter TargetName="CT4" Property="Visibility" Value="Visible"/>
-                                                <Setter TargetName="CT4Txt" Property="TextBlock.Text" Value="{Binding CTs[3].Name}"/>
+                                                <Setter TargetName="CT4Tap" Property="TextBlock.Text" Value="{Binding CTs[3].Tap}"/>
                                                 <Setter TargetName="CT4rectangle" Property="DataContext" Value="{Binding CTs[3]}"/>
                                             </MultiDataTrigger.Setters>
                                         </MultiDataTrigger>

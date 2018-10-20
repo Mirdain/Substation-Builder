@@ -100,35 +100,40 @@ namespace Substation_Builder.View
                     {
                         Thevenin thevenin = (Thevenin)TVSelectedItem;
                         TreeviewExpander.Content = TVSelectedItem;
-                        TreeviewExpander.Header = thevenin.Name;
+                        TreeviewExpander.Header = "Thevenin Impedance";
+                        TreeviewExpander.Tag = thevenin.Name;
                     }
 
                     else if (TVSelectedItem.GetType() == typeof(Breaker))
                     {
                         Breaker breaker = (Breaker)TVSelectedItem;
                         TreeviewExpander.Content = TVSelectedItem;
-                        TreeviewExpander.Header = breaker.Name;
+                        TreeviewExpander.Header = "Curcuit Breaker";
+                        TreeviewExpander.Tag = breaker.Name;
                     }
 
                     else if (TVSelectedItem.GetType() == typeof(Transformer))
                     {
                         Transformer transformer = (Transformer)TVSelectedItem;
                         TreeviewExpander.Content = TVSelectedItem;
-                        TreeviewExpander.Header = transformer.Name;
+                        TreeviewExpander.Header = "Power Transformer";
+                        TreeviewExpander.Tag = transformer.Name;
                     }
 
                     else if (TVSelectedItem.GetType() == typeof(Relay))
                     {
                         Relay relay = (Relay)TVSelectedItem;
                         TreeviewExpander.Content = TVSelectedItem;
-                        TreeviewExpander.Header = relay.Name;
+                        TreeviewExpander.Header = "Protective Relay";
+                        TreeviewExpander.Tag = relay.Name;
                     }
 
                     else if (TVSelectedItem.GetType() == typeof(CT))
                     {
                         CT cT = (CT)TVSelectedItem;
                         TreeviewExpander.Content = TVSelectedItem;
-                        TreeviewExpander.Header = cT.Name;
+                        TreeviewExpander.Header = "Current Transformer";
+                        TreeviewExpander.Tag = cT.CT_Position;
                     }
                 }
                 else if (TVSelectedItem.GetType() == typeof(TreeViewItem))
@@ -138,12 +143,14 @@ namespace Substation_Builder.View
                     if (SelectedItem.Name == "SubData")
                     {
                         TreeviewExpander.Content = ((OnelineViewModel)SelectedItem.DataContext).Project.SubData;
-                        TreeviewExpander.Header = ((OnelineViewModel)SelectedItem.DataContext).Project.SubData.Name;
+                        TreeviewExpander.Header = "Substation Project";
+                        TreeviewExpander.Tag = ((OnelineViewModel)SelectedItem.DataContext).Project.SubData.Name;
                     }
                     else
                     {
                         TreeviewExpander.Content = null;
                         TreeviewExpander.Header = "[Select an Element]";
+                        TreeviewExpander.Tag = null;
                     }
                 }
             }
@@ -297,7 +304,7 @@ namespace Substation_Builder.View
             }
         }
 
-        //Used to select an object
+        //Used to select an object when selected from UI
         private void Thumb_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             object item = e.OriginalSource;
@@ -307,28 +314,36 @@ namespace Substation_Builder.View
                 Breaker breaker = (Breaker)((FrameworkElement)item).DataContext;
                 ListBoxUI.SelectedItem = breaker;
                 TreeviewExpander.Content = breaker;
-                TreeviewExpander.Header = breaker.Name;
+                TreeviewExpander.Header = "Curcuit Breaker";
+                TreeviewExpander.Tag = breaker.Name;
             }
             else if (((FrameworkElement)item).DataContext.GetType() == typeof(Thevenin))
             {
                 Thevenin thevenin = (Thevenin)((FrameworkElement)item).DataContext;
                 ListBoxUI.SelectedItem = thevenin;
                 TreeviewExpander.Content = thevenin;
-                TreeviewExpander.Header = thevenin.Name;
+                TreeviewExpander.Header = "Thevenin Impedance";
+                TreeviewExpander.Tag = thevenin.Name;
             }
             else if (((FrameworkElement)item).DataContext.GetType() == typeof(Transformer))
             {
                 Transformer transformer = (Transformer)((FrameworkElement)item).DataContext;
                 ListBoxUI.SelectedItem = transformer;
                 TreeviewExpander.Content = transformer;
-                TreeviewExpander.Header = transformer.Name;
+                TreeviewExpander.Header = "Power Transformer";
+                TreeviewExpander.Tag = transformer.Name;
             }
             else if (((FrameworkElement)item).DataContext.GetType() == typeof(CT))
             {
                 CT ct = (CT)((FrameworkElement)item).DataContext;
                 ListBoxUI.SelectedItem = ct;
                 TreeviewExpander.Content = ct;
-                TreeviewExpander.Header = ct.Name;
+                TreeviewExpander.Header = "Current Transformer";
+                TreeviewExpander.Tag = ct.CT_Position;
+            }
+            else
+            {
+
             }
 
         }

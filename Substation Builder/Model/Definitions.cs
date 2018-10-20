@@ -441,7 +441,22 @@ namespace Substation_Builder.Model
         public string Description { get; set; }
         public CTRating Rating { get; set; }
         public CTTaps CTR { get; set; }
-        public CTTaps Tap { get; set; }
+        
+        private CTTaps _tap { get; set; }
+        public CTTaps Tap
+        {
+            get
+            {
+                return _tap;
+            }
+            set
+            {
+                _tap = value;
+                NotifyPropertyChanged("Tap");
+            }
+        }
+
+
         public Polarity Polarity { get; set; }
         public Relay Relay { get; set; }
         
