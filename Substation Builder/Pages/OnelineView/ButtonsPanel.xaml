@@ -77,13 +77,14 @@
             <ToggleButton IsChecked="{Binding CreatingNewNode}" Width="250" Height="350">
 
 
-                <Grid>
-                    <Grid Height="175" Width="200">
+                <!-- visual of the transformer -->
+                <Grid Height="175" Width="200" >
+                    <Grid>
                         <Rectangle Fill="{x:Null}"/>
                         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Rectangle x:Name="Transformer" Width="50" Height="80" Stroke="Black" StrokeThickness="3" Fill="#FFBFBCBC"/>
-                            <TextBlock Text="H1 H2 H3" FontSize="8" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0"/>
-                            <TextBlock Text="X1 X2 X3" FontSize="8" FontWeight="Bold" Foreground="Black" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+                            <TextBlock Text="H1 H2 H3" FontSize="8" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,3,0,0"/>
+                            <TextBlock Text="X1 X2 X3" FontSize="8" FontWeight="Bold" Foreground="Black" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,3"/>
                         </Grid>
 
                         <Line StrokeThickness="3" X1="0" X2="0" Y1="0" Y2="50" Stroke="Black" HorizontalAlignment="Center" Margin="2,0,0,0" VerticalAlignment="Top"/>
@@ -94,31 +95,39 @@
                         <Ellipse Height="10" Width="10" Stroke="Black" StrokeThickness="3" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Fill="Black"/>
                         <Ellipse x:Name="XFMR_X1" Height="10" Width="10" Stroke="Red" StrokeThickness="3" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Top" Fill="Red" Opacity="0"/>
                         <Ellipse x:Name="XFMR_H1" Height="10" Width="10" Stroke="Red" StrokeThickness="3" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Fill="Red" Opacity="0"/>
+
+
+                        <StackPanel x:Name="TransformerTxt" Visibility="Collapsed" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,130,0">
+                            <TextBlock Text="{Binding Name}" HorizontalAlignment="Right"/>
+                            <DockPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{Binding HighVoltage}"/>
+                                <TextBlock Text=" / "/>
+                                <TextBlock Text="{Binding LowVoltage}"/>
+                                <TextBlock Text=" kV"/>
+                            </DockPanel>
+                            <DockPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{Binding Size1}"/>
+                                <TextBlock Text=" / "/>
+                                <TextBlock Text="{Binding Size2}"/>
+                                <TextBlock Text=" MVA"/>
+                            </DockPanel>
+                        </StackPanel>
                     </Grid>
 
-                    <StackPanel x:Name="TransformerTxt" Visibility="Collapsed" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,125,0">
-                        <DockPanel HorizontalAlignment="Right">
-                            <TextBlock Text="{Binding HighVoltage}"/>
-                            <TextBlock Text=" kV"/>
-                        </DockPanel>
-                        <DockPanel HorizontalAlignment="Right">
-                            <TextBlock Text="{Binding LowVoltage}"/>
-                            <TextBlock Text=" kV"/>
-                        </DockPanel>
-                        <DockPanel HorizontalAlignment="Right">
-                            <TextBlock Text="{Binding Size1}"/>
-                            <TextBlock Text=" / "/>
-                            <TextBlock Text="{Binding Size2}"/>
-                            <TextBlock Text=" MVA"/>
-                        </DockPanel>
-                    </StackPanel>
 
-                    <Rectangle x:Name="CT1" Height="10" Width="10" Fill="#FFBFBCBC" Stroke="Black" StrokeThickness="2" VerticalAlignment="Top" Margin="0,15,0,0" Visibility="Collapsed"/>
-                    <Rectangle x:Name="CT3" Height="10" Width="10" Fill="#FFBFBCBC" Stroke="Black" StrokeThickness="2" VerticalAlignment="Top" Margin="0,30,0,0" Visibility="Collapsed"/>
-                    <Rectangle x:Name="CT2" Height="10" Width="10" Fill="#FFBFBCBC" Stroke="Black" StrokeThickness="2" VerticalAlignment="Bottom" Margin="0,0,0,30" Visibility="Collapsed"/>
-                    <Rectangle x:Name="CT4" Height="10" Width="10" Fill="#FFBFBCBC" Stroke="Black" StrokeThickness="2" VerticalAlignment="Bottom" Margin="0,0,0,15" Visibility="Collapsed"/>
+
+                    <!-- Display Coordinates for the item -->
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="105,0,5,0">
+                        <TextBlock x:Name="XText" Text="{Binding X, StringFormat='{}X = {0}'}" IsHitTestVisible="False" HorizontalAlignment="Stretch" Visibility="Collapsed"/>
+                        <TextBlock x:Name="YText" Text="{Binding Y, StringFormat='{}Y = {0}'}" IsHitTestVisible="False" HorizontalAlignment="Stretch" Visibility="Collapsed"/>
+                    </StackPanel>
                 </Grid>
 
+                
+                
+                
+                
+                
             </ToggleButton>
 
             <!-- Connector Icon -->

@@ -6,8 +6,8 @@ namespace Substation_Builder.Model
     public class DiagramObject : ObservableObject
     {
 
-        private string _visible { get; set; } = "Hidden";
-        public string Visible
+        private string _visible { get; set; } = "Collapsed";
+        public string Visibility
         {
             get
             {
@@ -15,8 +15,23 @@ namespace Substation_Builder.Model
             }
             set
             {
-                _visible = value;
-                NotifyPropertyChanged("Visible");
+                if(value == "True")
+                {
+
+                    _visible = "Visible";
+
+                }
+                else if (value == "False")
+                {
+
+                    _visible = "Collapsed";
+
+                }
+                else
+                {
+                    _visible = value;
+                }
+                NotifyPropertyChanged("Visibility");
             }
         }
 

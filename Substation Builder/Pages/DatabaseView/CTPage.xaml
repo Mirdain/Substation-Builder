@@ -93,12 +93,5 @@
             <Label Content="Polarity:"/>
             <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:Polarity}}}" SelectedValue="{Binding Polarity}"/>
         </DockPanel>
-
-        <DockPanel>
-            <Label Content="Display:"/>
-            <RadioButton  GroupName="Display" x:Name="Display" Content="Show" IsChecked="{Binding Is_Visible}" Margin="5,0,0,0" FontSize="16"/>
-            <RadioButton  GroupName="Display" x:Name="Hide" Content="Hide" Margin="25,0,0,0" FontSize="16" IsChecked="{Binding Is_Hidden}"/>
-        </DockPanel>
-
     </StackPanel>
 </UserControl>

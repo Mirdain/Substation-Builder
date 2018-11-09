@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
+
 namespace Substation_Builder.Model
 {
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
@@ -399,42 +400,7 @@ namespace Substation_Builder.Model
                 _name = value.ToString();
                 NotifyPropertyChanged("CT_Position");
                 NotifyPropertyChanged("Name");
-            }
-        }
 
-        private bool _isVisible { get; set; } = false;
-        public bool Is_Visible
-        {
-            get
-            {
-                return _isVisible;
-            }
-            set
-            {
-                _isVisible = value;
-
-                if (value == true)
-                    Visible = "Visible";
-
-                NotifyPropertyChanged("Is_Visible");
-            }
-        }
-
-        private bool _isHidden { get; set; } = true;
-        public bool Is_Hidden
-        {
-            get
-            {
-                return _isHidden;
-            }
-            set
-            {
-                _isHidden = value;
-
-                if (value == true)
-                    Visible = "Hidden";
-
-                NotifyPropertyChanged("Is_Hidden");
             }
         }
 
@@ -455,7 +421,6 @@ namespace Substation_Builder.Model
                 NotifyPropertyChanged("Tap");
             }
         }
-
 
         public Polarity Polarity { get; set; }
         public Relay Relay { get; set; }

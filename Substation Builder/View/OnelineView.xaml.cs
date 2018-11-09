@@ -102,6 +102,7 @@ namespace Substation_Builder.View
                         TreeviewExpander.Content = TVSelectedItem;
                         TreeviewExpander.Header = "Thevenin Impedance";
                         TreeviewExpander.Tag = thevenin.Name;
+
                     }
 
                     else if (TVSelectedItem.GetType() == typeof(Breaker))
@@ -224,7 +225,7 @@ namespace Substation_Builder.View
                 var point = e.GetPosition(this.ListBoxUI);
                 relay.X = point.X - 20;
                 relay.Y = point.Y + 10;
-                relay.Visible = "Visible";
+                relay.Visibility = "Visible";
             }
             else if (item.GetType() == typeof(Breaker))
             {
@@ -232,7 +233,7 @@ namespace Substation_Builder.View
                 var point = e.GetPosition(this.ListBoxUI);
                 breaker.X = point.X - 20;
                 breaker.Y = point.Y + 10;
-                breaker.Visible = "Visible";
+                breaker.Visibility = "Visible";
             }
             else if (item.GetType() == typeof(Thevenin))
             {
@@ -240,7 +241,7 @@ namespace Substation_Builder.View
                 var point = e.GetPosition(this.ListBoxUI);
                 thevenin.X = point.X - 20;
                 thevenin.Y = point.Y + 10;
-                thevenin.Visible = "Visible";
+                thevenin.Visibility = "Visible";
             }
             else if (item.GetType() == typeof(Transformer))
             {
@@ -248,12 +249,12 @@ namespace Substation_Builder.View
                 var point = e.GetPosition(this.ListBoxUI);
                 transformer.X = point.X - 20;
                 transformer.Y = point.Y + 10;
-                transformer.Visible = "Visible";
+                transformer.Visibility = "Visible";
             }
             else if (item.GetType() == typeof(Transformer))
             {
                 CT ct = (CT)item;
-                ct.Visible = "Visible";
+                ct.Visibility = "Visible";
             }
         }
 
@@ -285,22 +286,86 @@ namespace Substation_Builder.View
         //Remove item from UI (MenuItem is context menu screen)
         private void Remove_Click(object sender, RoutedEventArgs e)
         {
-            object item = ((FrameworkElement)sender).DataContext;
-
+            object item = TreeviewExpander.Content;
+                
             if (item.GetType() == typeof(Breaker))
             {
                 Breaker breaker = (Breaker)item;
-                breaker.Visible = "Hidden";
+                breaker.Visibility = "Collapsed";
             }
             else if (item.GetType() == typeof(Thevenin))
             {
                 Thevenin thevenin = (Thevenin)item;
-                thevenin.Visible = "Hidden";
+                thevenin.Visibility = "Collapsed";
             }
             else if (item.GetType() == typeof(Transformer))
             {
                 Transformer transformer = (Transformer)item;
-                transformer.Visible = "Hidden";
+                transformer.Visibility = "Collapsed";
+            }
+            else if (item.GetType() == typeof(CT))
+            {
+                CT cT = (CT)item;
+                cT.Visibility = "Collapsed";
+            }
+        }
+
+        //Show all CTsR
+        private void Show_All_CTs(object sender, RoutedEventArgs e)
+        {
+            object item = ((FrameworkElement)sender).DataContext;
+
+            if (item.GetType() == typeof(Transformer))
+            {
+                Transformer transformer = (Transformer)item;
+                if (transformer.CTs.Count > 0)
+                {
+                    for (int i = 0; i < transformer.CTs.Count; i++)
+                    {
+                        transformer.CTs[i].Visibility = "Visible";
+                    }
+                }
+            }
+            else if (item.GetType() == typeof(Breaker))
+            {
+                Breaker breaker = (Breaker)item;
+                if (breaker.CTs.Count > 0)
+                {
+                    for (int i = 0; i < breaker.CTs.Count; i++)
+                    {
+                        breaker.CTs[i].Visibility = "Visible";
+                    }
+                }
+            }
+
+        }
+
+        //Hide all CTs
+        private void Hide_All_CTs(object sender, RoutedEventArgs e)
+        {
+            object item = ((FrameworkElement)sender).DataContext;
+
+            if (item.GetType() == typeof(Transformer))
+            {
+                Transformer transformer = (Transformer)item;
+                if (transformer.CTs.Count > 0)
+                {
+                    for (int i = 0; i < transformer.CTs.Count; i++)
+                    {
+                        transformer.CTs[i].Visibility = "Hidden";
+                    }
+                }
+            }
+            else if (item.GetType() == typeof(Breaker))
+            {
+                Breaker breaker = (Breaker)item;
+                if (breaker.CTs.Count > 0)
+                {
+                    for (int i = 0; i < breaker.CTs.Count; i++)
+                    {
+                        breaker.CTs[i].Visibility = "Visible";
+                    }
+                }
             }
         }
 
@@ -351,10 +416,7 @@ namespace Substation_Builder.View
 
         private void ListBoxUI_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
             object item = Mouse.DirectlyOver;
-
-
             ListBoxUI.SelectedItem = null;
         }
 
@@ -363,6 +425,9 @@ namespace Substation_Builder.View
             ListBoxUI.SelectedItem = null;
         }
 
-
+        private void Border_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Thumb_PreviewMouseLeftButtonDown(sender, e);
+        }
     }
 }

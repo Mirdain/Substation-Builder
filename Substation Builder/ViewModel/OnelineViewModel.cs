@@ -24,7 +24,6 @@ namespace Substation_Builder.ViewModel
         }
 
 
-
         private SystemIO FileIO = new SystemIO();
         public RelayCommand SaveCommand { get; private set; }
         public RelayCommand LoadCommand { get; private set; }
@@ -81,9 +80,7 @@ namespace Substation_Builder.ViewModel
                 OnelinePref = new OnelinePreferences()
             };
 
-
             Project.Replace(substation);
-
             OLView.TreeviewExpander.Content = Project.SubData;
             OLView.TreeviewExpander.Header = Project.SubData.Name;
         }
@@ -108,7 +105,7 @@ namespace Substation_Builder.ViewModel
 
             if (sender.ToString() == "Thevenin")
             {
-                Thevenin thevenin = new Thevenin { Name = "New Thevenin " + (Project.Thevenins.Count + 1).ToString(), Visible = "Hidden" };
+                Thevenin thevenin = new Thevenin { Name = "New Thevenin " + (Project.Thevenins.Count + 1).ToString(), Visibility = "Hidden" };
                 Project.Thevenins.Add(thevenin);
             }
 
@@ -147,21 +144,21 @@ namespace Substation_Builder.ViewModel
 
             if (sender.ToString() == "Breaker")
             {
-                Breaker breaker = new Breaker { Name = "New Breaker " + (Project.Breakers.Count + 1).ToString(), Visible = "Hidden" };
+                Breaker breaker = new Breaker { Name = "New Breaker " + (Project.Breakers.Count + 1).ToString(), Visibility = "Hidden" };
                 Project.Breakers.Add(breaker);
 
             }
 
             if (sender.ToString() == "Relay")
             {
-                Relay relay = new Relay { Name = "New Relay " + (Project.Relays.Count + 1).ToString(), Visible = "Hidden" };
+                Relay relay = new Relay { Name = "New Relay " + (Project.Relays.Count + 1).ToString(), Visibility = "Hidden" };
                 Project.Relays.Add(relay);
             }
 
             if (sender.ToString() == "Transformer")
             {
 
-                Transformer transformer = new Transformer { Name = "New Transformer " + (Project.Transformers.Count + 1).ToString(), Visible = "Hidden" };
+                Transformer transformer = new Transformer { Name = "New Transformer " + (Project.Transformers.Count + 1).ToString(), Visibility = "Hidden" };
                 Project.Transformers.Add(transformer);
             }
         }
@@ -205,6 +202,8 @@ namespace Substation_Builder.ViewModel
                             j = 3;
                         }
                     }
+
+                    ct.Visibility = "Visible";
                    Project.Breakers[index].CTs.Add(ct);
                 }
 
@@ -242,9 +241,18 @@ namespace Substation_Builder.ViewModel
                             j = 3;
                         }
                     }
+                    ct.Visibility = "Visible";
                     Project.Transformers[index].CTs.Add(ct);
                 }
             }
+        }
+
+        public void ModifyCT (CTPosition cTPosition)
+        {
+
+
+
+
         }
 
         public bool Can_AddCT(object sender)
