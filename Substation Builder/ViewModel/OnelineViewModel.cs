@@ -2,7 +2,6 @@
 using Substation_Builder.Model;
 using Substation_Builder.View;
 using Substation_Builder.Services;
-using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using Substation_Builder.Resources.Monster;
@@ -12,19 +11,17 @@ namespace Substation_Builder.ViewModel
 {
     class OnelineViewModel : ObservableObject
     {
-        private Substation project;
+        private Substation _project;
         public Substation Project
         {
-            get { return project; }
+            get { return _project; }
             set
             {
-                project = value;
+                _project = value;
                 NotifyPropertyChanged("Project");
             }
         }
-
-
-        private SystemIO FileIO = new SystemIO();
+        private readonly SystemIO FileIO = new SystemIO();
         public RelayCommand SaveCommand { get; private set; }
         public RelayCommand LoadCommand { get; private set; }
         public RelayCommand TemplateCommand { get; private set; }
@@ -41,7 +38,6 @@ namespace Substation_Builder.ViewModel
         public OnelineViewModel(Substation refproject)
           {
             Project = refproject;
-
             LoadCommand = new RelayCommand(LoadFile);
             SaveCommand = new RelayCommand(SaveFile);
             TemplateCommand = new RelayCommand(LoadTemplate);
@@ -387,12 +383,10 @@ namespace Substation_Builder.ViewModel
         #endregion
 
         #region Breaker Context Menu
-
         public void OpenBreaker(object sender)
         {
             Breaker breaker = (Breaker)sender;
             breaker.BreakerOpen = true;
-
         }
         public bool Can_Open(object sender)
         {
@@ -423,7 +417,6 @@ namespace Substation_Builder.ViewModel
             else
                 return true;
         }
-
         #endregion
 
         #region Scrolling support

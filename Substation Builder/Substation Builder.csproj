@@ -128,6 +128,7 @@
     <Compile Include="ViewModel\FaultViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\OnelineViewModel.cs" />
+    <Compile Include="ViewModel\RelayViewModel.cs" />
     <Compile Include="View\FaultView.xaml.cs">
       <DependentUpon>FaultView.xaml</DependentUpon>
     </Compile>
@@ -145,6 +146,9 @@
     </Compile>
     <Compile Include="View\OnelineView.xaml.cs">
       <DependentUpon>OnelineView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RelayView.xaml.cs">
+      <DependentUpon>RelayView.xaml</DependentUpon>
     </Compile>
     <Page Include="Pages\DatabaseView\BreakerPage.xaml">
       <SubType>Designer</SubType>
@@ -207,6 +211,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\OnelineView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RelayView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -140,7 +140,7 @@
                                 <VisualBrush Visual="{StaticResource appbar_clipboard_edit}" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Controls:Tile>
+                        <Controls:Tile Command="{Binding RelayViewOpenCommand, Mode=OneWay}">
                             <TextBlock>Relay Settings</TextBlock>
                         </Controls:Tile>
                     </DockPanel>

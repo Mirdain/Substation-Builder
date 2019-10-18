@@ -128,11 +128,13 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="370"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="53"/>
+            <ColumnDefinition Width="317"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="109*"/>
         </Grid.ColumnDefinitions>
 
-        <ScrollViewer VerticalScrollBarVisibility="Visible">
+        <ScrollViewer VerticalScrollBarVisibility="Visible" Grid.ColumnSpan="2">
             <StackPanel Margin="10" Background="Black">
 
                 <!-- Treeview Expander -->
@@ -236,7 +238,7 @@
         </ScrollViewer>
 
         <!-- The Display UI -->
-        <Border Grid.Column="1" BorderThickness="2" CornerRadius="10" Margin="10" Padding="0" BorderBrush="#FF9C9595" DragOver="Border_DragOver" AllowDrop="True" PreviewMouseRightButtonDown="Border_PreviewMouseRightButtonDown">
+        <Border Grid.Column="2" BorderThickness="2" CornerRadius="10" Margin="10" Padding="0" BorderBrush="#FF9C9595" DragOver="Border_DragOver" AllowDrop="True" PreviewMouseRightButtonDown="Border_PreviewMouseRightButtonDown" Grid.ColumnSpan="2">
             <Border.Background>
                 <SolidColorBrush Color="Black" Opacity="0.4"/>
             </Border.Background>
@@ -517,7 +519,7 @@
                                                     </DockPanel>
                                                 </DockPanel>
                                             </Grid>
-                                            
+
                                             <!-- Display Coordinates for the item -->
                                             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="105,0,5,0">
                                                 <TextBlock x:Name="XText" Text="{Binding X, StringFormat='{}X = {0}'}" IsHitTestVisible="False" HorizontalAlignment="Stretch" Visibility="Collapsed"/>
