@@ -68,6 +68,11 @@
             <MenuItem Header="Remove Thevenin" Click="Remove_Click"/>
         </ContextMenu>
 
+        <!-- Relay-->
+        <ContextMenu x:Key="RelayDiagram">
+            <MenuItem Header="Remove Relay" Click="Remove_Click"/>
+        </ContextMenu>
+
         <!-- Transformer-->
         <ContextMenu x:Key="TransformerDiagram">
             <MenuItem Header="Remove Transformer" Click="Remove_Click"/>
@@ -123,7 +128,6 @@
             <MenuItem Header="Delete XFMR" Command="{Binding Data.RemoveItemCommand, Source={StaticResource DataContextProxy}}" CommandParameter="{Binding}"/>
             <MenuItem Header="Add CT" Command="{Binding Data.AddCTCommand, Source={StaticResource DataContextProxy}}" CommandParameter="{Binding}"/>
         </ContextMenu>
-
     </Controls:MetroWindow.Resources>
 
     <Grid>
@@ -252,6 +256,7 @@
                         <CollectionContainer Collection="{Binding DataContext.Project.Breakers,Source={x:Reference view}}"/>
                         <CollectionContainer Collection="{Binding DataContext.Project.Thevenins,Source={x:Reference view}}"/>
                         <CollectionContainer Collection="{Binding DataContext.Project.Transformers,Source={x:Reference view}}"/>
+                        <CollectionContainer Collection="{Binding DataContext.Project.Relays,Source={x:Reference view}}"/>
                     </CompositeCollection>
 
                     <!-- This is the DataTemplate that will be used to render the Breaker class -->
@@ -265,7 +270,7 @@
                                     <DockPanel Margin="-25,-25,25,25" HorizontalAlignment="Center" VerticalAlignment="Center">
 
                                         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <Rectangle x:Name="Breaker" Fill="Red" Height="50" Width="50" Stroke="Black" StrokeThickness="3" Stretch="Uniform" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" OpacityMask="Black"/>
+                                            <Rectangle x:Name="Breaker" Fill="Red" Height="50" Width="50" Stroke="Black" StrokeThickness="3" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" OpacityMask="Black"/>
                                             <TextBlock x:Name="BreakerTxt" TextAlignment="Center" Text="{Binding Breaker_Position}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" Visibility="Collapsed"/>
                                         </Grid>
 
@@ -351,9 +356,8 @@
                                ContextMenu="{Binding Mode=OneWay, Source={StaticResource TheveninDiagram}}" Visibility="{Binding Visibility}" PreviewMouseLeftButtonDown="Thumb_PreviewMouseLeftButtonDown">
                             <Thumb.Template>
                                 <ControlTemplate TargetType="Thumb">
-
                                     <!-- visual of the thevenin -->
-                                    <DockPanel>
+                                    <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <Grid>
                                             <Ellipse x:Name="Thevenin" Fill="White" Height="50" Width="100" Stroke="Black" StrokeThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center" OpacityMask="Black"/>
                                             <TextBlock x:Name="TheveninTxt" TextAlignment="Center" Text="{Binding Name}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" Visibility="Collapsed"/>
@@ -363,7 +367,6 @@
                                             <TextBlock x:Name="XText" Text="{Binding X, StringFormat='{}X = {0}'}" IsHitTestVisible="False" HorizontalAlignment="Left" Visibility="Collapsed"/>
                                             <TextBlock x:Name="YText" Text="{Binding Y, StringFormat='{}Y = {0}'}" IsHitTestVisible="False" HorizontalAlignment="Left" Visibility="Collapsed"/>
                                         </StackPanel>
-
                                     </DockPanel>
 
                                     <!-- UI interactions -->
@@ -526,12 +529,9 @@
                                                 <TextBlock x:Name="YText" Text="{Binding Y, StringFormat='{}Y = {0}'}" IsHitTestVisible="False" HorizontalAlignment="Stretch" Visibility="Collapsed"/>
                                             </StackPanel>
                                         </Grid>
-
                                     </DockPanel>
-
                                     <!-- UI interactions -->
                                     <ControlTemplate.Triggers>
-
                                         <!-- Flashes Transformers when selected -->
                                         <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="True">
                                             <DataTrigger.EnterActions>
@@ -688,12 +688,91 @@
                                         </MultiDataTrigger>
 
                                     </ControlTemplate.Triggers>
-
                                 </ControlTemplate>
                             </Thumb.Template>
                         </Thumb>
                     </DataTemplate>
 
+                    <!-- This is the DataTemplate that will be used to render the Relay class -->
+                    <DataTemplate DataType="{x:Type local2:Relay}">
+                        <Thumb DragDelta="Thumb_Drag" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                               ContextMenu="{Binding Mode=OneWay, Source={StaticResource RelayDiagram}}" Visibility="{Binding Visibility}" PreviewMouseLeftButtonDown="Thumb_PreviewMouseLeftButtonDown">
+                            <Thumb.Template>
+                                <ControlTemplate TargetType="Thumb">
+                                    <!-- visual of the relay -->
+                                    <StackPanel Orientation="Horizontal">
+                                        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                                            <Grid>
+                                                <Rectangle x:Name="Relay" Fill="White" Stroke="Black" StrokeThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="65"/>
+                                                <TextBlock x:Name="RelayTxt" TextAlignment="Center" Text="{Binding Name}" Opacity=".85" FontWeight="Bold" Foreground="Black" Margin="6,4"/>
+                                            </Grid>
+                                        </StackPanel>
+                                        <!-- Display Coordinates for the item -->
+                                        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0">
+                                            <TextBlock x:Name="XText" Text="{Binding X, StringFormat='{}X = {0}'}" IsHitTestVisible="False" HorizontalAlignment="Left" Visibility="Collapsed"/>
+                                            <TextBlock x:Name="YText" Text="{Binding Y, StringFormat='{}Y = {0}'}" IsHitTestVisible="False" HorizontalAlignment="Left" Visibility="Collapsed"/>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <!-- UI interactions -->
+                                    <ControlTemplate.Triggers>
+                                        <!-- Flashes selected item -->
+                                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="True">
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard x:Name="Flash">
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetName="Relay" Storyboard.TargetProperty="Opacity" From="1" To=".5" Duration="0:0:0.5" AutoReverse="True" RepeatBehavior="Forever" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                            <DataTrigger.ExitActions>
+                                                <StopStoryboard BeginStoryboardName="Flash"/>
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+
+                                        <!-- Change border thickness when dragging -->
+                                        <Trigger Property="IsDragging" Value="True">
+                                            <Setter TargetName="Relay" Property="StrokeThickness" Value="2"/>
+                                        </Trigger>
+
+                                        <!-- Show all names on displays -->
+                                        <DataTrigger Binding="{Binding DataContext.Project.OnelinePref.ShowAllNames, ElementName=view}" Value="True">
+                                            <Setter TargetName="RelayTxt" Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+
+                                        <!-- Show selected name on display -->
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="True"/>
+                                                <Condition Binding="{Binding DataContext.Project.OnelinePref.ShowCurrentNames, ElementName=view}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter TargetName="RelayTxt" Property="Visibility" Value="Visible"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+
+                                        <!-- Show all grid coordinates on display -->
+                                        <DataTrigger Binding="{Binding DataContext.Project.OnelinePref.ShowAllCoordinates, ElementName=view}" Value="True">
+                                            <Setter TargetName="XText" Property="Visibility" Value="Visible"/>
+                                            <Setter TargetName="YText" Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+
+                                        <!-- Show selected grid coordinates on display -->
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="True"/>
+                                                <Condition Binding="{Binding DataContext.Project.OnelinePref.ShowCurrentCoordinates, ElementName=view}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter TargetName="XText" Property="Visibility" Value="Visible"/>
+                                                <Setter TargetName="YText" Property="Visibility" Value="Visible"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Thumb.Template>
+                        </Thumb>
+                    </DataTemplate>
                 </Grid.Resources>
 
                 <ListBox 

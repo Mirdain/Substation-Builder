@@ -121,8 +121,14 @@
       <DependentUpon>ConnectorPropertyEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\DiagramObject.cs" />
+    <Compile Include="Pages\OnelineView\Relay.xaml.cs">
+      <DependentUpon>Relay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\OnelineView\ParametersEditor.xaml.cs">
       <DependentUpon>ParametersEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RelayView\Relays.xaml.cs">
+      <DependentUpon>Relays.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\Monster\Monster.cs" />
     <Compile Include="ViewModel\FaultViewModel.cs" />
@@ -166,7 +172,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\OnelineView\Relay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\OnelineView\ParametersEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\RelayView\Relays.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -292,6 +306,7 @@
   <ItemGroup>
     <Resource Include="Resources\Icons\Transformer.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

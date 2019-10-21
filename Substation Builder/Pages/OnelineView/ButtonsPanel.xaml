@@ -56,8 +56,8 @@
             <!-- Relay Icon -->
             <ToggleButton IsChecked="{Binding CreatingNewNode}">
                 <Grid>
-                    <Ellipse Width="40" Height="40" Stroke="Black" StrokeThickness="2" Fill="#FF3AFF00"/>
-                    <TextBlock Text="51"/>
+                    <Rectangle x:Name="Relay" Fill="White" Stroke="Black" StrokeThickness="2"/>
+                    <TextBlock x:Name="RelayTxt" TextAlignment="Center" Text="351-BL1" Opacity=".85" FontWeight="Bold" Foreground="Black" Margin="5,1"/>
                 </Grid>
             </ToggleButton>
 
@@ -72,10 +72,12 @@
         </StackPanel>
 
         <StackPanel Margin="0">
-            
+
+            <!-- Transformer Icon -->
+
+            <!-- Connector Icon -->
             <!-- Transformer Icon -->
             <ToggleButton IsChecked="{Binding CreatingNewNode}" Width="250" Height="350">
-
 
                 <!-- visual of the transformer -->
                 <Grid Height="175" Width="200" >
@@ -118,27 +120,27 @@
 
                     <!-- Display Coordinates for the item -->
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="105,0,5,0">
-                        <TextBlock x:Name="XText" Text="{Binding X, StringFormat='{}X = {0}'}" IsHitTestVisible="False" HorizontalAlignment="Stretch" Visibility="Collapsed"/>
-                        <TextBlock x:Name="YText" Text="{Binding Y, StringFormat='{}Y = {0}'}" IsHitTestVisible="False" HorizontalAlignment="Stretch" Visibility="Collapsed"/>
+                        <TextBlock x:Name="XText" Text="{Binding X, StringFormat=X \= \{0\}}" IsHitTestVisible="False" HorizontalAlignment="Stretch" Visibility="Collapsed"/>
+                        <TextBlock x:Name="YText" Text="{Binding Y, StringFormat=Y \= \{0\}}" IsHitTestVisible="False" HorizontalAlignment="Stretch" Visibility="Collapsed"/>
                     </StackPanel>
                 </Grid>
 
-                
-                
-                
-                
-                
+
+
+
+
+
             </ToggleButton>
 
             <!-- Connector Icon -->
             <ToggleButton IsChecked="{Binding CreatingNewConnector}">
-                
+
                 <Canvas Height="35" Width="35">
                     <Line X1="0" Y1="0" X2="25" Y2="25" Height="25" Width="25" Stroke="#FF1E44F1" StrokeThickness="2" StrokeDashArray="2 1"/>
                     <Rectangle Height="10" Width="10" Stroke="Black" StrokeThickness="2" Fill="Red"/>
                     <Rectangle Height="10" Width="10" Stroke="Black" StrokeThickness="2" Fill="Red" Canvas.Left="23" Canvas.Top="23"/>
                 </Canvas>
-                
+
             </ToggleButton>
 
         </StackPanel>

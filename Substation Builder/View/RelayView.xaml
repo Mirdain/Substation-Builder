@@ -6,7 +6,7 @@
                         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                         xmlns:Helpers="clr-namespace:Substation_Builder.Helpers"
-                        xmlns:local1="clr-namespace:Substation_Builder.Pages.OnelineView"
+                        xmlns:local1="clr-namespace:Substation_Builder.Pages.RelayView"
                         xmlns:local2="clr-namespace:Substation_Builder.Model"
                         xmlns:local3="clr-namespace:Substation_Builder.Pages.DatabaseView"
                         mc:Ignorable="d"
@@ -45,6 +45,16 @@
             <Setter Property="Padding" Value="5,0,0,0"/>
         </Style>
 
+        <Style TargetType="{x:Type ComboBox}">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="LightGray"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Background" Value="#2d2d2d"/>
+            <Setter Property="Opacity" Value="0.85"/>
+            <Setter Property="Padding" Value="5,0,0,0"/>
+        </Style>
+
         <Style TargetType="Control" x:Key="EmptyFocusVisualStyle">
             <Setter Property="Template">
                 <Setter.Value>
@@ -58,7 +68,27 @@
     </Controls:MetroWindow.Resources>
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="75"/>
+            <ColumnDefinition Width="317"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="109*"/>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer VerticalScrollBarVisibility="Visible" Grid.ColumnSpan="2">
+            <StackPanel Margin="10" Background="Black">
+                <ComboBox ItemsSource="{Binding Project.Relays.Name}"></ComboBox>
+                <!-- Displays the Options Form -->
+                <Expander Header="Relay">
+                    <local3:RelayPage x:Name="relaypagedisplay" />
+                </Expander>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Column="2" BorderThickness="2" CornerRadius="10" Margin="10" Padding="0" BorderBrush="#FF9C9595" AllowDrop="True" Grid.ColumnSpan="2">
+       
         
+        
+        </Border>
     </Grid>
     
 </Controls:MetroWindow>

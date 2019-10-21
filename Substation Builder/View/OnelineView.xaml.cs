@@ -4,7 +4,6 @@ using Substation_Builder.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -251,20 +250,17 @@ namespace Substation_Builder.View
                 transformer.Y = point.Y + 10;
                 transformer.Visibility = "Visible";
             }
-            else if (item.GetType() == typeof(Transformer))
+            else if (item.GetType() == typeof(Relay))
             {
                 CT ct = (CT)item;
                 ct.Visibility = "Visible";
             }
         }
-
         //Move the item
         private void Thumb_Drag(object sender, DragDeltaEventArgs e)
         {
-
             if (!(sender is Thumb thumb))
                 return;
-
             if (thumb.DataContext is Breaker breaker)
             {
                 breaker.X += e.HorizontalChange;
@@ -280,14 +276,17 @@ namespace Substation_Builder.View
                 transformer.X += e.HorizontalChange;
                 transformer.Y += e.VerticalChange;
             }
+            else if (thumb.DataContext is Relay relay)
+            {
+                relay.X += e.HorizontalChange;
+                relay.Y += e.VerticalChange;
+            }
 
         }
-
         //Remove item from UI (MenuItem is context menu screen)
         private void Remove_Click(object sender, RoutedEventArgs e)
         {
-            object item = TreeviewExpander.Content;
-                
+            object item = TreeviewExpander.Content;  
             if (item.GetType() == typeof(Breaker))
             {
                 Breaker breaker = (Breaker)item;
@@ -308,8 +307,12 @@ namespace Substation_Builder.View
                 CT cT = (CT)item;
                 cT.Visibility = "Collapsed";
             }
+            else if (item.GetType() == typeof(Relay))
+            {
+                Relay relay = (Relay)item;
+                relay.Visibility = "Collapsed";
+            }
         }
-
         //Show all CTsR
         private void Show_All_CTs(object sender, RoutedEventArgs e)
         {
@@ -339,7 +342,6 @@ namespace Substation_Builder.View
             }
 
         }
-
         //Hide all CTs
         private void Hide_All_CTs(object sender, RoutedEventArgs e)
         {
@@ -368,12 +370,10 @@ namespace Substation_Builder.View
                 }
             }
         }
-
         //Used to select an object when selected from UI
         private void Thumb_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             object item = e.OriginalSource;
-
             if (((FrameworkElement)item).DataContext.GetType() == typeof(Breaker))
             {
                 Breaker breaker = (Breaker)((FrameworkElement)item).DataContext;
@@ -405,6 +405,14 @@ namespace Substation_Builder.View
                 TreeviewExpander.Content = ct;
                 TreeviewExpander.Header = "Current Transformer";
                 TreeviewExpander.Tag = ct.CT_Position;
+            }
+            else if (((FrameworkElement)item).DataContext.GetType() == typeof(Relay))
+            {
+                Relay relay = (Relay)((FrameworkElement)item).DataContext;
+                ListBoxUI.SelectedItem = relay;
+                TreeviewExpander.Content = relay;
+                TreeviewExpander.Header = "Relay";
+                TreeviewExpander.Tag = relay.Position;
             }
             else
             {

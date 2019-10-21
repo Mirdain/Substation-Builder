@@ -50,6 +50,7 @@ namespace Substation_Builder.Model
         [Description("SEL 351S-6")] SEL_351S_6,
         [Description("SEL 351S-7")] SEL_351S_7,
         [Description("SEL 387")] SEL_387,
+        [Description("SEL 487")] SEL_487,
         [Description("SEL 587Z")] SEL_587,
     }
 
@@ -82,10 +83,12 @@ namespace Substation_Builder.Model
         [Description("351-BB12")] BB12,
         [Description("351-BB13")] BB13,
         [Description("351-BB14")] BB14,
+        [Description("351-BB15")] BB15,
         [Description("351-BB21")] BB21,
         [Description("351-BB22")] BB22,
         [Description("351-BB23")] BB23,
         [Description("351-BB24")] BB24,
+        [Description("351-BB25")] BB25,
     }
 
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
@@ -95,7 +98,7 @@ namespace Substation_Builder.Model
         [Description("115 kV")] _115kV,
         [Description("69 kV")] _69kV,
         [Description("34.5 kV")] _34_5kV,
-        [Description("26.2 kV")] _26_2kV,
+        [Description("24.9 kV")] _26_2kV,
         [Description("13.8 kV")] _13_8kV,
         [Description("13.2 kV")] _13_2kV,
         [Description("12.47 kV")] _12_5kV,
@@ -137,10 +140,12 @@ namespace Substation_Builder.Model
         [Description("BB12")] BB12,
         [Description("BB13")] BB13,
         [Description("BB14")] BB14,
+        [Description("BB15")] BB15,
         [Description("BB21")] BB21,
         [Description("BB22")] BB22,
         [Description("BB23")] BB23,
         [Description("BB24")] BB24,
+        [Description("BB25")] BB25,
     }
 
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
@@ -223,19 +228,6 @@ namespace Substation_Builder.Model
 
     public class Relay : DiagramObject
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public RelayType Type { get; set; }
-        public RelayFunction Function { get; set; }
-        public Bus Bus { get; set; }
-        public RelayPosition Position { get; set; }
-        public CT ConnectedCT { get; set; }
-    }
-
-    public class Breaker : DiagramObject
-    {
-        public ObservableCollection<CT> CTs { get; set; } = new ObservableCollection<CT>();
-
         private string _name { get; set; }
         public string Name
         {
@@ -249,7 +241,30 @@ namespace Substation_Builder.Model
                 NotifyPropertyChanged("Name");
             }
         }
+        public string Description { get; set; }
+        public RelayType Type { get; set; }
+        public RelayFunction Function { get; set; }
+        public Bus Bus { get; set; }
+        public RelayPosition Position { get; set; }
+        public CT ConnectedCT { get; set; }
+    }
 
+    public class Breaker : DiagramObject
+    {
+        public ObservableCollection<CT> CTs { get; set; } = new ObservableCollection<CT>();
+        private string _name { get; set; }
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                _name = value;
+                NotifyPropertyChanged("Name");
+            }
+        }
         private BreakerPosition _breaker_Position { get; set; }
         public BreakerPosition Breaker_Position
         {
