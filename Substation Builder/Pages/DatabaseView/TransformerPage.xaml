@@ -76,19 +76,19 @@
         </DockPanel>
         <DockPanel>
             <Label Content="Base MVA:"/>
-            <TextBox Text="{Binding Size1}"/>
+            <TextBox Text="{Binding Size1}" KeyUp="TextBox_KeyEnterUpdate"/>
         </DockPanel>
         <DockPanel>
             <Label Content="Top MVA:"/>
-            <TextBox Text="{Binding Size2}"/>
+            <TextBox Text="{Binding Size2}" KeyUp="TextBox_KeyEnterUpdate"/>
         </DockPanel>
         <DockPanel>
             <Label Content="HV kV:"/>
-            <TextBox Text="{Binding HighVoltage}"/>
+            <TextBox Text="{Binding HighVoltage}" KeyUp="TextBox_KeyEnterUpdate"/>
         </DockPanel>
         <DockPanel>
             <Label Content="LV kV:"/>
-            <TextBox Text="{Binding LowVoltage}"/>
+            <TextBox Text="{Binding LowVoltage}" KeyUp="TextBox_KeyEnterUpdate"/>
         </DockPanel>
         <DockPanel>
             <Label Content="HV Winding:"/>
@@ -100,23 +100,23 @@
         </DockPanel>
         <DockPanel>
             <Label Content="Z1%:"/>
-            <TextBox Text="{Binding Z1}"/>
+            <TextBox Text="{Binding Z1}" KeyUp="TextBox_KeyEnterUpdate"/>
         </DockPanel>
         <DockPanel>
             <Label Content="Z0%:"/>
-            <TextBox Text="{Binding Z0}"/>
+            <TextBox Text="{Binding Z0}" KeyUp="TextBox_KeyEnterUpdate"/>
         </DockPanel>
         <DockPanel>
             <Label Content="Losses (kW):"/>
-            <TextBox Text="{Binding Losses}"/>
+            <TextBox Text="{Binding Losses}" KeyUp="TextBox_KeyEnterUpdate"/>
         </DockPanel>
 
         <DockPanel>
             <Label Content="Position:"/>
-            <Label Content="X:" Width="30" Margin="0,0,5,5"/>
-            <TextBox Text="{Binding X, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
-            <Label Content="Y:" Width="30" Margin="0,0,5,5"/>
-            <TextBox Text="{Binding Y, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
+            <Label Content="X:" Width="25" Margin="0,0,5,5"/>
+            <TextBox Text="{Binding X, StringFormat=\{0:F0\}}" KeyUp="TextBox_KeyEnterUpdate" Width="50"/>
+            <Label Content="Y:" Width="25" Margin="0,0,5,5"/>
+            <TextBox Text="{Binding Y, StringFormat=\{0:F0\}}" KeyUp="TextBox_KeyEnterUpdate" Width="50"/>
         </DockPanel>
         
     </StackPanel>

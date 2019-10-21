@@ -105,9 +105,9 @@
         <DockPanel>
             <Label Content="Position:"/>
             <Label Content="X:" Width="25" Margin="0,0,5,5"/>
-            <TextBox Text="{Binding X, StringFormat=\{0:F0\}, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
+            <TextBox Text="{Binding X, StringFormat=\{0:F0\}}" KeyUp="TextBox_KeyEnterUpdate" Width="50"/>
             <Label Content="Y:" Width="25" Margin="0,0,5,5"/>
-            <TextBox Text="{Binding Y, StringFormat=\{0:F0\}, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
+            <TextBox Text="{Binding Y, StringFormat=\{0:F0\}}" KeyUp="TextBox_KeyEnterUpdate" Width="50"/>
         </DockPanel>
 
     </StackPanel>
