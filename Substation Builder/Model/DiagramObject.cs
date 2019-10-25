@@ -5,7 +5,6 @@ namespace Substation_Builder.Model
 {
     public class DiagramObject : ObservableObject
     {
-
         private string _visible { get; set; } = "Collapsed";
         public string Visibility
         {
@@ -17,15 +16,11 @@ namespace Substation_Builder.Model
             {
                 if(value == "True")
                 {
-
                     _visible = "Visible";
-
                 }
                 else if (value == "False")
                 {
-
                     _visible = "Collapsed";
-
                 }
                 else
                 {
@@ -34,7 +29,6 @@ namespace Substation_Builder.Model
                 NotifyPropertyChanged("Visibility");
             }
         }
-
         private double _x { get; set; }
         public double X
         {
@@ -50,7 +44,6 @@ namespace Substation_Builder.Model
                 NotifyPropertyChanged("X");
             }
         }
-
         private double _y { get; set; }
         public double Y
         {

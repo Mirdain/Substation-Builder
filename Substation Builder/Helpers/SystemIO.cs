@@ -12,7 +12,6 @@ namespace Substation_Builder.Services
         public void FileOpen(Substation RefProject)
         {
             Substation Project = new Substation();
-
             OpenFileDialog openfile = new OpenFileDialog
             {
                 Filter = "XML Files (*.xml)|*.xml|All Files (*.*)|*.*"
@@ -25,9 +24,7 @@ namespace Substation_Builder.Services
                 reader.Close();
                 RefProject.Replace(Project);
             }
-
         }
-
         //Save a Project File
         public void FileSave(Substation Project)
         {
@@ -45,158 +42,157 @@ namespace Substation_Builder.Services
                 File.WriteAllText(savefile.FileName, outputstring);
             }
         }
-
         //Loads a Template File
         public void LoadTemplate(Substation RefProject)
         {
-            Substation Project = new Substation
-            {
-                SubData = new SubstationData
-                {
-                    Name = "Squash Bend Template",
-                    Monster = Monster.MonsterName()
-                },
-                OnelinePref = new OnelinePreferences()
-            };
-                                 
-            CT XFMR1CT = new CT
-            {
-                CTR = CTTaps.T400,
-                Rating = CTRating.C400,
-                Polarity = Polarity.OnPolarity,
-                Tap = CTTaps.T180
-            };
-            CT XFMR2CT = new CT
-            {
-                CTR = CTTaps.T400,
-                Rating = CTRating.C400,
-                Polarity = Polarity.OnPolarity,
-                Tap = CTTaps.T400
-            };
-            CT XFMR3CT = new CT
-            {
-                CTR = CTTaps.T400,
-                Rating = CTRating.C400,
-                Polarity = Polarity.OnPolarity,
-                Tap = CTTaps.T180
-            };
+            /*
+              Substation Project = new Substation
+              {
+                  SubData = new SubstationData
+                  {
+                      Name = "Squash Bend Template",
+                      Monster = Monster.MonsterName()
+                  },
+                  OnelinePref = new OnelinePreferences()
+              };
 
-            CT BRK1CT = new CT
-            {
-                CTR = CTTaps.T400,
-                Rating = CTRating.C400,
-                Polarity = Polarity.OnPolarity,
-                Tap = CTTaps.T120
-            };
-            CT BRK2CT = new CT
-            {
-                CTR = CTTaps.T400,
-                Rating = CTRating.C400,
-                Polarity = Polarity.OnPolarity,
-                Tap = CTTaps.T160
-            };
-            CT BRK3CT = new CT
-            {
-                CTR = CTTaps.T240,
-                Rating = CTRating.C400,
-                Polarity = Polarity.OnPolarity,
-                Tap = CTTaps.T120
-            };
+              CT XFMR1CT = new CT
+              {
+                  CTR = CTTaps.T400,
+                  Rating = CTRating.C400,
+                  Polarity = Polarity.OnPolarity,
+                  Tap = CTTaps.T180
+              };
+              CT XFMR2CT = new CT
+              {
+                  CTR = CTTaps.T400,
+                  Rating = CTRating.C400,
+                  Polarity = Polarity.OnPolarity,
+                  Tap = CTTaps.T400
+              };
+              CT XFMR3CT = new CT
+              {
+                  CTR = CTTaps.T400,
+                  Rating = CTRating.C400,
+                  Polarity = Polarity.OnPolarity,
+                  Tap = CTTaps.T180
+              };
 
-            Transformer T1 = new Transformer
-            {
-                Name = "T1",
-                Size1 = 20,
-                Size2 = 33,
-                Z1 = 9.17,
-                Z0 = 9.06,
-                LowVoltage = 25,
-                LowVoltageWndg = XFMRCon.GrndWye,
-                HighVoltage = 69,
-                HighVoltageWndg = XFMRCon.Delta,
-                Losses = 60
-            };
+              CT BRK1CT = new CT
+              {
+                  CTR = CTTaps.T400,
+                  Rating = CTRating.C400,
+                  Polarity = Polarity.OnPolarity,
+                  Tap = CTTaps.T120
+              };
+              CT BRK2CT = new CT
+              {
+                  CTR = CTTaps.T400,
+                  Rating = CTRating.C400,
+                  Polarity = Polarity.OnPolarity,
+                  Tap = CTTaps.T160
+              };
+              CT BRK3CT = new CT
+              {
+                  CTR = CTTaps.T240,
+                  Rating = CTRating.C400,
+                  Polarity = Polarity.OnPolarity,
+                  Tap = CTTaps.T120
+              };
 
-            T1.CTs.Add(XFMR1CT);
-            T1.CTs.Add(XFMR2CT);
-            T1.CTs.Add(XFMR3CT);
+              Transformer T1 = new Transformer
+              {
+                  Name = "T1",
+                  Size1 = 20,
+                  Size2 = 33,
+                  Z1 = 9.17,
+                  Z0 = 9.06,
+                  LowVoltage = 25,
+                  LowVoltageWndg = XFMRCon.GrndWye,
+                  HighVoltage = 69,
+                  HighVoltageWndg = XFMRCon.Delta,
+                  Losses = 60
+              };
 
-            Transformer T2 = new Transformer
-            {
-                Name = "T2",
-                Size1 = 18,
-                Size2 = 30,
-                Z1 = 9.4,
-                Z0 = 9.26,
-                LowVoltage = 13.2,
-                LowVoltageWndg = XFMRCon.GrndWye,
-                HighVoltage = 69,
-                HighVoltageWndg = XFMRCon.Delta,
-            };
+              T1.CTs.Add(XFMR1CT);
+              T1.CTs.Add(XFMR2CT);
+              T1.CTs.Add(XFMR3CT);
 
-            Thevenin BaseThevenin = new Thevenin
-            {
-                Name = "Base Thevenin",
-                R0_Z = .928,
-                X0_Z = 1.28,
-            };
+              Transformer T2 = new Transformer
+              {
+                  Name = "T2",
+                  Size1 = 18,
+                  Size2 = 30,
+                  Z1 = 9.4,
+                  Z0 = 9.26,
+                  LowVoltage = 13.2,
+                  LowVoltageWndg = XFMRCon.GrndWye,
+                  HighVoltage = 69,
+                  HighVoltageWndg = XFMRCon.Delta,
+              };
 
-            Thevenin SecondThevenin = new Thevenin
-            {
-                Name = "Second Thevenin",
-                R0_Z = .128,
-                X0_Z = 5.38,
-            };
+              Thevenin BaseThevenin = new Thevenin
+              {
+                  Name = "Base Thevenin",
+                  R0_Z = .928,
+                  X0_Z = 1.28,
+              };
 
-            Breaker HighSide = new Breaker
-            {
-                Name = "High Side Name",
-                Bus = Bus.Bus_1,
-                Breaker_Position = BreakerPosition.BH1,
-                Voltage = Voltage._69kV,
-                Breaker_Type = BreakerType.SF6,
-                Breaker_Size = BreakerSize.A2000,
-                X = 100,
-                Y = 100
-            };
+              Thevenin SecondThevenin = new Thevenin
+              {
+                  Name = "Second Thevenin",
+                  R0_Z = .128,
+                  X0_Z = 5.38,
+              };
 
-            HighSide.CTs.Add(BRK3CT);
-            
-            HighSide.CTs.Add(BRK1CT);
-            HighSide.CTs.Add(BRK1CT);
+              Breaker HighSide = new Breaker
+              {
+                  Name = "High Side Name",
+                  Bus = Bus.Bus_1,
+                  Breaker_Position = BreakerPosition.BH1,
+                  Voltage = Voltage._69kV,
+                  Breaker_Type = BreakerType.SF6,
+                  Breaker_Size = BreakerSize.A2000,
+                  X = 100,
+                  Y = 100
+              };
 
-            CT CT1 = new CT
-            {
-                Rating = CTRating.C400,
-                CTR = CTTaps.T240,
-                Tap = CTTaps.T120,
-                Polarity = Polarity.OnPolarity,
-            };
+              HighSide.CTs.Add(BRK3CT);
 
-            Relay FirstRelay = new Relay
-            {
+              HighSide.CTs.Add(BRK1CT);
+              HighSide.CTs.Add(BRK1CT);
 
-                Name = "Xfmr Diff",
-                Type = RelayType.SEL_387,
-            };
+              CT CT1 = new CT
+              {
+                  Rating = CTRating.C400,
+                  CTR = CTTaps.T240,
+                  Tap = CTTaps.T120,
+                  Polarity = Polarity.OnPolarity,
+              };
 
-            Relay SecondRelay = new Relay
-            {
-                Name = "High Side",
-                Type = RelayType.SEL_351S_7,
-            };
+              Relay FirstRelay = new Relay
+              {
 
-            Project.Thevenins.Add(BaseThevenin);
-            Project.Thevenins.Add(SecondThevenin);
-            Project.Transformers.Add(T1);
-            Project.Transformers.Add(T2);
-            Project.Relays.Add(FirstRelay);
-            Project.Relays.Add(SecondRelay);
-            Project.Breakers.Add(HighSide);
+                  Name = "Xfmr Diff",
+                  Type = RelayType.SEL_387,
+              };
 
-            RefProject.Replace(Project);
+              Relay SecondRelay = new Relay
+              {
+                  Name = "High Side",
+                  Type = RelayType.SEL_351S_7,
+              };
 
+              Project.Thevenins.Add(BaseThevenin);
+              Project.Thevenins.Add(SecondThevenin);
+              Project.Transformers.Add(T1);
+              Project.Transformers.Add(T2);
+              Project.Relays.Add(FirstRelay);
+              Project.Relays.Add(SecondRelay);
+              Project.Breakers.Add(HighSide);
+
+              RefProject.Replace(Project);
+         */
         }
-
     }
 }

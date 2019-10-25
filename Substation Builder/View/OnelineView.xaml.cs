@@ -14,14 +14,11 @@ namespace Substation_Builder.View
     /// </summary>
     public partial class OnelineView : MetroWindow
     {
-  
         public OnelineView()
         {
             InitializeComponent();
         }
-
         //------------------  Treeview Section ----------------------------
-
         //searches the treeview
         static TreeViewItem VisualUpwardSearch(DependencyObject source)
         {
@@ -30,21 +27,16 @@ namespace Substation_Builder.View
 
             return source as TreeViewItem;
         }
-
         //used to jump to correct treenode and then open contextmenu screen
         private void Oneline_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-
             TreeViewItem treeViewItem = VisualUpwardSearch(e.OriginalSource as DependencyObject);
-
             if (treeViewItem != null)
             {
                 treeViewItem.Focus();
                 e.Handled = true;
             }
-
             object TVItem = OnelineTreeview.SelectedItem;
-
             if (TVItem != null)
             {
                 if (TVItem.GetType() == typeof(Thevenin))
@@ -66,6 +58,8 @@ namespace Substation_Builder.View
                 else if (TVItem.GetType() == typeof(CT))
                 {
                     treeViewItem.ContextMenu = (ContextMenu)OnelineTreeview.TryFindResource("CTItemContext");
+                    //Update the Context for the correct CT object
+                    treeViewItem.ContextMenu.DataContext = TVItem;
                 }
                 else if (TVItem.GetType() == typeof(TreeViewItem))
                 {
@@ -73,24 +67,20 @@ namespace Substation_Builder.View
                 }
             }
         }
-
         //Set Data Context properly for Expander from Treeview
         private void OnelineTreeview_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             UpdateExpander();
         }
-
         //Set datacontext of the expander
         private void OnelineTreeview_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             UpdateExpander();
         }
-
         //Update expander with selected item from UI
         private void UpdateExpander()
         {
             object TVSelectedItem = OnelineTreeview.SelectedItem;
-
             if (TVSelectedItem != null)
             {
                 if (TVSelectedItem.GetType() != typeof(TreeViewItem))
@@ -101,9 +91,7 @@ namespace Substation_Builder.View
                         TreeviewExpander.Content = TVSelectedItem;
                         TreeviewExpander.Header = "Thevenin Impedance";
                         TreeviewExpander.Tag = thevenin.Name;
-
                     }
-
                     else if (TVSelectedItem.GetType() == typeof(Breaker))
                     {
                         Breaker breaker = (Breaker)TVSelectedItem;
@@ -111,7 +99,6 @@ namespace Substation_Builder.View
                         TreeviewExpander.Header = "Curcuit Breaker";
                         TreeviewExpander.Tag = breaker.Name;
                     }
-
                     else if (TVSelectedItem.GetType() == typeof(Transformer))
                     {
                         Transformer transformer = (Transformer)TVSelectedItem;
@@ -119,7 +106,6 @@ namespace Substation_Builder.View
                         TreeviewExpander.Header = "Power Transformer";
                         TreeviewExpander.Tag = transformer.Name;
                     }
-
                     else if (TVSelectedItem.GetType() == typeof(Relay))
                     {
                         Relay relay = (Relay)TVSelectedItem;
@@ -127,7 +113,6 @@ namespace Substation_Builder.View
                         TreeviewExpander.Header = "Protective Relay";
                         TreeviewExpander.Tag = relay.Name;
                     }
-
                     else if (TVSelectedItem.GetType() == typeof(CT))
                     {
                         CT cT = (CT)TVSelectedItem;
@@ -155,9 +140,7 @@ namespace Substation_Builder.View
                 }
             }
         }
-
         //---------------- Drag / Drop Section --------------------------------
-
         //Drag Source
         private void OnelineTreeview_MouseMove(object sender, MouseEventArgs e)
         {
@@ -185,13 +168,16 @@ namespace Substation_Builder.View
                 {
                     DragDrop.DoDragDrop(treeview, data, DragDropEffects.Copy);
                 }
+                else if (treeview.SelectedItem.GetType() == typeof(CT))
+                {
+                    DragDrop.DoDragDrop(treeview, data, DragDropEffects.Copy);
+                }
                 else
                 {
 
                 }
             }
         }
-
         //show copy cursor when over the listbox
         private void ListBoxUI_DragOver(object sender, DragEventArgs e)
         {
@@ -205,14 +191,12 @@ namespace Substation_Builder.View
             }
             e.Handled = true;
         }
-
         //Block out void space on boarder
         private void Border_DragOver(object sender, DragEventArgs e)
         {
             e.Effects = DragDropEffects.None;
             e.Handled = true;
         }
-
         //Drop action
         private void ListBoxUI_Drop(object sender, DragEventArgs e)
         {
@@ -250,7 +234,7 @@ namespace Substation_Builder.View
                 transformer.Y = point.Y + 10;
                 transformer.Visibility = "Visible";
             }
-            else if (item.GetType() == typeof(Relay))
+            else if (item.GetType() == typeof(CT))
             {
                 CT ct = (CT)item;
                 ct.Visibility = "Visible";
@@ -354,7 +338,7 @@ namespace Substation_Builder.View
                 {
                     for (int i = 0; i < transformer.CTs.Count; i++)
                     {
-                        transformer.CTs[i].Visibility = "Hidden";
+                        transformer.CTs[i].Visibility = "Collapsed";
                     }
                 }
             }
@@ -365,7 +349,7 @@ namespace Substation_Builder.View
                 {
                     for (int i = 0; i < breaker.CTs.Count; i++)
                     {
-                        breaker.CTs[i].Visibility = "Visible";
+                        breaker.CTs[i].Visibility = "Collapsed";
                     }
                 }
             }
@@ -420,19 +404,14 @@ namespace Substation_Builder.View
             }
 
         }
-
-
         private void ListBoxUI_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            object item = Mouse.DirectlyOver;
             ListBoxUI.SelectedItem = null;
         }
-
         private void Expander_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             ListBoxUI.SelectedItem = null;
         }
-
         private void Border_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             Thumb_PreviewMouseLeftButtonDown(sender, e);

@@ -11,7 +11,6 @@ namespace Substation_Builder.Model
         [Description("Bus 1")] Bus_1,
         [Description("Bus 2")] Bus_2,
     }
-
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum SubType
     {
@@ -19,7 +18,6 @@ namespace Substation_Builder.Model
         [Description("Switchgear")] Switchgear,
         [Description("Recloser")] Recloser,
     }
-
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum XFMRCon
     {
@@ -29,21 +27,18 @@ namespace Substation_Builder.Model
         [Description("Impedance Grnd")] ImpGrnd,
         [Description("Zig-Zag")] ZigZag,
     }
-
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum BusType
     {
         [Description("Single Bus")] SingleBus,
         [Description("Double Bus")] DoubleBus,
     }
-
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum Polarity
     {
         [Description("On Polarity")] OnPolarity,
         [Description("Off Polarity")] OffPolarity,
     }
-
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum RelayType
     {
@@ -53,7 +48,6 @@ namespace Substation_Builder.Model
         [Description("SEL 487")] SEL_487,
         [Description("SEL 587Z")] SEL_587,
     }
-
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum RelayFunction
     {
@@ -64,8 +58,6 @@ namespace Substation_Builder.Model
         [Description("Feeder Protection")] Feeder,
         [Description("Bus Tie Protection")] BT_OC,
     }
-
-
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum RelayPosition
     {
@@ -90,7 +82,6 @@ namespace Substation_Builder.Model
         [Description("351-BB24")] BB24,
         [Description("351-BB25")] BB25,
     }
-
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum Voltage
     {
@@ -103,14 +94,12 @@ namespace Substation_Builder.Model
         [Description("13.2 kV")] _13_2kV,
         [Description("12.47 kV")] _12_5kV,
     }
-
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum BreakerType
     {
         [Description("SF-6")] SF6,
         [Description("R-MAG")] RMAG,
     }
-
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum BrkManufacture
     {
@@ -119,14 +108,12 @@ namespace Substation_Builder.Model
         [Description("Mitsubishi")] MITSU,
         [Description("Areva")] AREVA,
     }
-
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum BreakerSize
     {
         [Description("2000 A")] A2000,
         [Description("1200 A")] A1200,
     }
-
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum BreakerPosition
     {
@@ -147,15 +134,15 @@ namespace Substation_Builder.Model
         [Description("BB24")] BB24,
         [Description("BB25")] BB25,
     }
-
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum CTRating
     {
+        [Description("C50")] C50,
+        [Description("C100")] C100,
         [Description("C200")] C200,
         [Description("C400")] C400,
         [Description("C800")] C800,
     }
-
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum CTPosition
     {
@@ -163,8 +150,9 @@ namespace Substation_Builder.Model
         [Description("CT2")] CT2,
         [Description("CT3")] CT3,
         [Description("CT4")] CT4,
+        [Description("CT5")] CT5,
+        [Description("CT6")] CT6,
     }
-
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum CTTaps
     {
@@ -176,7 +164,6 @@ namespace Substation_Builder.Model
         [Description("600:5")] T120,
         [Description("SHORTED")] SHORTED,
     }
-
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum PTR
     {
@@ -187,16 +174,15 @@ namespace Substation_Builder.Model
         [Description("60:1")] T60,
         [Description("None")] TNone,
     }
-
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum ConnectionType
     {
         [Description("Delta")] Delta,
         [Description("Wye")] Wye,
     }
-
     public class Thevenin : DiagramObject
     {
+        public int ID { get; set; }
         private string _name { get; set; }
         public string Name
         {
@@ -210,14 +196,12 @@ namespace Substation_Builder.Model
                 NotifyPropertyChanged("Name");
             }
         }
-
         public double R0_Z { get; set; }
         public double R1_Z { get; set; }
         public double R2_Z { get; set; }
         public double X0_Z { get; set; }
         public double X1_Z { get; set; }
         public double X2_Z { get; set; }
-
         public double R0_Ohms { get; set; }
         public double R1_Ohms { get; set; }
         public double R2_Ohms { get; set; }
@@ -225,9 +209,9 @@ namespace Substation_Builder.Model
         public double X1_Ohms { get; set; }
         public double X2_Ohms { get; set; }
     }
-
     public class Relay : DiagramObject
     {
+        public int ID { get; set; }
         private string _name { get; set; }
         public string Name
         {
@@ -248,9 +232,9 @@ namespace Substation_Builder.Model
         public RelayPosition Position { get; set; }
         public CT ConnectedCT { get; set; }
     }
-
     public class Breaker : DiagramObject
     {
+        public int ID { get; set; }
         public ObservableCollection<CT> CTs { get; set; } = new ObservableCollection<CT>();
         private string _name { get; set; }
         public string Name
@@ -278,14 +262,12 @@ namespace Substation_Builder.Model
                 NotifyPropertyChanged("Breaker_Position");
             }
         }
-
         public string Description { get; set; }
         public BreakerSize Breaker_Size { get; set; }
         public Bus Bus { get; set; }
         public Voltage Voltage { get; set; }
         public BreakerType Breaker_Type { get; set; }
         public BrkManufacture BrkMan { get; set; }
-
         private bool _breakerOpen { get; set; }
         public bool BreakerOpen
         {
@@ -300,11 +282,10 @@ namespace Substation_Builder.Model
             }
         }
     }
-
     public class Transformer : DiagramObject
     {
-        public ObservableCollection<CT> CTs { get; set; } = new ObservableCollection<CT>();
-
+        public int ID { get; set; }
+        public ObservableCollection<CT> CTs { get; set; }  = new ObservableCollection<CT>();
         private string _name { get; set; }
         public string Name
         {
@@ -318,7 +299,6 @@ namespace Substation_Builder.Model
                 NotifyPropertyChanged("Name");
             }
         }
-
         private double _size1 { get; set; }
         public double Size1
         {
@@ -332,7 +312,6 @@ namespace Substation_Builder.Model
                 NotifyPropertyChanged("Size1");
             }
         }
-
         private double _size2 { get; set; }
         public double Size2
         {
@@ -346,7 +325,6 @@ namespace Substation_Builder.Model
                 NotifyPropertyChanged("Size1");
             }
         }
-
         private double _lowVoltage { get; set; }
         public double LowVoltage
         {
@@ -360,7 +338,6 @@ namespace Substation_Builder.Model
                 NotifyPropertyChanged("LowVoltage");
             }
         }
-
         private double _highVoltage { get; set; }
         public double HighVoltage
         {
@@ -374,7 +351,6 @@ namespace Substation_Builder.Model
                 NotifyPropertyChanged("HighVoltage");
             }
         }
-
         public double Z1 { get; set; }
         public double Z0 { get; set; }
         public double Losses { get; set; }
@@ -382,13 +358,12 @@ namespace Substation_Builder.Model
         public double X1 { get; set; }
         public double R0 { get; set; }
         public double X0 { get; set; }
-
         public XFMRCon LowVoltageWndg { get; set; }
         public XFMRCon HighVoltageWndg { get; set; }
     }
-
     public class CT : DiagramObject
     {
+        public int ID { get; set; }
         private string _name { get; set; }
         public string Name
         {
@@ -401,7 +376,6 @@ namespace Substation_Builder.Model
                 _name = value;
             }
         }
-
         private CTPosition _cT_Position { get; set; }
         public CTPosition CT_Position
         {
@@ -415,14 +389,11 @@ namespace Substation_Builder.Model
                 _name = value.ToString();
                 NotifyPropertyChanged("CT_Position");
                 NotifyPropertyChanged("Name");
-
             }
         }
-
         public string Description { get; set; }
         public CTRating Rating { get; set; }
         public CTTaps CTR { get; set; }
-        
         private CTTaps _tap { get; set; }
         public CTTaps Tap
         {
@@ -436,12 +407,9 @@ namespace Substation_Builder.Model
                 NotifyPropertyChanged("Tap");
             }
         }
-
         public Polarity Polarity { get; set; }
         public Relay Relay { get; set; }
-        
     }
-
     public class SubstationData
     {
         public string Name { get; set; }
@@ -457,7 +425,6 @@ namespace Substation_Builder.Model
         public Voltage HighVoltage { get; set; }
         public Voltage LowVoltage { get; set; }
     }
-
     public class OnelinePreferences : ObservableObject
     {
         private double _zoomLevel { get; set; } = 1;
@@ -471,7 +438,6 @@ namespace Substation_Builder.Model
                 NotifyPropertyChanged("ZoomLevel");
             }
         }
-
         private string _zoomLevelPercent { get; set; } = "100%";
         public string ZoomLevelPercent
         {
@@ -485,7 +451,6 @@ namespace Substation_Builder.Model
                 NotifyPropertyChanged("ZoomLevelPercent");
             }
         }
-
         private double _areaHeight { get; set; } = 600;
         public double AreaHeight
         {
@@ -499,7 +464,6 @@ namespace Substation_Builder.Model
                 NotifyPropertyChanged("AreaHeight");
             }
         }
-
         private double _areaWidth { get; set; } = 600;
         public double AreaWidth
         {
@@ -513,12 +477,10 @@ namespace Substation_Builder.Model
                 NotifyPropertyChanged("AreaWidth");
             }
         }
-
         private bool _showAllNames { get; set; } = true;
         public bool ShowAllNames
         {
             get
-
             {
                 return _showAllNames;
             }
@@ -528,7 +490,6 @@ namespace Substation_Builder.Model
                 NotifyPropertyChanged("ShowAllNames");
             }
         }
-
         private bool _showCurrentNames { get; set; } = false;
         public bool ShowCurrentNames
         {
@@ -542,7 +503,6 @@ namespace Substation_Builder.Model
                 NotifyPropertyChanged("ShowCurrentNames");
             }
         }
-
         private bool _showNoNames { get; set; } = false;
         public bool ShowNoNames
         {
@@ -556,7 +516,6 @@ namespace Substation_Builder.Model
                 NotifyPropertyChanged("ShowNoNames");
             }
         }
-
         private bool _shownAllCoordinates { get; set; } = true;
         public bool ShowAllCoordinates
         {
@@ -570,7 +529,6 @@ namespace Substation_Builder.Model
                 NotifyPropertyChanged("ShowAllCoordinates");
             }
         }
-
         private bool _showCurrentCoordinates { get; set; } = false;
         public bool ShowCurrentCoordinates
         {
@@ -584,7 +542,6 @@ namespace Substation_Builder.Model
                 NotifyPropertyChanged("ShowCurrentCoordinates");
             }
         }
-
         private bool _showNoCoordinates { get; set; } = false;
         public bool ShowNoCoordinates
         {
@@ -599,6 +556,5 @@ namespace Substation_Builder.Model
             }
         }
     }
-
 }
 

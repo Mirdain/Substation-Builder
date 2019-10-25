@@ -15,25 +15,20 @@
                         WindowStartupLocation="CenterScreen"
                         x:Name="view"
                         BorderThickness="0" Height="720" Width="1050" MinWidth="1000" MinHeight="720" Background="{x:Null}">
-
     <Controls:MetroWindow.TitleTemplate>
         <DataTemplate>
             <TextBlock Text="{TemplateBinding Content}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" FontSize="22" Margin="20,0,0,0"/>
         </DataTemplate>
     </Controls:MetroWindow.TitleTemplate>
-
     <Controls:MetroWindow.Resources>
-
         <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource {x:Type TreeViewItem}}">
             <Setter Property="Background" Value="{x:Null}"/>
             <Setter Property="FontSize" Value="18"/>
         </Style>
-
         <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource {x:Type MenuItem}}">
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="Background" Value="#2d2d2d"/>
         </Style>
-
         <Style TargetType="{x:Type Expander}">
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="BorderThickness" Value="1"/>
@@ -43,7 +38,6 @@
             <Setter Property="Opacity" Value="0.85"/>
             <Setter Property="Padding" Value="5,0,0,0"/>
         </Style>
-
         <Style TargetType="Control" x:Key="EmptyFocusVisualStyle">
             <Setter Property="Template">
                 <Setter.Value>
@@ -51,9 +45,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
         <Helpers:BindingProxy x:Key="DataContextProxy" Data="{Binding}"/>
-
         <!-- Breaker-->
         <ContextMenu x:Key="BreakerDiagram" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
             <MenuItem Header="Remove Breaker" Click="Remove_Click"/>
@@ -62,29 +54,24 @@
             <MenuItem Header="Open Breaker" Command="{Binding Data.OpenBreakerCommand, Source={StaticResource DataContextProxy}}" CommandParameter="{Binding}"/>
             <MenuItem Header="Close Breaker" Command="{Binding Data.CloseBreakerCommand, Source={StaticResource DataContextProxy}}" CommandParameter="{Binding}"/>
         </ContextMenu>
-
         <!-- Thevenin-->
         <ContextMenu x:Key="TheveninDiagram">
             <MenuItem Header="Remove Thevenin" Click="Remove_Click"/>
         </ContextMenu>
-
         <!-- Relay-->
         <ContextMenu x:Key="RelayDiagram">
             <MenuItem Header="Remove Relay" Click="Remove_Click"/>
         </ContextMenu>
-
+        <!-- CTs-->
+        <ContextMenu x:Key="CTDiagram">
+            <MenuItem Header="Hide CT" Click="Remove_Click"/>
+        </ContextMenu>
         <!-- Transformer-->
         <ContextMenu x:Key="TransformerDiagram">
             <MenuItem Header="Remove Transformer" Click="Remove_Click"/>
             <MenuItem Header="Show All CTs" Click="Show_All_CTs"/>
             <MenuItem Header="Hide All CTs" Click="Hide_All_CTs"/>
         </ContextMenu>
-
-        <!-- CTs-->
-        <ContextMenu x:Key="CTDiagram">
-            <MenuItem Header="Hide CT" Click="Remove_Click"/>
-        </ContextMenu>
-
         <!-- File menu -->
         <ContextMenu x:Key="ProjectContext">
             <MenuItem Header="New Project" Command="{Binding NewCommand}" CommandParameter="Project"/>
@@ -92,7 +79,6 @@
             <MenuItem Header="Save Project" Command="{Binding SaveCommand}" CommandParameter="Project"/>
             <MenuItem Header="Load Template" Command="{Binding TemplateCommand}" CommandParameter="Project"/>
         </ContextMenu>
-
         <!-- Add Items -->
         <ContextMenu x:Key="AddTheveninContext" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
             <MenuItem Header="Add Thevenin" Command="{Binding Data.AddItemCommand, Source={StaticResource DataContextProxy}}" CommandParameter="Thevenin"/>
@@ -129,7 +115,6 @@
             <MenuItem Header="Add CT" Command="{Binding Data.AddCTCommand, Source={StaticResource DataContextProxy}}" CommandParameter="{Binding}"/>
         </ContextMenu>
     </Controls:MetroWindow.Resources>
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="53"/>
@@ -137,20 +122,15 @@
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="109*"/>
         </Grid.ColumnDefinitions>
-
         <ScrollViewer VerticalScrollBarVisibility="Visible" Grid.ColumnSpan="2">
             <StackPanel Margin="10" Background="Black">
-
                 <!-- Treeview Expander -->
                 <Expander Header="Substation" IsExpanded="True" PreviewMouseLeftButtonDown="Expander_PreviewMouseLeftButtonDown" ContextMenu="{StaticResource ProjectContext}">
-
                     <TreeView x:Name="OnelineTreeview" PreviewMouseRightButtonDown="Oneline_PreviewMouseRightButtonDown"
                               VerticalContentAlignment="Top" HorizontalContentAlignment="Left" x:FieldModifier="public" Background="{x:Null}"
                               BorderBrush="{x:Null}" MouseMove="OnelineTreeview_MouseMove" AllowDrop="True" SelectedItemChanged="OnelineTreeview_SelectedItemChanged" PreviewMouseLeftButtonDown="OnelineTreeview_PreviewMouseLeftButtonDown">
-
                         <!-- This is the Header and Treeview Items for Thevenin-->
                         <TreeViewItem x:Name="SubData" Header="{Binding Project.SubData.Name,FallbackValue='[No Project Set]'}">
-
                             <!-- This is the Header and Treeview Items for Thevenin-->
                             <TreeViewItem Header='Thevenins' ItemsSource="{Binding Project.Thevenins}" ContextMenu="{DynamicResource AddTheveninContext}">
                                 <!-- This is the treeview Items for Thevenin-->
@@ -160,28 +140,23 @@
                                     </HierarchicalDataTemplate>
                                 </TreeViewItem.ItemTemplate>
                             </TreeViewItem>
-
                             <!-- This is the Header and Transformers-->
                             <TreeViewItem Header="Transformers" ItemsSource="{Binding Project.Transformers}" ContextMenu="{DynamicResource AddTransformerContext}">
                                 <TreeViewItem.ItemTemplate>
                                     <HierarchicalDataTemplate ItemsSource="{Binding CTs}">
-                                        <TextBlock Text="{Binding Name}"/>
+                                        <TextBlock Text="{Binding Name}" Visibility="{Binding Visibility, FallbackValue=Hidden}"/>
                                     </HierarchicalDataTemplate>
                                 </TreeViewItem.ItemTemplate>
                             </TreeViewItem>
-
                             <!-- This is the Header and Breakers-->
                             <TreeViewItem Header="Breakers" ItemsSource="{Binding Project.Breakers}" ContextMenu="{DynamicResource AddBreakerContext}">
                                 <!-- This is the treeview Items for Breaker-->
-
                                 <TreeViewItem.ItemTemplate>
                                     <HierarchicalDataTemplate ItemsSource="{Binding CTs}">
                                         <TextBlock Text="{Binding Name}"/>
                                     </HierarchicalDataTemplate>
                                 </TreeViewItem.ItemTemplate>
-
                             </TreeViewItem>
-
                             <!-- This is the Header and Treeview Items for Relay-->
                             <TreeViewItem Header='Relays' ItemsSource="{Binding Project.Relays}" ContextMenu="{DynamicResource AddRelayContext}">
                                 <!-- This is the reeview Items for Relay-->
@@ -193,12 +168,9 @@
                             </TreeViewItem>
                         </TreeViewItem>
                     </TreeView>
-
                 </Expander>
-
                 <!-- Displays the Forms from the selected Treeview Item -->
                 <Expander x:Name="TreeviewExpander" Header="[Select an Element]" IsExpanded="True">
-
                     <Expander.Resources>
                         <DataTemplate DataType="{x:Type local2:SubstationData}">
                             <Viewbox StretchDirection="DownOnly">
@@ -232,59 +204,47 @@
                         </DataTemplate>
                     </Expander.Resources>
                 </Expander>
-
                 <!-- Displays the Options Form -->
                 <Expander Header="Options">
                     <local1:ParametersEditor x:Name="parametersEditor"/>
                 </Expander>
-
             </StackPanel>
         </ScrollViewer>
-
         <!-- The Display UI -->
         <Border Grid.Column="2" BorderThickness="2" CornerRadius="10" Margin="10" Padding="0" BorderBrush="#FF9C9595" DragOver="Border_DragOver" AllowDrop="True" PreviewMouseRightButtonDown="Border_PreviewMouseRightButtonDown" Grid.ColumnSpan="2">
             <Border.Background>
                 <SolidColorBrush Color="Black" Opacity="0.4"/>
             </Border.Background>
-
             <Grid Margin="10" Grid.Row="0">
                 <Grid.Resources>
                     <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
-
                     <!-- This CompositeCollection basically Concatenates the Nodes and Connectors in a single one -->
                     <CompositeCollection x:Key="Col">
-                        <CollectionContainer Collection="{Binding DataContext.Project.Breakers,Source={x:Reference view}}"/>
+                        <CollectionContainer Collection="{Binding DataContext.Project.Breakers,Source={x:Reference view }}"/>
                         <CollectionContainer Collection="{Binding DataContext.Project.Thevenins,Source={x:Reference view}}"/>
                         <CollectionContainer Collection="{Binding DataContext.Project.Transformers,Source={x:Reference view}}"/>
                         <CollectionContainer Collection="{Binding DataContext.Project.Relays,Source={x:Reference view}}"/>
                     </CompositeCollection>
-
                     <!-- This is the DataTemplate that will be used to render the Breaker class -->
                     <DataTemplate DataType="{x:Type local2:Breaker}">
                         <Thumb DragDelta="Thumb_Drag" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
                                ContextMenu="{Binding Mode=OneWay, Source={StaticResource BreakerDiagram}}" Visibility="{Binding Visibility}" PreviewMouseLeftButtonDown="Thumb_PreviewMouseLeftButtonDown">
                             <Thumb.Template>
                                 <ControlTemplate TargetType="Thumb">
-
                                     <!-- visual of the breaker -->
                                     <DockPanel Margin="-25,-25,25,25" HorizontalAlignment="Center" VerticalAlignment="Center">
-
                                         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <Rectangle x:Name="Breaker" Fill="Red" Height="50" Width="50" Stroke="Black" StrokeThickness="3" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" OpacityMask="Black"/>
-                                            <TextBlock x:Name="BreakerTxt" TextAlignment="Center" Text="{Binding Breaker_Position}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" Visibility="Collapsed"/>
+                                            <TextBlock x:Name="BreakerTxt" TextAlignment="Center" Text="{Binding Name}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" Visibility="Collapsed"/>
                                         </Grid>
-
                                         <!-- Display Coordinates for the item -->
                                         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0">
                                             <TextBlock x:Name="XText" Text="{Binding X, StringFormat='{}X = {0}'}" IsHitTestVisible="False" HorizontalAlignment="Left" Visibility="Collapsed"/>
                                             <TextBlock x:Name="YText" Text="{Binding Y, StringFormat='{}Y = {0}'}" IsHitTestVisible="False" HorizontalAlignment="Left" Visibility="Collapsed"/>
                                         </StackPanel>
-
                                     </DockPanel>
-
                                     <!-- UI interactions -->
                                     <ControlTemplate.Triggers>
-
                                         <!-- Flashes selected item -->
                                         <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="True">
                                             <DataTrigger.EnterActions>
@@ -298,22 +258,18 @@
                                                 <StopStoryboard BeginStoryboardName="Flash"/>
                                             </DataTrigger.ExitActions>
                                         </DataTrigger>
-
                                         <!-- Change border thickness when dragging -->
                                         <Trigger Property="IsDragging" Value="True">
                                             <Setter TargetName="Breaker" Property="StrokeThickness" Value="5"/>
                                         </Trigger>
-
                                         <!-- Open / Close Breaker -->
                                         <DataTrigger Binding="{Binding BreakerOpen}" Value="True">
                                             <Setter TargetName="Breaker" Property="Fill" Value="Green"/>
                                         </DataTrigger>
-
                                         <!-- Show all names on displays -->
                                         <DataTrigger Binding="{Binding DataContext.Project.OnelinePref.ShowAllNames, ElementName=view}" Value="True">
                                             <Setter TargetName="BreakerTxt" Property="Visibility" Value="Visible"/>
                                         </DataTrigger>
-
                                         <!-- Show selected name on display -->
                                         <MultiDataTrigger>
                                             <MultiDataTrigger.Conditions>
@@ -324,13 +280,11 @@
                                                 <Setter TargetName="BreakerTxt" Property="Visibility" Value="Visible"/>
                                             </MultiDataTrigger.Setters>
                                         </MultiDataTrigger>
-
                                         <!-- Show all grid coordinates on display -->
                                         <DataTrigger Binding="{Binding DataContext.Project.OnelinePref.ShowAllCoordinates, ElementName=view}" Value="True">
                                             <Setter TargetName="XText" Property="Visibility" Value="Visible"/>
                                             <Setter TargetName="YText" Property="Visibility" Value="Visible"/>
                                         </DataTrigger>
-
                                         <!-- Show selected grid coordinates on display -->
                                         <MultiDataTrigger>
                                             <MultiDataTrigger.Conditions>
@@ -342,14 +296,11 @@
                                                 <Setter TargetName="YText" Property="Visibility" Value="Visible"/>
                                             </MultiDataTrigger.Setters>
                                         </MultiDataTrigger>
-
                                     </ControlTemplate.Triggers>
-
                                 </ControlTemplate>
                             </Thumb.Template>
                         </Thumb>
                     </DataTemplate>
-
                     <!-- This is the DataTemplate that will be used to render the Thevenin class -->
                     <DataTemplate DataType="{x:Type local2:Thevenin}">
                         <Thumb DragDelta="Thumb_Drag" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
@@ -359,7 +310,7 @@
                                     <!-- visual of the thevenin -->
                                     <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <Grid>
-                                            <Ellipse x:Name="Thevenin" Fill="#FF898574" Stroke="Black" StrokeThickness="2" HorizontalAlignment="Center" VerticalAlignment="Stretch" OpacityMask="Black" MinWidth="150"/>
+                                            <Ellipse x:Name="Thevenin" Fill="#FF00CD41" Stroke="Black" StrokeThickness="2" HorizontalAlignment="Center" VerticalAlignment="Stretch" OpacityMask="Black" MinWidth="150"/>
                                             <TextBlock x:Name="TheveninTxt" TextAlignment="Center" Text="{Binding Name}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" Visibility="Collapsed" Margin="25,15"/>
                                         </Grid>
                                         <!-- Display Coordinates for the item -->
@@ -383,17 +334,14 @@
                                                 <StopStoryboard BeginStoryboardName="Flash"/>
                                             </DataTrigger.ExitActions>
                                         </DataTrigger>
-
                                         <!-- Change border thickness when dragging -->
                                         <Trigger Property="IsDragging" Value="True">
                                             <Setter TargetName="Thevenin" Property="StrokeThickness" Value="2"/>
                                         </Trigger>
-
                                         <!-- Show all names on displays -->
                                         <DataTrigger Binding="{Binding DataContext.Project.OnelinePref.ShowAllNames, ElementName=view}" Value="True">
                                             <Setter TargetName="TheveninTxt" Property="Visibility" Value="Visible"/>
                                         </DataTrigger>
-
                                         <!-- Show selected name on display -->
                                         <MultiDataTrigger>
                                             <MultiDataTrigger.Conditions>
@@ -404,13 +352,11 @@
                                                 <Setter TargetName="TheveninTxt" Property="Visibility" Value="Visible"/>
                                             </MultiDataTrigger.Setters>
                                         </MultiDataTrigger>
-
                                         <!-- Show all grid coordinates on display -->
                                         <DataTrigger Binding="{Binding DataContext.Project.OnelinePref.ShowAllCoordinates, ElementName=view}" Value="True">
                                             <Setter TargetName="XText" Property="Visibility" Value="Visible"/>
                                             <Setter TargetName="YText" Property="Visibility" Value="Visible"/>
                                         </DataTrigger>
-
                                         <!-- Show selected grid coordinates on display -->
                                         <MultiDataTrigger>
                                             <MultiDataTrigger.Conditions>
@@ -422,65 +368,48 @@
                                                 <Setter TargetName="YText" Property="Visibility" Value="Visible"/>
                                             </MultiDataTrigger.Setters>
                                         </MultiDataTrigger>
-
                                     </ControlTemplate.Triggers>
-
                                 </ControlTemplate>
                             </Thumb.Template>
                         </Thumb>
                     </DataTemplate>
-
                     <!-- This is the DataTemplate that will be used to render the Transformer class -->
                     <DataTemplate DataType="{x:Type local2:Transformer}">
                         <Thumb DragDelta="Thumb_Drag" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Visibility="{Binding Visibility}" PreviewMouseLeftButtonDown="Thumb_PreviewMouseLeftButtonDown">
                             <Thumb.Template>
                                 <ControlTemplate TargetType="Thumb">
                                     <!-- visual of the transformer -->
-                                    <StackPanel Orientation="Horizontal">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
                                         <StackPanel>
-                                            <Grid>
-                                                <Rectangle StrokeThickness="3" Width="4" Stroke="Black"></Rectangle>
+                                            <Grid Grid.Row="0" Grid.Column="0">
+                                                <Rectangle StrokeThickness="3" Width="4" Stroke="Black"/>
                                                 <StackPanel>
                                                     <Grid>
-                                                        <Ellipse Height="15" Width="15" Stroke="Black" StrokeThickness="3" Margin="0" Fill="Black"/>
-                                                        <Ellipse x:Name="XFMR_X1" Height="15" Width="15" Stroke="Red" StrokeThickness="3" Margin="0" Fill="Red" Opacity="0"/>
+                                                        <Ellipse Height="15" Width="15" Stroke="Black" StrokeThickness="3" Fill="Black"/>
+                                                        <Ellipse x:Name="XFMR_X1" Height="15" Width="15" Stroke="Red" StrokeThickness="3" Fill="Red" Opacity="0"/>
                                                     </Grid>
-                                                    <Grid x:Name="CT5" DataContext="{Binding CTs[4]}" Visibility="{Binding Visibility, FallbackValue=Collapsed}" ContextMenu="{Binding Mode=OneWay, Source={StaticResource CTDiagram}}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="8" >
-                                                        <DockPanel>
-                                                            <Rectangle x:Name="CT5rectangle" Height="20" Width="20" Fill="#FFBFBCBC" Stroke="Black" StrokeThickness="2"/>
-                                                            <DockPanel x:Name="CT5Txt" Visibility="Collapsed">
-                                                                <TextBlock Text="{Binding CT_Position}" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="0" Padding="3,0,0,0"/>
-                                                                <TextBlock Text=" (" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
-                                                                <TextBlock Text="{Binding Tap}" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
-                                                                <TextBlock Text=")" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
-                                                            </DockPanel>
-                                                        </DockPanel>
+                                                    <Grid x:Name="CT5" DataContext="{Binding CTs[4]}" Visibility="{Binding Visibility, FallbackValue=Collapsed}" ContextMenu="{Binding Mode=OneWay, Source={StaticResource CTDiagram}}" Margin="0,8">
+                                                        <Rectangle x:Name="CT5rectangle" Height="20" Width="20" Fill="#FFBFBCBC" Stroke="Black" StrokeThickness="2"/>
                                                     </Grid>
-                                                    <Grid x:Name="CT3" DataContext="{Binding CTs[2]}" Visibility="{Binding Visibility, FallbackValue=Collapsed}" ContextMenu="{Binding Mode=OneWay, Source={StaticResource CTDiagram}}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="8">
-                                                        <DockPanel>
-                                                            <Rectangle x:Name="CT3rectangle" Height="20" Width="20" Fill="#FFBFBCBC" Stroke="Black" StrokeThickness="2"/>
-                                                            <DockPanel x:Name="CT3Txt" Visibility="Collapsed">
-                                                                <TextBlock Text="{Binding CT_Position}" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="0" Padding="3,0,0,0"/>
-                                                                <TextBlock Text=" (" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
-                                                                <TextBlock Text="{Binding Tap}" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
-                                                                <TextBlock Text=")" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
-                                                            </DockPanel>
-                                                        </DockPanel>
+                                                    <Grid x:Name="CT3" DataContext="{Binding CTs[2]}" Visibility="{Binding Visibility, FallbackValue=Collapsed}" ContextMenu="{Binding Mode=OneWay, Source={StaticResource CTDiagram}}" Margin="0,8">
+                                                        <Rectangle x:Name="CT3rectangle" Height="20" Width="20" Fill="#FFBFBCBC" Stroke="Black" StrokeThickness="2"/>
                                                     </Grid>
-                                                    <Grid x:Name="CT1" DataContext="{Binding CTs[0]}" Visibility="{Binding Visibility, FallbackValue=Collapsed}" ContextMenu="{Binding Mode=OneWay, Source={StaticResource CTDiagram}}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="8">
-                                                        <DockPanel>
-                                                            <Rectangle x:Name="CT1rectangle" Height="20" Width="20" Fill="#FFBFBCBC" Stroke="Black" StrokeThickness="2"/>
-                                                            <DockPanel x:Name="CT1Txt" Visibility="Collapsed">
-                                                                <TextBlock Text="{Binding CT_Position}" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="0" Padding="3,0,0,0"/>
-                                                                <TextBlock Text=" (" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
-                                                                <TextBlock Text="{Binding Tap}" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
-                                                                <TextBlock Text=")" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
-                                                            </DockPanel>
-                                                        </DockPanel>
+                                                    <Grid x:Name="CT1" DataContext="{Binding CTs[0]}" Visibility="{Binding Visibility, FallbackValue=Collapsed}" ContextMenu="{Binding Mode=OneWay, Source={StaticResource CTDiagram}}" Margin="0,8">
+                                                        <Rectangle x:Name="CT1rectangle" Height="20" Width="20" Fill="#FFBFBCBC" Stroke="Black" StrokeThickness="2"/>
                                                     </Grid>
                                                 </StackPanel>
                                             </Grid>
-                                            <Grid>
+                                            <!-- Transformer dwg -->
+                                            <Grid Grid.Row="1" Grid.Column="0" ContextMenu="{Binding Mode=OneWay, Source={StaticResource TransformerDiagram}}">
                                                 <Rectangle Fill="{x:Null}"/>
                                                 <Grid x:Name="XFMRTank" HorizontalAlignment="Center" VerticalAlignment="Center">
                                                     <Rectangle x:Name="Transformer" Width="100" Height="160" Stroke="Black" StrokeThickness="3" Fill="#FFBFBCBC"/>
@@ -489,57 +418,18 @@
                                                 </Grid>
                                                 <Ellipse Height="60" Width="60" Stroke="Black" StrokeThickness="3" Margin="0,0,0,40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                                 <Ellipse Height="60" Width="60" Stroke="Black" StrokeThickness="3" Margin="0,40,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                <StackPanel x:Name="TransformerTxt" Visibility="Collapsed" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,130,0">
-                                                    <TextBlock Text="{Binding Name}" HorizontalAlignment="Right"/>
-                                                    <DockPanel HorizontalAlignment="Right">
-                                                        <TextBlock Text="{Binding HighVoltage}"/>
-                                                        <TextBlock Text=" / "/>
-                                                        <TextBlock Text="{Binding LowVoltage}"/>
-                                                        <TextBlock Text=" kV"/>
-                                                    </DockPanel>
-                                                    <DockPanel HorizontalAlignment="Right">
-                                                        <TextBlock Text="{Binding Size1}"/>
-                                                        <TextBlock Text=" / "/>
-                                                        <TextBlock Text="{Binding Size2}"/>
-                                                        <TextBlock Text=" MVA"/>
-                                                    </DockPanel>
-                                                </StackPanel>
                                             </Grid>
-                                            <Grid>
+                                            <Grid Grid.Row="2" Grid.Column="0">
                                                 <Rectangle StrokeThickness="3" Width="4" Stroke="Black"></Rectangle>
                                                 <StackPanel>
-                                                    <Grid x:Name="CT2" DataContext="{Binding CTs[1]}" Visibility="{Binding Visibility, FallbackValue=Collapsed}" ContextMenu="{Binding Mode=OneWay, Source={StaticResource CTDiagram}}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="8">
-                                                        <DockPanel>
-                                                            <Rectangle x:Name="CT2rectangle" Height="20" Width="20" Fill="#FFBFBCBC" Stroke="Black" StrokeThickness="2"/>
-                                                            <DockPanel x:Name="CT2Txt" Visibility="Collapsed">
-                                                                <TextBlock Text="{Binding CT_Position}" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="0" Padding="3,0,0,0"/>
-                                                                <TextBlock Text=" (" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
-                                                                <TextBlock Text="{Binding Tap}" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
-                                                                <TextBlock Text=")" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
-                                                            </DockPanel>
-                                                        </DockPanel>
+                                                    <Grid x:Name="CT2" DataContext="{Binding CTs[1]}" Visibility="{Binding Visibility, FallbackValue=Collapsed}" ContextMenu="{Binding Mode=OneWay, Source={StaticResource CTDiagram}}" Margin="0,8">
+                                                        <Rectangle x:Name="CT2rectangle" Height="20" Width="20" Fill="#FFBFBCBC" Stroke="Black" StrokeThickness="2"/>
                                                     </Grid>
-                                                    <Grid x:Name="CT4" DataContext="{Binding CTs[3]}" Visibility="{Binding Visibility, FallbackValue=Collapsed}" ContextMenu="{Binding Mode=OneWay, Source={StaticResource CTDiagram}}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="8">
-                                                        <DockPanel>
-                                                            <Rectangle x:Name="CT4rectangle" Height="20" Width="20" Fill="#FFBFBCBC" Stroke="Black" StrokeThickness="2"/>
-                                                            <DockPanel x:Name="CT4Txt" Visibility="Collapsed">
-                                                                <TextBlock Text="{Binding CT_Position}" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="0" Padding="3,0,0,0"/>
-                                                                <TextBlock Text=" (" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
-                                                                <TextBlock Text="{Binding Tap}" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
-                                                                <TextBlock Text=")" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
-                                                            </DockPanel>
-                                                        </DockPanel>
+                                                    <Grid x:Name="CT4" DataContext="{Binding CTs[3]}" Visibility="{Binding Visibility, FallbackValue=Collapsed}" ContextMenu="{Binding Mode=OneWay, Source={StaticResource CTDiagram}}" Margin="0,8">
+                                                        <Rectangle x:Name="CT4rectangle" Height="20" Width="20" Fill="#FFBFBCBC" Stroke="Black" StrokeThickness="2"/>
                                                     </Grid>
-                                                    <Grid x:Name="CT6" DataContext="{Binding CTs[5]}" Visibility="{Binding Visibility, FallbackValue=Collapsed}" ContextMenu="{Binding Mode=OneWay, Source={StaticResource CTDiagram}}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="8">
-                                                        <DockPanel>
-                                                            <Rectangle x:Name="CT6rectangle" Height="20" Width="20" Fill="#FFBFBCBC" Stroke="Black" StrokeThickness="2"/>
-                                                            <DockPanel x:Name="CT6Txt" Visibility="Collapsed">
-                                                                <TextBlock Text="{Binding CT_Position}" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="0" Padding="3,0,0,0"/>
-                                                                <TextBlock Text=" (" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
-                                                                <TextBlock Text="{Binding Tap}" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
-                                                                <TextBlock Text=")" FontSize="8" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
-                                                            </DockPanel>
-                                                        </DockPanel>
+                                                    <Grid x:Name="CT6" DataContext="{Binding CTs[5]}" Visibility="{Binding Visibility, FallbackValue=Collapsed}" ContextMenu="{Binding Mode=OneWay, Source={StaticResource CTDiagram}}" Margin="0,8">
+                                                        <Rectangle x:Name="CT6rectangle" Height="20" Width="20" Fill="#FFBFBCBC" Stroke="Black" StrokeThickness="2"/>
                                                     </Grid>
                                                     <Grid>
                                                         <Ellipse Height="15" Width="15" Stroke="Black" StrokeThickness="3" Margin="0" Fill="Black"/>
@@ -549,11 +439,11 @@
                                             </Grid>
                                         </StackPanel>
                                         <!-- Display Coordinates for the item -->
-                                        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0">
+                                        <StackPanel Grid.RowSpan="3" Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
                                             <TextBlock x:Name="XText" Text="{Binding X, StringFormat='{}X = {0}'}" IsHitTestVisible="False" HorizontalAlignment="Left" Visibility="Collapsed"/>
                                             <TextBlock x:Name="YText" Text="{Binding Y, StringFormat='{}Y = {0}'}" IsHitTestVisible="False" HorizontalAlignment="Left" Visibility="Collapsed"/>
                                         </StackPanel>
-                                    </StackPanel>
+                                    </Grid>
                                     <!-- UI interactions -->
                                     <ControlTemplate.Triggers>
                                         <!-- Flashes Transformers when selected -->
@@ -571,7 +461,6 @@
                                                 <StopStoryboard BeginStoryboardName="Flash"/>
                                             </DataTrigger.ExitActions>
                                         </DataTrigger>
-
                                         <!-- Flashes CT1 when selected -->
                                         <DataTrigger Binding="{Binding Tag, ElementName=TreeviewExpander}" Value="CT1">
                                             <DataTrigger.EnterActions>
@@ -585,7 +474,6 @@
                                                 <StopStoryboard BeginStoryboardName="FlashCT1"/>
                                             </DataTrigger.ExitActions>
                                         </DataTrigger>
-
                                         <!-- Flashes CT2 when selected -->
                                         <DataTrigger Binding="{Binding Tag, ElementName=TreeviewExpander}" Value="CT2">
                                             <DataTrigger.EnterActions>
@@ -599,7 +487,6 @@
                                                 <StopStoryboard BeginStoryboardName="FlashCT2"/>
                                             </DataTrigger.ExitActions>
                                         </DataTrigger>
-
                                         <!-- Flashes CT3 when selected -->
                                         <DataTrigger Binding="{Binding Tag, ElementName=TreeviewExpander}" Value="CT3">
                                             <DataTrigger.EnterActions>
@@ -613,7 +500,6 @@
                                                 <StopStoryboard BeginStoryboardName="FlashCT3"/>
                                             </DataTrigger.ExitActions>
                                         </DataTrigger>
-
                                         <!-- Flashes CT4 when selected -->
                                         <DataTrigger Binding="{Binding Tag, ElementName=TreeviewExpander}" Value="CT4">
                                             <DataTrigger.EnterActions>
@@ -627,7 +513,6 @@
                                                 <StopStoryboard BeginStoryboardName="FlashCT4"/>
                                             </DataTrigger.ExitActions>
                                         </DataTrigger>
-
                                         <!-- Flashes CT5 when selected -->
                                         <DataTrigger Binding="{Binding Tag, ElementName=TreeviewExpander}" Value="CT5">
                                             <DataTrigger.EnterActions>
@@ -641,7 +526,6 @@
                                                 <StopStoryboard BeginStoryboardName="FlashCT5"/>
                                             </DataTrigger.ExitActions>
                                         </DataTrigger>
-
                                         <!-- Flashes CT6 when selected -->
                                         <DataTrigger Binding="{Binding Tag, ElementName=TreeviewExpander}" Value="CT6">
                                             <DataTrigger.EnterActions>
@@ -655,100 +539,15 @@
                                                 <StopStoryboard BeginStoryboardName="FlashCT6"/>
                                             </DataTrigger.ExitActions>
                                         </DataTrigger>
-                                        
                                         <!-- Change border thickness when dragging -->
                                         <Trigger Property="IsDragging" Value="True">
                                             <Setter TargetName="Transformer" Property="StrokeThickness" Value="5"/>
                                         </Trigger>
-
-                                        <!-- Show all names on displays -->
-                                        <DataTrigger Binding="{Binding DataContext.Project.OnelinePref.ShowAllNames, ElementName=view}" Value="True">
-                                            <Setter TargetName="TransformerTxt" Property="Visibility" Value="Visible"/>
-                                            <Setter TargetName="CT1Txt" Property="Visibility" Value="Visible"/>
-                                            <Setter TargetName="CT2Txt" Property="Visibility" Value="Visible"/>
-                                            <Setter TargetName="CT3Txt" Property="Visibility" Value="Visible"/>
-                                            <Setter TargetName="CT4Txt" Property="Visibility" Value="Visible"/>
-                                            <Setter TargetName="CT5Txt" Property="Visibility" Value="Visible"/>
-                                            <Setter TargetName="CT6Txt" Property="Visibility" Value="Visible"/>
-                                        </DataTrigger>
-
-                                        <!-- Show selected name on display -->
-                                        <MultiDataTrigger>
-                                            <MultiDataTrigger.Conditions>
-                                                <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="True"/>
-                                                <Condition Binding="{Binding DataContext.Project.OnelinePref.ShowCurrentNames, ElementName=view}" Value="True"/>
-                                            </MultiDataTrigger.Conditions>
-                                            <MultiDataTrigger.Setters>
-                                                <Setter TargetName="TransformerTxt" Property="Visibility" Value="Visible"/>
-                                            </MultiDataTrigger.Setters>
-                                        </MultiDataTrigger>
-
-                                        <MultiDataTrigger>
-                                            <MultiDataTrigger.Conditions>
-                                                <Condition Binding="{Binding DataContext.Project.OnelinePref.ShowCurrentNames, ElementName=view}" Value="True"/>
-                                                <Condition Binding="{Binding Tag, ElementName=TreeviewExpander}" Value="CT1"/>
-                                            </MultiDataTrigger.Conditions>
-                                            <MultiDataTrigger.Setters>
-                                                <Setter TargetName="CT1Txt" Property="Visibility" Value="Visible"/>
-                                            </MultiDataTrigger.Setters>
-                                        </MultiDataTrigger>
-
-                                        <MultiDataTrigger>
-                                            <MultiDataTrigger.Conditions>
-                                                <Condition Binding="{Binding DataContext.Project.OnelinePref.ShowCurrentNames, ElementName=view}" Value="True"/>
-                                                <Condition Binding="{Binding Tag, ElementName=TreeviewExpander}" Value="CT2"/>
-                                            </MultiDataTrigger.Conditions>
-                                            <MultiDataTrigger.Setters>
-                                                <Setter TargetName="CT2Txt" Property="Visibility" Value="Visible"/>
-                                            </MultiDataTrigger.Setters>
-                                        </MultiDataTrigger>
-
-                                        <MultiDataTrigger>
-                                            <MultiDataTrigger.Conditions>
-                                                <Condition Binding="{Binding DataContext.Project.OnelinePref.ShowCurrentNames, ElementName=view}" Value="True"/>
-                                                <Condition Binding="{Binding Tag, ElementName=TreeviewExpander}" Value="CT3"/>
-                                            </MultiDataTrigger.Conditions>
-                                            <MultiDataTrigger.Setters>
-                                                <Setter TargetName="CT3Txt" Property="Visibility" Value="Visible"/>
-                                            </MultiDataTrigger.Setters>
-                                        </MultiDataTrigger>
-
-                                        <MultiDataTrigger>
-                                            <MultiDataTrigger.Conditions>
-                                                <Condition Binding="{Binding DataContext.Project.OnelinePref.ShowCurrentNames, ElementName=view}" Value="True"/>
-                                                <Condition Binding="{Binding Tag, ElementName=TreeviewExpander}" Value="CT4"/>
-                                            </MultiDataTrigger.Conditions>
-                                            <MultiDataTrigger.Setters>
-                                                <Setter TargetName="CT4Txt" Property="Visibility" Value="Visible"/>
-                                            </MultiDataTrigger.Setters>
-                                        </MultiDataTrigger>
-
-                                        <MultiDataTrigger>
-                                            <MultiDataTrigger.Conditions>
-                                                <Condition Binding="{Binding DataContext.Project.OnelinePref.ShowCurrentNames, ElementName=view}" Value="True"/>
-                                                <Condition Binding="{Binding Tag, ElementName=TreeviewExpander}" Value="CT5"/>
-                                            </MultiDataTrigger.Conditions>
-                                            <MultiDataTrigger.Setters>
-                                                <Setter TargetName="CT5Txt" Property="Visibility" Value="Visible"/>
-                                            </MultiDataTrigger.Setters>
-                                        </MultiDataTrigger>
-
-                                        <MultiDataTrigger>
-                                            <MultiDataTrigger.Conditions>
-                                                <Condition Binding="{Binding DataContext.Project.OnelinePref.ShowCurrentNames, ElementName=view}" Value="True"/>
-                                                <Condition Binding="{Binding Tag, ElementName=TreeviewExpander}" Value="CT6"/>
-                                            </MultiDataTrigger.Conditions>
-                                            <MultiDataTrigger.Setters>
-                                                <Setter TargetName="CT6Txt" Property="Visibility" Value="Visible"/>
-                                            </MultiDataTrigger.Setters>
-                                        </MultiDataTrigger>
-
                                         <!-- Show all grid coordinates on display -->
                                         <DataTrigger Binding="{Binding DataContext.Project.OnelinePref.ShowAllCoordinates, ElementName=view}" Value="True">
                                             <Setter TargetName="XText" Property="Visibility" Value="Visible"/>
                                             <Setter TargetName="YText" Property="Visibility" Value="Visible"/>
                                         </DataTrigger>
-
                                         <!-- Show selected grid coordinates on display -->
                                         <MultiDataTrigger>
                                             <MultiDataTrigger.Conditions>
@@ -760,13 +559,11 @@
                                                 <Setter TargetName="YText" Property="Visibility" Value="Visible"/>
                                             </MultiDataTrigger.Setters>
                                         </MultiDataTrigger>
-
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
                             </Thumb.Template>
                         </Thumb>
                     </DataTemplate>
-
                     <!-- This is the DataTemplate that will be used to render the Relay class -->
                     <DataTemplate DataType="{x:Type local2:Relay}">
                         <Thumb DragDelta="Thumb_Drag" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
@@ -787,7 +584,6 @@
                                             <TextBlock x:Name="YText" Text="{Binding Y, StringFormat='{}Y = {0}'}" IsHitTestVisible="False" HorizontalAlignment="Left" Visibility="Collapsed"/>
                                         </StackPanel>
                                     </StackPanel>
-
                                     <!-- UI interactions -->
                                     <ControlTemplate.Triggers>
                                         <!-- Flashes selected item -->
@@ -803,17 +599,14 @@
                                                 <StopStoryboard BeginStoryboardName="Flash"/>
                                             </DataTrigger.ExitActions>
                                         </DataTrigger>
-
                                         <!-- Change border thickness when dragging -->
                                         <Trigger Property="IsDragging" Value="True">
                                             <Setter TargetName="Relay" Property="StrokeThickness" Value="2"/>
                                         </Trigger>
-
                                         <!-- Show all names on displays -->
                                         <DataTrigger Binding="{Binding DataContext.Project.OnelinePref.ShowAllNames, ElementName=view}" Value="True">
                                             <Setter TargetName="RelayTxt" Property="Visibility" Value="Visible"/>
                                         </DataTrigger>
-
                                         <!-- Show selected name on display -->
                                         <MultiDataTrigger>
                                             <MultiDataTrigger.Conditions>
@@ -824,13 +617,11 @@
                                                 <Setter TargetName="RelayTxt" Property="Visibility" Value="Visible"/>
                                             </MultiDataTrigger.Setters>
                                         </MultiDataTrigger>
-
                                         <!-- Show all grid coordinates on display -->
                                         <DataTrigger Binding="{Binding DataContext.Project.OnelinePref.ShowAllCoordinates, ElementName=view}" Value="True">
                                             <Setter TargetName="XText" Property="Visibility" Value="Visible"/>
                                             <Setter TargetName="YText" Property="Visibility" Value="Visible"/>
                                         </DataTrigger>
-
                                         <!-- Show selected grid coordinates on display -->
                                         <MultiDataTrigger>
                                             <MultiDataTrigger.Conditions>
@@ -847,28 +638,22 @@
                             </Thumb.Template>
                         </Thumb>
                     </DataTemplate>
-
                 </Grid.Resources>
-
                 <ListBox 
                     x:Name="ListBoxUI"
                     DragOver="ListBoxUI_DragOver" 
                     Drop="ListBoxUI_Drop"
                     HorizontalAlignment="Center" VerticalAlignment="Center" PreviewMouseLeftButtonDown="ListBoxUI_PreviewMouseLeftButtonDown">
-
                     <!-- Zooms in and out of the canvas -->
                     <ListBox.LayoutTransform>
                         <ScaleTransform CenterX="0" CenterY="0" ScaleX="{Binding Project.OnelinePref.ZoomLevel}" ScaleY="{Binding Project.OnelinePref.ZoomLevel}"/>
                     </ListBox.LayoutTransform>
-
                     <ListBox.ItemsSource>
                         <StaticResource ResourceKey="Col"/>
                     </ListBox.ItemsSource>
-
                     <ListBox.Background>
                         <SolidColorBrush Color="#FF252525" Opacity="0.9"/>
                     </ListBox.Background>
-
                     <ListBox.Template>
                         <ControlTemplate>
                             <Border>
@@ -878,7 +663,6 @@
                                         <GradientStop Color="GhostWhite" Offset="1"/>
                                     </LinearGradientBrush>
                                 </Border.Background>
-
                                 <!-- This Border serves as a background grid -->
                                 <!-- The "Snapping" Actually occurs in the Items classes, it has nothing to do with any UI Elements -->
                                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
@@ -893,18 +677,15 @@
                                         <ItemsPresenter/>
                                     </Border>
                                 </ScrollViewer>
-
                             </Border>
                         </ControlTemplate>
                     </ListBox.Template>
-
                     <!-- Sized the Display canvas-->
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <Canvas IsItemsHost="True" Background="#01FFFFFF" Height="{Binding Project.OnelinePref.AreaHeight}" Width="{Binding Project.OnelinePref.AreaWidth}" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
-
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="Canvas.Left" Value="{Binding X}"/>
@@ -923,5 +704,4 @@
             </Grid>
         </Border>
     </Grid>
-
 </Controls:MetroWindow>

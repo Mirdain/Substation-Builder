@@ -10,7 +10,6 @@
 
     <!-- CT Template -->
     <StackPanel Margin="10">
-
         <StackPanel.Triggers>
             <EventTrigger RoutedEvent="FrameworkElement.Loaded">
                 <BeginStoryboard>
@@ -20,9 +19,7 @@
                 </BeginStoryboard>
             </EventTrigger>
         </StackPanel.Triggers>
-
         <StackPanel.Resources>
-
             <Style TargetType="{x:Type Label}">
                 <Setter Property="FontSize" Value="16"/>
                 <Setter Property="Background" Value="#2d2d2d"/>
@@ -34,7 +31,6 @@
                 <Setter Property="HorizontalAlignment" Value="Stretch"/>
                 <Setter Property="Width" Value="100"/>
             </Style>
-
             <Style TargetType="{x:Type TextBox}">
                 <Setter Property="FontSize" Value="16"/>
                 <Setter Property="Background" Value="#2d2d2d"/>
@@ -48,7 +44,6 @@
                 <Setter Property="Background" Value="Black"/>
                 <Setter Property="Padding" Value="5,0,0,0"/>
             </Style>
-
             <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
                 <Setter Property="FontSize" Value="16"/>
                 <Setter Property="Opacity" Value="0.85"/>
@@ -60,35 +55,27 @@
                 <Setter Property="Width" Value="175"/>
                 <Setter Property="Background" Value="Black"/>
             </Style>
-
         </StackPanel.Resources>
-
-
         <DockPanel>
             <Label Content="Position:"/>
             <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:CTPosition}}}" SelectedValue="{Binding CT_Position}"/>
         </DockPanel>
-
         <DockPanel>
             <Label Content="Description:"/>
             <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
         </DockPanel>
-        
         <DockPanel>
             <Label Content="Rating:"/>
             <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:CTRating}}}" SelectedValue="{Binding Rating}"/>
         </DockPanel>
-
         <DockPanel>
             <Label Content="Full Ratio:"/>
             <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:CTTaps}}}" SelectedValue="{Binding CTR}"/>
         </DockPanel>
-
         <DockPanel>
             <Label Content="Tap:"/>
             <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:CTTaps}}}" SelectedValue="{Binding Tap}"/>
         </DockPanel>
-
         <DockPanel>
             <Label Content="Polarity:"/>
             <ComboBox ItemsSource="{Binding Source={EnumHelper:EnumBindingSource {x:Type model:Polarity}}}" SelectedValue="{Binding Polarity}"/>

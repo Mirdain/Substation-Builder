@@ -114,9 +114,6 @@
     <Compile Include="Pages\DatabaseView\CTPage.xaml.cs">
       <DependentUpon>CTPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\OnelineView\Test Panel.xaml.cs">
-      <DependentUpon>Test Panel.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\OnelineView\ConnectorPropertyEditor.xaml.cs">
       <DependentUpon>ConnectorPropertyEditor.xaml</DependentUpon>
     </Compile>
@@ -158,10 +155,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\DatabaseView\CTPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\OnelineView\Test Panel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
