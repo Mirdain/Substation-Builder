@@ -326,32 +326,24 @@ namespace Substation_Builder.ViewModel
                 return false;
             bool canexecute = false;
 
-            /*
 
-            if (OLView.OnelineTreeview.SelectedItem != null)
+            if (sender.ToString() == "Thevenin")
             {
-                if (OLView.OnelineTreeview.SelectedItem.GetType() == typeof(TreeViewItem))
-                {
-                    TreeViewItem TVI = (TreeViewItem) OLView.OnelineTreeview.SelectedItem;
-                    if (TVI.Header.ToString() == "Thevenins")
-                    {
-                        canexecute = true;
-                    }
-                    else if (TVI.Header.ToString() == "Transformers")
-                    {
-                        canexecute = true;
-                    }
-                    else if (TVI.Header.ToString() == "Breakers")
-                    {
-                        canexecute = true;
-                    }
-                    else if (TVI.Header.ToString() == "Relays")
-                    {
-                        canexecute = true;
-                    }
-                }
+                canexecute = true;
             }
-                        */
+            else if (sender.ToString() == "Transformer")
+            {
+                canexecute = true;
+            }
+            else if (sender.ToString() == "Breaker")
+            {
+                canexecute = true;
+            }
+            else if (sender.ToString() == "Relay")
+            {
+                canexecute = true;
+            }
+
             return canexecute;
 
 
@@ -363,32 +355,26 @@ namespace Substation_Builder.ViewModel
                 return false;
             bool canexecute = false;
 
-            /*
-
-            if (OLView.OnelineTreeview.SelectedItem != null)
-            {
-                if (OLView.OnelineTreeview.SelectedValue.GetType() == typeof(Thevenin))
+                if (sender.GetType() == typeof(Thevenin))
                 {
                     canexecute = true;
                 }
-                else if (OLView.OnelineTreeview.SelectedValue.GetType() == typeof(Transformer))
+                else if (sender.GetType() == typeof(Transformer))
                 {
                     canexecute = true;
                 }
-                else if (OLView.OnelineTreeview.SelectedValue.GetType() == typeof(Breaker))
+                else if (sender.GetType() == typeof(Breaker))
                 {
                     canexecute = true;
                 }
-                else if (OLView.OnelineTreeview.SelectedValue.GetType() == typeof(Relay))
+                else if (sender.GetType() == typeof(Relay))
                 {
                     canexecute = true;
                 }
-                else if (OLView.OnelineTreeview.SelectedValue.GetType() == typeof(CT))
+                else if (sender.GetType() == typeof(CT))
                 {
                     canexecute = true;
                 }
-            }
-            */
 
             return canexecute;
         }

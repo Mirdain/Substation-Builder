@@ -114,13 +114,13 @@
         <!-- Incredibly evil as the contextmenu does not share the same datacontext as the treeview so the proxy is employed-->
 
         <!-- Remove Items -->
-        <ContextMenu x:Key="RelayItemContext" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+        <ContextMenu x:Key="RelayContext" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
             <MenuItem Header="Delete Relay" Command="{Binding Data.RemoveItemCommand, Source={StaticResource DataContextProxy}}" CommandParameter="{Binding}"/>
         </ContextMenu>
-        <ContextMenu x:Key="CTItemContext" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+        <ContextMenu x:Key="CTContext" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
             <MenuItem Header="Delete CT" Command="{Binding Data.RemoveItemCommand, Source={StaticResource DataContextProxy}}" CommandParameter="{Binding}"/>
         </ContextMenu>
-        <ContextMenu x:Key="TheveninItemContext" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+        <ContextMenu x:Key="TheveninContext" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
             <MenuItem Header="Delete Thevenin" Command="{Binding Data.RemoveItemCommand, Source={StaticResource DataContextProxy}}" CommandParameter="{Binding}"/>
         </ContextMenu>
         <ContextMenu x:Key="BreakerContext" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
@@ -147,45 +147,42 @@
                 <!-- Treeview Expander -->
                 <Expander Header="Substation Data" IsExpanded="True" PreviewMouseLeftButtonDown="Expander_PreviewMouseLeftButtonDown" >
                     <StackPanel>
+                        <!-- Thevenin Treeview-->
                         <TreeView>
-                            <!-- This is the Header and Treeview Items for Thevenin-->
                             <TreeViewItem Header='Thevenins' ItemsSource="{Binding Project.Thevenins}" ContextMenu="{DynamicResource AddTheveninContext}">
-                                <!-- This is the treeview Items for Thevenin-->
                                 <TreeViewItem.ItemTemplate>
                                     <HierarchicalDataTemplate>
-                                        <TextBlock PreviewMouseLeftButtonDown="UpdateExpander" Text="{Binding Name}"/>
+                                        <TextBlock Text="{Binding Name}" PreviewMouseLeftButtonDown="UpdateExpander" PreviewMouseRightButtonDown="UpdateContextMenu"/>
                                     </HierarchicalDataTemplate>
                                 </TreeViewItem.ItemTemplate>
                             </TreeViewItem>
                         </TreeView>
+                        <!-- Transformer Treeview-->
                         <TreeView>
-                            <!-- This is the Header and Transformers-->
-                            <TreeViewItem Header="Transformers" ItemsSource="{Binding Project.Transformers}" ContextMenu="{DynamicResource AddTransformerContext}">
+                            <TreeViewItem Header="Transformers" ItemsSource="{Binding Project.Transformers}" ContextMenu="{DynamicResource AddTransformerContext}" >
                                 <TreeViewItem.ItemTemplate>
-                                    <HierarchicalDataTemplate ItemsSource="{Binding CTs}">
-                                        <TextBlock PreviewMouseLeftButtonDown="UpdateExpander" Text="{Binding Name}"/>
+                                    <HierarchicalDataTemplate ItemsSource="{Binding CTs}" >
+                                        <TextBlock Text="{Binding Name}" PreviewMouseLeftButtonDown="UpdateExpander" PreviewMouseRightButtonDown="UpdateContextMenu"/>
                                     </HierarchicalDataTemplate>
                                 </TreeViewItem.ItemTemplate>
                             </TreeViewItem>
                         </TreeView>
+                        <!-- Breaker Treeview-->
                         <TreeView>
-                            <!-- This is the Header and Breakers-->
                             <TreeViewItem Header="Breakers" ItemsSource="{Binding Project.Breakers}" ContextMenu="{DynamicResource AddBreakerContext}">
-                                <!-- This is the treeview Items for Breaker-->
                                 <TreeViewItem.ItemTemplate>
                                     <HierarchicalDataTemplate ItemsSource="{Binding CTs}">
-                                        <TextBlock PreviewMouseLeftButtonDown="UpdateExpander" Text="{Binding Name}"/>
+                                        <TextBlock Text="{Binding Name}" PreviewMouseLeftButtonDown="UpdateExpander" PreviewMouseRightButtonDown="UpdateContextMenu"/>
                                     </HierarchicalDataTemplate>
                                 </TreeViewItem.ItemTemplate>
                             </TreeViewItem>
                         </TreeView>
+                        <!-- Relay Treeview-->
                         <TreeView>
-                            <!-- This is the Header and Treeview Items for Relay-->
                             <TreeViewItem Header='Relays' ItemsSource="{Binding Project.Relays}" ContextMenu="{DynamicResource AddRelayContext}">
-                                <!-- This is the reeview Items for Relay-->
                                 <TreeViewItem.ItemTemplate>
                                     <HierarchicalDataTemplate>
-                                        <TextBlock PreviewMouseLeftButtonDown="UpdateExpander" Text="{Binding Name}"/>
+                                        <TextBlock Text="{Binding Name}" PreviewMouseLeftButtonDown="UpdateExpander" PreviewMouseRightButtonDown="UpdateContextMenu"/>
                                     </HierarchicalDataTemplate>
                                 </TreeViewItem.ItemTemplate>
                             </TreeViewItem>

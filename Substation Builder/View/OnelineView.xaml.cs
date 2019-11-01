@@ -28,7 +28,7 @@ namespace Substation_Builder.View
             return source as TreeViewItem;
         }
         //used to jump to correct treenode and then open contextmenu screen
-        private void Oneline_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        private void UpdateContextMenu (object sender, MouseButtonEventArgs e)
         {
             /*
             TreeViewItem treeViewItem = VisualUpwardSearch(e.OriginalSource as DependencyObject);
@@ -91,9 +91,7 @@ namespace Substation_Builder.View
         private void UpdateExpander(object sender, MouseButtonEventArgs e)
         {
             TextBlock item = (TextBlock)sender;
-
             object selecteditem = item.DataContext;
-
             if (selecteditem != null)
             {
                 if (selecteditem.GetType() == typeof(Thevenin))
@@ -102,20 +100,23 @@ namespace Substation_Builder.View
                     TreeviewExpander.Content = selecteditem;
                     TreeviewExpander.Header = "Thevenin Impedance";
                     TreeviewExpander.Tag = thevenin.Name;
+                    TreeviewExpander.IsExpanded = true;
                 }
-                else if (selecteditem.GetType() == typeof(Breaker))
-                {
-                    Breaker breaker = (Breaker)selecteditem;
-                    TreeviewExpander.Content = selecteditem;
-                    TreeviewExpander.Header = "Curcuit Breaker";
-                    TreeviewExpander.Tag = breaker.Name;
-                }
-                else if (selecteditem.GetType() == typeof(Transformer))
+                if (selecteditem.GetType() == typeof(Transformer))
                 {
                     Transformer transformer = (Transformer)selecteditem;
                     TreeviewExpander.Content = selecteditem;
                     TreeviewExpander.Header = "Power Transformer";
                     TreeviewExpander.Tag = transformer.Name;
+                    TreeviewExpander.IsExpanded = true;
+                }
+                if (selecteditem.GetType() == typeof(Breaker))
+                {
+                    Breaker breaker = (Breaker)selecteditem;
+                    TreeviewExpander.Content = selecteditem;
+                    TreeviewExpander.Header = "Curcuit Breaker";
+                    TreeviewExpander.Tag = breaker.Name;
+                    TreeviewExpander.IsExpanded = true;
                 }
                 else if (selecteditem.GetType() == typeof(Relay))
                 {
@@ -123,6 +124,7 @@ namespace Substation_Builder.View
                     TreeviewExpander.Content = selecteditem;
                     TreeviewExpander.Header = "Protective Relay";
                     TreeviewExpander.Tag = relay.Name;
+                    TreeviewExpander.IsExpanded = true;
                 }
                 else if (selecteditem.GetType() == typeof(CT))
                 {
@@ -130,13 +132,8 @@ namespace Substation_Builder.View
                     TreeviewExpander.Content = selecteditem;
                     TreeviewExpander.Header = "Current Transformer";
                     TreeviewExpander.Tag = cT.CT_Position;
+                    TreeviewExpander.IsExpanded = true;
                 }
-            }
-            if (selecteditem.GetType() == typeof(TreeViewItem))
-            {
-                TreeviewExpander.Content = null;
-                TreeviewExpander.Header = "[Select an Element]";
-                TreeviewExpander.Tag = null;
             }
         }
         //---------------- Drag / Drop Section --------------------------------
