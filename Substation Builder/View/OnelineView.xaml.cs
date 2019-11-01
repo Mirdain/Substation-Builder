@@ -30,6 +30,7 @@ namespace Substation_Builder.View
         //used to jump to correct treenode and then open contextmenu screen
         private void Oneline_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
+            /*
             TreeViewItem treeViewItem = VisualUpwardSearch(e.OriginalSource as DependencyObject);
             if (treeViewItem != null)
             {
@@ -66,78 +67,76 @@ namespace Substation_Builder.View
 
                 }
             }
+            */
         }
         //Set Data Context properly for Expander from Treeview
         private void OnelineTreeview_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            UpdateExpander();
+            //UpdateExpander();
         }
         //Set datacontext of the expander
         private void OnelineTreeview_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            UpdateExpander();
+            //UpdateExpander();
         }
-        //Update expander with selected item from UI
-        private void UpdateExpander()
+        private void UpdateProjectExpander(object sender, MouseButtonEventArgs e)
         {
-            object TVSelectedItem = OnelineTreeview.SelectedItem;
-            if (TVSelectedItem != null)
-            {
-                if (TVSelectedItem.GetType() != typeof(TreeViewItem))
-                {
-                    if (TVSelectedItem.GetType() == typeof(Thevenin))
-                    {
-                        Thevenin thevenin = (Thevenin)TVSelectedItem;
-                        TreeviewExpander.Content = TVSelectedItem;
-                        TreeviewExpander.Header = "Thevenin Impedance";
-                        TreeviewExpander.Tag = thevenin.Name;
-                    }
-                    else if (TVSelectedItem.GetType() == typeof(Breaker))
-                    {
-                        Breaker breaker = (Breaker)TVSelectedItem;
-                        TreeviewExpander.Content = TVSelectedItem;
-                        TreeviewExpander.Header = "Curcuit Breaker";
-                        TreeviewExpander.Tag = breaker.Name;
-                    }
-                    else if (TVSelectedItem.GetType() == typeof(Transformer))
-                    {
-                        Transformer transformer = (Transformer)TVSelectedItem;
-                        TreeviewExpander.Content = TVSelectedItem;
-                        TreeviewExpander.Header = "Power Transformer";
-                        TreeviewExpander.Tag = transformer.Name;
-                    }
-                    else if (TVSelectedItem.GetType() == typeof(Relay))
-                    {
-                        Relay relay = (Relay)TVSelectedItem;
-                        TreeviewExpander.Content = TVSelectedItem;
-                        TreeviewExpander.Header = "Protective Relay";
-                        TreeviewExpander.Tag = relay.Name;
-                    }
-                    else if (TVSelectedItem.GetType() == typeof(CT))
-                    {
-                        CT cT = (CT)TVSelectedItem;
-                        TreeviewExpander.Content = TVSelectedItem;
-                        TreeviewExpander.Header = "Current Transformer";
-                        TreeviewExpander.Tag = cT.CT_Position;
-                    }
-                }
-                else if (TVSelectedItem.GetType() == typeof(TreeViewItem))
-                {
-                    TreeViewItem SelectedItem = (TreeViewItem)TVSelectedItem;
+            Border item = (Border)sender;
+            OnelineViewModel substation = (OnelineViewModel)item.DataContext;
+            TreeviewExpander.Content = substation.Project.SubData;
+            TreeviewExpander.Header = "Substation Data";
+            TreeviewExpander.Tag = substation.Project.SubData.Name;
+        }
+        //Update expander with selected item the treeview
+        private void UpdateExpander(object sender, MouseButtonEventArgs e)
+        {
+            TextBlock item = (TextBlock)sender;
 
-                    if (SelectedItem.Name == "SubData")
-                    {
-                        TreeviewExpander.Content = ((OnelineViewModel)SelectedItem.DataContext).Project.SubData;
-                        TreeviewExpander.Header = "Substation Project";
-                        TreeviewExpander.Tag = ((OnelineViewModel)SelectedItem.DataContext).Project.SubData.Name;
-                    }
-                    else
-                    {
-                        TreeviewExpander.Content = null;
-                        TreeviewExpander.Header = "[Select an Element]";
-                        TreeviewExpander.Tag = null;
-                    }
+            object selecteditem = item.DataContext;
+
+            if (selecteditem != null)
+            {
+                if (selecteditem.GetType() == typeof(Thevenin))
+                {
+                    Thevenin thevenin = (Thevenin)selecteditem;
+                    TreeviewExpander.Content = selecteditem;
+                    TreeviewExpander.Header = "Thevenin Impedance";
+                    TreeviewExpander.Tag = thevenin.Name;
                 }
+                else if (selecteditem.GetType() == typeof(Breaker))
+                {
+                    Breaker breaker = (Breaker)selecteditem;
+                    TreeviewExpander.Content = selecteditem;
+                    TreeviewExpander.Header = "Curcuit Breaker";
+                    TreeviewExpander.Tag = breaker.Name;
+                }
+                else if (selecteditem.GetType() == typeof(Transformer))
+                {
+                    Transformer transformer = (Transformer)selecteditem;
+                    TreeviewExpander.Content = selecteditem;
+                    TreeviewExpander.Header = "Power Transformer";
+                    TreeviewExpander.Tag = transformer.Name;
+                }
+                else if (selecteditem.GetType() == typeof(Relay))
+                {
+                    Relay relay = (Relay)selecteditem;
+                    TreeviewExpander.Content = selecteditem;
+                    TreeviewExpander.Header = "Protective Relay";
+                    TreeviewExpander.Tag = relay.Name;
+                }
+                else if (selecteditem.GetType() == typeof(CT))
+                {
+                    CT cT = (CT)selecteditem;
+                    TreeviewExpander.Content = selecteditem;
+                    TreeviewExpander.Header = "Current Transformer";
+                    TreeviewExpander.Tag = cT.CT_Position;
+                }
+            }
+            if (selecteditem.GetType() == typeof(TreeViewItem))
+            {
+                TreeviewExpander.Content = null;
+                TreeviewExpander.Header = "[Select an Element]";
+                TreeviewExpander.Tag = null;
             }
         }
         //---------------- Drag / Drop Section --------------------------------
@@ -365,6 +364,7 @@ namespace Substation_Builder.View
                 TreeviewExpander.Content = breaker;
                 TreeviewExpander.Header = "Curcuit Breaker";
                 TreeviewExpander.Tag = breaker.Name;
+
             }
             else if (((FrameworkElement)item).DataContext.GetType() == typeof(Thevenin))
             {
@@ -406,7 +406,40 @@ namespace Substation_Builder.View
         }
         private void ListBoxUI_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            ListBoxUI.SelectedItem = null;
+            ListBox listBox = (ListBox)sender;
+
+            object item = listBox.SelectedItem;
+
+            if (item != null)
+            {
+
+                if (item.GetType() == typeof(Relay))
+                {
+                    Relay relay = (Relay)item;
+
+                }
+                else if (item.GetType() == typeof(Breaker))
+                {
+                    Breaker breaker = (Breaker)item;
+
+                }
+                else if (item.GetType() == typeof(Thevenin))
+                {
+                    Thevenin thevenin = (Thevenin)item;
+
+                }
+                else if (item.GetType() == typeof(Transformer))
+                {
+                    Transformer transformer = (Transformer)item;
+
+                }
+                else if (item.GetType() == typeof(CT))
+                {
+
+                }
+            }
+            //  selectedItemObject is not a TreeViewItem, but an item from the collection that 
+            //  populated the TreeView.
         }
         private void Expander_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

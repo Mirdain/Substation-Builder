@@ -325,6 +325,9 @@ namespace Substation_Builder.ViewModel
             if (sender == null)
                 return false;
             bool canexecute = false;
+
+            /*
+
             if (OLView.OnelineTreeview.SelectedItem != null)
             {
                 if (OLView.OnelineTreeview.SelectedItem.GetType() == typeof(TreeViewItem))
@@ -348,7 +351,10 @@ namespace Substation_Builder.ViewModel
                     }
                 }
             }
+                        */
             return canexecute;
+
+
         }
         //Controls abiliity to add/remove items
         public bool Can_Remove(object sender)
@@ -356,6 +362,9 @@ namespace Substation_Builder.ViewModel
             if (sender == null)
                 return false;
             bool canexecute = false;
+
+            /*
+
             if (OLView.OnelineTreeview.SelectedItem != null)
             {
                 if (OLView.OnelineTreeview.SelectedValue.GetType() == typeof(Thevenin))
@@ -379,6 +388,8 @@ namespace Substation_Builder.ViewModel
                     canexecute = true;
                 }
             }
+            */
+
             return canexecute;
         }
         #endregion

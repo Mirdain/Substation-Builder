@@ -38,6 +38,23 @@
             <Setter Property="Opacity" Value="0.85"/>
             <Setter Property="Padding" Value="5,0,0,0"/>
         </Style>
+        <Style TargetType="{x:Type Border}">
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="LightGray"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Background" Value="#2d2d2d"/>
+            <Setter Property="Opacity" Value="0.85"/>
+            <Setter Property="Padding" Value="5,0,0,0"/>
+        </Style>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="LightGray"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Background" Value="#2d2d2d"/>
+            <Setter Property="Opacity" Value="0.85"/>
+            <Setter Property="Padding" Value="5,0,0,0"/>
+        </Style>
         <Style TargetType="Control" x:Key="EmptyFocusVisualStyle">
             <Setter Property="Template">
                 <Setter.Value>
@@ -46,6 +63,13 @@
             </Setter>
         </Style>
         <Helpers:BindingProxy x:Key="DataContextProxy" Data="{Binding}"/>
+        <!-- File menu -->
+        <ContextMenu x:Key="ProjectContext">
+            <MenuItem Header="New Project" Command="{Binding NewCommand}" CommandParameter="Project"/>
+            <MenuItem Header="Open Project" Command="{Binding LoadCommand}" CommandParameter="{Binding}"/>
+            <MenuItem Header="Save Project" Command="{Binding SaveCommand}" CommandParameter="Project"/>
+            <MenuItem Header="Load Template" Command="{Binding TemplateCommand}" CommandParameter="Project"/>
+        </ContextMenu>
         <!-- Breaker-->
         <ContextMenu x:Key="BreakerDiagram" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
             <MenuItem Header="Remove Breaker" Click="Remove_Click"/>
@@ -71,13 +95,6 @@
             <MenuItem Header="Remove Transformer" Click="Remove_Click"/>
             <MenuItem Header="Show All CTs" Click="Show_All_CTs"/>
             <MenuItem Header="Hide All CTs" Click="Hide_All_CTs"/>
-        </ContextMenu>
-        <!-- File menu -->
-        <ContextMenu x:Key="ProjectContext">
-            <MenuItem Header="New Project" Command="{Binding NewCommand}" CommandParameter="Project"/>
-            <MenuItem Header="Open Project" Command="{Binding LoadCommand}" CommandParameter="{Binding}"/>
-            <MenuItem Header="Save Project" Command="{Binding SaveCommand}" CommandParameter="Project"/>
-            <MenuItem Header="Load Template" Command="{Binding TemplateCommand}" CommandParameter="Project"/>
         </ContextMenu>
         <!-- Add Items -->
         <ContextMenu x:Key="AddTheveninContext" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
@@ -124,50 +141,56 @@
         </Grid.ColumnDefinitions>
         <ScrollViewer VerticalScrollBarVisibility="Visible" Grid.ColumnSpan="2">
             <StackPanel Margin="10" Background="Black">
+                <Border ContextMenu="{DynamicResource ProjectContext}" PreviewMouseLeftButtonDown="UpdateProjectExpander" CornerRadius="2" Padding="5,0,5,5">
+                    <Label Content="{Binding Project.SubData.Name,FallbackValue='[No Project Set]'}" Margin="0" BorderThickness="0"/>
+                </Border>
                 <!-- Treeview Expander -->
-                <Expander Header="Substation" IsExpanded="True" PreviewMouseLeftButtonDown="Expander_PreviewMouseLeftButtonDown" ContextMenu="{StaticResource ProjectContext}">
-                    <TreeView x:Name="OnelineTreeview" PreviewMouseRightButtonDown="Oneline_PreviewMouseRightButtonDown"
-                              VerticalContentAlignment="Top" HorizontalContentAlignment="Left" x:FieldModifier="public" Background="{x:Null}"
-                              BorderBrush="{x:Null}" MouseMove="OnelineTreeview_MouseMove" AllowDrop="True" SelectedItemChanged="OnelineTreeview_SelectedItemChanged" PreviewMouseLeftButtonDown="OnelineTreeview_PreviewMouseLeftButtonDown">
-                        <!-- This is the Header and Treeview Items for Thevenin-->
-                        <TreeViewItem x:Name="SubData" Header="{Binding Project.SubData.Name,FallbackValue='[No Project Set]'}">
+                <Expander Header="Substation Data" IsExpanded="True" PreviewMouseLeftButtonDown="Expander_PreviewMouseLeftButtonDown" >
+                    <StackPanel>
+                        <TreeView>
                             <!-- This is the Header and Treeview Items for Thevenin-->
                             <TreeViewItem Header='Thevenins' ItemsSource="{Binding Project.Thevenins}" ContextMenu="{DynamicResource AddTheveninContext}">
                                 <!-- This is the treeview Items for Thevenin-->
                                 <TreeViewItem.ItemTemplate>
                                     <HierarchicalDataTemplate>
-                                        <TextBlock Text="{Binding Name}"/>
+                                        <TextBlock PreviewMouseLeftButtonDown="UpdateExpander" Text="{Binding Name}"/>
                                     </HierarchicalDataTemplate>
                                 </TreeViewItem.ItemTemplate>
                             </TreeViewItem>
+                        </TreeView>
+                        <TreeView>
                             <!-- This is the Header and Transformers-->
                             <TreeViewItem Header="Transformers" ItemsSource="{Binding Project.Transformers}" ContextMenu="{DynamicResource AddTransformerContext}">
                                 <TreeViewItem.ItemTemplate>
                                     <HierarchicalDataTemplate ItemsSource="{Binding CTs}">
-                                        <TextBlock Text="{Binding Name}" Visibility="{Binding Visibility, FallbackValue=Hidden}"/>
+                                        <TextBlock PreviewMouseLeftButtonDown="UpdateExpander" Text="{Binding Name}"/>
                                     </HierarchicalDataTemplate>
                                 </TreeViewItem.ItemTemplate>
                             </TreeViewItem>
+                        </TreeView>
+                        <TreeView>
                             <!-- This is the Header and Breakers-->
                             <TreeViewItem Header="Breakers" ItemsSource="{Binding Project.Breakers}" ContextMenu="{DynamicResource AddBreakerContext}">
                                 <!-- This is the treeview Items for Breaker-->
                                 <TreeViewItem.ItemTemplate>
                                     <HierarchicalDataTemplate ItemsSource="{Binding CTs}">
-                                        <TextBlock Text="{Binding Name}"/>
+                                        <TextBlock PreviewMouseLeftButtonDown="UpdateExpander" Text="{Binding Name}"/>
                                     </HierarchicalDataTemplate>
                                 </TreeViewItem.ItemTemplate>
                             </TreeViewItem>
+                        </TreeView>
+                        <TreeView>
                             <!-- This is the Header and Treeview Items for Relay-->
                             <TreeViewItem Header='Relays' ItemsSource="{Binding Project.Relays}" ContextMenu="{DynamicResource AddRelayContext}">
                                 <!-- This is the reeview Items for Relay-->
                                 <TreeViewItem.ItemTemplate>
                                     <HierarchicalDataTemplate>
-                                        <TextBlock Text="{Binding Name}"/>
+                                        <TextBlock PreviewMouseLeftButtonDown="UpdateExpander" Text="{Binding Name}"/>
                                     </HierarchicalDataTemplate>
                                 </TreeViewItem.ItemTemplate>
                             </TreeViewItem>
-                        </TreeViewItem>
-                    </TreeView>
+                        </TreeView>
+                    </StackPanel>
                 </Expander>
                 <!-- Displays the Forms from the selected Treeview Item -->
                 <Expander x:Name="TreeviewExpander" Header="[Select an Element]" IsExpanded="True">
@@ -409,9 +432,9 @@
                                                 </StackPanel>
                                             </Grid>
                                             <!-- Transformer dwg -->
-                                            <Grid Grid.Row="1" Grid.Column="0" ContextMenu="{Binding Mode=OneWay, Source={StaticResource TransformerDiagram}}">
+                                            <Grid x:Name="XFMR" Grid.Row="1" Grid.Column="0" ContextMenu="{Binding Mode=OneWay, Source={StaticResource TransformerDiagram}}">
                                                 <Rectangle Fill="{x:Null}"/>
-                                                <Grid x:Name="XFMRTank" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                                                     <Rectangle x:Name="Transformer" Width="100" Height="160" Stroke="Black" StrokeThickness="3" Fill="#FFBFBCBC"/>
                                                     <TextBlock Text="H1    H2    H3" FontSize="12" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0"/>
                                                     <TextBlock Text="X1    X2    X3" FontSize="12" FontWeight="Bold" Foreground="Black" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10"/>
@@ -451,9 +474,7 @@
                                             <DataTrigger.EnterActions>
                                                 <BeginStoryboard x:Name="Flash">
                                                     <Storyboard>
-                                                        <DoubleAnimation Storyboard.TargetName="Transformer" Storyboard.TargetProperty="Opacity" From="1" To=".5" Duration="0:0:0.5" AutoReverse="True" RepeatBehavior="Forever" />
-                                                        <DoubleAnimation Storyboard.TargetName="XFMR_H1" Storyboard.TargetProperty="Opacity" From="1" To=".5" Duration="0:0:0.5" AutoReverse="True" RepeatBehavior="Forever" />
-                                                        <DoubleAnimation Storyboard.TargetName="XFMR_X1" Storyboard.TargetProperty="Opacity" From="1" To=".5" Duration="0:0:0.5" AutoReverse="True" RepeatBehavior="Forever" />
+                                                        <DoubleAnimation Storyboard.TargetName="XFMR" Storyboard.TargetProperty="Opacity" From="1" To=".5" Duration="0:0:0.5" AutoReverse="True" RepeatBehavior="Forever" />
                                                     </Storyboard>
                                                 </BeginStoryboard>
                                             </DataTrigger.EnterActions>

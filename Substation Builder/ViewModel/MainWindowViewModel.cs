@@ -32,7 +32,7 @@ namespace Substation_Builder.ViewModel
             {
                 SubData = new SubstationData
                 {
-                    Name = "(Not Set)",
+                    Name = "[No Project Set]",
                     Monster = Monster.MonsterName()
                 },
                 OnelinePref = new OnelinePreferences()
