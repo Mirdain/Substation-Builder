@@ -69,16 +69,6 @@ namespace Substation_Builder.View
             }
             */
         }
-        //Set Data Context properly for Expander from Treeview
-        private void OnelineTreeview_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            //UpdateExpander();
-        }
-        //Set datacontext of the expander
-        private void OnelineTreeview_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            //UpdateExpander();
-        }
         private void UpdateProjectExpander(object sender, MouseButtonEventArgs e)
         {
             Border item = (Border)sender;
@@ -138,7 +128,7 @@ namespace Substation_Builder.View
         }
         //---------------- Drag / Drop Section --------------------------------
         //Drag Source
-        private void OnelineTreeview_MouseMove(object sender, MouseEventArgs e)
+        private void Treeview_MouseMove(object sender, MouseEventArgs e)
         {
             //Drag Source - Create a treeview and get the selected item
             TreeView treeview = sender as TreeView;
@@ -350,7 +340,7 @@ namespace Substation_Builder.View
                 }
             }
         }
-        //Used to select an object when selected from UI
+        //Used to set the expander based on an object from the UI (Listbox)
         private void Thumb_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             object item = e.OriginalSource;
@@ -361,7 +351,6 @@ namespace Substation_Builder.View
                 TreeviewExpander.Content = breaker;
                 TreeviewExpander.Header = "Curcuit Breaker";
                 TreeviewExpander.Tag = breaker.Name;
-
             }
             else if (((FrameworkElement)item).DataContext.GetType() == typeof(Thevenin))
             {

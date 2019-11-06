@@ -146,48 +146,40 @@
                 </Border>
                 <!-- Treeview Expander -->
                 <Expander Header="Substation Data" IsExpanded="True" PreviewMouseLeftButtonDown="Expander_PreviewMouseLeftButtonDown" >
-                    <StackPanel>
+                    <TreeView>
                         <!-- Thevenin Treeview-->
-                        <TreeView>
-                            <TreeViewItem Header='Thevenins' ItemsSource="{Binding Project.Thevenins}" ContextMenu="{DynamicResource AddTheveninContext}">
-                                <TreeViewItem.ItemTemplate>
-                                    <HierarchicalDataTemplate>
-                                        <TextBlock Text="{Binding Name}" PreviewMouseLeftButtonDown="UpdateExpander" PreviewMouseRightButtonDown="UpdateContextMenu"/>
-                                    </HierarchicalDataTemplate>
-                                </TreeViewItem.ItemTemplate>
-                            </TreeViewItem>
-                        </TreeView>
+                        <TreeViewItem Header='Thevenins' ItemsSource="{Binding Project.Thevenins}" ContextMenu="{DynamicResource AddTheveninContext}">
+                            <TreeViewItem.ItemTemplate>
+                                <HierarchicalDataTemplate>
+                                    <TextBlock Text="{Binding Name}" PreviewMouseLeftButtonDown="UpdateExpander" PreviewMouseRightButtonDown="UpdateContextMenu"/>
+                                </HierarchicalDataTemplate>
+                            </TreeViewItem.ItemTemplate>
+                        </TreeViewItem>
                         <!-- Transformer Treeview-->
-                        <TreeView>
-                            <TreeViewItem Header="Transformers" ItemsSource="{Binding Project.Transformers}" ContextMenu="{DynamicResource AddTransformerContext}" >
-                                <TreeViewItem.ItemTemplate>
-                                    <HierarchicalDataTemplate ItemsSource="{Binding CTs}" >
-                                        <TextBlock Text="{Binding Name}" PreviewMouseLeftButtonDown="UpdateExpander" PreviewMouseRightButtonDown="UpdateContextMenu"/>
-                                    </HierarchicalDataTemplate>
-                                </TreeViewItem.ItemTemplate>
-                            </TreeViewItem>
-                        </TreeView>
+                        <TreeViewItem Header="Transformers" ItemsSource="{Binding Project.Transformers}" ContextMenu="{DynamicResource AddTransformerContext}" >
+                            <TreeViewItem.ItemTemplate>
+                                <HierarchicalDataTemplate ItemsSource="{Binding CTs}" >
+                                    <TextBlock Text="{Binding Name}" PreviewMouseLeftButtonDown="UpdateExpander" PreviewMouseRightButtonDown="UpdateContextMenu"/>
+                                </HierarchicalDataTemplate>
+                            </TreeViewItem.ItemTemplate>
+                        </TreeViewItem>
                         <!-- Breaker Treeview-->
-                        <TreeView>
-                            <TreeViewItem Header="Breakers" ItemsSource="{Binding Project.Breakers}" ContextMenu="{DynamicResource AddBreakerContext}">
-                                <TreeViewItem.ItemTemplate>
-                                    <HierarchicalDataTemplate ItemsSource="{Binding CTs}">
-                                        <TextBlock Text="{Binding Name}" PreviewMouseLeftButtonDown="UpdateExpander" PreviewMouseRightButtonDown="UpdateContextMenu"/>
-                                    </HierarchicalDataTemplate>
-                                </TreeViewItem.ItemTemplate>
-                            </TreeViewItem>
-                        </TreeView>
+                        <TreeViewItem Header="Breakers" ItemsSource="{Binding Project.Breakers}" ContextMenu="{DynamicResource AddBreakerContext}">
+                            <TreeViewItem.ItemTemplate>
+                                <HierarchicalDataTemplate ItemsSource="{Binding CTs}">
+                                    <TextBlock Text="{Binding Name}" PreviewMouseLeftButtonDown="UpdateExpander" PreviewMouseRightButtonDown="UpdateContextMenu"/>
+                                </HierarchicalDataTemplate>
+                            </TreeViewItem.ItemTemplate>
+                        </TreeViewItem>
                         <!-- Relay Treeview-->
-                        <TreeView>
-                            <TreeViewItem Header='Relays' ItemsSource="{Binding Project.Relays}" ContextMenu="{DynamicResource AddRelayContext}">
-                                <TreeViewItem.ItemTemplate>
-                                    <HierarchicalDataTemplate>
-                                        <TextBlock Text="{Binding Name}" PreviewMouseLeftButtonDown="UpdateExpander" PreviewMouseRightButtonDown="UpdateContextMenu"/>
-                                    </HierarchicalDataTemplate>
-                                </TreeViewItem.ItemTemplate>
-                            </TreeViewItem>
-                        </TreeView>
-                    </StackPanel>
+                        <TreeViewItem Header='Relays' ItemsSource="{Binding Project.Relays}" ContextMenu="{DynamicResource AddRelayContext}">
+                            <TreeViewItem.ItemTemplate>
+                                <HierarchicalDataTemplate>
+                                    <TextBlock Text="{Binding Name}" PreviewMouseLeftButtonDown="UpdateExpander" PreviewMouseRightButtonDown="UpdateContextMenu"/>
+                                </HierarchicalDataTemplate>
+                            </TreeViewItem.ItemTemplate>
+                        </TreeViewItem>
+                    </TreeView>
                 </Expander>
                 <!-- Displays the Forms from the selected Treeview Item -->
                 <Expander x:Name="TreeviewExpander" Header="[Select an Element]" IsExpanded="True">
