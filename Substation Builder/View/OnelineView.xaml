@@ -145,13 +145,13 @@
                     <Label Content="{Binding Project.SubData.Name,FallbackValue='[No Project Set]'}" Margin="0" BorderThickness="0"/>
                 </Border>
                 <!-- Treeview Expander -->
-                <Expander Header="Substation Data" IsExpanded="True" PreviewMouseLeftButtonDown="Expander_PreviewMouseLeftButtonDown" >
-                    <TreeView>
+                <Expander Header="Substation Data" IsExpanded="True">
+                    <TreeView x:Name="OneLineTreeview"  MouseMove="Treeview_MouseMove" AllowDrop="True" SelectedItemChanged="UpdateExpander">
                         <!-- Thevenin Treeview-->
                         <TreeViewItem Header='Thevenins' ItemsSource="{Binding Project.Thevenins}" ContextMenu="{DynamicResource AddTheveninContext}">
                             <TreeViewItem.ItemTemplate>
                                 <HierarchicalDataTemplate>
-                                    <TextBlock Text="{Binding Name}" PreviewMouseLeftButtonDown="UpdateExpander" PreviewMouseRightButtonDown="UpdateContextMenu"/>
+                                    <TextBlock Text="{Binding Name}" PreviewMouseRightButtonDown="UpdateContextMenu"/>
                                 </HierarchicalDataTemplate>
                             </TreeViewItem.ItemTemplate>
                         </TreeViewItem>
@@ -159,7 +159,7 @@
                         <TreeViewItem Header="Transformers" ItemsSource="{Binding Project.Transformers}" ContextMenu="{DynamicResource AddTransformerContext}" >
                             <TreeViewItem.ItemTemplate>
                                 <HierarchicalDataTemplate ItemsSource="{Binding CTs}" >
-                                    <TextBlock Text="{Binding Name}" PreviewMouseLeftButtonDown="UpdateExpander" PreviewMouseRightButtonDown="UpdateContextMenu"/>
+                                    <TextBlock Text="{Binding Name}" PreviewMouseRightButtonDown="UpdateContextMenu"/>
                                 </HierarchicalDataTemplate>
                             </TreeViewItem.ItemTemplate>
                         </TreeViewItem>
@@ -167,7 +167,7 @@
                         <TreeViewItem Header="Breakers" ItemsSource="{Binding Project.Breakers}" ContextMenu="{DynamicResource AddBreakerContext}">
                             <TreeViewItem.ItemTemplate>
                                 <HierarchicalDataTemplate ItemsSource="{Binding CTs}">
-                                    <TextBlock Text="{Binding Name}" PreviewMouseLeftButtonDown="UpdateExpander" PreviewMouseRightButtonDown="UpdateContextMenu"/>
+                                    <TextBlock Text="{Binding Name}" PreviewMouseRightButtonDown="UpdateContextMenu"/>
                                 </HierarchicalDataTemplate>
                             </TreeViewItem.ItemTemplate>
                         </TreeViewItem>
@@ -175,7 +175,7 @@
                         <TreeViewItem Header='Relays' ItemsSource="{Binding Project.Relays}" ContextMenu="{DynamicResource AddRelayContext}">
                             <TreeViewItem.ItemTemplate>
                                 <HierarchicalDataTemplate>
-                                    <TextBlock Text="{Binding Name}" PreviewMouseLeftButtonDown="UpdateExpander" PreviewMouseRightButtonDown="UpdateContextMenu"/>
+                                    <TextBlock Text="{Binding Name}" PreviewMouseRightButtonDown="UpdateContextMenu"/>
                                 </HierarchicalDataTemplate>
                             </TreeViewItem.ItemTemplate>
                         </TreeViewItem>
